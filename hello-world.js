@@ -39,28 +39,26 @@ wss.on('connection', function connection(ws) {
 		
 	}
 	*/
-	var iFunc = setInterval(intervalFunc,1500,ws);
+	var iFunc = setInterval(function() {
+		fs.stat('ff.csv', function(err, stats) {
+			if (!err) {
+				if (stats.isFile()) {
+					fs.readFile('ff.csv', 'utf8', function(err, data) {
+						console.log("ff.csv:", data);
+						ws.send(data);
+						clearInterval(iFunc);
+					});
+				}
+				else {
+					console.log("no ff.csv");
+				}
+			}
+			else {
+			}
+		});
+	},100);
 
 	
   });
 });
-
-function intervalFunc(ws) {
-    fs.stat('ff.csv', function(err, stats) {
-		if (!err) {
-			if (stats.isFile()) {
-				fs.readFile('ff.csv', 'utf8', function(err, data) {
-					console.log("ff.csv:", data);
-					ws.send(data);
-					clearInterval(iFunc);
-				});
-			}
-			else {
-				console.log("no ff.csv");
-			}
-		}
-		else {
-		}
-	});
-}
 
