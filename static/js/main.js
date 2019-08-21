@@ -86,6 +86,7 @@ function newPage(pageId) {
 }
 
 function sort(sortCol) {
+	/*
 	var d = new Date();
 	var n = d.getTime();
 	console.log(n);
@@ -94,7 +95,7 @@ function sort(sortCol) {
 	mymessage += "|ff.csv,"+ (currentPage*10-10) +","+ (currentPage*10) +",print,csv";
 	myWorker.postMessage(mymessage);
 	
-
+	*/
 }
 
 function newCol() {
