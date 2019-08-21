@@ -21,9 +21,9 @@ myWorker.onmessage = function(e) {
 			headers[ii].id = "cHeader"+retmess[0][ii*2 + 1];
 			headers[ii].style.display = 'table-cell';
 		}
-		else {
-			headers[ii].style.display = 'none';
-		}
+		//else {
+		//	headers[ii].style.display = 'none';
+		//}
 	}
 	
 	
@@ -35,9 +35,9 @@ myWorker.onmessage = function(e) {
 				results[ii].textContent = retmess[i+1][ii]; //add one because of header
 				results[ii].style.display = 'table-cell';
 			}
-			else {
-				results[ii].style.display = 'none';
-			}
+			//else {
+			//	results[ii].style.display = 'none';
+			//}
 		}
 	}
 	
