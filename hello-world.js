@@ -16,7 +16,9 @@ wss.on('connection', function connection(ws) {
 	message = message.replace(/\\n/g, '\r\n');
 	
 	try {
+	  console.log("trying remove ff.csv");
 	  fs.unlinkSync('ff.csv');
+	  console.log("removed ff.csv");
 	  //file removed
 	} catch(err) {
 	  console.error(err);
