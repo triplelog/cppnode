@@ -39,7 +39,7 @@ wss.on('connection', function connection(ws) {
 		
 	}
 	*/
-	setInterval(intervalFunc,1500,ws);
+	var iFunc = setInterval(intervalFunc,1500,ws);
 
 	
   });
@@ -52,6 +52,7 @@ function intervalFunc(ws) {
 				fs.readFile('ff.csv', 'utf8', function(err, data) {
 					console.log("ff.csv:", data);
 					ws.send(data);
+					clearInterval(iFunc);
 				});
 			}
 			else {
