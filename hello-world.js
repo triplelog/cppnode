@@ -34,24 +34,7 @@ wss.on('connection', function connection(ws) {
 	var i = 0;
 	while (i < 10000) {
 		
-		fs.stat('ff.csv', function(err, stats) {
-			if (!err) {
-				if (stats.isFile()) {
-					fs.readFile('ff.csv', 'utf8', function(err, data) {
-						console.log("ff.csv:", data);
-						ws.send(data);
-						i = 10000;
-					});
-				}
-				else {
-					console.log("no ff.csv");
-				}
-				i = 10000;
-			}
-			else {
-				i--;
-			}
-		});
+		
 		i++;
 		
 	}
@@ -63,6 +46,20 @@ wss.on('connection', function connection(ws) {
 });
 
 function intervalFunc() {
-    console.log("Hello!!!!");
+    fs.stat('ff.csv', function(err, stats) {
+		if (!err) {
+			if (stats.isFile()) {
+				fs.readFile('ff.csv', 'utf8', function(err, data) {
+					console.log("ff.csv:", data);
+					//ws.send(data);
+				});
+			}
+			else {
+				console.log("no ff.csv");
+			}
+		}
+		else {
+		}
+	});
 }
 
