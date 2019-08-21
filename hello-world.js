@@ -33,16 +33,17 @@ wss.on('connection', function connection(ws) {
 	while (i < 10000) {
 		
 		fs.stat('ff.csv', function(err, stats) {
-			console.log('ee ', err);
-			if (stats.isFile()) {
-				fs.readFile('ff.csv', 'utf8', function(err, data) {
-					console.log("ff.csv:", data);
-					ws.send(data);
-					i = 10000;
-				});
-			}
-			else {
-				console.log("no ff.csv");
+			if (!err) {
+				if (stats.isFile()) {
+					fs.readFile('ff.csv', 'utf8', function(err, data) {
+						console.log("ff.csv:", data);
+						ws.send(data);
+						i = 10000;
+					});
+				}
+				else {
+					console.log("no ff.csv");
+				}
 			}
 		});
 		i++;
