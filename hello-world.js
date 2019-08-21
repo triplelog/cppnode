@@ -43,14 +43,12 @@ wss.on('connection', function connection(ws) {
 				}
 				else {
 					console.log("no ff.csv");
-					sleep(100);
 				}
 			}
 			else {
-				sleep(100);
+			
 			}
 		});
-		i++;
 		
 	}
 
@@ -58,9 +56,5 @@ wss.on('connection', function connection(ws) {
   });
 });
 
-function sleep(ms){
-    return new Promise(resolve=>{
-        setTimeout(resolve,ms)
-    })
-}
+
 
