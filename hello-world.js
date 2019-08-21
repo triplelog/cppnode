@@ -18,5 +18,9 @@ wss.on('connection', function connection(ws) {
 	fs.appendFile("newtesttxt.txt", message, (err) => {
   	
 	});
+	
+	fs.readFile('ff.csv', 'utf8', function(err, data) {
+		console.log(data);
+	});
   });
 });
