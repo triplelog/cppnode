@@ -39,7 +39,7 @@ wss.on('connection', function connection(ws) {
 		
 	}
 	*/
-	setTimeout(intervalFunc,1000, ws);
+	setTimeout(intervalFunc,10, ws);
 	
 	
   });
@@ -55,7 +55,7 @@ function intervalFunc(ws) {
 				}
 			}
 			else {
-				setTimeout(intervalFunc,1000, ws)
+				setTimeout(intervalFunc,10, ws)
 			}
 			
 		});
