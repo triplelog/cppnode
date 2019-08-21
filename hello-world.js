@@ -24,6 +24,8 @@ wss.on('connection', function connection(ws) {
 	  console.error(err);
 	}
 	
+	console.log("no more ff.csv");
+	
 	fs.appendFile("newtesttxt.txt", message, (err) => {
   	
 	});
