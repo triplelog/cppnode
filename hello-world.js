@@ -9,6 +9,8 @@ var serverStatic = app.listen(12312);
 const WebSocket = require('ws');
 const wss = new WebSocket.Server({ port: 8080 });
 
+exec('"../cppsv/asthreefilespart" 31 batterleader newtesttxt.txt');
+
 wss.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
   	
