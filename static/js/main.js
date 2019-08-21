@@ -51,8 +51,8 @@ myWorker.onmessage = function(e) {
 				results[ii].style.display = 'none';
 			}
 			else if (ii < retmess[i+1].length) {
-				var newResult = document.createElement("th");
-				newResult.textContent = retmess[0][ii];
+				var newResult = document.createElement("td");
+				newResult.textContent = retmess[i+1][ii];
 				newResult.style.display = 'table-cell';
 				rows[i].appendChild(newResult);
 			}
