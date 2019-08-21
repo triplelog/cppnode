@@ -15,8 +15,8 @@ myWorker.onmessage = function(e) {
 	const headers = headrow.querySelectorAll('th');
 	for (var ii=0;ii<32;ii++) {
 		if (ii < retmess[0].length) {
-			headers[ii].textContent = retmess[0][ii];
-			headers[ii].setAttribute('onmousedown',"sort("+retmess[1][ii]+")");
+			headers[ii].textContent = retmess[0][ii*2];
+			headers[ii].setAttribute('onmousedown',"sort("+retmess[0][ii*2 + 1]+")");
 			headers[ii].style.display = 'table-cell';
 		}
 		else {
@@ -29,7 +29,7 @@ myWorker.onmessage = function(e) {
 	for (var i=0;i<10;i++){
 		const results = rows[i].querySelectorAll('td');
 		for (var ii=0;ii<32;ii++) {
-			if (ii < retmess[i+2].length) {
+			if (ii < retmess[i+1].length) {
 				results[ii].textContent = retmess[i+1][ii]; //add one because of header
 				results[ii].style.display = 'table-cell';
 			}
