@@ -39,18 +39,19 @@ wss.on('connection', function connection(ws) {
 		
 	}
 	*/
-	var iFunc = setInterval(intervalFunc,200, ws);
-
+	var iFunc = setInterval(intervalFunc,1000, ws, iFunc);
+	
 	
   });
 });
 
-function intervalFunc(ws) {
+function intervalFunc(ws, iFunc) {
 		fs.stat('ff.csv', function(err, stats) {
 			if (!err) {
 				if (stats.isFile()) {
 					fs.readFile('ff.csv', 'utf8', function(err, data) {
 						ws.send(data);
+						clearInterval(iFunc);
 					});
 				}
 			}
