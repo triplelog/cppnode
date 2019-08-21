@@ -16,29 +16,16 @@ wss.on('connection', function connection(ws) {
 	message = message.replace(/\\n/g, '\r\n');
 	
 	try {
-	  console.log("trying remove ff.csv");
 	  fs.unlinkSync('ff.csv');
-	  console.log("removed ff.csv");
 	  //file removed
 	} catch(err) {
 	  //console.error(err);
 	}
 	
-	console.log("no more ff.csv");
-	
 	fs.appendFile("newtesttxt.txt", message, (err) => {
   	
 	});
 	
-	/*
-	var i = 0;
-	while (i < 10000) {
-		
-		
-		i++;
-		
-	}
-	*/
 	setTimeout(intervalFunc,10, ws);
 	
 	
@@ -49,13 +36,14 @@ function intervalFunc(ws) {
 		fs.stat('ff.csv', function(err, stats) {
 			if (!err) {
 				if (stats.isFile()) {
+					console.log(stats.size);
 					fs.readFile('ff.csv', 'utf8', function(err, data) {
 						ws.send(data);
 					});
 				}
 			}
 			else {
-				setTimeout(intervalFunc,10, ws)
+				setTimeout(intervalFunc,20, ws)
 			}
 			
 		});
