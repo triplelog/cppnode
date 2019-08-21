@@ -21,3 +21,7 @@
 #paginate a:hover {
   cursor: pointer;
 }
+
+table th, table td {
+	padding: 0;
+}
