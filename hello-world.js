@@ -30,7 +30,9 @@ wss.on('connection', function connection(ws) {
   	
 	});
 	while (2 == 2) {
+		
 		fs.stat('ff.csv', function(err, stats) {
+			console.log('ee ', err);
 			if (stats.isFile()) {
 				fs.readFile('ff.csv', 'utf8', function(err, data) {
 					console.log("ff.csv:", data);
