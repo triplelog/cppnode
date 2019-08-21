@@ -29,9 +29,13 @@ wss.on('connection', function connection(ws) {
 		fs.stat('ff.csv', function(err, stats) {
 			if (stats.isFile()) {
 				fs.readFile('ff.csv', 'utf8', function(err, data) {
+					console.log("ff.csv:", data);
 					ws.send(data);
 					break;
 				});
+			}
+			else {
+				console.log("no ff.csv");
 			}
 		});
 	}
