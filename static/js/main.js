@@ -18,6 +18,7 @@ myWorker.onmessage = function(e) {
 		if (ii < retmess[0].length) {
 			headers[ii].textContent = retmess[0][ii*2];
 			headers[ii].setAttribute('onmousedown',"sort("+retmess[0][ii*2 + 1]+")");
+			headers[ii].id = "cHeader"+retmess[0][ii*2 + 1];
 			headers[ii].style.display = 'table-cell';
 		}
 		else {
