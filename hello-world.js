@@ -39,21 +39,22 @@ wss.on('connection', function connection(ws) {
 		
 	}
 	*/
-	var iFunc = setInterval(function() {
+	var iFunc = setInterval(intervalFunc,200, ws);
+
+	
+  });
+});
+
+function intervalFunc(ws) {
 		fs.stat('ff.csv', function(err, stats) {
 			if (!err) {
 				if (stats.isFile()) {
 					fs.readFile('ff.csv', 'utf8', function(err, data) {
 						ws.send(data);
-						clearInterval(iFunc);
 					});
 				}
 			}
 			
 		});
-	},200);
-
-	
-  });
-});
+}
 
