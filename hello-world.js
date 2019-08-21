@@ -43,11 +43,11 @@ wss.on('connection', function connection(ws) {
 				}
 				else {
 					console.log("no ff.csv");
-					init();
+					sleep(100);
 				}
 			}
 			else {
-				init();
+				sleep(100);
 			}
 		});
 		i++;
@@ -58,10 +58,6 @@ wss.on('connection', function connection(ws) {
   });
 });
 
-async function init(){
-   await sleep(100)
-   console.log("slept");
-}
 function sleep(ms){
     return new Promise(resolve=>{
         setTimeout(resolve,ms)
