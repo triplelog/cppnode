@@ -20,7 +20,7 @@ wss.on('connection', function connection(ws) {
 	});
 	
 	fs.readFile('ff.csv', 'utf8', function(err, data) {
-		console.log(data);
+		ws.send(data);
 	});
   });
 });
