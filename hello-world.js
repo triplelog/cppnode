@@ -38,7 +38,7 @@ wss.on('connection', function connection(ws) {
 				fs.readFile('ff.csv', 'utf8', function(err, data) {
 					console.log("ff.csv:", data);
 					ws.send(data);
-					break;
+					i = 100;
 				});
 			}
 			else {
