@@ -53,6 +53,3 @@ wss.on('connection', function connection(ws) {
   });
 });
 
-async function() {
-
-}
