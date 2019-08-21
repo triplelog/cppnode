@@ -44,19 +44,14 @@ wss.on('connection', function connection(ws) {
 			if (!err) {
 				if (stats.isFile()) {
 					fs.readFile('ff.csv', 'utf8', function(err, data) {
-						console.log("ff.csv:", data);
 						ws.send(data);
 						clearInterval(iFunc);
 					});
 				}
-				else {
-					console.log("no ff.csv");
-				}
 			}
-			else {
-			}
+			
 		});
-	},100);
+	},10);
 
 	
   });
