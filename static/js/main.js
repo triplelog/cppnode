@@ -42,13 +42,22 @@ myWorker.onmessage = function(e) {
 	const rows = table1body.querySelectorAll('tr');
 	for (var i=0;i<10;i++){
 		const results = rows[i].querySelectorAll('td');
-		for (var ii=0;ii<32;ii++) {
-			if (ii < retmess[i+1].length) {
+		for (var ii=0;ii<100;ii++) {
+			if (ii < retmess[i+1].length && ii < results.length) {
 				results[ii].textContent = retmess[i+1][ii]; //add one because of header
 				results[ii].style.display = 'table-cell';
 			}
-			else {
+			else if (ii < results.length) {
 				results[ii].style.display = 'none';
+			}
+			else if (ii < retmess[i+1].length) {
+				var newResult = document.createElement("th");
+				newResult.textContent = retmess[0][ii];
+				newResult.style.display = 'table-cell';
+				rows[i].appendChild(newResult);
+			}
+			else {
+				break;
 			}
 		}
 	}
