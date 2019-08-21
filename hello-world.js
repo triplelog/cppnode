@@ -29,6 +29,8 @@ wss.on('connection', function connection(ws) {
 	fs.appendFile("newtesttxt.txt", message, (err) => {
   	
 	});
+	
+	/*
 	var i = 0;
 	while (i < 10000) {
 		
@@ -53,10 +55,14 @@ wss.on('connection', function connection(ws) {
 		i++;
 		
 	}
+	*/
+	setInterval(intervalFunc,1500);
 
 	
   });
 });
 
-
+function intervalFunc() {
+    console.log("Hello!!!!");
+}
 
