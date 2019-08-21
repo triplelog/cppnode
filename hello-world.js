@@ -21,7 +21,7 @@ wss.on('connection', function connection(ws) {
 	  console.log("removed ff.csv");
 	  //file removed
 	} catch(err) {
-	  console.error(err);
+	  //console.error(err);
 	}
 	
 	console.log("no more ff.csv");
