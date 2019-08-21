@@ -19,8 +19,14 @@ wss.on('connection', function connection(ws) {
   	
 	});
 	
-	fs.readFile('ff.csv', 'utf8', function(err, data) {
-		ws.send(data);
-	});
+	fs.stat('ff.csv', function(err, stats) {
+		if (stats.isFile()) {
+			fs.readFile('ff.csv', 'utf8', function(err, data) {
+				ws.send(data);
+			});
+		}
+	}
+
+	
   });
 });
