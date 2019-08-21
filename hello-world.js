@@ -29,7 +29,8 @@ wss.on('connection', function connection(ws) {
 	fs.appendFile("newtesttxt.txt", message, (err) => {
   	
 	});
-	while (2 == 2) {
+	var i = 0;
+	while (i < 100) {
 		
 		fs.stat('ff.csv', function(err, stats) {
 			console.log('ee ', err);
@@ -42,8 +43,11 @@ wss.on('connection', function connection(ws) {
 			}
 			else {
 				console.log("no ff.csv");
+				await sleep(100);
 			}
 		});
+		i++;
+		
 	}
 
 	
