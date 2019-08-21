@@ -44,11 +44,13 @@ wss.on('connection', function connection(ws) {
 				else {
 					console.log("no ff.csv");
 				}
+				i = 10000;
 			}
 			else {
-			
+				i--;
 			}
 		});
+		i++;
 		
 	}
 
