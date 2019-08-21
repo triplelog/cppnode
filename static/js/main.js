@@ -5,6 +5,7 @@ const table1body = document.querySelector('#table1body');
 var currentPage = 1;
 
 
+
 const myWorker = new Worker("js/worker.js");
 
 
@@ -86,11 +87,13 @@ function newPage(pageId) {
 }
 
 function sort(sortCol) {
+	return 0;
+	//remove above to implement sorting;
 	
 	var d = new Date();
 	var n = d.getTime();
 	console.log(n);
-  addCard({'type':"Sort",'sortCol':sortCol});
+    addCard({'type':"Sort",'sortCol':sortCol});
 	var mymessage = "ff.csv,"+ (currentPage*10-10) +","+ (currentPage*10) +",sort,"+ sortCol;
 	mymessage += "|ff.csv,"+ (currentPage*10-10) +","+ (currentPage*10) +",print,csv";
 	myWorker.postMessage(mymessage);
