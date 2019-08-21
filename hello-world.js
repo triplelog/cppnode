@@ -15,17 +15,26 @@ wss.on('connection', function connection(ws) {
 	message = message.replace(/\|/g, '\n');
 	message = message.replace(/\\n/g, '\r\n');
 	
+	try {
+	  fs.unlinkSync('ff.csv');
+	  //file removed
+	} catch(err) {
+	  console.error(err);
+	}
+	
 	fs.appendFile("newtesttxt.txt", message, (err) => {
   	
 	});
-	
-	fs.stat('ff.csv', function(err, stats) {
-		if (stats.isFile()) {
-			fs.readFile('ff.csv', 'utf8', function(err, data) {
-				ws.send(data);
-			});
-		}
-	});
+	while (2 == 2) {
+		fs.stat('ff.csv', function(err, stats) {
+			if (stats.isFile()) {
+				fs.readFile('ff.csv', 'utf8', function(err, data) {
+					ws.send(data);
+					break;
+				});
+			}
+		});
+	}
 
 	
   });
