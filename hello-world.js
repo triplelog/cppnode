@@ -39,19 +39,19 @@ wss.on('connection', function connection(ws) {
 		
 	}
 	*/
-	setInterval(intervalFunc,1500);
+	setInterval(intervalFunc,1500,ws);
 
 	
   });
 });
 
-function intervalFunc() {
+function intervalFunc(ws) {
     fs.stat('ff.csv', function(err, stats) {
 		if (!err) {
 			if (stats.isFile()) {
 				fs.readFile('ff.csv', 'utf8', function(err, data) {
 					console.log("ff.csv:", data);
-					//ws.send(data);
+					ws.send(data);
 				});
 			}
 			else {
