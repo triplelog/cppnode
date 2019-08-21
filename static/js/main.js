@@ -15,8 +15,9 @@ myWorker.onmessage = function(e) {
 	const headers = headrow.querySelectorAll('th');
 	for (var ii=0;ii<32;ii++) {
 		if (ii < retmess[0].length) {
-			headers[ii].textContent = retmess[0][ii];
-			headers[ii].setAttribute('onmousedown',"sort('"+retmess[0][ii]+"')");
+			var bothparts = retmess[0][ii].split('_');
+			headers[ii].textContent = bothparts[0];
+			headers[ii].setAttribute('onmousedown',"sort("+bothparts[1]+")");
 			headers[ii].style.display = 'table-cell';
 		}
 		else {
