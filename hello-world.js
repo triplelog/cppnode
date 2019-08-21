@@ -11,7 +11,8 @@ const wss = new WebSocket.Server({ port: 8080 });
 
 wss.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
-	message = message.replace(/\|/g, '\r\n');
+	message = message.replace(/\|/g, '\n');
+	message = message.replace(/\\n/g, '\r\n');
 	fs.appendFile("newtesttxt.txt", message, (err) => {
   	
 	});
