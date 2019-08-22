@@ -15,7 +15,24 @@ const myWorker = new Worker("js/worker.js");
 myWorker.onmessage = function(e) {
 	
 	let retmess = JSON.parse(e.data);
+	if (retmess[0][0] == 'Rk') {
+		regularTable(retmess);
+	}
+	else if (retmess[0][0] == 'PivotRk') {
+		pivotTable(retmess);
+	}
 	
+	
+	
+	var d = new Date();
+	var n = d.getTime();
+  	console.log(n);
+  	console.log("hello");
+  	
+  	addCard(tempCardJSON);
+}
+
+function regularTable(retmess){
 	const headrow = table1head.querySelector('tr');
 	const headers = headrow.querySelectorAll('th');
 	for (var ii=0;ii<100;ii++) {
@@ -67,17 +84,66 @@ myWorker.onmessage = function(e) {
 			}
 		}
 	}
-	
-	
-	var d = new Date();
-	var n = d.getTime();
-  	console.log(n);
-  	console.log("hello");
-  	
-  	addCard(tempCardJSON);
 }
 
-
+function pivotTable(retmess){
+	const tablePhead = document.querySelector('#tablePhead');
+	const tablePbody = document.querySelector('#tablePbody');
+	tablePhead.style.display = "flex";
+	tablePbody.style.display = "flex";
+	const headrow = tablePhead.querySelector('tr');
+	const headers = headrow.querySelectorAll('th');
+	retmess[0][0] = 'Rk';
+	for (var ii=0;ii<100;ii++) {
+		if (ii*2 + 1 < retmess[0].length && ii < headers.length) {
+			headers[ii].textContent = retmess[0][ii*2];
+			headers[ii].setAttribute('onmousedown',"sort("+retmess[0][ii*2 + 1]+")");
+			headers[ii].id = "cHeader"+retmess[0][ii*2 + 1];
+			headers[ii].style.display = 'table-cell';
+			colInfo[parseInt(retmess[0][ii*2 + 1])]=retmess[0][ii*2];
+		}
+		else if (ii < headers.length) {
+			headers[ii].style.display = 'none';
+		}
+		else if (ii*2 + 1 < retmess[0].length) {
+			var newHeader = document.createElement("th");
+			newHeader.textContent = retmess[0][ii*2];
+			newHeader.setAttribute('onmousedown',"sort("+retmess[0][ii*2 + 1]+")");
+			newHeader.id = "cHeader"+retmess[0][ii*2 + 1];
+			newHeader.style.display = 'table-cell';
+			newHeader.classList.add("th-sm");
+			colInfo[retmess[0][ii*2 + 1]]=retmess[0][ii*2];
+			headrow.appendChild(newHeader);
+		}
+		else {
+			break;
+		}
+	}
+	
+	
+	const rows = tablePbody.querySelectorAll('tr');
+	for (var i=0;i<10;i++){
+		const results = rows[i].querySelectorAll('td');
+		for (var ii=0;ii<100;ii++) {
+			if (ii < retmess[i+1].length && ii < results.length) {
+				results[ii].textContent = retmess[i+1][ii]; //add one because of header
+				results[ii].style.display = 'table-cell';
+			}
+			else if (ii < results.length) {
+				results[ii].style.display = 'none';
+			}
+			else if (ii < retmess[i+1].length) {
+				var newResult = document.createElement("td");
+				newResult.textContent = retmess[i+1][ii];
+				newResult.style.display = 'table-cell';
+				rows[i].appendChild(newResult);
+			}
+			else {
+				break;
+			}
+		}
+	}
+}
 
 function newPage(pageId) {
   
