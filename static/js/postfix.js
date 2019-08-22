@@ -59,7 +59,7 @@ function makePost(infixexpr) {
 			opStack.push(token)
 		}
 	}
-	while (len(opStack) > 0){
+	while (opStack.length > 0){
 		postfixList.push(opStack.pop())
 	}
 	for (var i=0;i<postfixList.length;i++){
