@@ -5,12 +5,15 @@ const table1body = document.querySelector('#table1body');
 var currentPage = 1;
 var sortMode = true;
 var colInfo = {};
-
+var upCheck = "";
+var downCheck = "";
+var tempCardJSON = {};
 
 const myWorker = new Worker("js/worker.js");
 
 
 myWorker.onmessage = function(e) {
+	
 	let retmess = JSON.parse(e.data);
 	
 	const headrow = table1head.querySelector('tr');
@@ -70,6 +73,8 @@ myWorker.onmessage = function(e) {
 	var n = d.getTime();
   	console.log(n);
   	console.log("hello");
+  	
+  	addCard(tempCardJSON);
 }
 
 
@@ -117,23 +122,30 @@ function sort(sortCol) {
 		var d = new Date();
 		var n = d.getTime();
 		console.log(n);
-		addCard({'type':"Sort",'sortCol':colInfo[sortCol]});
+		
 		var mymessage = "ff.csv,"+ (currentPage*10-10) +","+ (currentPage*10) +",sort,"+ sortCol;
 		mymessage += "|ff.csv,"+ (currentPage*10-10) +","+ (currentPage*10) +",print,csv";
 		myWorker.postMessage(mymessage);
+		upCheck = "abc";
+		
+		tempCardJSON = {'type':"Sort",'sortCol':colInfo[sortCol]};
+		
 	}
 	
 	
 }
 
 function newCol() {
-  
+  	//Add formula to convert
 	let colFormula = document.getElementById("newcol").value;
 	var mymessage = "ff.csv,"+ (currentPage*10-10) +","+ (currentPage*10) +",addcol,"+ colFormula +"|";
 	mymessage += "ff.csv,"+ (currentPage*10-10) +","+ (currentPage*10) +",print,csv|";
 	mymessage += "ff.csv,0,-1,addcol,"+ colFormula;
-	addCard({'type':"AddColumn",'colFormula':colFormula});
+	
 	myWorker.postMessage(mymessage);
+	upCheck = "abc";
+	tempCardJSON = {'type':"AddColumn",'colFormula':colFormula};
+	
 
 }
 
@@ -144,8 +156,20 @@ function filter() {
 	var mymessage = "ff.csv,"+ (currentPage*10-10) +","+ (currentPage*10) +",filter,"+ colFormula +"|";
 	mymessage += "ff.csv,"+ (currentPage*10-10) +","+ (currentPage*10) +",print,csv|";
 	mymessage += "ff.csv,0,-1,filter,"+ colFormula;
-	addCard({'type':"Filter",'filterText':colFormula,'filterCode':mymessage});
+	
 	myWorker.postMessage(mymessage);
+	upCheck = "abc";
+	tempCardJSON = {'type':"Filter",'filterText':colFormula,'filterCode':mymessage};
+
+}
+
+function pivot() {
+	
+	var mymessage = "ff.csv,0,10,pivot,csv";
+	
+	myWorker.postMessage(mymessage);
+	upCheck = "abc";
+	tempCardJSON = {'type':"Pivot",'pviotText':"",'pivotCode':""};
 
 }
 
