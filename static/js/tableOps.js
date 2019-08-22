@@ -10,7 +10,7 @@ dragula([document.getElementById("moveColumns")], {
     }
     myWorker.postMessage(mymessage);
 }).on('remove', function (el, container, source) {
-    var mymessage = "ff.csv,0,10,display,"+el.id.substring(7,);
+    var mymessage = filen+",0,10,display,"+el.id.substring(7,);
     mymessage += "@-3";
     myWorker.postMessage(mymessage);
 });
