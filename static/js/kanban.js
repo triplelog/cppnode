@@ -1,6 +1,7 @@
 
 allCards = [];
 myCards = [];
+myInstructions = [];
 card1 = {'id':"otherUser1",'type':"Sort",'title':"Sort by 3rd Col.",'detail':"Sort table by HR.",'comments':[],'code':"ff.csv,0,100,sort,3"};
 card2 = {'id':"otherUser2",'type':"Sort",'title':"Sort by 4th Col.",'detail':"Sort table by RBI.",'comments':[],'code':"ff.csv,0,100,sort,4"};
 allCards.push(card1);
@@ -23,12 +24,13 @@ dragula([document.getElementById("otherUser2"), document.getElementById("otherUs
     clone.childNodes[1].setAttribute('for',"inputID"+idCounter);
 }).on('drop', function (clone, original, type) {
     myCards.push("inputID"+idCounter);
+    myInstructions.push(original.code);
     idCounter++;
 }).on('remove', function (el, container, source) {
 	for (var i=0;i<myCards.length;i++) {
 		console.log(el.childNodes[0].id, myCards[i]);
 		if (el.childNodes[0].id === myCards[i]){
-			myCards.splice(i, 1); break;
+			myCards.splice(i, 1); myInstructions.splice(i, 1); break;
 		}
 	}
 	console.log(myCards);
@@ -109,10 +111,42 @@ function copyCard(cardid) {
 			newCard.code = allCards[i].code;
 			newCard.type = allCards[i].type;
 			myCards.push("inputID"+idCounter);
+			myInstructions.push(allCards[i].code);
 			createInstructionCard(newCard);
 			
 		}
 	}
+}
+
+function runAll() {
+	var cLength = myInstructions.length;
+	var simpleInstructions = {'sorts':[],'addcols':[],'filters':[]};
+	for (var i=0;i<cLength;i++) {
+		var instru = myInstructions[i].split(",");
+		if (instru[3] == 'sort') {
+			simpleInstructions.sorts.push(instru[4]);
+		}
+		else if (instru[3] == 'addcol') {
+			simpleInstructions.addcols.push(instru[4]);
+		}
+		else if (instru[3] == 'filter') {
+			simpleInstructions.filters.push(instru[4]);
+		}
+	}
+	console.log(simpleInstructions);
+
+}
+
+function clearCards() {
+	if (myCards.length == 0){return 0;}
+	var mcl = myCards.length
+	for (var i=0;i<mcl;i++) {
+		var elem = document.querySelector('#'+myCards[i]);
+		elem.parentNode.removeChild(elem);
+	}
+	myCards = [];
+	myInstructions = [];
+	//Post reset message
 }
 
 function ignoreInstruction(e) {
@@ -138,6 +172,7 @@ function addCard(cardData) {
 		newCard.code = "ff.csv,0,100,sort,"+cardData.sortCol;
 		newCard.type = cardData.type;
 		myCards.push("inputID"+idCounter);
+		myInstructions.push("ff.csv,0,100,sort,"+cardData.sortCol);
 		createInstructionCard(newCard);
 	}
 	else if (cardData.type == "Filter"){
@@ -148,6 +183,7 @@ function addCard(cardData) {
 		newCard.code = cardData.filterCode;
 		newCard.type = cardData.type;
 		myCards.push("inputID"+idCounter);
+		myInstructions.push(cardData.filterCode);
 		createInstructionCard(newCard);
 	}
 	else if (cardData.type == "AddColumn"){
@@ -158,6 +194,7 @@ function addCard(cardData) {
 		newCard.code = "ff.csv,0,100,addcol,"+cardData.sortCol;
 		newCard.type = cardData.type;
 		myCards.push("inputID"+idCounter);
+		myInstructions.push("ff.csv,0,100,addcol,"+cardData.sortCol);
 		createInstructionCard(newCard);
 	}
 }

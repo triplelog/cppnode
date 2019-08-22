@@ -30,7 +30,7 @@ myWorker.onmessage = function(e) {
 	var n = d.getTime();
   	console.log(n);
   	console.log("hello");
-  	if (tempCardJSON.type != 'Page'){
+  	if (tempCardJSON.type != 'Page' && tempCardJSON.type != 'moveCol' && tempCardJSON.type != 'removeCol'){
   		addCard(tempCardJSON);
   	}
 }

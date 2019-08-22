@@ -9,8 +9,10 @@ dragula([document.getElementById("moveColumns")], {
     	mymessage += "@-2";
     }
     myWorker.postMessage(mymessage);
+    tempCardJSON = {'type':'moveCol'};
 }).on('remove', function (el, container, source) {
     var mymessage = filen+",0,10,display,"+el.id.substring(7,);
     mymessage += "@-3";
     myWorker.postMessage(mymessage);
+    tempCardJSON = {'type':'removeCol'};
 });
