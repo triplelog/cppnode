@@ -8,6 +8,7 @@ var colInfo = {};
 var upCheck = "";
 var downCheck = "";
 var tempCardJSON = {};
+var filen = "ff.csv";
 
 const myWorker = new Worker("js/worker.js");
 
@@ -176,7 +177,7 @@ function newPage(pageId) {
     }
   }
   
-	var mymessage = "ff.csv,"+ (currentPage*10-10) +","+ (currentPage*10) +",print,csv";
+	var mymessage = filen+","+ (currentPage*10-10) +","+ (currentPage*10) +",print,csv";
 	myWorker.postMessage(mymessage);
 
 
@@ -189,8 +190,8 @@ function sort(sortCol) {
 		var n = d.getTime();
 		console.log(n);
 		
-		var mymessage = "ff.csv,"+ (currentPage*10-10) +","+ (currentPage*10) +",sort,"+ sortCol;
-		mymessage += "|ff.csv,"+ (currentPage*10-10) +","+ (currentPage*10) +",print,csv";
+		var mymessage = filen+","+ (currentPage*10-10) +","+ (currentPage*10) +",sort,"+ sortCol;
+		mymessage += "|"+filen+","+ (currentPage*10-10) +","+ (currentPage*10) +",print,csv";
 		myWorker.postMessage(mymessage);
 		upCheck = "abc";
 		
@@ -204,9 +205,9 @@ function sort(sortCol) {
 function newCol() {
   	//Add formula to convert
 	let colFormula = document.getElementById("newcol").value;
-	var mymessage = "ff.csv,"+ (currentPage*10-10) +","+ (currentPage*10) +",addcol,"+ colFormula +"|";
-	mymessage += "ff.csv,"+ (currentPage*10-10) +","+ (currentPage*10) +",print,csv|";
-	mymessage += "ff.csv,0,-1,addcol,"+ colFormula;
+	var mymessage = filen+","+ (currentPage*10-10) +","+ (currentPage*10) +",addcol,"+ colFormula +"|";
+	mymessage += filen+","+ (currentPage*10-10) +","+ (currentPage*10) +",print,csv|";
+	mymessage += filen+","+"0,-1,addcol,"+ colFormula;
 	
 	myWorker.postMessage(mymessage);
 	upCheck = "abc";
@@ -219,9 +220,9 @@ function filter() {
   
 	let colFormula = document.getElementById("filter").value;
 	
-	var mymessage = "ff.csv,"+ (currentPage*10-10) +","+ (currentPage*10) +",filter,"+ colFormula +"|";
-	mymessage += "ff.csv,"+ (currentPage*10-10) +","+ (currentPage*10) +",print,csv|";
-	mymessage += "ff.csv,0,-1,filter,"+ colFormula;
+	var mymessage = filen+","+ (currentPage*10-10) +","+ (currentPage*10) +",filter,"+ colFormula +"|";
+	mymessage += filen+","+ (currentPage*10-10) +","+ (currentPage*10) +",print,csv|";
+	mymessage += filen+","+"0,-1,filter,"+ colFormula;
 	
 	myWorker.postMessage(mymessage);
 	upCheck = "abc";
@@ -231,7 +232,7 @@ function filter() {
 
 function pivot() {
 	
-	var mymessage = "ff.csv,0,10,pivot,csv";
+	var mymessage = filen+","+"0,10,pivot,csv";
 	
 	myWorker.postMessage(mymessage);
 	upCheck = "abc";
