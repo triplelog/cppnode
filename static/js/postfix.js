@@ -122,8 +122,8 @@ function postfixify(input_str) {
 	//Convert column names
 	input_str = input_str.replace(/AND/g,'&');
 	input_str = input_str.replace(/OR/g,'|');
-	input_str = input_str.replace(/[/g,'(');
-	input_str = input_str.replace(/]/g,')');
+	input_str = input_str.replace(/\[/g,'(');
+	input_str = input_str.replace(/\]/g,')');
 	input_str = input_str.replace(/{/g,'(');
 	input_str = input_str.replace(/}/g,')');
 	input_str = input_str.replace(/>=/g,']');
