@@ -53,7 +53,7 @@ function makePost(infixexpr) {
 			}
 		}
 		else {
-			while ((opStack.length > 0) and (prec[opStack[opStack.length-1]] >= prec[token])){
+			while ((opStack.length > 0) && (prec[opStack[opStack.length-1]] >= prec[token])){
 				postfixList.push(opStack.pop())
 			}
 			opStack.push(token)
