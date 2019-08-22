@@ -138,11 +138,12 @@ function runAll() {
 }
 
 function clearCards() {
-	if (myCards.length == 0){return 0;}
-	var mcl = myCards.length
+	if (myCards.length == 0){console.log("empty"); return 0;}
+	var mcl = myCards.length;
 	for (var i=0;i<mcl;i++) {
-		var elem = document.querySelector('#'+myCards[i]);
-		elem.parentNode.removeChild(elem);
+		//var elem = document.querySelector('#'+myCards[i]);
+		//elem.parentNode.removeChild(elem);
+		console.log(myCards[i]);
 	}
 	myCards = [];
 	myInstructions = [];
