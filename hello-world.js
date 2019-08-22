@@ -26,10 +26,10 @@ wss.on('connection', function connection(ws) {
 	} catch(err) {
 	  //console.error(err);
 	}
-	
-	fs.appendFile("newtesttxt.txt", message, (err) => {
-  	
+	wss.clients.forEach(function each(client) {
+		client.send("hi");
 	});
+	fs.appendFile("newtesttxt.txt", message, (err) => {});
 	
 	setTimeout(intervalFunc,5, ws, messagefname);
 	
