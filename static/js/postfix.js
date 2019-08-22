@@ -154,12 +154,14 @@ function postfixify(input_str) {
 	input_str = replaceNegatives(input_str);
 	var twoparts = makePost(input_str);
 	//Convert column names
+	console.log(twoparts[0]);
+	console.log(twoparts[1]);
 	var firstpart = twoparts[0].split("_");
 	for (var i=0;i<firstpart.length;i++){
 		if (parseInt(firstpart[i]).toString() != firstpart[i]){
 			for (var ii in colInfo) {
 				if (colInfo[ii].toUpperCase() == firstpart[i]) {
-					firstpart[i] = 'c'+colInfo[ii];
+					firstpart[i] = 'c'+ii;
 					break;
 				}
 			}
