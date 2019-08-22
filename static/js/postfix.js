@@ -62,35 +62,37 @@ function makePost(infixexpr) {
 	return [intstr,expstr]
 
 }
-
+*/
 function replaceDecimals(istr){
-	dindex = istr.find('.')
-	while dindex >-1:
-		intpart = 0
-		decpart = 0
-		denom = 1
-		strparts = [dindex,dindex+1]
-		for i in range(1,dindex+1):
-			if istr[dindex-i] in "0123456789":
-				intpart += int(istr[dindex-i])*10**(i-1)
-				strparts[0] = dindex-i
-			else:
-				break
-		for i in range(dindex+1,len(istr)):
-			if istr[i] in "0123456789":
-				decpart *=10
-				denom *=10
-				decpart += int(istr[i])	
-				strparts[1] = i+1
-			else:
-				break
-		istr = istr[:strparts[0]]+'('+str(intpart*denom+decpart)+'/'+str(denom)+')'+istr[strparts[1]:]
-		dindex = istr.find('.')
-				
+	dindex = istr.indexOf('.')
+	while (dindex >-1){
+		intpart = 0;
+		decpart = 0;
+		denom = 1;
+		strparts = [dindex,dindex+1];
+		for (var i=1;i<dindex+1;i++){
+			if ("0123456789".indexOf(istr[dindex-1]) > -1){
+				intpart += parseInt(istr[dindex-i])*Math.pow(10,i-1);
+				strparts[0] = dindex-i;
+			}
+			else{break;}
+		}
+		for (var i=dindex+1;i<istr.length;i++){
+			if ("0123456789".indexOf(istr[i]) > -1){
+				decpart *=10;
+				denom *=10;
+				decpart += parseInt(istr[i]);
+				strparts[1] = i+1;
+			}
+			else{break;}
+		}
+		istr = istr.substring(0,strparts[0])+'('+ (intpart*denom+decpart) +'/'+ denom +')'+istr.substring(strparts[1],);
+		dindex = istr.indexOf('.');
+	}
 
 	return istr
 }
-*/
+
 function replaceNegatives(istr){
 	dindex = istr.indexOf('-')
 	while (dindex >-1){
@@ -132,7 +134,7 @@ function postfixify(input_str) {
 	input_str = input_str.replace(/!=/g,'!');
 	input_str = input_str.replace(/\+-/g,'-');
 	input_str = input_str.replace(/--/g,'+');
-	//input_str = replaceDecimals(input_str);
+	input_str = replaceDecimals(input_str);
 	var output_str = replaceNegatives(input_str);
 	return output_str;
 }
