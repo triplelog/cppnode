@@ -47,7 +47,7 @@ function intervalFunc(ws, messagefname) {
 				}
 			}
 			else {
-				setTimeout(intervalFunc,20, ws, messagename)
+				setTimeout(intervalFunc,20, ws, messagefname)
 			}
 			
 		});
