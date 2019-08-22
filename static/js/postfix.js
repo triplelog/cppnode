@@ -64,11 +64,12 @@ function makePost(infixexpr) {
 }
 */
 function replaceDecimals(istr){
-	dindex = istr.indexOf('.')
+	dindex = istr.indexOf('.');
 	while (dindex >-1){
 		intpart = 0;
 		decpart = 0;
 		denom = 1;
+		console.log(istr,intpart,denom,decpart);
 		strparts = [dindex,dindex+1];
 		for (var i=1;i<dindex+1;i++){
 			if ("0123456789".indexOf(istr[dindex-1]) > -1){
@@ -86,6 +87,7 @@ function replaceDecimals(istr){
 			}
 			else{break;}
 		}
+		console.log(istr,intpart,denom,decpart);
 		istr = istr.substring(0,strparts[0])+'('+ (intpart*denom+decpart) +'/'+ denom +')'+istr.substring(strparts[1],);
 		dindex = istr.indexOf('.');
 	}
@@ -134,7 +136,7 @@ function postfixify(input_str) {
 	input_str = input_str.replace(/!=/g,'!');
 	input_str = input_str.replace(/\+-/g,'-');
 	input_str = input_str.replace(/--/g,'+');
-	//input_str = replaceDecimals(input_str);
+	input_str = replaceDecimals(input_str);
 	var output_str = replaceNegatives(input_str);
 	return output_str;
 }
