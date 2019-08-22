@@ -72,7 +72,7 @@ function replaceDecimals(istr){
 		console.log(istr,intpart,denom,decpart);
 		strparts = [dindex,dindex+1];
 		for (var i=1;i<dindex+1;i++){
-			if ("0123456789".indexOf(istr[dindex-1]) > -1){
+			if ("0123456789".indexOf(istr[dindex-i]) > -1){
 				intpart += parseInt(istr[dindex-i])*Math.pow(10,i-1);
 				strparts[0] = dindex-i;
 			}
