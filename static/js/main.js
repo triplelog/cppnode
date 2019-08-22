@@ -4,7 +4,7 @@ const table1head = document.querySelector('#table1head');
 const table1body = document.querySelector('#table1body');
 var currentPage = 1;
 var sortMode = true;
-
+var colInfo = {};
 
 
 const myWorker = new Worker("js/worker.js");
@@ -21,6 +21,7 @@ myWorker.onmessage = function(e) {
 			headers[ii].setAttribute('onmousedown',"sort("+retmess[0][ii*2 + 1]+")");
 			headers[ii].id = "cHeader"+retmess[0][ii*2 + 1];
 			headers[ii].style.display = 'table-cell';
+			colInfo[parseInt(retmess[0][ii*2 + 1])]=retmess[0][ii*2];
 		}
 		else if (ii < headers.length) {
 			headers[ii].style.display = 'none';
@@ -32,6 +33,7 @@ myWorker.onmessage = function(e) {
 			newHeader.id = "cHeader"+retmess[0][ii*2 + 1];
 			newHeader.style.display = 'table-cell';
 			newHeader.classList.add("th-sm");
+			colInfo[retmess[0][ii*2 + 1]]=retmess[0][ii*2];
 			headrow.appendChild(newHeader);
 		}
 		else {
@@ -115,7 +117,7 @@ function sort(sortCol) {
 		var d = new Date();
 		var n = d.getTime();
 		console.log(n);
-		addCard({'type':"Sort",'sortCol':sortCol});
+		addCard({'type':"Sort",'sortCol':colInfo[sortCol]});
 		var mymessage = "ff.csv,"+ (currentPage*10-10) +","+ (currentPage*10) +",sort,"+ sortCol;
 		mymessage += "|ff.csv,"+ (currentPage*10-10) +","+ (currentPage*10) +",print,csv";
 		myWorker.postMessage(mymessage);
