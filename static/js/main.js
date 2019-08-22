@@ -30,8 +30,9 @@ myWorker.onmessage = function(e) {
 	var n = d.getTime();
   	console.log(n);
   	console.log("hello");
-  	
-  	addCard(tempCardJSON);
+  	if (tempCardJSON.type != 'Page'){
+  		addCard(tempCardJSON);
+  	}
 }
 
 function regularTable(retmess){
@@ -180,6 +181,7 @@ function newPage(pageId) {
   
 	var mymessage = filen+","+ (currentPage*10-10) +","+ (currentPage*10) +",print,csv";
 	myWorker.postMessage(mymessage);
+	tempCardJSON = {'type':"Page"};
 
 
 }
