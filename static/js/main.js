@@ -8,7 +8,8 @@ var colInfo = {};
 var upCheck = "";
 var downCheck = "";
 var tempCardJSON = {};
-var filen = "ff.csv";
+var filenn = Math.random().toString(36).substring(5, 10)
+var filen = "ff"+filenn+".csv";
 
 const myWorker = new Worker("js/worker.js");
 
