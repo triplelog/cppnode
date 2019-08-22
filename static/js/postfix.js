@@ -138,7 +138,6 @@ function replaceNegatives(istr){
 
 function postfixify(input_str) {
 	input_str = input_str.toUpperCase();
-	//Convert column names
 	input_str = input_str.replace(/AND/g,'&');
 	input_str = input_str.replace(/OR/g,'|');
 	input_str = input_str.replace(/\[/g,'(');
@@ -153,8 +152,21 @@ function postfixify(input_str) {
 	input_str = input_str.replace(/--/g,'+');
 	input_str = replaceDecimals(input_str);
 	input_str = replaceNegatives(input_str);
-	twoparts = makePost(input_str);
-	return twoparts;
+	var twoparts = makePost(input_str);
+	//Convert column names
+	var firstpart = twoparts[0].split("_");
+	for (var i=0;i<firstpart.length;i++){
+		if (parseInt(firstpart[i]).toString() != firstpart[i]){
+			for (var ii in colInfo) {
+				if (colInfo[ii].toUpperCase() == firstpart[i]) {
+					firstpart[i] = 'c'+colInfo[ii];
+					break;
+				}
+			}
+		}
+	}
+	var fullstr = firstpart.join("_")+'@'+twoparts[1];
+	return fullstr;
 }
 
 //12.3-4.5==-2+aAND4.552!=(x-1)
