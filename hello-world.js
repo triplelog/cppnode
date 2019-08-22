@@ -19,8 +19,9 @@ wss.on('connection', function connection(ws) {
 	message = message.replace(/\|/g, '\n');
 	message = message.replace(/\\n/g, '\r\n');
 	
+	messagefname = message.split(",")[0];
 	try {
-	  fs.unlinkSync('ff.csv');
+	  fs.unlinkSync(messagefname);
 	  //file removed
 	} catch(err) {
 	  //console.error(err);
@@ -30,23 +31,23 @@ wss.on('connection', function connection(ws) {
   	
 	});
 	
-	setTimeout(intervalFunc,5, ws);
+	setTimeout(intervalFunc,5, ws, messagefname);
 	
 	
   });
 });
 
-function intervalFunc(ws) {
-		fs.stat('ff.csv', function(err, stats) {
+function intervalFunc(ws, messagefname) {
+		fs.stat(messagefname, function(err, stats) {
 			if (!err) {
 				if (stats.isFile() && stats.size > 16) {
-					fs.readFile('ff.csv', 'utf8', function(err, data) {
+					fs.readFile(messagefname, 'utf8', function(err, data) {
 						ws.send(data);
 					});
 				}
 			}
 			else {
-				setTimeout(intervalFunc,20, ws)
+				setTimeout(intervalFunc,20, ws, messagename)
 			}
 			
 		});
