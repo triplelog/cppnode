@@ -206,8 +206,12 @@ function sort(sortCol) {
 }
 
 function newCol() {
+	
   	//Add formula to convert
+  	
 	let colFormula = document.getElementById("newcol").value;
+	console.log(postfixify(colFormula));
+  	return 0;
 	var mymessage = filen+","+ (currentPage*10-10) +","+ (currentPage*10) +",addcol,"+ colFormula +"|";
 	mymessage += filen+","+ (currentPage*10-10) +","+ (currentPage*10) +",print,csv|";
 	mymessage += filen+","+"0,-1,addcol,"+ colFormula;

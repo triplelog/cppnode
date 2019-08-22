@@ -100,14 +100,15 @@ function replaceNegatives(istr){
 			dindex = istr.indexOf('-',1);
 		}
 		else{
-			if (istr[dindex-1] in ['>','<','=','!','[',']','&','|','(']) {
-				if istr[dindex+1] not in "0123456789":
-					istr = istr[:dindex]+'-1*'+istr[dindex+1:]
-				dindex = istr.find('-',dindex+1)
+			if ("><=![]&|(".indexOf(istr[dindex-1])> -1) {
+				if ("0123456789".indexOf(istr[dindex-1])== -1){
+					istr = istr.substring(0,dindex)+'-1*'+istr.substring(dindex+1,);
+				}
+				dindex = istr.indexOf('-',dindex+1);
 			}
 			else{
-				istr = istr[:dindex]+'~'+istr[dindex+1:]
-				dindex = istr.find('-',dindex+1)
+				istr = istr.substring(0,dindex)+'~'+istr.substring(dindex+1,);
+				dindex = istr.indexOf('-',dindex+1);
 			}
 		}
 	}
