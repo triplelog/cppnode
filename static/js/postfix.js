@@ -134,7 +134,9 @@ function postfixify(input_str) {
 	input_str = input_str.replace(/!=/g,'!');
 	input_str = input_str.replace(/\+-/g,'-');
 	input_str = input_str.replace(/--/g,'+');
-	input_str = replaceDecimals(input_str);
+	//input_str = replaceDecimals(input_str);
 	var output_str = replaceNegatives(input_str);
 	return output_str;
 }
+
+//12.3-4.5==-2+aAND4.552!=(x-1)
