@@ -1,4 +1,4 @@
-/*
+
 function makePost(infixexpr) {
 	prec = {}
 	prec["*"] = 4
@@ -20,56 +20,72 @@ function makePost(infixexpr) {
 	expstr = ''
 	tokenList = []
 	temptoken = ''
-	for ie in infixexpr:
-		if ie in "-0123456789":
+	for (var i=0;i<infixexpr.length;i++){
+		var ie = infixexpr[i];
+		if ("-0123456789".indexOf(ie) > -1){
 			temptoken += ie
-		else:
-			if temptoken != '':
-				tokenList.append(temptoken)
-			tokenList.append(ie)
+		}
+		else{
+			if (temptoken != ''){
+				tokenList.push(temptoken)
+			}
+			tokenList.push(ie)
 			temptoken = ''
-	if temptoken != '':
-		tokenList.append(temptoken)
-	#tokenList = infixexpr.split()
-	#print(tokenList)
-	for token in tokenList:
-		if token not in ['*','/','+','~','>','<','=','!','[',']','&','|','(',')']:
-			postfixList.append(token)
-		elif token == '(':
-			opStack.append(token)
-		elif token == ')':
+		}
+	}
+	if (temptoken != ''){
+		tokenList.push(temptoken)
+	}
+	
+	for (var i=0;i<tokenList.length;i++){
+		var token = tokenList[i];
+		if ("*/+~><=![]&|()".indexOf(token) == -1){
+			postfixList.push(token)
+		}
+		else if (token == '('){
+			opStack.push(token)
+		}
+		else if (token == ')'){
 			topToken = opStack.pop()
-			while topToken != '(':
-				postfixList.append(topToken)
+			while (topToken != '('){
+				postfixList.push(topToken)
 				topToken = opStack.pop()
-		else:
-			while (len(opStack) > 0) and (prec[opStack[-1]] >= prec[token]):
-				postfixList.append(opStack.pop())
-			opStack.append(token)
-
-	while len(opStack) > 0:
-		postfixList.append(opStack.pop())
-	for ci in postfixList:
-		if ci not in ['+','~','*','/','>','<','&','|','=','!','[',']']:
+			}
+		}
+		else {
+			while ((opStack.length > 0) and (prec[opStack[opStack.length-1]] >= prec[token])){
+				postfixList.push(opStack.pop())
+			}
+			opStack.push(token)
+		}
+	}
+	while (len(opStack) > 0){
+		postfixList.push(opStack.pop())
+	}
+	for (var i=0;i<postfixList.length;i++){
+		var ci = postfixList[i];
+		if ("*/+~><=![]&|".indexOf(ci) == -1){
 			intstr += ci + '_'
 			expstr += '#'
-		elif ci == '~':
+		}
+		else if (ci == '~'){
 			expstr += '-'
-		else:
+		}
+		else{
 			expstr += ci
-	
-	intstr = intstr[:-1]
+		}
+	}
+	intstr = intstr.substring(0,intstr.length-1)
 	return [intstr,expstr]
 
 }
-*/
+
 function replaceDecimals(istr){
 	dindex = istr.indexOf('.');
 	while (dindex >-1){
 		intpart = 0;
 		decpart = 0;
 		denom = 1;
-		console.log(istr,intpart,denom,decpart);
 		strparts = [dindex,dindex+1];
 		for (var i=1;i<dindex+1;i++){
 			if ("0123456789".indexOf(istr[dindex-i]) > -1){
@@ -87,7 +103,6 @@ function replaceDecimals(istr){
 			}
 			else{break;}
 		}
-		console.log(istr,intpart,denom,decpart);
 		istr = istr.substring(0,strparts[0])+'('+ (intpart*denom+decpart) +'/'+ denom +')'+istr.substring(strparts[1],);
 		dindex = istr.indexOf('.');
 	}
@@ -137,8 +152,9 @@ function postfixify(input_str) {
 	input_str = input_str.replace(/\+-/g,'-');
 	input_str = input_str.replace(/--/g,'+');
 	input_str = replaceDecimals(input_str);
-	var output_str = replaceNegatives(input_str);
-	return output_str;
+	input_str = replaceNegatives(input_str);
+	twoparts = makePost(input_str);
+	return twoparts;
 }
 
 //12.3-4.5==-2+aAND4.552!=(x-1)
