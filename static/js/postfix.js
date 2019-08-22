@@ -166,6 +166,9 @@ function postfixify(input_str) {
 				}
 			}
 		}
+		else {
+			firstpart[i] = firstpart[i]+'.1.I';
+		}
 	}
 	var fullstr = firstpart.join("_")+'@'+twoparts[1];
 	return fullstr;
