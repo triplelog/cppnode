@@ -1,3 +1,4 @@
+/*
 function makePost(infixexpr) {
 	prec = {}
 	prec["*"] = 4
@@ -89,7 +90,7 @@ function replaceDecimals(istr){
 
 	return istr
 }
-
+*/
 function replaceNegatives(istr){
 	dindex = istr.indexOf('-')
 	while (dindex >-1){
