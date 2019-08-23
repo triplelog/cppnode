@@ -905,11 +905,11 @@
 		  <button onclick="toggleSort()">Sort Mode</button>
 		  <input type="text" id="pivotx" /><input type="text" id="pivoty" /><input type="text" id="pivotz" /><button onclick="pivot()">Pivot</button>
 	  </div>
-	  <div style="grid-column: 1; grid-row: 1; width: 100%; background-color: blue; opacity: 0;" class="ui-selectable" id="testbox11"></div>
-  	  <div style="grid-column: 2; grid-row: 1; width: 100%; background-color: blue; opacity: 0;" class="ui-selectable" id="testbox21"></div>
+	  <div style="grid-column: 1; grid-row: 1; width: 100%; background-color: blue; opacity: 0;" class="ui-selectable" id="testbox-1-1"></div>
+  	  <div style="grid-column: 1; grid-row: 2; width: 100%; background-color: blue; opacity: 0;" class="ui-selectable" id="testbox-2-1"></div>
   	  
-	  <div style="grid-column: 1; grid-row: 2; width: 100%; background-color: blue; opacity: 0;" class="ui-selectable" id="testbox12"></div>
-  	  <div style="grid-column: 2; grid-row: 2; width: 100%; background-color: blue; opacity: 0;" class="ui-selectable" id="testbox22"></div>
+	  <div style="grid-column: 2; grid-row: 1; width: 100%; background-color: blue; opacity: 0;" class="ui-selectable" id="testbox-1-2"></div>
+  	  <div style="grid-column: 2; grid-row: 2; width: 100%; background-color: blue; opacity: 0;" class="ui-selectable" id="testbox-2-2"></div>
   </div>
   <!-- Start your project here-->
 
@@ -963,7 +963,8 @@
 		var removedN = removedElements.length;
 		if (removedN > 0){
 			for (var i=0;i<removedN;i++) {
-				console.log(parseInt(removedElements[i].id.substring(7,)));
+				var coords = removedElements[i].id.substring(7,).split('-');
+				console.log(parseInt(coords[1]),parseInt(coords[2]));
 				removedElements[i].style.opacity = 0;
 			}
 		}
