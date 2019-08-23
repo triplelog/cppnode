@@ -45,12 +45,8 @@ function intervalFunc(ws, messagefname) {
 						ws.send(data);
 						
 					});
-					try {
-					  fs.unlinkSync(messagefname);
-					  //file removed
-					} catch(err) {
-					  //console.error(err);
-					}
+					setTimeout(deleteFunc,1000, messagefname)
+					
 				}
 			}
 			else {
@@ -58,5 +54,14 @@ function intervalFunc(ws, messagefname) {
 			}
 			
 		});
+}
+
+function deleteFunc(messagefname) {
+	try {
+	  fs.unlinkSync(messagefname);
+	  //file removed
+	} catch(err) {
+	  console.error(err);
+	}
 }
 
