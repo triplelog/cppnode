@@ -939,6 +939,16 @@
 		// Default is 10 to provide a enjoyable scroll experience.
 		scrollSpeedDivider: 10
 	});
+	selection.on('beforestart', evt => {
+		// This function can return "false" to abort the selection
+		console.log('beforestart', evt);
+	}).on('start', evt => {
+		console.log('start', evt);
+	}).on('move', evt => {
+		console.log('move', evt);
+	}).on('stop', evt => {
+		console.log('stop', evt);
+	});
   </script>
 
 </body>
