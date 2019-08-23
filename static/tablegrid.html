@@ -905,7 +905,7 @@
 		  <button onclick="toggleSort()">Sort Mode</button>
 		  <input type="text" id="pivotx" /><input type="text" id="pivoty" /><input type="text" id="pivotz" /><button onclick="pivot()">Pivot</button>
 	  </div>
-	  <div style="grid-column: 1; grid-row: 11; border: 1px dashed black; width: 100%;" class="ui-selectable">
+	  <div style="grid-column: 1; grid-row: 11; border: 1px dashed black; width: 100%;" class="ui-selectable" id="testbox">
 	  </div>
   </div>
   <!-- Start your project here-->
@@ -922,6 +922,9 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/selectable.js@latest/selectable.min.js"></script>
   <script>
   	const selectable = new Selectable();
+  	selectable.on("selecteditem", (item) => {
+		console.log(item.id);
+	});
   </script>
 
 </body>
