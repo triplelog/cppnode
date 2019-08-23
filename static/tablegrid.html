@@ -919,11 +919,25 @@
   <script type="text/javascript" src="js/kanban.js"></script>
   <script type="text/javascript" src="js/tableOps.js"></script>
   <script type="text/javascript" src="js/postfix.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/selectable.js@latest/selectable.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@simonwep/selection-js/dist/selection.min.js"></script>
   <script>
-  	const selectable = new Selectable();
-  	selectable.on("selecteditem", (item) => {
-		item.node.style.opacity = 1;
+  	const selection = new Selection({
+		class: 'gridwrapper',
+		startThreshold: 10,
+		disableTouch: false,
+		mode: 'touch',
+		singleClick: false,
+		// Query selectors from elements which can be selected
+		selectables: ['.ui-selectable'],
+		// Query selectors for elements from where a selection can be start
+		startareas: ['html'],
+		// Query selectors for elements which will be used as boundaries for the selection
+		boundaries: ['html'],
+		// Query selector or dom node to set up container for selection-area-element
+		selectionAreaContainer: 'body',
+		// On scrollable areas the number on px per frame is devided by this amount.
+		// Default is 10 to provide a enjoyable scroll experience.
+		scrollSpeedDivider: 10
 	});
   </script>
 
