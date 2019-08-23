@@ -940,8 +940,13 @@
 		scrollSpeedDivider: 10
 	});
 	selection.on('move', evt => {
-		if (evt.changed.added.length > 0){
-			console.log('move', evt.changed);
+		var addedElements = evt.changed.added;
+		var addedN = addedElements.length;
+		if (addedN > 0){
+			for (var i=0;i<addedN;i++) {
+				addedElements[i].style.opacity = 1;
+				console.log(addedElements[i]);
+			}
 		}
 		
 	});
