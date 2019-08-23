@@ -976,9 +976,11 @@
 			}
 		}
 		console.log(topleft, botright);
+		botright[0] +=1; botright[1] +=1;
+		
 		var newEl = document.createElement('div');
-		newEl.style.gridColumn = "1 / 3";
-		newEl.style.gridRow = "1 / 3";
+		newEl.style.gridColumn = topleft[1]+" / "+botright[1];
+		newEl.style.gridRow = topleft[0]+" / "+botright[0];
 		newEl.classList.add("newGrid");
 		document.getElementById("gridwrapper").appendChild(newEl);
 		
