@@ -474,7 +474,7 @@
 			<a onmousedown="newPage('Next')" id="pageNext">Next</a>
 		</div>
 	  </div>
-	  <div style="grid-column: 1 / 13; grid-row: 7 / 10; border: 1px dashed black; opacity: 0;" id="pivotTable1">
+	  <div style="grid-column: 1 / 13; grid-row: 7 / 10; border: 1px dashed black; visibility: hidden;" id="pivotTable1">
 		<div class="flex-center flex-column">
 
 		  <table class="striped hoverable">
@@ -923,9 +923,8 @@
   <script>
   	const selectable = new Selectable();
   	selectable.on("selecteditem", (item) => {
-		console.log(item);
-		console.log(item.node);
-		item.node.style.opacity = 1;
+		console.log(item.node.id);
+		//item.node.style.opacity = 1;
 	});
   </script>
 
