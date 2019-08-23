@@ -90,8 +90,8 @@ function regularTable(retmess){
 }
 
 function pivotTable(retmess){
-	var pt1 = document.getElementById('pivotTable1');
-	pt1.style.gridColumn = '1 / 7';
+	//var pt1 = document.getElementById('pivotTable1');
+	//pt1.style.gridColumn = '1 / 7';
 	const tablePhead = document.querySelector('#tablePhead');
 	const tablePbody = document.querySelector('#tablePbody');
 	tablePhead.style.display = "flex";
