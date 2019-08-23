@@ -208,8 +208,8 @@ function sort(sortCol) {
 function newCol() {
 	
   	//Add formula to convert
-  	
-	let colFormula = postfixify(document.getElementById("newcol").value);
+  	let rawFormula = document.getElementById("newcol").value
+	let colFormula = postfixify(rawFormula);
 	console.log(colFormula);
 
 	var mymessage = filen+","+ (currentPage*10-10) +","+ (currentPage*10) +",addcol,"+ colFormula +"|";
@@ -218,14 +218,16 @@ function newCol() {
 	
 	myWorker.postMessage(mymessage);
 	upCheck = "abc";
-	tempCardJSON = {'type':"AddColumn",'colFormula':colFormula};
+	tempCardJSON = {'type':"AddColumn",'rawFormula':rawFormula,'colFormula':colFormula};
 	
 
 }
 
 function filter() {
   
-	let colFormula = document.getElementById("filter").value;
+	let rawFormula = document.getElementById("filter").value
+	let colFormula = postfixify(rawFormula);
+	console.log(colFormula);
 	
 	var mymessage = filen+","+ (currentPage*10-10) +","+ (currentPage*10) +",filter,"+ colFormula +"|";
 	mymessage += filen+","+ (currentPage*10-10) +","+ (currentPage*10) +",print,csv|";
@@ -233,7 +235,7 @@ function filter() {
 	
 	myWorker.postMessage(mymessage);
 	upCheck = "abc";
-	tempCardJSON = {'type':"Filter",'filterText':colFormula,'filterCode':mymessage};
+	tempCardJSON = {'type':"Filter",'filterText':rawFormula,'filterCode':mymessage};
 
 }
 

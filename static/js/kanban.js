@@ -189,13 +189,13 @@ function addCard(cardData) {
 	}
 	else if (cardData.type == "AddColumn"){
 		var newCard = {'id':"myCommands"};
-		newCard.title = "Add Column: "+cardData.colFormula;
-		newCard.detail = cardData.colFormula;
+		newCard.title = "Add Column: "+cardData.rawFormula;
+		newCard.detail = cardData.rawFormula;
 		newCard.comments = [];
-		newCard.code = "ff.csv,0,100,addcol,"+cardData.sortCol;
+		newCard.code = "ff.csv,0,100,addcol,"+cardData.colFormula;
 		newCard.type = cardData.type;
 		myCards.push("inputID"+idCounter);
-		myInstructions.push("ff.csv,0,100,addcol,"+cardData.sortCol);
+		myInstructions.push("ff.csv,0,100,addcol,"+cardData.colFormula);
 		createInstructionCard(newCard);
 	}
 }
