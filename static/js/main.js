@@ -225,7 +225,7 @@ function newCol() {
 
 function filter() {
   
-	let rawFormula = document.getElementById("filter").value
+	let rawFormula = document.getElementById("filter").value;
 	let colFormula = postfixify(rawFormula);
 	console.log(colFormula);
 	
@@ -240,8 +240,21 @@ function filter() {
 }
 
 function pivot() {
-	
-	var mymessage = filen+","+"0,10,pivot,csv";
+	var xcol = document.getElementById("pivotx").value;
+	var ycol = document.getElementById("pivoty").value;
+	var zcol = document.getElementById("pivotz").value;
+	for (var ii in colInfo) {
+		if (colInfo[ii].toUpperCase() == xcol.toUpperCase()) {
+			xcol = ii;
+		}
+		if (colInfo[ii].toUpperCase() == ycol.toUpperCase()) {
+			ycol = ii;
+		}
+		if (colInfo[ii].toUpperCase() == zcol.toUpperCase()) {
+			zcol = ii;
+		}
+	}
+	var mymessage = filen+","+"0,10,pivot,"+xcol+"@"+ycol+"@"+zcol;
 	
 	myWorker.postMessage(mymessage);
 	upCheck = "abc";

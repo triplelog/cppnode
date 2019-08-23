@@ -24,7 +24,7 @@ dragula([document.getElementById("otherUser2"), document.getElementById("otherUs
     clone.childNodes[1].setAttribute('for',"inputID"+idCounter);
 }).on('drop', function (clone, original, type) {
     myCards.push("inputID"+idCounter);
-    myInstructions.push(original.code);
+    myInstructions.push(original.code); //THis doenst work:need way to get code from myCards.
     idCounter++;
 }).on('remove', function (el, container, source) {
 	for (var i=0;i<myCards.length;i++) {
