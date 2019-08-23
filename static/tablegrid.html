@@ -463,6 +463,16 @@
 		  </table>
 	  
 		</div>
+		<div class="" id="paginate">
+			<a onmousedown="newPage('Previous')" id="pagePrev">Previous</a>
+			<a onmousedown="newPage(1)" class="active" id="page1">1</a>
+			<a onmousedown="newPage(2)" id="page2">2</a>
+			<a onmousedown="newPage(3)" id="page3">3</a>
+			<a onmousedown="newPage(4)" id="page4">4</a>
+			<a onmousedown="newPage(5)" id="page5">5</a>
+			<a onmousedown="newPage(6)" id="page6">6</a>
+			<a onmousedown="newPage('Next')" id="pageNext">Next</a>
+		</div>
 	  </div>
 	  <div style="grid-column: 1 / 12; grid-row: 7 / 10;">
 		<div class="flex-center flex-column">
@@ -889,23 +899,12 @@
 		</div>
 	  </div> <!-- Pivot Table -->
 
-	  <div class="col-sm-12 col-md-7" style="grid-column: 1 / 6; grid-row: 10;">
-		<div class="" id="paginate">
-			<a onmousedown="newPage('Previous')" id="pagePrev">Previous</a>
-			<a onmousedown="newPage(1)" class="active" id="page1">1</a>
-			<a onmousedown="newPage(2)" id="page2">2</a>
-			<a onmousedown="newPage(3)" id="page3">3</a>
-			<a onmousedown="newPage(4)" id="page4">4</a>
-			<a onmousedown="newPage(5)" id="page5">5</a>
-			<a onmousedown="newPage(6)" id="page6">6</a>
-			<a onmousedown="newPage('Next')" id="pageNext">Next</a>
-		</div>
+	  <div style="grid-column: 1 / 6; grid-row: 10;">
+		  <div class="col-sm-12 col-md-7"><input type="text" id="newcol" /><button onmousedown="newCol()">New Column</button></div>
+		  <div class="col-sm-12 col-md-7"><input type="text" id="filter" /><button onmousedown="filter()">Filter</button></div>
+		  <button onclick="toggleSort()">Sort Mode</button>
+		  <input type="text" id="pivotx" /><input type="text" id="pivoty" /><input type="text" id="pivotz" /><button onclick="pivot()">Pivot</button>
 	  </div>
-
-	  <div class="col-sm-12 col-md-7"><input type="text" id="newcol" /><button onmousedown="newCol()">New Column</button></div>
-	  <div class="col-sm-12 col-md-7"><input type="text" id="filter" /><button onmousedown="filter()">Filter</button></div>
-	  <button onclick="toggleSort()">Sort Mode</button>
-	  <input type="text" id="pivotx" /><input type="text" id="pivoty" /><input type="text" id="pivotz" /><button onclick="pivot()">Pivot</button>
   </div>
   <!-- Start your project here-->
 
