@@ -905,8 +905,8 @@
 		  <button onclick="toggleSort()">Sort Mode</button>
 		  <input type="text" id="pivotx" /><input type="text" id="pivoty" /><input type="text" id="pivotz" /><button onclick="pivot()">Pivot</button>
 	  </div>
-	  <div style="grid-column: 1; grid-row: 11; border: 1px dashed black; width: 100%; visibility: hidden;" class="ui-selectable" id="testbox">
-	  </div>
+	  <div style="grid-column: 1; grid-row: 11; width: 100%; background-color: blue; opacity: 0;" class="ui-selectable" id="testbox"></div>
+  	  <div style="grid-column: 2; grid-row: 11; width: 100%; background-color: blue; opacity: 0;" class="ui-selectable" id="testbox"></div>
   </div>
   <!-- Start your project here-->
 
@@ -923,7 +923,7 @@
   <script>
   	const selectable = new Selectable();
   	selectable.on("selecteditem", (item) => {
-		console.log(item.node.id);
+		item.node.style.opacity = 1;
 	});
   </script>
 
