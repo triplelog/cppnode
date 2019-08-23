@@ -958,6 +958,15 @@
 			}
 		}
 		
+	}).on('end', evt => {
+		var removedElements = evt.selected;
+		var removedN = removedElements.length;
+		if (removedN > 0){
+			for (var i=0;i<removedN;i++) {
+				removedElements[i].style.opacity = 0;
+			}
+		}
+		
 	});
   </script>
 
