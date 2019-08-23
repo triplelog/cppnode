@@ -8,3 +8,7 @@
 	width: 100%;
 	border: 1px dashed red;
 }
+.ui-selectable {
+	visibility: hidden;
+	pointer-events: none;
+}
