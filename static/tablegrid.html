@@ -946,45 +946,56 @@
 		var addedElements = evt.changed.added;
 		var addedN = addedElements.length;
 		if (addedN > 0){
-			for (var i=0;i<addedN;i++) {
-				addedElements[i].style.opacity = 1;
-			}
+			createTmp(evt.selected);
 		}
-		var removedElements = evt.changed.removed;
-		var removedN = removedElements.length;
-		if (removedN > 0){
-			for (var i=0;i<removedN;i++) {
-				removedElements[i].style.opacity = 0;
+		else {
+			var removedElements = evt.changed.removed;
+			var removedN = removedElements.length;
+			if (removedN > 0){
+				createTmp(evt.selected);
 			}
 		}
 		
 	}).on('stop', evt => {
-		var removedElements = evt.selected;
-		var removedN = removedElements.length;
+		if (document.getElementById("tmpgrid")){
+			var tmpEl = document.getElementById('tmpgrid');
+			tmpEl.id = "permgrid";
+		}
+		
+	});
+	
+	function createTmp(allElements) {
+		var allN = allElements.length;
 		var topleft = [-1,-1];
 		var botright = [0,0];
-		if (removedN > 0){
-			for (var i=0;i<removedN;i++) {
-				var coords = removedElements[i].id.substring(7,).split('-');
+		if (allN > 0){
+			for (var i=0;i<allN;i++) {
+				var coords = allElements[i].id.substring(7,).split('-');
 				var xc = parseInt(coords[1]);
 				var yc = parseInt(coords[2]);
 				if (xc < topleft[0] || topleft[0] == -1){topleft[0] = xc;}
 				if (xc > botright[0]){botright[0] = xc;}
 				if (yc < topleft[1] || topleft[1] == -1){topleft[1] = yc;}
 				if (yc > botright[1]){botright[1] = yc;}
-				removedElements[i].style.opacity = 0;
 			}
 		}
 		console.log(topleft, botright);
 		botright[0] +=1; botright[1] +=1;
 		
-		var newEl = document.createElement('div');
-		newEl.style.gridColumn = topleft[1]+" / "+botright[1];
-		newEl.style.gridRow = topleft[0]+" / "+botright[0];
-		newEl.classList.add("newGrid");
-		document.getElementById("gridwrapper").appendChild(newEl);
-		
-	});
+		if (document.getElementById("tmpgrid")){
+			var tmpEl = document.getElementById('tmpgrid');
+			tmpEl.style.gridColumn = topleft[1]+" / "+botright[1];
+			tmpEl.style.gridRow = topleft[0]+" / "+botright[0];
+		}
+		else {
+			var newEl = document.createElement('div');
+			newEl.style.gridColumn = topleft[1]+" / "+botright[1];
+			newEl.style.gridRow = topleft[0]+" / "+botright[0];
+			newEl.classList.add("newGrid");
+			newEl.id = "tmpgrid";
+			document.getElementById("gridwrapper").appendChild(newEl);
+		}
+	}
   </script>
 
 </body>
