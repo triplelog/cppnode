@@ -964,7 +964,8 @@
 		if (removedN > 0){
 			for (var i=0;i<removedN;i++) {
 				var coords = removedElements[i].id.substring(7,).split('-');
-				console.log(parseInt(coords[1]),parseInt(coords[2]));
+				console.log(parseInt(coords[1]));
+				console.log(parseInt(coords[2]));
 				removedElements[i].style.opacity = 0;
 			}
 		}
