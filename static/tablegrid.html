@@ -474,7 +474,7 @@
 			<a onmousedown="newPage('Next')" id="pageNext">Next</a>
 		</div>
 	  </div>
-	  <div style="grid-column: 1 / 13; grid-row: 7 / 10; border: 1px dashed black;" id="pivotTable1">
+	  <div style="grid-column: 1 / 13; grid-row: 7 / 10; border: 1px dashed black;" id="pivotTable2">
 		<div class="flex-center flex-column">
 
 		  <table class="striped hoverable">
@@ -1014,11 +1014,37 @@
 	}).on('stop', evt => {
 		if (document.getElementById("tmpgrid")){
 			var tmpEl = document.getElementById('tmpgrid');
-			tmpEl.id = "permgrid";
+			createPerm(tmpEl,"pivotTable1");
 		}
 		
 	});
 	
+	function createPerm(tmpEl,divid) {
+		tmpEl.id = divid;
+		var tableDiv = document.createElement("div");
+		tableDiv.classList.add("flex-center");
+		tableDiv.classList.add("flex-column");
+			var table = document.createElement("table");
+			table.classList.add("striped");
+			table.classList.add("hoverable");
+				var thead = document.createElement("thead");
+				thead.style.display = "none";
+				thead.id = "tablePhead";
+					var tr = document.createElement("tr");
+					tr.id = "movePColumns";
+					thead.appendChild(tr);
+				table.appendChild(thead);
+				var tbody = document.createElement("tbody");
+				tbody.style.display = "none";
+				tbody.id = "tablePbody";
+					for (var i=0;i<10;i++) {
+						var tr2 = document.createElement("tr");
+						tbody.appendChild(tr2);
+					}
+				table.appendChild(tbody);
+			tableDiv.appendChild(table);
+		tmpEl.appendChild(tableDiv);
+	}
 	function createTmp(allElements) {
 		var allN = allElements.length;
 		var topleft = [-1,-1];
