@@ -474,7 +474,7 @@
 			<a onmousedown="newPage('Next')" id="pageNext">Next</a>
 		</div>
 	  </div>
-	  <div style="grid-column: 1 / 13; grid-row: 7 / 10; border: 1px dashed black; visibility: hidden;" id="pivotTable1">
+	  <div style="grid-column: 1 / 13; grid-row: 7 / 10; border: 1px dashed black;" id="pivotTable1">
 		<div class="flex-center flex-column">
 
 		  <table class="striped hoverable">
@@ -905,7 +905,7 @@
 		  <button onclick="toggleSort()">Sort Mode</button>
 		  <input type="text" id="pivotx" /><input type="text" id="pivoty" /><input type="text" id="pivotz" /><button onclick="pivot()">Pivot</button>
 	  </div>
-	  <div style="grid-column: 1; grid-row: 11; border: 1px dashed black; width: 100%;" class="ui-selectable" id="testbox">
+	  <div style="grid-column: 1; grid-row: 11; border: 1px dashed black; width: 100%; visibility: hidden;" class="ui-selectable" id="testbox">
 	  </div>
   </div>
   <!-- Start your project here-->
@@ -924,7 +924,6 @@
   	const selectable = new Selectable();
   	selectable.on("selecteditem", (item) => {
 		console.log(item.node.id);
-		//item.node.style.opacity = 1;
 	});
   </script>
 
