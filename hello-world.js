@@ -43,7 +43,14 @@ function intervalFunc(ws, messagefname) {
 				if (stats.isFile() && stats.size > 16) {
 					fs.readFile(messagefname, 'utf8', function(err, data) {
 						ws.send(data);
+						
 					});
+					try {
+					  fs.unlinkSync(messagefname);
+					  //file removed
+					} catch(err) {
+					  //console.error(err);
+					}
 				}
 			}
 			else {
