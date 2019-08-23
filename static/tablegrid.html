@@ -18,7 +18,7 @@
 
 <body>
   <div class="gridwrapper">
-	  <div class="container" style="grid-column: 1 / 6; grid-row: 1 / 4;">
+	  <div class="container" style="grid-column: 1 / 6; grid-row: 1 / 4; border: 1px dashed black;">
 		<div class="row" id="allCommands">
 			<div id="myCommands" style="min-height: 200px; border: 1px solid black;" class="col-sm-3">
 				<div><h3 style="float: left;">My Commands</h3><button class="small" style="float: right;" onclick="clearCards();">Clear</button><button class="small" style="float: right;" onclick="runAll();">Run</button><hr style="clear: both;"></div>
@@ -40,7 +40,7 @@
 			</div>
 		</div>
 	  </div>
-	  <div style="grid-column: 1 / 12; grid-row: 4 / 7;">
+	  <div style="grid-column: 1 / 12; grid-row: 4 / 7; border: 1px dashed black;">
 		<div class="flex-center flex-column">
 
 		  <table class="striped hoverable">
@@ -474,7 +474,7 @@
 			<a onmousedown="newPage('Next')" id="pageNext">Next</a>
 		</div>
 	  </div>
-	  <div style="grid-column: 1 / 12; grid-row: 7 / 10;">
+	  <div style="grid-column: 1 / 12; grid-row: 7 / 10; border: 1px dashed black;">
 		<div class="flex-center flex-column">
 
 		  <table class="striped hoverable">
@@ -899,7 +899,7 @@
 		</div>
 	  </div> <!-- Pivot Table -->
 
-	  <div style="grid-column: 1 / 6; grid-row: 10;">
+	  <div style="grid-column: 1 / 6; grid-row: 10; border: 1px dashed black;">
 		  <div class="col-sm-12 col-md-7"><input type="text" id="newcol" /><button onmousedown="newCol()">New Column</button></div>
 		  <div class="col-sm-12 col-md-7"><input type="text" id="filter" /><button onmousedown="filter()">Filter</button></div>
 		  <button onclick="toggleSort()">Sort Mode</button>
