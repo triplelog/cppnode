@@ -961,14 +961,21 @@
 	}).on('stop', evt => {
 		var removedElements = evt.selected;
 		var removedN = removedElements.length;
+		var topleft = [-1,-1];
+		var botright = [0,0];
 		if (removedN > 0){
 			for (var i=0;i<removedN;i++) {
 				var coords = removedElements[i].id.substring(7,).split('-');
-				console.log(parseInt(coords[1]));
-				console.log(parseInt(coords[2]));
+				var xc = parseInt(coords[1]);
+				var yc = parseInt(coords[2]);
+				if (xc < topleft[0] || topleft[0] == -1){topleft[0] = xc;}
+				if (xc > botright[0]){botright[0] = xc;}
+				if (yc < topleft[1] || topleft[1] == -1){topleft[1] = yc;}
+				if (yc > botright[1]){botright[1] = yc;}
 				removedElements[i].style.opacity = 0;
 			}
 		}
+		console.log(topleft, botright);
 		
 	});
   </script>
