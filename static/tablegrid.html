@@ -963,7 +963,7 @@
 		var removedN = removedElements.length;
 		if (removedN > 0){
 			for (var i=0;i<removedN;i++) {
-				console.log(parseInt(removedElements[i].id));
+				console.log(parseInt(removedElements[i].id.substring(7,)));
 				removedElements[i].style.opacity = 0;
 			}
 		}
