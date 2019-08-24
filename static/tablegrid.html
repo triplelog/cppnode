@@ -499,6 +499,12 @@
   <script type="text/javascript" src="js/postfix.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@simonwep/selection-js/dist/selection.min.js"></script>
   <script type="text/javascript" src="js/grid.js"></script>
+  <script>
+  	 setTimeout(sendFirst,1000);
+  	 function sendFirst() {
+  	 	myWorker.postMessage(filen+',0,10,print,csv');
+  	 }
+  </script>
   
 
 </body>
