@@ -20,6 +20,7 @@ myWorker.onmessage = function(e) {
 	
 	let retmess = JSON.parse(e.data);
 	if (retmess[0][0] == 'Rk') {
+		document.getElementById('table').style.display = "block";
 		regularTable(retmess);
 	}
 	else if (retmess[0][0] == 'PivotRk') {
