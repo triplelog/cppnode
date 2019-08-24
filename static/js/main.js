@@ -13,7 +13,7 @@ var filen = "ff"+filenn+".csv";
 
 const myWorker = new Worker("js/worker.js");
 
-myWorker.postMessage(filen+",0,10,print,csv"); 
+
 
 
 myWorker.onmessage = function(e) {
