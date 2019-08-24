@@ -12,7 +12,9 @@ var filenn = Math.random().toString(36).substring(5, 10)
 var filen = "ff"+filenn+".csv";
 
 const myWorker = new Worker("js/worker.js");
-myWorker.postMessage(filen+",0,10,print,csv");
+
+myWorker.postMessage(filen+",0,10,print,csv"); 
+
 
 myWorker.onmessage = function(e) {
 	

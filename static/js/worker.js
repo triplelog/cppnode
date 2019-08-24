@@ -7,9 +7,11 @@ ws.onmessage=function(evt){
 	console.log(n);
 };
 
-onmessage = function(e) {
-  let mymessage = e.data;
 
+onmessage = function(e) {
+
+  let mymessage = e.data;
+  console.log(e.data);
   console.log(mymessage);
   ws.send(mymessage);
 	  
