@@ -125,6 +125,7 @@ function maxEl(evt){
 	
 	var nrows = toMax.offsetHeight / 100;
 	console.log(nrows);
+	toMax.style.gridRow = "1 / " + Math.trunc(nrows + 1);
 	
 }
 
