@@ -183,6 +183,7 @@ function newPage(pageId,type="main") {
   }
   console.log(currentPage, type, currentPage[type]);
 	var mymessage = filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",print,"+type;
+	console.log(mymessage);
 	myWorker.postMessage(mymessage);
 	tempCardJSON = {'type':"Page"};
 
