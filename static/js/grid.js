@@ -81,29 +81,29 @@ function createPerm(tmpEl,divid) {
 			table.appendChild(tbody);
 		tableDiv.appendChild(table);
 	var pageDiv = document.createElement("div");
-	pageDiv.id = "pivotPaginate";
+	pageDiv.classList.add('paginate');
 		var link = document.createElement("a");
 		link.id = "pagePrev";
-		link.setAttribute("onmousedown","newPage('Previous')");
+		link.setAttribute("onmousedown","newPage('Previous','pivot')");
 		link.textContent = "Previous";
 		pageDiv.appendChild(link);
 		
 		link = document.createElement("a");
 		link.id = "page1";
-		link.setAttribute("onmousedown","newPage(1)");
+		link.setAttribute("onmousedown","newPage(1,'pivot')");
 		link.textContent = "1";
 		link.classList.add("active");
 		pageDiv.appendChild(link);
 		for (var i=2;i<11;i++) {
 			link = document.createElement("a");
 			link.id = "page"+i;
-			link.setAttribute("onmousedown","newPage("+i+")");
+			link.setAttribute("onmousedown","newPage("+i+",'pivot')");
 			link.textContent = i;
 			pageDiv.appendChild(link);
 		}
 		link = document.createElement("a");
 		link.id = "pageNext";
-		link.setAttribute("onmousedown","newPage('Next')");
+		link.setAttribute("onmousedown","newPage('Next','pivot')");
 		link.textContent = "Next";
 		pageDiv.appendChild(link);
 	

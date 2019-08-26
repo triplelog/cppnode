@@ -151,7 +151,7 @@ function pivotTable(retmess){
 	}
 }
 
-function newPage(pageId) {
+function newPage(pageId,type="main") {
   
   
 	var d = new Date();
