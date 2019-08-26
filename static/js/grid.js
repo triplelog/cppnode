@@ -12,7 +12,7 @@ for (var i=1;i<13;i++) {
 
 var selection = 0;
 	
-function rearrangeMode() {
+function newBlock() {
 	if (selection == 0) {
 		selection = new Selection({
 			class: 'gridwrapper',
@@ -61,6 +61,12 @@ function rearrangeMode() {
 		selection = 0;
 	}
 }
+
+function rearrangeMode() {
+	var toChange = document.getElementById("table1");
+	toChange.style.border = "10px solid blue";
+}
+
 function createPerm(tmpEl,divid) {
 	tmpEl.id = divid;
 	var maxbutton = document.createElement("button");
