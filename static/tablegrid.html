@@ -463,8 +463,8 @@
 		  </table>
 	  
 		</div>
-		<div class="paginate" id="paginatemain">
-			<a onmousedown="newPage('Previous')" id="pagePrev">Previous</a>
+		<span class="paginate" id="paginatemain">
+			<a onmousedown="newPage('Previous')" id="pagePrev">Prev</a>
 			<a onmousedown="newPage(1)" class="active" id="page1">1</a>
 			<a onmousedown="newPage(2)" id="page2">2</a>
 			<a onmousedown="newPage(3)" id="page3">3</a>
@@ -472,7 +472,8 @@
 			<a onmousedown="newPage(5)" id="page5">5</a>
 			<a onmousedown="newPage(6)" id="page6">6</a>
 			<a onmousedown="newPage('Next')" id="pageNext">Next</a>
-		</div>
+		</span>
+		<input type="number" id="pageNumber" value="10"></input>
 	  </div>
 
 
