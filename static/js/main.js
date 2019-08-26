@@ -2,7 +2,7 @@
 
 const table1head = document.querySelector('#table1head');
 const table1body = document.querySelector('#table1body');
-var currentPage = 1;
+var currentPage = {"main":1,"pivot":1};
 var sortMode = true;
 var colInfo = {};
 var upCheck = "";
@@ -160,21 +160,21 @@ function newPage(pageId,type="main") {
 
 
 	if (pageId == 'Next'){
-		currentPage += 1;
+		currentPage[type] += 1;
 	}
 	else if (pageId == 'Previous') {
-		if (currentPage > 1){
-			currentPage -= 1;
+		if (currentPage[type] > 1){
+			currentPage[type] -= 1;
 		}
 	}
 	else {
-		currentPage = pageId;
+		currentPage[type] = pageId;
 	}
 	
-	var allPages = document.getElementById("paginate");
+	var allPages = document.getElementById("paginate"+type);
   var allPageNums = allPages.querySelectorAll("a");
   for (var i=0;i<allPageNums.length;i++) {
-    if (allPageNums[i].id == "page"+currentPage){
+    if (allPageNums[i].id == "page"+currentPage[type]){
       allPageNums[i].classList.add("active");
     }
     else {
@@ -182,7 +182,7 @@ function newPage(pageId,type="main") {
     }
   }
   
-	var mymessage = filen+","+ (currentPage*10-10) +","+ (currentPage*10) +",print,csv";
+	var mymessage = filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",print,"+type;
 	myWorker.postMessage(mymessage);
 	tempCardJSON = {'type':"Page"};
 

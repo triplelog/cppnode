@@ -81,6 +81,7 @@ function createPerm(tmpEl,divid) {
 			table.appendChild(tbody);
 		tableDiv.appendChild(table);
 	var pageDiv = document.createElement("div");
+	pageDiv.id = "paginatepivot";
 	pageDiv.classList.add('paginate');
 		var link = document.createElement("a");
 		link.id = "pagePrev";
