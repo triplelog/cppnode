@@ -117,6 +117,8 @@ function createTmp(allElements) {
 
 function maxEl(evt){
 	toMax = evt.target.parentNode;
-	toMax.style.gridColumn = "1 / 12";
-	toMax.style.gridRow = "1 / 12";
+	toMax.style.gridColumn = "1 / 13";
+	toMax.style.height = "100%";
+	toMax.backgroundColor = "rgba(0,0,0,.75)";
+	
 }
