@@ -122,6 +122,7 @@ function maxEl(evt){
 	toMax.style.height = "100%";
 	toMax.style.backgroundColor = "rgba(0,0,0,.8)";
 	toMax.querySelector("button").addEventListener("click",normEl);
+	evt.target.parentNode.parentNode.appendChild(toMax);
 	
 }
 
