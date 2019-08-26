@@ -54,7 +54,7 @@ selection.on('move', evt => {
 function createPerm(tmpEl,divid) {
 	tmpEl.id = divid;
 	var maxbutton = document.createElement("button");
-	maxbutton.textContent = "X";
+	maxbutton.textContent = "F";
 	maxbutton.addEventListener("click",maxEl);
 	tmpEl.appendChild(maxbutton);
 	
@@ -116,5 +116,7 @@ function createTmp(allElements) {
 }
 
 function maxEl(evt){
-	console.log(evt.target.parentNode.id);
+	toMax = evt.target.parentNode;
+	toMax.style.gridColumn = "1 / 12";
+	toMax.style.gridRow = "1 / 12";
 }
