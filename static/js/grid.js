@@ -63,9 +63,11 @@ function newBlock() {
 }
 
 function rearrangeMode() {
-	var toChange = document.getElementById("table1");
+	var baseNode = document.getElementById("table1");
+	var toChange = baseNode.cloneNode();
 	toChange.style.border = "30px solid blue";
 	toChange.style.background = "white";
+	baseNode.parentNode.appendChild(toChange);
 }
 
 function createPerm(tmpEl,divid) {
