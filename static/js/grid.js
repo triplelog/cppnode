@@ -118,7 +118,7 @@ function createTmp(allElements) {
 function maxEl(evt){
 	toMax = evt.target.parentNode.cloneNode(true);
 	toMax.style.gridColumn = "1 / 13";
-	toMax.style.gridRow = "1 / 10";\
+	toMax.style.gridRow = "1 / 10";
 	toMax.style.backgroundColor = "rgba(0,0,0,.8)";
 	toMax.querySelector("button").addEventListener("click",normEl);
 	evt.target.parentNode.parentNode.appendChild(toMax);
