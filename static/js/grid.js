@@ -65,9 +65,9 @@ function newBlock() {
 function rearrangeMode() {
 	var baseNode = document.getElementById("table1");
 	var toChange = baseNode.cloneNode();
-	toChange.style.border = "30px solid blue";
+	toChange.style.border = "30px solid rgba(0,0,255,.75)";
 	toChange.style.background = "rgba(255,255,255,.75)";
-	toChange.style.zIndex = "3";
+	toChange.style.zIndex = "3000";
 	baseNode.parentNode.appendChild(toChange);
 }
 
