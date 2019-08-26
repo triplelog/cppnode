@@ -181,24 +181,22 @@ function newPage(pageId,type="main") {
       allPageNums[i].classList.remove("active");
     }
   }
-  console.log(currentPage, type, currentPage[type]);
 	var mymessage = filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",print,"+type;
-	console.log(mymessage);
 	myWorker.postMessage(mymessage);
 	tempCardJSON = {'type':"Page"};
 
 
 }
 
-function sort(sortCol) {
+function sort(sortCol,type="main") {
 
 	if (sortMode) {
 		var d = new Date();
 		var n = d.getTime();
 		console.log(n);
 		
-		var mymessage = filen+","+ (currentPage*10-10) +","+ (currentPage*10) +",sort,"+ sortCol;
-		mymessage += "|"+filen+","+ (currentPage*10-10) +","+ (currentPage*10) +",print,csv";
+		var mymessage = filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",sort,"+ sortCol;
+		mymessage += "|"+filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",print,csv";
 		myWorker.postMessage(mymessage);
 		upCheck = "abc";
 		
@@ -209,15 +207,15 @@ function sort(sortCol) {
 	
 }
 
-function newCol() {
+function newCol(type="main") {
 	
   	//Add formula to convert
   	let rawFormula = document.getElementById("newcol").value
 	let colFormula = postfixify(rawFormula);
 	console.log(colFormula);
 
-	var mymessage = filen+","+ (currentPage*10-10) +","+ (currentPage*10) +",addcol,"+ colFormula +"|";
-	mymessage += filen+","+ (currentPage*10-10) +","+ (currentPage*10) +",print,csv|";
+	var mymessage = filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",addcol,"+ colFormula +"|";
+	mymessage += filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",print,csv|";
 	mymessage += filen+","+"0,-1,addcol,"+ colFormula;
 	
 	myWorker.postMessage(mymessage);
@@ -227,14 +225,14 @@ function newCol() {
 
 }
 
-function filter() {
+function filter(type="main") {
   
 	let rawFormula = document.getElementById("filter").value;
 	let colFormula = postfixify(rawFormula);
 	console.log(colFormula);
 	
-	var mymessage = filen+","+ (currentPage*10-10) +","+ (currentPage*10) +",filter,"+ colFormula +"|";
-	mymessage += filen+","+ (currentPage*10-10) +","+ (currentPage*10) +",print,csv|";
+	var mymessage = filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",filter,"+ colFormula +"|";
+	mymessage += filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",print,csv|";
 	mymessage += filen+","+"0,-1,filter,"+ colFormula;
 	
 	myWorker.postMessage(mymessage);
