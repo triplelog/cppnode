@@ -80,7 +80,35 @@ function createPerm(tmpEl,divid) {
 				}
 			table.appendChild(tbody);
 		tableDiv.appendChild(table);
+	var pageDiv = document.createElement("div");
+	pageDiv.id = "pivotPaginate";
+		var link = document.createElement("a");
+		link.id = "pagePrev";
+		link.setAttribute("onmousedown","newPage('Previous')");
+		link.textContent = "Previous";
+		pageDiv.appendChild(link);
+		
+		link = document.createElement("a");
+		link.id = "page1";
+		link.setAttribute("onmousedown","newPage(1)");
+		link.textContent = "1";
+		link.classList.add("active");
+		pageDiv.appendChild(link);
+		for (var i=2;i<11;i++) {
+			link = document.createElement("a");
+			link.id = "page"+i;
+			link.setAttribute("onmousedown","newPage("+i+")");
+			link.textContent = i;
+			pageDiv.appendChild(link);
+		}
+		link = document.createElement("a");
+		link.id = "pageNext";
+		link.setAttribute("onmousedown","newPage('Next')");
+		link.textContent = "Next";
+		pageDiv.appendChild(link);
+	
 	tmpEl.appendChild(tableDiv);
+	tmpEl.appendChild(pageDiv);
 }
 function createTmp(allElements) {
 	var allN = allElements.length;
