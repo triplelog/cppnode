@@ -54,7 +54,7 @@ selection.on('move', evt => {
 function createPerm(tmpEl,divid) {
 	tmpEl.id = divid;
 	var maxbutton = document.createElement("button");
-	maxbutton.textContent("x");
+	maxbutton.textContent = "x";
 	maxbutton.addEventListener("click","maxEl");
 	tmpEl.appendChild(maxbutton);
 	
