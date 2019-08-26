@@ -149,6 +149,7 @@ function maxEl(evt){
 	toMax.style.gridColumn = "1 / 13";
 	toMax.style.gridRow = "1";
 	toMax.style.backgroundColor = "rgba(0,0,0,.8)";
+	toMax.style.zIndex = "2";
 	toMax.querySelector("button").addEventListener("click",normEl);
 	evt.target.parentNode.parentNode.appendChild(toMax);
 	

@@ -18,7 +18,7 @@
 
 <body>
   <div class="gridwrapper" id="gridwrapper">
-	  <div style="grid-column-start: 1; grid-column-end: 9; grid-row: 1 / 4; border: 1px dashed black;">
+	  <div style="grid-column-start: 1; grid-column-end: 9; grid-row: 1 / 4; border: 1px dashed black; z-index: -1;">
 		<div id="allCommands" class="row">
 			<div id="myCommands" style="min-height: 200px; border: 1px solid black;">
 				<div><h3 style="float: left;">My Commands</h3><button class="small" style="float: right;" onclick="clearCards();">Clear</button><button class="small" style="float: right;" onclick="runAll();">Run</button><hr style="clear: both;"></div>
@@ -483,8 +483,12 @@
 		  <input type="text" id="pivotx" /><input type="text" id="pivoty" /><input type="text" id="pivotz" /><button onclick="pivot()">Pivot</button>
 	  </div>
 	  <div style="grid-column: 1 / 2; grid-row: 9 / 10; border: 1px dashed black;">
-	  	<object data="plot.svg"></object>
+	  	<object data="plot.svg" width="100%"></object>
 	  </div>
+	  <div style="grid-column: 1 / 13; grid-row: 10; border: 1px dashed black;">
+	  	<button onclick="">Commands</button>
+	  </div>
+	  
   </div>
   <!-- Start your project here-->
 
