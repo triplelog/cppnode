@@ -10,47 +10,57 @@ for (var i=1;i<13;i++) {
 	}
 }  	  
 
-const selection = new Selection({
-	class: 'gridwrapper',
-	startThreshold: 50,
-	disableTouch: false,
-	mode: 'touch',
-	singleClick: false,
-	// Query selectors from elements which can be selected
-	selectables: ['.ui-selectable'],
-	// Query selectors for elements from where a selection can be start
-	startareas: ['html'],
-	// Query selectors for elements which will be used as boundaries for the selection
-	boundaries: ['html'],
-	// Query selector or dom node to set up container for selection-area-element
-	selectionAreaContainer: 'body',
-	// On scrollable areas the number on px per frame is devided by this amount.
-	// Default is 10 to provide a enjoyable scroll experience.
-	scrollSpeedDivider: 10
-});
-selection.on('move', evt => {
-	var addedElements = evt.changed.added;
-	var addedN = addedElements.length;
-	if (addedN > 0){
-		createTmp(evt.selected);
+var selection = 0;
+	
+function rearrangeMode() {
+	if (selection == 0) {
+		selection = new Selection({
+			class: 'gridwrapper',
+			startThreshold: 50,
+			disableTouch: false,
+			mode: 'touch',
+			singleClick: false,
+			// Query selectors from elements which can be selected
+			selectables: ['.ui-selectable'],
+			// Query selectors for elements from where a selection can be start
+			startareas: ['html'],
+			// Query selectors for elements which will be used as boundaries for the selection
+			boundaries: ['html'],
+			// Query selector or dom node to set up container for selection-area-element
+			selectionAreaContainer: 'body',
+			// On scrollable areas the number on px per frame is devided by this amount.
+			// Default is 10 to provide a enjoyable scroll experience.
+			scrollSpeedDivider: 10
+		});
+
+		selection.on('move', evt => {
+			var addedElements = evt.changed.added;
+			var addedN = addedElements.length;
+			if (addedN > 0){
+				createTmp(evt.selected);
+			}
+			else {
+				var removedElements = evt.changed.removed;
+				var removedN = removedElements.length;
+				if (removedN > 0){
+					createTmp(evt.selected);
+				}
+			}
+	
+		}).on('stop', evt => {
+			if (document.getElementById("tmpgrid")){
+				var tmpEl = document.getElementById('tmpgrid');
+				createPerm(tmpEl,"pivotTable1");
+				
+			}
+	
+		});
 	}
 	else {
-		var removedElements = evt.changed.removed;
-		var removedN = removedElements.length;
-		if (removedN > 0){
-			createTmp(evt.selected);
-		}
-	}
-	
-}).on('stop', evt => {
-	if (document.getElementById("tmpgrid")){
-		var tmpEl = document.getElementById('tmpgrid');
-		createPerm(tmpEl,"pivotTable1");
 		selection.destroy();
+		selection = 0;
 	}
-	
-});
-
+}
 function createPerm(tmpEl,divid) {
 	tmpEl.id = divid;
 	var maxbutton = document.createElement("button");
