@@ -53,6 +53,11 @@ selection.on('move', evt => {
 
 function createPerm(tmpEl,divid) {
 	tmpEl.id = divid;
+	var maxbutton = document.createElement("button");
+	maxbutton.textContent("x");
+	maxbutton.addEventListener("click","maxEl");
+	tmpEl.appendChild(maxbutton);
+	
 	var tableDiv = document.createElement("div");
 	tableDiv.classList.add("flex-center");
 	tableDiv.classList.add("flex-column");
@@ -108,4 +113,8 @@ function createTmp(allElements) {
 		newEl.id = "tmpgrid";
 		document.getElementById("gridwrapper").appendChild(newEl);
 	}
+}
+
+function maxEl(evt){
+	console.log(evt.parentNode.id);
 }
