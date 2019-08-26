@@ -116,9 +116,16 @@ function createTmp(allElements) {
 }
 
 function maxEl(evt){
-	toMax = evt.target.parentNode;
+	toMax = evt.target.parentNode.cloneNode(true);
 	toMax.style.gridColumn = "1 / 13";
+	toMax.style.gridRow = "1";
 	toMax.style.height = "100%";
-	toMax.style.backgroundColor = "rgba(0,0,0,.75)";
+	toMax.style.backgroundColor = "rgba(0,0,0,.8)";
+	toMax.querySelector("button").addEventListener("click",normEl);
 	
+}
+
+function normEl(evt){
+	toNorm = evt.target.parentNode;
+	toNorm.parentNode.removeChild(toNorm);
 }
