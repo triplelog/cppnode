@@ -66,7 +66,8 @@ function rearrangeMode() {
 	var baseNode = document.getElementById("table1");
 	var toChange = baseNode.cloneNode();
 	toChange.style.border = "30px solid blue";
-	toChange.style.background = "white";
+	toChange.style.background = "rgba(255,255,255,.75)";
+	toChange.style.zIndex = "3";
 	baseNode.parentNode.appendChild(toChange);
 }
 
