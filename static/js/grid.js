@@ -64,8 +64,8 @@ function newBlock() {
 
 function rearrangeMode() {
 	var toChange = document.getElementById("table1");
-	toChange.style.border = "20px solid blue";
-	toChange.style.background = "black";
+	toChange.style.border = "30px solid blue";
+	toChange.style.background = "white";
 }
 
 function createPerm(tmpEl,divid) {
