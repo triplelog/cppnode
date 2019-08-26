@@ -181,7 +181,7 @@ function newPage(pageId,type="main") {
       allPageNums[i].classList.remove("active");
     }
   }
-  
+  console.log(currentPage, type, currentPage[type]);
 	var mymessage = filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",print,"+type;
 	myWorker.postMessage(mymessage);
 	tempCardJSON = {'type':"Page"};
