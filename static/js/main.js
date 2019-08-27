@@ -196,7 +196,8 @@ function sort(sortCol,type="main") {
 		console.log(n);
 		
 		var mymessage = filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",sort,"+ sortCol;
-		mymessage += "|"+filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",print,csv";
+		myWorker.postMessage(mymessage);
+		mymessage = filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",print,"+type;
 		myWorker.postMessage(mymessage);
 		upCheck = "abc";
 		
@@ -214,11 +215,13 @@ function newCol(type="main") {
 	let colFormula = postfixify(rawFormula);
 	console.log(colFormula);
 
-	var mymessage = filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",addcol,"+ colFormula +"|";
-	mymessage += filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",print,csv|";
-	mymessage += filen+","+"0,-1,addcol,"+ colFormula;
-	
+	var mymessage = filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",addcol,"+ colFormula;
 	myWorker.postMessage(mymessage);
+	mymessage = filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",print,"+type;
+	myWorker.postMessage(mymessage);
+	mymessage = filen+","+"0,-1,addcol,"+ colFormula;
+	myWorker.postMessage(mymessage);
+	
 	upCheck = "abc";
 	tempCardJSON = {'type':"AddColumn",'rawFormula':rawFormula,'colFormula':colFormula};
 	
@@ -231,11 +234,13 @@ function filter(type="main") {
 	let colFormula = postfixify(rawFormula);
 	console.log(colFormula);
 	
-	var mymessage = filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",filter,"+ colFormula +"|";
-	mymessage += filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",print,csv|";
-	mymessage += filen+","+"0,-1,filter,"+ colFormula;
-	
+	var mymessage = filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",filter,"+ colFormula;
 	myWorker.postMessage(mymessage);
+	mymessage = filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",print,"+type;
+	myWorker.postMessage(mymessage);
+	mymessage = filen+","+"0,-1,filter,"+ colFormula;
+	myWorker.postMessage(mymessage);
+	
 	upCheck = "abc";
 	tempCardJSON = {'type':"Filter",'filterText':rawFormula,'filterCode':mymessage};
 
