@@ -294,7 +294,6 @@ function toggleSort() {
 	else {sortMode = true;}
 }
 
-document.getElementById("perPage").addEventListener("oninput",setPerPage);
 
 function setPerPage() {
 	var npp = document.getElementById("perPage").value;
