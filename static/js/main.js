@@ -316,9 +316,21 @@ function setPerPage(type='main') {
 	var npp = document.getElementById("perPage"+type).value;
 	console.log(npp);
 	if (parseInt(npp)>0){
-		var mymessage = filen+","+(currentPage[type]*currentPerPage[type]-currentPerPage[type]) +","+ (currentPage[type]*currentPerPage[type]-currentPerPage[type] + parseInt(npp))+",print,"+type;
-		myWorker.postMessage(mymessage);
+		currentPage[type] = 1;
 		currentPerPage[type] = parseInt(npp);
+		var allPages = document.getElementById("paginate"+type);
+	  var allPageNums = allPages.querySelectorAll("a");
+	  for (var i=0;i<allPageNums.length;i++) {
+		if (allPageNums[i].id == "page"+currentPage[type]){
+		  allPageNums[i].classList.add("active");
+		}
+		else {
+		  allPageNums[i].classList.remove("active");
+		}
+	  }
+		var mymessage = filen+","+(currentPage[type]*currentPerPage[type]-currentPerPage[type]) +","+ (currentPage[type]*currentPerPage[type])+",print,"+type;
+		myWorker.postMessage(mymessage);
+		
 		tempCardJSON = {'type':"Page"};
 	}
 }
