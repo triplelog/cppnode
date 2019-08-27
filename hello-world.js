@@ -55,7 +55,13 @@ function intervalFunc(ws, messagefname) {
 			if (!err) {
 				if (stats.isFile() && stats.size > 16) {
 					fs.readFile(messagefname, 'utf8', function(err, data) {
-						ws.send(data);
+						if (data.substring(0,22) != "completedwithoutoutput"){
+							console.log(data);
+							ws.send(data);
+						}
+						else {
+							console.log("ddd",data);
+						}
 
 					});
 					allmessagefname.splice(0,1);
