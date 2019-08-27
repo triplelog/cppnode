@@ -76,7 +76,9 @@ function intervalFunc(ws, messagefname) {
 
 						setTimeout(intervalFunc,5, ws, messagefname);
 					}
-					setTimeout(deleteFunc,1000, messagefname)
+					else {
+						setTimeout(deleteFunc,10, messagefname);
+					}
 				}
 			}
 			else {
