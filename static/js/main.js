@@ -1,7 +1,6 @@
 //const pageNum = document.querySelector('#pageNum');
 
-const table1head = document.querySelector('#table1head');
-const table1body = document.querySelector('#table1body');
+
 var currentPage = {"main":1,"pivot":1,"streak":1};
 var currentPerPage = {"main":10,"pivot":10,"streak":10};
 var sortMode = true;
@@ -22,13 +21,13 @@ myWorker.onmessage = function(e) {
 	let retmess = JSON.parse(e.data);
 	if (retmess[0][0] == 'Rk') {
 		document.getElementById('table1').style.display = "block";
-		regularTable(retmess);
+		chgTable(retmess);
 	}
 	else if (retmess[0][0] == 'PivotRk') {
-		pivotTable(retmess);
+		chgTable(retmess,'tableP');
 	}
 	else if (retmess[0][0] == 'StreakRk') {
-		pivotTable(retmess);
+		chgTable(retmess,'tableS');
 	}
 	
 	
@@ -42,7 +41,11 @@ myWorker.onmessage = function(e) {
   	}
 }
 
-function regularTable(retmess){
+function chgTable(retmess,tablePrefix="table1"){
+	const tablePhead = document.querySelector('#'+tablePrefix+'head');
+	const tablePbody = document.querySelector('#'+tablePrefix+'body');
+	tablePhead.style.display = "flex";
+	tablePbody.style.display = "flex";
 	const headrow = table1head.querySelector('tr');
 	const headers = headrow.querySelectorAll('th');
 	for (var ii=0;ii<100;ii++) {
@@ -112,64 +115,7 @@ function regularTable(retmess){
 	}
 }
 
-function pivotTable(retmess){
-	//var pt1 = document.getElementById('pivotTable1');
-	//pt1.style.gridColumn = '1 / 7';
-	const tablePhead = document.querySelector('#tablePhead');
-	const tablePbody = document.querySelector('#tablePbody');
-	tablePhead.style.display = "flex";
-	tablePbody.style.display = "flex";
-	const headrow = tablePhead.querySelector('tr');
-	const headers = headrow.querySelectorAll('th');
-	retmess[0][0] = 'Rk';
-	for (var ii=0;ii<100;ii++) {
-		if (ii*2 + 1 < retmess[0].length && ii < headers.length) {
-			headers[ii].textContent = retmess[0][ii*2];
-			headers[ii].setAttribute('onmousedown',"sort("+retmess[0][ii*2 + 1]+")");
-			headers[ii].id = "cHeader"+retmess[0][ii*2 + 1];
-			headers[ii].style.display = 'table-cell';
-		}
-		else if (ii < headers.length) {
-			headers[ii].style.display = 'none';
-		}
-		else if (ii*2 + 1 < retmess[0].length) {
-			var newHeader = document.createElement("th");
-			newHeader.textContent = retmess[0][ii*2];
-			newHeader.setAttribute('onmousedown',"sort("+retmess[0][ii*2 + 1]+")");
-			newHeader.id = "cHeader"+retmess[0][ii*2 + 1];
-			newHeader.style.display = 'table-cell';
-			newHeader.classList.add("th-sm");
-			headrow.appendChild(newHeader);
-		}
-		else {
-			break;
-		}
-	}
-	
-	
-	const rows = tablePbody.querySelectorAll('tr');
-	for (var i=0;i<10;i++){
-		const results = rows[i].querySelectorAll('td');
-		for (var ii=0;ii<100;ii++) {
-			if (ii < retmess[i+1].length && ii < results.length) {
-				results[ii].textContent = retmess[i+1][ii]; //add one because of header
-				results[ii].style.display = 'table-cell';
-			}
-			else if (ii < results.length) {
-				results[ii].style.display = 'none';
-			}
-			else if (ii < retmess[i+1].length) {
-				var newResult = document.createElement("td");
-				newResult.textContent = retmess[i+1][ii];
-				newResult.style.display = 'table-cell';
-				rows[i].appendChild(newResult);
-			}
-			else {
-				break;
-			}
-		}
-	}
-}
+
 
 function newPage(pageId,type="main") {
   

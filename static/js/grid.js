@@ -50,7 +50,7 @@ function newBlock() {
 		}).on('stop', evt => {
 			if (document.getElementById("tmpgrid")){
 				var tmpEl = document.getElementById('tmpgrid');
-				createPerm(tmpEl,"pivotTable1");
+				createPerm(tmpEl,"pivotTable1",'tableP','pivot');
 				
 			}
 	
@@ -71,7 +71,7 @@ function rearrangeMode() {
 	baseNode.parentNode.appendChild(toChange);
 }
 
-function createPerm(tmpEl,divid) {
+function createPerm(tmpEl,divid,tablePrefix="tableP",tabletype="pivot") {
 	tmpEl.id = divid;
 	var maxbutton = document.createElement("button");
 	maxbutton.textContent = "F";
@@ -86,14 +86,14 @@ function createPerm(tmpEl,divid) {
 		table.classList.add("hoverable");
 			var thead = document.createElement("thead");
 			thead.style.display = "none";
-			thead.id = "tablePhead";
+			thead.id = tablePrefix+"head";
 				var tr = document.createElement("tr");
-				tr.id = "movePColumns";
+				tr.id = "move"+tablePrefix+"Columns";
 				thead.appendChild(tr);
 			table.appendChild(thead);
 			var tbody = document.createElement("tbody");
 			tbody.style.display = "none";
-			tbody.id = "tablePbody";
+			tbody.id = tablePrefix+"body";
 				for (var i=0;i<10;i++) {
 					var tr2 = document.createElement("tr");
 					tbody.appendChild(tr2);
@@ -101,30 +101,30 @@ function createPerm(tmpEl,divid) {
 			table.appendChild(tbody);
 		tableDiv.appendChild(table);
 	var pageDiv = document.createElement("div");
-	pageDiv.id = "paginatepivot";
+	pageDiv.id = "paginate"+tabletype;
 	pageDiv.classList.add('paginate');
 		var link = document.createElement("a");
 		link.id = "pagePrev";
-		link.setAttribute("onmousedown","newPage('Previous','pivot')");
+		link.setAttribute("onmousedown","newPage('Previous','"+tabletype+"')");
 		link.textContent = "Previous";
 		pageDiv.appendChild(link);
 		
 		link = document.createElement("a");
 		link.id = "page1";
-		link.setAttribute("onmousedown","newPage(1,'pivot')");
+		link.setAttribute("onmousedown","newPage(1,'"+tabletype+"')");
 		link.textContent = "1";
 		link.classList.add("active");
 		pageDiv.appendChild(link);
 		for (var i=2;i<11;i++) {
 			link = document.createElement("a");
 			link.id = "page"+i;
-			link.setAttribute("onmousedown","newPage("+i+",'pivot')");
+			link.setAttribute("onmousedown","newPage("+i+",'"+tabletype+"')");
 			link.textContent = i;
 			pageDiv.appendChild(link);
 		}
 		link = document.createElement("a");
 		link.id = "pageNext";
-		link.setAttribute("onmousedown","newPage('Next','pivot')");
+		link.setAttribute("onmousedown","newPage('Next','"+tabletype+"')");
 		link.textContent = "Next";
 		pageDiv.appendChild(link);
 	
