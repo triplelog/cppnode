@@ -71,17 +71,26 @@ function regularTable(retmess){
 		}
 	}
 	
-	
-	const rows = table1body.querySelectorAll('tr');
+	var rows = table1body.querySelectorAll('tr');
 	for (var i=0;i<retmess.length-1;i++){
-		var results;
-		if (rows.length > i) {
-			 results = rows[i].querySelectorAll('td');
+		if (rows.length <= i) {
+			var newrow = document.createElement('tr');
+			table1body.appendChild(newrow);
+		}
+	}
+	rows = table1body.querySelectorAll('tr');
+	for (var i=0;i<rows.length-1;i++){
+		if (retmess.length <= i) {
+			rows[i].style.display = 'none';
 		}
 		else {
-			results = document.createElement('tr');
-			table1body.appendChild(results);
+			rows[i].style.display = 'flex';
 		}
+	}
+	
+	for (var i=0;i<retmess.length-1;i++){
+
+		const results = rows[i].querySelectorAll('td');
 		for (var ii=0;ii<100;ii++) {
 			if (ii < retmess[i+1].length && ii < results.length) {
 				results[ii].textContent = retmess[i+1][ii]; //add one because of header
