@@ -11,8 +11,8 @@ const wss = new WebSocket.Server({ port: 8080 });
 const { exec } = require('child_process');
 
 exec('"../cppsv/asthreefilespart" 31 batterleader');
-fs.File("quicktxt.txt", "", (err) => {});
-fs.File("slowtxt.txt", "", (err) => {});
+fs.writeFile("quicktxt.txt", "", (err) => {});
+fs.writeFile("slowtxt.txt", "", (err) => {});
 var allmessages = {};
 wss.on('connection', function connection(ws) {
 	
