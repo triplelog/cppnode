@@ -38,7 +38,7 @@ wss.on('connection', function connection(ws) {
 	allmessages[messagefname].push(message);
 	
 	if (allmessages[messagefname].length == 1) {
-		if (message.split(",")[3] == 'print'){
+		if (message.split(",")[3] == 'print' || nmessage.split(",")[3] == 'display' || (nmessage.split(",")[3] == 'addcol' && nmessage.split(",")[2] != '-1')){
 			fs.appendFile("quicktxt.txt", message, (err) => {});
 		}
 		else {
