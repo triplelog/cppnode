@@ -73,8 +73,15 @@ function regularTable(retmess){
 	
 	
 	const rows = table1body.querySelectorAll('tr');
-	for (var i=0;i<10;i++){
-		const results = rows[i].querySelectorAll('td');
+	for (var i=0;i<retmess.length-1;i++){
+		const results;
+		if (rows.length > i) {
+			 results = rows[i].querySelectorAll('td');
+		}
+		else {
+			results = document.createElement('tr');
+			table1body.appendChild(results);
+		}
 		for (var ii=0;ii<100;ii++) {
 			if (ii < retmess[i+1].length && ii < results.length) {
 				results[ii].textContent = retmess[i+1][ii]; //add one because of header
@@ -299,8 +306,10 @@ function toggleSort() {
 function setPerPage(type='main') {
 	var npp = document.getElementById("perPage"+type).value;
 	console.log(npp);
-	var mymessage = filen+","+(currentPage[type]*currentPerPage[type]-currentPerPage[type]) +","+ (currentPage[type]*currentPerPage[type]-currentPerPage[type] + parseInt(npp))+",print,"+type;
-	myWorker.postMessage(mymessage);
-	currentPerPage[type] = parseInt(npp);
-	tempCardJSON = {'type':"Page"};
+	if (parseInt(npp)>0){
+		var mymessage = filen+","+(currentPage[type]*currentPerPage[type]-currentPerPage[type]) +","+ (currentPage[type]*currentPerPage[type]-currentPerPage[type] + parseInt(npp))+",print,"+type;
+		myWorker.postMessage(mymessage);
+		currentPerPage[type] = parseInt(npp);
+		tempCardJSON = {'type':"Page"};
+	}
 }
