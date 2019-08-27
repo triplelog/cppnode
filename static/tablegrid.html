@@ -473,8 +473,8 @@
 			<a onmousedown="newPage(6)" id="page6">6</a>
 			<a onmousedown="newPage('Next')" id="pageNext">Next</a>
 		</span>
-		<input type="number" id="pageNumber" value="10"></input>
-		<button onclick="">Columns</button>
+		<input type="number" id="perPage" value="10"></input>
+		<button onclick="toggleSort()">Columns</button>
 	  </div>
 
 
@@ -482,10 +482,9 @@
 		  <div class="col-sm-12 col-md-7"><input type="text" id="newcol" /><button onmousedown="newCol()">New Column</button></div>
 		  <div class="col-sm-12 col-md-7"><input type="text" id="filter" /><button onmousedown="filter()">Filter</button></div>
 		  <div class="col-sm-12 col-md-7"><input type="text" id="streak" /><button onmousedown="streak()">Streak</button></div>
-		  <button onclick="toggleSort()">Sort Mode</button>
 		  <input type="text" id="pivotx" /><input type="text" id="pivoty" /><input type="text" id="pivotz" /><button onclick="pivot()">Pivot</button>
 	  </div>
-	  <div style="grid-column: 1 / 2; grid-row: 9 / 10; border: 1px dashed black;">
+	  <div style="grid-column: 1 / 3; grid-row: 6 / 8; border: 1px dashed black;">
 	  	<object data="plot.svg" width="100%"></object>
 	  </div>
 	  <div style="grid-column: 1 / 13; grid-row: 10; border: 1px dashed black; background: blue;">

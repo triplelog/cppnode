@@ -293,3 +293,10 @@ function toggleSort() {
 	if (sortMode){sortMode = false;}
 	else {sortMode = true;}
 }
+
+document.getElementById("perPage").addEventListener("onchange",setPerPage);
+
+function setPerPage() {
+	var npp = document.getElementById("perPage").value;
+	console.log(npp);
+}
