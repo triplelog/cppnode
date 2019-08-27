@@ -79,8 +79,8 @@ function regularTable(retmess){
 		}
 	}
 	rows = table1body.querySelectorAll('tr');
-	for (var i=0;i<rows.length-1;i++){
-		if (retmess.length <= i) {
+	for (var i=0;i<rows.length;i++){
+		if (retmess.length-1 <= i) {
 			rows[i].style.display = 'none';
 		}
 		else {
