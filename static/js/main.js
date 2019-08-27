@@ -74,7 +74,7 @@ function regularTable(retmess){
 	
 	const rows = table1body.querySelectorAll('tr');
 	for (var i=0;i<retmess.length-1;i++){
-		const results;
+		var results;
 		if (rows.length > i) {
 			 results = rows[i].querySelectorAll('td');
 		}
