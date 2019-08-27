@@ -64,7 +64,7 @@ function intervalFunc(ws, messagefname) {
 						}
 
 					});
-					allmessagefname.splice(0,1);
+					allmessages[messagefname].splice(0,1);
 					if (allmessages[messagefname].length > 0) {
 						nmessage = allmessages[messagefname][0];
 						if (nmessage.split(",")[3] == 'print'){
