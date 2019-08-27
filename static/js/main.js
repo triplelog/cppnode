@@ -3,6 +3,7 @@
 const table1head = document.querySelector('#table1head');
 const table1body = document.querySelector('#table1body');
 var currentPage = {"main":1,"pivot":1,"streak":1};
+var currentPerPage = {"main":10,"pivot":10,"streak":10};
 var sortMode = true;
 var colInfo = {};
 var upCheck = "";
@@ -184,7 +185,7 @@ function newPage(pageId,type="main") {
       allPageNums[i].classList.remove("active");
     }
   }
-	var mymessage = filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",print,"+type;
+	var mymessage = filen+","+ (currentPage[type]*currentPerPage[type]-currentPerPage[type]) +","+ (currentPage[type]*currentPerPage[type]) +",print,"+type;
 	myWorker.postMessage(mymessage);
 	tempCardJSON = {'type':"Page"};
 
@@ -198,9 +199,9 @@ function sort(sortCol,type="main") {
 		var n = d.getTime();
 		console.log(n);
 		
-		var mymessage = filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",sort,"+ sortCol;
+		var mymessage = filen+","+ (currentPage[type]*currentPerPage[type]-currentPerPage[type]) +","+ (currentPage[type]*currentPerPage[type]) +",sort,"+ sortCol;
 		myWorker.postMessage(mymessage);
-		mymessage = filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",print,"+type;
+		mymessage = filen+","+ (currentPage[type]*currentPerPage[type]-currentPerPage[type]) +","+ (currentPage[type]*currentPerPage[type]) +",print,"+type;
 		myWorker.postMessage(mymessage);
 		upCheck = "abc";
 		
@@ -218,9 +219,9 @@ function newCol(type="main") {
 	let colFormula = postfixify(rawFormula);
 	console.log(colFormula);
 
-	var mymessage = filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",addcol,"+ colFormula;
+	var mymessage = filen+","+ (currentPage[type]*currentPerPage[type]-currentPerPage[type]) +","+ (currentPage[type]*currentPerPage[type]) +",addcol,"+ colFormula;
 	myWorker.postMessage(mymessage);
-	mymessage = filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",print,"+type;
+	mymessage = filen+","+ (currentPage[type]*currentPerPage[type]-currentPerPage[type]) +","+ (currentPage[type]*currentPerPage[type]) +",print,"+type;
 	myWorker.postMessage(mymessage);
 	mymessage = filen+","+"0,-1,addcol,"+ colFormula;
 	myWorker.postMessage(mymessage);
@@ -237,9 +238,9 @@ function filter(type="main") {
 	let colFormula = postfixify(rawFormula);
 	console.log(colFormula);
 	
-	var mymessage = filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",filter,"+ colFormula;
+	var mymessage = filen+","+ (currentPage[type]*currentPerPage[type]-currentPerPage[type]) +","+ (currentPage[type]*currentPerPage[type]) +",filter,"+ colFormula;
 	myWorker.postMessage(mymessage);
-	mymessage = filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",print,"+type;
+	mymessage = filen+","+ (currentPage[type]*currentPerPage[type]-currentPerPage[type]) +","+ (currentPage[type]*currentPerPage[type]) +",print,"+type;
 	myWorker.postMessage(mymessage);
 	mymessage = filen+","+"0,-1,filter,"+ colFormula;
 	myWorker.postMessage(mymessage);
@@ -255,9 +256,9 @@ function streak(type="streak") {
 	let colFormula = postfixify(rawFormula);
 	console.log(colFormula);
 	
-	var mymessage = filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",streak,"+ colFormula;
+	var mymessage = filen+","+ (currentPage[type]*currentPerPage[type]-currentPerPage[type]) +","+ (currentPage[type]*currentPerPage[type]) +",streak,"+ colFormula;
 	myWorker.postMessage(mymessage);
-	mymessage = filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",print,"+type;
+	mymessage = filen+","+ (currentPage[type]*currentPerPage[type]-currentPerPage[type]) +","+ (currentPage[type]*currentPerPage[type]) +",print,"+type;
 	myWorker.postMessage(mymessage);
 	
 	upCheck = "abc";
@@ -295,7 +296,11 @@ function toggleSort() {
 }
 
 
-function setPerPage() {
-	var npp = document.getElementById("perPage").value;
+function setPerPage(type='main') {
+	var npp = document.getElementById("perPage"+type).value;
 	console.log(npp);
+	var mymessage = filen+","+(currentPage[type]*currentPerPage[type]-currentPerPage[type]) +","+ (currentPage[type]*currentPerPage[type]-currentPerPage[type] + parseInt(npp))+",print,"+type;
+	myWorker.postMessage(mymessage);
+	currentPerPage[type] = parseInt(npp);
+	tempCardJSON = {'type':"Page"};
 }
