@@ -513,7 +513,8 @@
   <script>
   	 setTimeout(sendFirst,1000);
   	 function sendFirst() {
-  	 	myWorker.postMessage(filen+',0,10,print,csv');
+  	 	myWorker.postMessage(filen+',0,10,sort,0');
+  	 	myWorker.postMessage(filen+',0,10,print,main');
   	 }
   </script>
   

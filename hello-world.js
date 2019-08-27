@@ -10,9 +10,10 @@ const WebSocket = require('ws');
 const wss = new WebSocket.Server({ port: 8080 });
 const { exec } = require('child_process');
 
-exec('"../cppsv/asthreefilespart" 31 batterleader newtesttxt.txt');
-
+exec('"../cppsv/asthreefilespart" 31 batterleader');
+var allmessages = {};
 wss.on('connection', function connection(ws) {
+	
   ws.on('message', function incoming(message) {
   	
   	message += '\n';
@@ -29,9 +30,21 @@ wss.on('connection', function connection(ws) {
 	//wss.clients.forEach(function each(client) {
 	//	client.send("hi");
 	//});
-	fs.appendFile("newtesttxt.txt", message, (err) => {});
+	if (!allmessages[messagefname]) {
+		allmessages[messagefname] = [];
+	}
+	allmessages[messagefname].push(message);
 	
-	setTimeout(intervalFunc,5, ws, messagefname);
+	if (allmessages[messagefname].length == 1) {
+		if (message.split(",")[3] == 'print'){
+			fs.appendFile("quicktxt.txt", message, (err) => {});
+		}
+		else {
+			fs.appendFile("slowtxt.txt", message, (err) => {});
+		}
+	
+		setTimeout(intervalFunc,5, ws, messagefname);
+	}
 	
 	
   });
@@ -43,8 +56,20 @@ function intervalFunc(ws, messagefname) {
 				if (stats.isFile() && stats.size > 16) {
 					fs.readFile(messagefname, 'utf8', function(err, data) {
 						ws.send(data);
-						
+
 					});
+					allmessagefname.splice(0,1);
+					if (allmessages[messagefname].length > 0) {
+						nmessage = allmessages[messagefname][0];
+						if (nmessage.split(",")[3] == 'print'){
+							fs.appendFile("quicktxt.txt", nmessage, (err) => {});
+						}
+						else {
+							fs.appendFile("slowtxt.txt", nmessage, (err) => {});
+						}
+
+						setTimeout(intervalFunc,5, ws, messagefname);
+					}
 					setTimeout(deleteFunc,1000, messagefname)
 				}
 			}
