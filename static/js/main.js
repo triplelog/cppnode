@@ -54,7 +54,7 @@ function chgTable(retmess,tablePrefix="table1"){
 			headers[ii].setAttribute('onmousedown',"sort("+retmess[0][ii*2 + 1]+")");
 			headers[ii].id = "cHeader"+retmess[0][ii*2 + 1];
 			headers[ii].style.display = 'table-cell';
-			colInfo[parseInt(retmess[0][ii*2 + 1])]=retmess[0][ii*2];
+			if (tablePrefix=="table1") {colInfo[parseInt(retmess[0][ii*2 + 1])]=retmess[0][ii*2];}
 		}
 		else if (ii < headers.length) {
 			headers[ii].style.display = 'none';
@@ -66,7 +66,7 @@ function chgTable(retmess,tablePrefix="table1"){
 			newHeader.id = "cHeader"+retmess[0][ii*2 + 1];
 			newHeader.style.display = 'table-cell';
 			newHeader.classList.add("th-sm");
-			colInfo[retmess[0][ii*2 + 1]]=retmess[0][ii*2];
+			if (tablePrefix=="table1") {colInfo[retmess[0][ii*2 + 1]]=retmess[0][ii*2];}
 			headrow.appendChild(newHeader);
 		}
 		else {
