@@ -262,7 +262,8 @@ function pivot() {
 		}
 	}
 	var mymessage = filen+","+"0,10,pivot,"+xcol+"@"+ycol+"@"+zcol;
-	
+	myWorker.postMessage(mymessage);
+	mymessage = filen+","+"0,10,print,pivot";
 	myWorker.postMessage(mymessage);
 	upCheck = "abc";
 	tempCardJSON = {'type':"Pivot",'pviotText':"",'pivotCode':""};
