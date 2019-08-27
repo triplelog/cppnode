@@ -42,10 +42,10 @@ myWorker.onmessage = function(e) {
 }
 
 function chgTable(retmess,tablePrefix="table1"){
-	const tablePhead = document.querySelector('#'+tablePrefix+'head');
-	const tablePbody = document.querySelector('#'+tablePrefix+'body');
-	tablePhead.style.display = "flex";
-	tablePbody.style.display = "flex";
+	const table1head = document.querySelector('#'+tablePrefix+'head');
+	const table1body = document.querySelector('#'+tablePrefix+'body');
+	table1head.style.display = "flex";
+	table1body.style.display = "flex";
 	const headrow = table1head.querySelector('tr');
 	const headers = headrow.querySelectorAll('th');
 	for (var ii=0;ii<100;ii++) {
