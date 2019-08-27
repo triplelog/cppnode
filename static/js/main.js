@@ -2,7 +2,7 @@
 
 const table1head = document.querySelector('#table1head');
 const table1body = document.querySelector('#table1body');
-var currentPage = {"main":1,"pivot":1};
+var currentPage = {"main":1,"pivot":1,"streak":1};
 var sortMode = true;
 var colInfo = {};
 var upCheck = "";
@@ -24,6 +24,9 @@ myWorker.onmessage = function(e) {
 		regularTable(retmess);
 	}
 	else if (retmess[0][0] == 'PivotRk') {
+		pivotTable(retmess);
+	}
+	else if (retmess[0][0] == 'StreakRk') {
 		pivotTable(retmess);
 	}
 	
@@ -243,6 +246,22 @@ function filter(type="main") {
 	
 	upCheck = "abc";
 	tempCardJSON = {'type':"Filter",'filterText':rawFormula,'filterCode':mymessage};
+
+}
+
+function streak(type="streak") {
+  
+	let rawFormula = document.getElementById("streak").value;
+	let colFormula = postfixify(rawFormula);
+	console.log(colFormula);
+	
+	var mymessage = filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",streak,"+ colFormula;
+	myWorker.postMessage(mymessage);
+	mymessage = filen+","+ (currentPage[type]*10-10) +","+ (currentPage[type]*10) +",print,"+type;
+	myWorker.postMessage(mymessage);
+	
+	upCheck = "abc";
+	tempCardJSON = {'type':"Streak",'filterText':rawFormula,'filterCode':mymessage};
 
 }
 
