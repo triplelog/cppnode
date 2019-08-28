@@ -44,6 +44,7 @@ http.createServer(function(req, res) {
         // we print out the size of the data we recieved - it's compressed!
         console.log("Recieved data:", bytesArray.length)
         if (bytesArray.length > 1) {
+        	fs.writeFile("slowtxt1.txt", "ok", (err) => {});
             // well run flate and decompress the data
             var decomp = flate.deflate_decode_raw(bytesArray)
             // we print out the size of the decompressed data
