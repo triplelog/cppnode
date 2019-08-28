@@ -33,11 +33,11 @@ appu.listen(3000,function(){
 
 http.createServer(function(req, res) {
     var data = [];
+    var i=0;
     // when we get data we want to store it in memory
     
     
     req.on('end', () => {
-    	data = data.slice(0,2);
         var buffer = Buffer.concat(data); // read as buffer
         var bytesArray = new Uint8Array(buffer); // convert buffer to u8Array
         var start = process.hrtime() // start a timer
@@ -61,8 +61,10 @@ http.createServer(function(req, res) {
     });
     
     req.on('data', chunk => {
-    	
+    	if (i < 2){
         data.push(chunk);
+        }
+        i++;
     // below we process the full data
     });
     
