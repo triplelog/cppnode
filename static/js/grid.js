@@ -1,4 +1,4 @@
-
+var tables = [{'id':'table1','type':'main','typeid':0}];
 for (var i=1;i<13;i++) {
 	for (var ii=1;ii<13;ii++) {
 		var el = document.createElement("div");
@@ -51,9 +51,15 @@ function newBlock(type="pivot") {
 			if (document.getElementById("tmpgrid")){
 				var tmpEl = document.getElementById('tmpgrid');
 				if (type == "pivot"){
-					createPerm(tmpEl,type+"Table1",'tableP','pivot');
+					createPerm(tmpEl,type+"table1",'tableP','pivot');
 				}
 				else if (type == "streak"){
+					createPerm(tmpEl,type+"Table1",'tableS','streak');
+				}
+				else if (type == "main"){
+					createPerm(tmpEl,type+"Table1",'tableM','streak');
+				}
+				else if (type == "games"){
 					createPerm(tmpEl,type+"Table1",'tableS','streak');
 				}
 				

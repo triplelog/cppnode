@@ -11,7 +11,9 @@ var tempCardJSON = {};
 var filenn = Math.random().toString(36).substring(5, 10)
 var filen = "ff"+filenn+".csv";
 var pivottables = -1;
+var pivotc = {};
 var streaktables = -1;
+var streakc = {};
 const myWorker = new Worker("js/worker.js");
 
 
@@ -20,15 +22,16 @@ const myWorker = new Worker("js/worker.js");
 myWorker.onmessage = function(e) {
 	
 	let retmess = JSON.parse(e.data);
+	let gridid = 'grid1';
 	if (retmess[0][0] == 'Rk') {
-		document.getElementById('table1').style.display = "block";
-		chgTable(retmess);
+		//document.getElementById('table1').style.display = "block";
+		chgTable(retmess,gridid,'main');
 	}
 	else if (retmess[0][0] == 'PivotRk') {
-		chgTable(retmess,'tableP');
+		chgTable(retmess,gridid,'pivot');
 	}
 	else if (retmess[0][0] == 'StreakRk') {
-		chgTable(retmess,'tableS');
+		chgTable(retmess,gridid,'streak');
 	}
 	
 	
@@ -42,9 +45,13 @@ myWorker.onmessage = function(e) {
   	}
 }
 
-function chgTable(retmess,tablePrefix="table1"){
-	const table1head = document.querySelector('#'+tablePrefix+'head');
-	const table1body = document.querySelector('#'+tablePrefix+'body');
+function chgTable(retmess,gridid,type){
+	const maingrid = document.getElementById(gridid);
+	if (maingrid.querySelectorAll('.tablehead').length == 0){
+		makeTable(maingrid);
+	}
+	const table1head = maingrid.querySelector('.tablehead');
+	const table1body = maingrid.querySelector('.tablebody');
 	table1head.style.display = "flex";
 	table1body.style.display = "flex";
 	const headrow = table1head.querySelector('tr');
@@ -56,7 +63,7 @@ function chgTable(retmess,tablePrefix="table1"){
 			headers[ii].setAttribute('onmousedown',"sort("+retmess[0][ii*2 + 1]+")");
 			headers[ii].id = "cHeader"+retmess[0][ii*2 + 1];
 			headers[ii].style.display = 'table-cell';
-			if (tablePrefix=="table1") {colInfo[parseInt(retmess[0][ii*2 + 1])]=retmess[0][ii*2];}
+			if (type=='main') {colInfo[parseInt(retmess[0][ii*2 + 1])]=retmess[0][ii*2];}
 		}
 		else if (ii < headers.length) {
 			headers[ii].style.display = 'none';
@@ -68,7 +75,7 @@ function chgTable(retmess,tablePrefix="table1"){
 			newHeader.id = "cHeader"+retmess[0][ii*2 + 1];
 			newHeader.style.display = 'table-cell';
 			newHeader.classList.add("th-sm");
-			if (tablePrefix=="table1") {colInfo[retmess[0][ii*2 + 1]]=retmess[0][ii*2];}
+			if (type=='main') {colInfo[retmess[0][ii*2 + 1]]=retmess[0][ii*2];}
 			headrow.appendChild(newHeader);
 		}
 		else {
@@ -299,4 +306,54 @@ function setPerPage(type='main') {
 function save() {
 	console.log(myInstructions);
 	myWorker.postMessage('Save:myname:'+myInstructions);
+}
+
+function makeTable(tmpEl) {
+	tmpEl.innerHTML = '';
+	var maxbutton = document.createElement("button");
+	maxbutton.textContent = "F";
+	maxbutton.addEventListener("click",maxEl);
+	tmpEl.appendChild(maxbutton);
+	
+	var tableDiv = document.createElement("div");
+	tableDiv.classList.add("flex-center");
+	tableDiv.classList.add("flex-column");
+		var table = document.createElement("table");
+		table.classList.add("striped");
+		table.classList.add("hoverable");
+			var thead = document.createElement("thead");
+			thead.style.display = "flex";
+			thead.classList.add("tablehead");
+				var tr = document.createElement("tr");
+				thead.appendChild(tr);
+			table.appendChild(thead);
+			var tbody = document.createElement("tbody");
+			tbody.style.display = "flex";
+			tbody.classList.add("tablebody");
+			table.appendChild(tbody);
+		tableDiv.appendChild(table);
+	var pageDiv = document.createElement("div");
+	pageDiv.classList.add('paginate');
+		var link = document.createElement("a");
+		link.id = "pagePrev";
+		link.textContent = "Previous";
+		pageDiv.appendChild(link);
+		
+		link = document.createElement("a");
+		link.id = "page1";
+		link.textContent = "1";
+		link.classList.add("active");
+		pageDiv.appendChild(link);
+		for (var i=2;i<11;i++) {
+			link = document.createElement("a");
+			link.id = "page"+i;
+			link.textContent = i;
+			pageDiv.appendChild(link);
+		}
+		link = document.createElement("a");
+		link.id = "pageNext";
+		link.textContent = "Next";
+		pageDiv.appendChild(link);
+	tmpEl.appendChild(tableDiv);
+	tmpEl.appendChild(pageDiv);
 }

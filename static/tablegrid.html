@@ -40,70 +40,7 @@
 			</div>
 		</div>
 	  </div>
-	  <div style="grid-column: 1 / 13; grid-row: 1 / 4; border: 1px dashed black; display: none;" id="table1">
-		<div class="flex-center flex-column">
-
-		  <table class="striped hoverable">
-			<thead id="table1head">
-			  <tr id="moveColumns">
-			  </tr>
-			</thead>
-			<tbody id="table1body">
-			  <tr></tr>
-			</tbody>
-			<!--
-			<tfoot>
-			  <tr>
-				<th class="th-sm">Rank</th>
-				<th class="th-sm">PID</th>
-				<th class="th-sm">C1</th>
-				<th class="th-sm">C2</th>
-				<th class="th-sm">C3</th>
-				<th class="th-sm">C4</th>
-				<th class="th-sm">C5</th>
-				<th class="th-sm">C6</th>
-				<th class="th-sm">C7</th>
-				<th class="th-sm">C8</th>
-				<th class="th-sm">C9</th>
-				<th class="th-sm">C10</th>
-				<th class="th-sm">C11</th>
-				<th class="th-sm">C12</th>
-				<th class="th-sm">C13</th>
-				<th class="th-sm">C14</th>
-				<th class="th-sm">C15</th>
-				<th class="th-sm">C16</th>
-				<th class="th-sm">C17</th>
-				<th class="th-sm">C18</th>
-				<th class="th-sm">C19</th>
-				<th class="th-sm">C20</th>
-				<th class="th-sm">C21</th>
-				<th class="th-sm">C22</th>
-				<th class="th-sm">C23</th>
-				<th class="th-sm">C24</th>
-				<th class="th-sm">C25</th>
-				<th class="th-sm">C26</th>
-				<th class="th-sm">C27</th>
-				<th class="th-sm">C28</th>
-				<th class="th-sm">C29</th>
-				<th class="th-sm">C30</th>
-			  </tr>
-			</tfoot>
-			-->
-		  </table>
-	  
-		</div>
-		<span class="paginate" id="paginatemain">
-			<a onmousedown="newPage('Previous')" id="pagePrev">Prev</a>
-			<a onmousedown="newPage(1)" class="active" id="page1">1</a>
-			<a onmousedown="newPage(2)" id="page2">2</a>
-			<a onmousedown="newPage(3)" id="page3">3</a>
-			<a onmousedown="newPage(4)" id="page4">4</a>
-			<a onmousedown="newPage(5)" id="page5">5</a>
-			<a onmousedown="newPage(6)" id="page6">6</a>
-			<a onmousedown="newPage('Next')" id="pageNext">Next</a>
-		</span>
-		<input type="number" id="perPagemain" value="10" oninput="setPerPage()" onkeyup="setPerPage()"></input>
-		<button onclick="toggleSort()">Columns</button>
+	  <div style="grid-column: 1 / 13; grid-row: 1 / 4; border: 1px dashed black;" id="grid1">
 	  </div>
 
 
@@ -122,8 +59,10 @@
 	  	<button onclick="">Filter</button>
 	  	<button onclick="">Pivot</button>
 	  	<button onclick="lookup()">Lookup</button>
+	  	<button onclick="newBlock('main')">New Main</button>
 	  	<button onclick="newBlock('pivot')">New Pivot</button>
 	  	<button onclick="newBlock('streak')">New Streak</button>
+	  	<button onclick="newBlock('games')">New Games</button>
 	  	
 	  	<button onclick="rearrangeMode()">Rearrange</button>
 	  	<button onclick="save()">Save</button>
