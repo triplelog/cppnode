@@ -21,7 +21,7 @@ var appu = express();
 appu.post('/uploadfile', upload.single('csvfile'), function (req, res, next) {
   // req.file is the `avatar` file
   // req.body will hold the text fields, if there were any
-  console.log("Uploaded");
+  console.log(req.file.filename);
 })
 appu.listen(3000,function(){
     console.log("Working on port 3000");
