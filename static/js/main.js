@@ -259,7 +259,7 @@ function pivot() {
 }
 
 function lookup() {
-	var mymessage = filen+",0,10,lookupq,sum@0@1@29";
+	var mymessage = filen+",0,10,lookupq,sum@0@0@1@29";
 	myWorker.postMessage(mymessage);
 	mymessage = filen+","+"0,10,print,main";
 	myWorker.postMessage(mymessage);
