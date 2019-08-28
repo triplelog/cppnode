@@ -43,7 +43,7 @@
             console.log(inp.target.id)
             // if (inp.target.id == "to-compress") {
             console.log("Compressing")
-            console.log(this.result.slice(0,1000));
+            console.log(Uint8Array(this.result.slice(0,1000)));
             var arrayBuffer = this.result,
                 array = new Uint8Array(arrayBuffer)
             var original_size = array.length
