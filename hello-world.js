@@ -1,10 +1,21 @@
 const http = require('http');
 var fs = require("fs");
 var express = require('express');
+var multer  = require('multer')
+var upload = multer({ dest: 'uploads/' })
 
 var app = express();
 app.use('/static',express.static('static'));
 var serverStatic = app.listen(12312);
+
+var appu = express();
+appu.post('/uploadfile', upload.single('csvfile'), function (req, res, next) {
+  // req.file is the `avatar` file
+  // req.body will hold the text fields, if there were any
+})
+appu.listen(3000,function(){
+    console.log("Working on port 3000");
+});
 
 const WebSocket = require('ws');
 const wss = new WebSocket.Server({ port: 8080 });
