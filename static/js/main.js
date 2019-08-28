@@ -11,9 +11,7 @@ var tempCardJSON = {};
 var filenn = Math.random().toString(36).substring(5, 10)
 var filen = "ff"+filenn+".csv";
 var pivottables = -1;
-var pivotc = {};
 var streaktables = -1;
-var streakc = {};
 const myWorker = new Worker("js/worker.js");
 
 
@@ -22,15 +20,18 @@ const myWorker = new Worker("js/worker.js");
 myWorker.onmessage = function(e) {
 	
 	let retmess = JSON.parse(e.data);
-	let gridid = 'grid1';
+	
 	if (retmess[0][0] == 'Rk') {
 		//document.getElementById('table1').style.display = "block";
+		let gridid = 'grid1';
 		chgTable(retmess,gridid,'main');
 	}
 	else if (retmess[0][0].substring(0,5) == 'Pivot') {
+		let gridid = 'grid3';
 		chgTable(retmess,gridid,'pivot');
 	}
 	else if (retmess[0][0].substring(0,6) == 'Streak') {
+		let gridid = 'grid2';
 		chgTable(retmess,gridid,'streak');
 	}
 	
