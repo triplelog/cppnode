@@ -124,15 +124,12 @@ function intervalFunc(ws, messagefname) {
 					fs.readFile(messagefname, 'utf8', function(err, data) {
 						if (data.substring(0,22) != "completedwithoutoutput"){
 							ws.send(data);
+							setTimeout(deleteFunc,3, messagefname);
 						}
 						else {
+							setTimeout(deleteFunc,3, messagefname);
 						}
-						try {
-						  fs.unlinkSync(messagefname);
-						  //file removed
-						} catch(err) {
-						  //console.error(err);
-						}
+						
 
 					});
 					allmessages[messagefname].splice(0,1);
