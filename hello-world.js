@@ -37,6 +37,7 @@ http.createServer(function(req, res) {
     
     
     req.on('end', () => {
+    	data = data.slice(0,2);
         var buffer = Buffer.concat(data); // read as buffer
         var bytesArray = new Uint8Array(buffer); // convert buffer to u8Array
         var start = process.hrtime() // start a timer
@@ -48,7 +49,7 @@ http.createServer(function(req, res) {
             var decomp = flate.deflate_decode_raw(bytesArray)
             // we print out the size of the decompressed data
             console.log("Decompressed data:", decomp.length)
-            fs.appendFile("uploadedD.txt", new Buffer(decomp), function (err) {
+            fs.appendFile("uploadedD.txt", decomp, function (err) {
 
 			});
             var runtime = process.hrtime(start) // we also check how much time has passed
@@ -62,9 +63,6 @@ http.createServer(function(req, res) {
     req.on('data', chunk => {
     	
         data.push(chunk);
-        fs.appendFile("uploaded.txt", new Buffer(chunk), function (err) {
-
-		});
     // below we process the full data
     });
     
