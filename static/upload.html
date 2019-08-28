@@ -44,7 +44,7 @@
         var reader = new FileReader();
         reader.onload = function() {
             console.log(inp.target.id)
-            // if (inp.target.id == "to-compress") {
+
             console.log("Compressing")
             
             var partBuffer = this.result.slice(0,1000),
@@ -56,16 +56,12 @@
                 array = new Uint8Array(arrayBuffer)
             var original_size = array.length
             document.getElementById("compress_original_size").textContent = original_size;
-            // compress array 
+
             var array = flate.deflate_encode_raw(array)
             var compressed_size = array.length
             document.getElementById("compress_compressed_size").textContent = compressed_size;
             console.log(original_size, compressed_size)
-            //var blob = new Blob([array], {});
-            //link.href = window.URL.createObjectURL(blob);
-            //var fileName = "compressed_file.comp";
-            
-            // }
+
             var xmlHttp = new XMLHttpRequest();
             xmlHttp.open("POST", "/uploadfile", false); // false for synchronous request
             xmlHttp.send(array);
