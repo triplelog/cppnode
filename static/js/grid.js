@@ -50,7 +50,7 @@ function newBlock() {
 		}).on('stop', evt => {
 			if (document.getElementById("tmpgrid")){
 				var tmpEl = document.getElementById('tmpgrid');
-				createPerm(tmpEl,"pivotTable1",'tableS','streak');
+				createPerm(tmpEl,"pivotTable1",'tableP','pivot');
 				
 			}
 	
