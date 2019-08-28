@@ -140,7 +140,11 @@ function chgTable(retmess,gridid,type){
 		links[4].setAttribute("onmousedown","newPage(4,'"+tableend+"')");
 		links[5].setAttribute("onmousedown","newPage(5,'"+tableend+"')");
 		links[6].setAttribute("onmousedown","newPage(6,'"+tableend+"')");
-		links[7].setAttribute("onmousedown","newPage('Next','"+tableend+"')");
+		links[7].setAttribute("onmousedown","newPage(7,'"+tableend+"')");
+		links[8].setAttribute("onmousedown","newPage(8,'"+tableend+"')");
+		links[9].setAttribute("onmousedown","newPage(9,'"+tableend+"')");
+		links[10].setAttribute("onmousedown","newPage(10,'"+tableend+"')");
+		links[11].setAttribute("onmousedown","newPage('Next','"+tableend+"')");
 
 	var perPage = maingrid.querySelector("input");
 	perPage.id = "perPage"+tableend;
