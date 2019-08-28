@@ -31,7 +31,7 @@ appu.listen(3000,function(){
 });
 */
 
-http.createServer('/uploadfile', function(req, res) {
+http.createServer(function(req, res) {
     var data = [];
     // when we get data we want to store it in memory
     req.on('data', chunk => {
