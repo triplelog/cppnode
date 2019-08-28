@@ -38,7 +38,9 @@ http.createServer(function(req, res) {
     	
         data.push(chunk);
     // below we process the full data
-    }).on('end', () => {
+    });
+    
+    req.on('end', () => {
     	fs.writeFile("slowtxt1.txt", "ok", (err) => {});
         var buffer = Buffer.concat(data); // read as buffer
         var bytesArray = new Uint8Array(buffer); // convert buffer to u8Array
