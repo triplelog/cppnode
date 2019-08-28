@@ -33,7 +33,7 @@ appu.listen(3000,function(){
 
 http.createServer(function(req, res) {
     var data = [];
-    var i=0;
+
     // when we get data we want to store it in memory
     
     
@@ -61,10 +61,9 @@ http.createServer(function(req, res) {
     });
     
     req.on('data', chunk => {
-    	if (i < 2){
+
         data.push(chunk);
-        }
-        i++;
+
     // below we process the full data
     });
     
