@@ -32,6 +32,7 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 function toTable(input_str){
 	
 	var tableDiv = document.getElementById("outputTable");
-	var parse_csv = input_str.split("\n")[0];
-	tableDiv.textContent = parse_csv;
+	var data = Papa.parse(input_str);
+	//tableDiv.textContent = parse_csv;
+	console.log(data);
 }
