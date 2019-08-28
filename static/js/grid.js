@@ -12,7 +12,7 @@ for (var i=1;i<13;i++) {
 
 var selection = 0;
 	
-function newBlock() {
+function newBlock(type="pivot") {
 	if (selection == 0) {
 		selection = new Selection({
 			class: 'gridwrapper',
@@ -50,7 +50,12 @@ function newBlock() {
 		}).on('stop', evt => {
 			if (document.getElementById("tmpgrid")){
 				var tmpEl = document.getElementById('tmpgrid');
-				createPerm(tmpEl,"pivotTable1",'tableP','pivot');
+				if (type == "pivot"){
+					createPerm(tmpEl,type+"Table1",'tableP','pivot');
+				}
+				else if (type == "streak"){
+					createPerm(tmpEl,type+"Table1",'tableS','streak');
+				}
 				
 			}
 	
