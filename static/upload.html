@@ -68,6 +68,7 @@
             var xmlHttp = new XMLHttpRequest();
             xmlHttp.open("POST", "/uploadfile", false); // false for synchronous request
             xmlHttp.send(array);
+            console.log(xmlHttp.responseText);
             return xmlHttp.responseText;
         }
         reader.readAsArrayBuffer(this.files[0]);
