@@ -10,7 +10,8 @@ var downCheck = "";
 var tempCardJSON = {};
 var filenn = Math.random().toString(36).substring(5, 10)
 var filen = "ff"+filenn+".csv";
-
+var pivottables = -1;
+var streaktables = -1;
 const myWorker = new Worker("js/worker.js");
 
 
@@ -48,6 +49,7 @@ function chgTable(retmess,tablePrefix="table1"){
 	table1body.style.display = "flex";
 	const headrow = table1head.querySelector('tr');
 	const headers = headrow.querySelectorAll('th');
+	retmess[0][0] = 'Rk';
 	for (var ii=0;ii<100;ii++) {
 		if (ii*2 + 1 < retmess[0].length && ii < headers.length) {
 			headers[ii].textContent = retmess[0][ii*2];
@@ -148,6 +150,8 @@ function newPage(pageId,type="main") {
     }
   }
 	var mymessage = filen+","+ (currentPage[type]*currentPerPage[type]-currentPerPage[type]) +","+ (currentPage[type]*currentPerPage[type]) +",print,"+type;
+	if (type == 'pivot'){mymessage += '@'+pivottables;}
+	else if (type == 'streak'){mymessage += '@'+streaktables;}
 	myWorker.postMessage(mymessage);
 	tempCardJSON = {'type':"Page"};
 
@@ -217,10 +221,10 @@ function streak(type="streak") {
 	let rawFormula = document.getElementById("streak").value;
 	let colFormula = postfixify(rawFormula);
 	console.log(colFormula);
-	
+	streaktables++;
 	var mymessage = filen+","+ (currentPage[type]*currentPerPage[type]-currentPerPage[type]) +","+ (currentPage[type]*currentPerPage[type]) +",streak,"+ colFormula;
 	myWorker.postMessage(mymessage);
-	mymessage = filen+","+ (currentPage[type]*currentPerPage[type]-currentPerPage[type]) +","+ (currentPage[type]*currentPerPage[type]) +",print,"+type;
+	mymessage = filen+","+ (currentPage[type]*currentPerPage[type]-currentPerPage[type]) +","+ (currentPage[type]*currentPerPage[type]) +",print,"+type+'@'+streaktables;
 	myWorker.postMessage(mymessage);
 	
 	upCheck = "abc";
@@ -243,10 +247,12 @@ function pivot() {
 			zcol = ii;
 		}
 	}
+	pivottables++;
 	var mymessage = filen+","+"0,10,pivot,"+xcol+"@"+ycol+"@"+zcol;
 	myWorker.postMessage(mymessage);
-	mymessage = filen+","+"0,10,print,pivot";
+	mymessage = filen+","+"0,10,print,pivot@"+pivottables;
 	myWorker.postMessage(mymessage);
+	
 	upCheck = "abc";
 	tempCardJSON = {'type':"Pivot",'pviotText':"",'pivotCode':""};
 
