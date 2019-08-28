@@ -1,8 +1,8 @@
 //const pageNum = document.querySelector('#pageNum');
 
 
-var currentPage = {"main":1,"pivot":1,"streak":1};
-var currentPerPage = {"main":10,"pivot":10,"streak":10};
+var currentPage = {"main":1};
+var currentPerPage = {"main":10};
 var sortMode = true;
 var colInfo = {};
 var upCheck = "";
@@ -255,6 +255,8 @@ function streak(type="streak") {
 	let colFormula = postfixify(rawFormula);
 	console.log(colFormula);
 	streaktables++;
+	currentPage[type+'@'+streaktables]=1;
+	currentPerPage[type+'@'+streaktables]=10;
 	var mymessage = filen+","+ (currentPage[type]*currentPerPage[type]-currentPerPage[type]) +","+ (currentPage[type]*currentPerPage[type]) +",streak,"+ colFormula;
 	myWorker.postMessage(mymessage);
 	mymessage = filen+","+ (currentPage[type]*currentPerPage[type]-currentPerPage[type]) +","+ (currentPage[type]*currentPerPage[type]) +",print,"+type+'@'+streaktables;
@@ -281,6 +283,8 @@ function pivot() {
 		}
 	}
 	pivottables++;
+	currentPage[type+'@'+pivottables]=1;
+	currentPerPage[type+'@'+pivottables]=10;
 	var mymessage = filen+","+"0,10,pivot,"+xcol+"@"+ycol+"@"+zcol;
 	myWorker.postMessage(mymessage);
 	mymessage = filen+","+"0,10,print,pivot@"+pivottables;
