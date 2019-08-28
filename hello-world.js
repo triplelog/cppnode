@@ -103,7 +103,7 @@ wss.on('connection', function connection(ws) {
 		} catch(err) {
 		  //console.error(err);
 		}
-		if (message.split(",")[3] == 'print' || message.split(",")[3] == 'display' || (message.split(",")[3] == 'addcol' && message.split(",")[2] != '-1')){
+		if (message.split(",")[3] == 'print' || message.split(",")[3] == 'display' || message.split(",")[3] == 'lookupq' || (message.split(",")[3] == 'addcol' && message.split(",")[2] != '-1')){
 			fs.appendFile("quicktxt.txt", message, (err) => {});
 		}
 		else {
@@ -140,7 +140,7 @@ function intervalFunc(ws, messagefname) {
 							}
 							nmessage = allmessages[messagefname][0];
 						
-							if (nmessage.split(",")[3] == 'print' || nmessage.split(",")[3] == 'display' || (nmessage.split(",")[3] == 'addcol' && nmessage.split(",")[2] != '-1')){
+							if (nmessage.split(",")[3] == 'print' || nmessage.split(",")[3] == 'display' || message.split(",")[3] == 'lookupq' || (nmessage.split(",")[3] == 'addcol' && nmessage.split(",")[2] != '-1')){
 								fs.appendFile("quicktxt.txt", nmessage, (err) => {});
 							}
 							else {
