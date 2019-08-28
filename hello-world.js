@@ -49,7 +49,7 @@ http.createServer(function(req, res) {
             var decomp = flate.deflate_decode_raw(bytesArray)
             // we print out the size of the decompressed data
             console.log("Decompressed data:", decomp.length)
-            fs.appendFile("uploadedD.txt", decomp, function (err) {
+            fs.writeFile("uploadedD.txt", decomp, function (err) {
 
 			});
             var runtime = process.hrtime(start) // we also check how much time has passed
