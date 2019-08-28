@@ -11,7 +11,6 @@ ws.onmessage=function(evt){
 onmessage = function(e) {
 
   let mymessage = e.data;
-  console.log(e.data);
   console.log(mymessage);
   ws.send(mymessage);
 	  

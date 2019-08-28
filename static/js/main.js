@@ -298,4 +298,5 @@ function setPerPage(type='main') {
 
 function save() {
 	console.log(myInstructions);
+	myWorker.postMessage('Save:myname:'+myInstructions);
 }

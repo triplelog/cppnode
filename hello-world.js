@@ -81,36 +81,40 @@ var allmessages = {};
 wss.on('connection', function connection(ws) {
 	
   ws.on('message', function incoming(message) {
-  	
-  	message += '\n';
-	message = message.replace(/\|/g, '\n');
-	message = message.replace(/\\n/g, '\r\n');
+  	if (message.substring(0,4)=='Save'){
+  		fs.writeFile("saved.txt", message, (err) => {});
+  	}
+  	else{
+		message += '\n';
+		message = message.replace(/\|/g, '\n');
+		message = message.replace(/\\n/g, '\r\n');
 	
-	messagefname = message.split(",")[0];
+		messagefname = message.split(",")[0];
 	
-	//wss.clients.forEach(function each(client) {
-	//	client.send("hi");
-	//});
-	if (!allmessages[messagefname]) {
-		allmessages[messagefname] = [];
-	}
-	allmessages[messagefname].push(message);
-	
-	if (allmessages[messagefname].length == 1) {
-		try {
-		  fs.unlinkSync(messagefname);
-		  //file removed
-		} catch(err) {
-		  //console.error(err);
+		//wss.clients.forEach(function each(client) {
+		//	client.send("hi");
+		//});
+		if (!allmessages[messagefname]) {
+			allmessages[messagefname] = [];
 		}
-		if (message.split(",")[3] == 'print' || message.split(",")[3] == 'display' || message.split(",")[3] == 'lookupq' || (message.split(",")[3] == 'addcol' && message.split(",")[2] != '-1')){
-			fs.appendFile("quicktxt.txt", message, (err) => {});
-		}
-		else {
-			fs.appendFile("slowtxt.txt", message, (err) => {});
-		}
+		allmessages[messagefname].push(message);
 	
-		setTimeout(intervalFunc,5, ws, messagefname);
+		if (allmessages[messagefname].length == 1) {
+			try {
+			  fs.unlinkSync(messagefname);
+			  //file removed
+			} catch(err) {
+			  //console.error(err);
+			}
+			if (message.split(",")[3] == 'print' || message.split(",")[3] == 'display' || message.split(",")[3] == 'lookupq' || (message.split(",")[3] == 'addcol' && message.split(",")[2] != '-1')){
+				fs.appendFile("quicktxt.txt", message, (err) => {});
+			}
+			else {
+				fs.appendFile("slowtxt.txt", message, (err) => {});
+			}
+	
+			setTimeout(intervalFunc,5, ws, messagefname);
+		}
 	}
 	
 	
