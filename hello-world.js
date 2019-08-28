@@ -8,7 +8,7 @@ var storage = multer.diskStorage({
     cb(null, 'uploads/')
   },
   filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now())
+    cb(null, file.originalname + '-' + Date.now() + '.csv')
   }
 })
 var upload = multer({ storage: storage })
@@ -22,6 +22,7 @@ appu.post('/uploadfile', upload.single('csvfile'), function (req, res, next) {
   // req.file is the `avatar` file
   // req.body will hold the text fields, if there were any
   console.log(req.file.filename);
+  exec('"../cppsv/createfilesauto" uploads/'+req.file.filename.substring(0,req.file.filename.length-4));
 })
 appu.listen(3000,function(){
     console.log("Working on port 3000");
