@@ -255,11 +255,13 @@ function streak(type="streak") {
 	let colFormula = postfixify(rawFormula);
 	console.log(colFormula);
 	streaktables++;
-	currentPage[type+'@'+streaktables]=1;
-	currentPerPage[type+'@'+streaktables]=10;
-	var mymessage = filen+","+ (currentPage[type]*currentPerPage[type]-currentPerPage[type]) +","+ (currentPage[type]*currentPerPage[type]) +",streak,"+ colFormula;
+	var tableend = type+'@'+streaktables;
+	currentPage[tableend]=1;
+	currentPerPage[tableend]=10;
+	
+	var mymessage = filen+","+ (currentPage[tableend]*currentPerPage[tableend]-currentPerPage[tableend]) +","+ (currentPage[tableend]*currentPerPage[tableend]) +",streak,"+ colFormula;
 	myWorker.postMessage(mymessage);
-	mymessage = filen+","+ (currentPage[type]*currentPerPage[type]-currentPerPage[type]) +","+ (currentPage[type]*currentPerPage[type]) +",print,"+type+'@'+streaktables;
+	mymessage = filen+","+ (currentPage[tableend]*currentPerPage[tableend]-currentPerPage[tableend]) +","+ (currentPage[tableend]*currentPerPage[tableend]) +",print,"+tableend;
 	myWorker.postMessage(mymessage);
 	
 	upCheck = "abc";
@@ -267,7 +269,7 @@ function streak(type="streak") {
 
 }
 
-function pivot() {
+function pivot(type="pivot") {
 	var xcol = document.getElementById("pivotx").value;
 	var ycol = document.getElementById("pivoty").value;
 	var zcol = document.getElementById("pivotz").value;
@@ -283,11 +285,12 @@ function pivot() {
 		}
 	}
 	pivottables++;
-	currentPage[type+'@'+pivottables]=1;
-	currentPerPage[type+'@'+pivottables]=10;
+	var tableend = type+'@'+pivottables;
+	currentPage[tableend]=1;
+	currentPerPage[tableend]=10;
 	var mymessage = filen+","+"0,10,pivot,"+xcol+"@"+ycol+"@"+zcol;
 	myWorker.postMessage(mymessage);
-	mymessage = filen+","+"0,10,print,pivot@"+pivottables;
+	mymessage = filen+","+"0,10,print,"+tableend;
 	myWorker.postMessage(mymessage);
 	
 	upCheck = "abc";
