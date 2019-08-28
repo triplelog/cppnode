@@ -1,7 +1,8 @@
 const http = require('http');
 var fs = require("fs");
 var express = require('express');
-var multer  = require('multer')
+var multer  = require('multer');
+const flate = require('wasm-flate');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {

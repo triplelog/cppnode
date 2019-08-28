@@ -61,11 +61,9 @@
             document.getElementById("compress_compressed_size").textContent = compressed_size;
             console.log(original_size, compressed_size)
             var blob = new Blob([array], {});
-            var link = document.createElement('a');
-            link.href = window.URL.createObjectURL(blob);
-            var fileName = "compressed_file.comp";
-            link.download = fileName;
-            link.click();
+            //link.href = window.URL.createObjectURL(blob);
+            //var fileName = "compressed_file.comp";
+            
             // }
         }
         reader.readAsArrayBuffer(this.files[0]);
