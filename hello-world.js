@@ -87,12 +87,7 @@ wss.on('connection', function connection(ws) {
 	message = message.replace(/\\n/g, '\r\n');
 	
 	messagefname = message.split(",")[0];
-	try {
-	  fs.unlinkSync(messagefname);
-	  //file removed
-	} catch(err) {
-	  //console.error(err);
-	}
+	
 	//wss.clients.forEach(function each(client) {
 	//	client.send("hi");
 	//});
@@ -102,6 +97,12 @@ wss.on('connection', function connection(ws) {
 	allmessages[messagefname].push(message);
 	
 	if (allmessages[messagefname].length == 1) {
+		try {
+		  fs.unlinkSync(messagefname);
+		  //file removed
+		} catch(err) {
+		  //console.error(err);
+		}
 		if (message.split(",")[3] == 'print' || message.split(",")[3] == 'display' || (message.split(",")[3] == 'addcol' && message.split(",")[2] != '-1')){
 			fs.appendFile("quicktxt.txt", message, (err) => {});
 		}
@@ -131,6 +132,12 @@ function intervalFunc(ws, messagefname) {
 					allmessages[messagefname].splice(0,1);
 					if (allmessages[messagefname].length > 0) {
 						nmessage = allmessages[messagefname][0];
+						try {
+						  fs.unlinkSync(messagefname);
+						  //file removed
+						} catch(err) {
+						  //console.error(err);
+						}
 						if (nmessage.split(",")[3] == 'print' || nmessage.split(",")[3] == 'display' || (nmessage.split(",")[3] == 'addcol' && nmessage.split(",")[2] != '-1')){
 							fs.appendFile("quicktxt.txt", nmessage, (err) => {});
 						}
