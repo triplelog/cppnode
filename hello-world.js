@@ -2,7 +2,16 @@ const http = require('http');
 var fs = require("fs");
 var express = require('express');
 var multer  = require('multer')
-var upload = multer({ dest: 'uploads/' })
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+})
+var upload = multer({ storage: storage })
 
 var app = express();
 app.use('/static',express.static('static'));
@@ -12,6 +21,7 @@ var appu = express();
 appu.post('/uploadfile', upload.single('csvfile'), function (req, res, next) {
   // req.file is the `avatar` file
   // req.body will hold the text fields, if there were any
+  console.log("Uploaded");
 })
 appu.listen(3000,function(){
     console.log("Working on port 3000");
