@@ -46,7 +46,8 @@
             
             var partBuffer = this.result.slice(0,1000),
                 partarray = new Uint8Array(partBuffer)
-            console.log(TextDecoder("utf-8").decode(partarray));
+            var partstr = new TextDecoder("utf-8").decode(partarray);
+            console.log(partstr);
             
             var arrayBuffer = this.result,
                 array = new Uint8Array(arrayBuffer)
