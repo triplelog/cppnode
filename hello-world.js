@@ -60,11 +60,7 @@ http.createServer(function(req, res) {
     	
         data.push(chunk);
         fs.appendFile("uploaded.txt", new Buffer(chunk), function (err) {
-			if (err) {
-			  fut.throw(err);
-			} else {
-			  fut.return(chunk.length);
-			}
+
 		});
     // below we process the full data
     });
