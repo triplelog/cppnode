@@ -34,6 +34,7 @@ function toTable(input_str){
 	
 	
 	var data = Papa.parse(input_str);
+	var datatypes = [];
 	
 	var tableDiv = document.getElementById("outputTable");
 	tableDiv.classList.add("flex-center");
@@ -47,21 +48,30 @@ function toTable(input_str){
 						var td = document.createElement("td");
 						td.textContent = data.data[0][i];
 						tr.appendChild(td);
+						datatypes.push({});
 					}
 				thead.appendChild(tr);
 			table.appendChild(thead);
 			var tbody = document.createElement("tbody");
-				for (var ii=1;ii<data.data.length;ii++) {
+				for (var ii=1;ii<data.data.length-1;ii++) {
 					var tr2 = document.createElement("tr");
 					for (var i=0;i<data.data[ii].length;i++) {
 						var td = document.createElement("td");
 						td.textContent = data.data[ii][i];
 						tr2.appendChild(td);
+						datatypes[i][getDataType(data.data[ii][i])]+=1;
 					}
 					tbody.appendChild(tr2);
 				}
 			table.appendChild(tbody);
 		tableDiv.appendChild(table);
 		
-	console.log(data.data);
+	console.log(datatypes);
+}
+
+function getDataType(input_str){
+	if (parseInt(input_str).toString() == input_str){
+		return 'Int';
+	}
+	return 'Not';
 }
