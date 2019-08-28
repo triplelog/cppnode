@@ -47,7 +47,7 @@
             var partBuffer = this.result.slice(0,1000),
                 partarray = new Uint8Array(partBuffer)
             var partstr = new TextDecoder("utf-8").decode(partarray);
-            console.log(partstr);
+            toTable(partstr);
             
             var arrayBuffer = this.result,
                 array = new Uint8Array(arrayBuffer)
@@ -71,6 +71,10 @@
         }
         reader.readAsArrayBuffer(this.files[0]);
     }, false);
+    
+    function toTable(input_str){
+    	document.write(input_str);
+    }
   </script>
 
 </body>
