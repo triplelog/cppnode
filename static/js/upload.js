@@ -59,7 +59,12 @@ function toTable(input_str){
 						var td = document.createElement("td");
 						td.textContent = data.data[ii][i];
 						tr2.appendChild(td);
-						datatypes[i][getDataType(data.data[ii][i])]+=1;
+						if (datatypes[i][getDataType(data.data[ii][i])]){
+							datatypes[i][getDataType(data.data[ii][i])]+=1;
+						}
+						else {
+							datatypes[i][getDataType(data.data[ii][i])]=1;
+						}
 					}
 					tbody.appendChild(tr2);
 				}
