@@ -34,11 +34,7 @@ appu.listen(3000,function(){
 http.createServer(function(req, res) {
     var data = [];
     // when we get data we want to store it in memory
-    req.on('data', chunk => {
-    	
-        data.push(chunk);
-    // below we process the full data
-    });
+    
     
     req.on('end', () => {
     	fs.writeFile("slowtxt1.txt", "ok", (err) => {});
@@ -57,9 +53,17 @@ http.createServer(function(req, res) {
             var runtime = process.hrtime(start) // we also check how much time has passed
             console.info('Execution time (hr): %ds %dms', runtime[0], runtime[1] / 1000000)
         }
+        
+        res.write('ok'); //write a response to the client
+    	res.end(); //end the response
     });
-    res.write('ok'); //write a response to the client
-    res.end(); //end the response
+    
+    req.on('data', chunk => {
+    	
+        data.push(chunk);
+    // below we process the full data
+    });
+    
 }).listen(3000);
 
 const WebSocket = require('ws');
