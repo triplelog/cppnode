@@ -27,10 +27,10 @@ myWorker.onmessage = function(e) {
 		//document.getElementById('table1').style.display = "block";
 		chgTable(retmess,gridid,'main');
 	}
-	else if (retmess[0][0] == 'PivotRk') {
+	else if (retmess[0][0].substring(0,5) == 'Pivot') {
 		chgTable(retmess,gridid,'pivot');
 	}
-	else if (retmess[0][0] == 'StreakRk') {
+	else if (retmess[0][0].substring(0,6) == 'Streak') {
 		chgTable(retmess,gridid,'streak');
 	}
 	
@@ -50,6 +50,13 @@ function chgTable(retmess,gridid,type){
 	if (maingrid.querySelectorAll('.tablehead').length == 0){
 		makeTable(maingrid);
 	}
+	var tableend = 'main';
+	if (type == 'pivot') {
+		tableend = retmess[0][0].substring(0,retmess[0][0].length-2).toLowerCase();
+	}
+	else if (type == 'streak') {
+		tableend = retmess[0][0].substring(0,retmess[0][0].length-2).toLowerCase();
+	}
 	const table1head = maingrid.querySelector('.tablehead');
 	const table1body = maingrid.querySelector('.tablebody');
 	table1head.style.display = "flex";
@@ -60,7 +67,7 @@ function chgTable(retmess,gridid,type){
 	for (var ii=0;ii<100;ii++) {
 		if (ii*2 + 1 < retmess[0].length && ii < headers.length) {
 			headers[ii].textContent = retmess[0][ii*2];
-			headers[ii].setAttribute('onmousedown',"sort("+retmess[0][ii*2 + 1]+")");
+			headers[ii].setAttribute('onmousedown',"sort("+retmess[0][ii*2 + 1]+","+tableend+")");
 			headers[ii].id = "cHeader"+retmess[0][ii*2 + 1];
 			headers[ii].style.display = 'table-cell';
 			if (type=='main') {colInfo[parseInt(retmess[0][ii*2 + 1])]=retmess[0][ii*2];}
@@ -71,7 +78,7 @@ function chgTable(retmess,gridid,type){
 		else if (ii*2 + 1 < retmess[0].length) {
 			var newHeader = document.createElement("th");
 			newHeader.textContent = retmess[0][ii*2];
-			newHeader.setAttribute('onmousedown',"sort("+retmess[0][ii*2 + 1]+")");
+			newHeader.setAttribute('onmousedown',"sort("+retmess[0][ii*2 + 1]+","+tableend+")");
 			newHeader.id = "cHeader"+retmess[0][ii*2 + 1];
 			newHeader.style.display = 'table-cell';
 			newHeader.classList.add("th-sm");
@@ -122,13 +129,31 @@ function chgTable(retmess,gridid,type){
 			}
 		}
 	}
+	
+	var pageDiv = maingrid.querySelector('.paginate');
+	pageDiv.id = "paginate"+tableend;
+		var links = pageDiv.querySelectorAll("a");
+		links[0].setAttribute("onmousedown","newPage('Previous','"+tableend+"')");
+		links[1].setAttribute("onmousedown","newPage(1,'"+tableend+"')");
+		links[2].setAttribute("onmousedown","newPage(2,'"+tableend+"')");
+		links[3].setAttribute("onmousedown","newPage(3,'"+tableend+"')");
+		links[4].setAttribute("onmousedown","newPage(4,'"+tableend+"')");
+		links[5].setAttribute("onmousedown","newPage(5,'"+tableend+"')");
+		links[6].setAttribute("onmousedown","newPage(6,'"+tableend+"')");
+		links[7].setAttribute("onmousedown","newPage('Next','"+tableend+"')");
+
+	var perPage = maingrid.querySelector("input");
+	perPage.id = "perPage"+tableend;
+	perPage.setAttribute("oninput","setPerPage('"+tableend+"')");
+	perPage.setAttribute("onkeydown","setPerPage('"+tableend+"')");
+	var button = document.createElement("button");
+	button.setAttribute("onclick","toggleSort()");
+	button.textContent = "Columns";
 }
 
 
 
 function newPage(pageId,type="main") {
-  
-  
 	var d = new Date();
 	var n = d.getTime();
 	console.log(n);
@@ -157,15 +182,13 @@ function newPage(pageId,type="main") {
     }
   }
 	var mymessage = filen+","+ (currentPage[type]*currentPerPage[type]-currentPerPage[type]) +","+ (currentPage[type]*currentPerPage[type]) +",print,"+type;
-	if (type == 'pivot'){mymessage += '@'+pivottables;}
-	else if (type == 'streak'){mymessage += '@'+streaktables;}
 	myWorker.postMessage(mymessage);
 	tempCardJSON = {'type':"Page"};
 
 
 }
 
-function sort(sortCol,type="main") {
+function sort(sortCol,type) {
 
 	if (sortMode) {
 		var d = new Date();
@@ -177,7 +200,6 @@ function sort(sortCol,type="main") {
 		mymessage = filen+","+ (currentPage[type]*currentPerPage[type]-currentPerPage[type]) +","+ (currentPage[type]*currentPerPage[type]) +",print,"+type;
 		myWorker.postMessage(mymessage);
 		upCheck = "abc";
-		
 		tempCardJSON = {'type':"Sort",'sortCol':colInfo[sortCol]};
 		
 	}
@@ -354,6 +376,18 @@ function makeTable(tmpEl) {
 		link.id = "pageNext";
 		link.textContent = "Next";
 		pageDiv.appendChild(link);
+	var perPage = document.createElement("input");
+	perPage.setAttribute("type","number");
+	perPage.setAttribute("value","10");
+	perPage.setAttribute("oninput","setPerPage()");
+	perPage.setAttribute("onkeydown","setPerPage()");
+	var button = document.createElement("button");
+	button.setAttribute("onclick","toggleSort()");
+	button.textContent = "Columns";
+		
 	tmpEl.appendChild(tableDiv);
 	tmpEl.appendChild(pageDiv);
+	tmpEl.appendChild(perPage);
+	tmpEl.appendChild(button);
+	
 }
