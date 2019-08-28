@@ -31,8 +31,37 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 
 function toTable(input_str){
 	
-	var tableDiv = document.getElementById("outputTable");
+	
+	
 	var data = Papa.parse(input_str);
-	//tableDiv.textContent = parse_csv;
-	console.log(data);
+	
+	var tableDiv = document.getElementById("outputTable");
+	tableDiv.classList.add("flex-center");
+	tableDiv.classList.add("flex-column");
+		var table = document.createElement("table");
+		table.classList.add("striped");
+		table.classList.add("hoverable");
+			var thead = document.createElement("thead");
+				var tr = document.createElement("tr");
+					for (var i=0;i<data.data[0].length;i++) {
+						var td = document.createElement("td");
+						td.textContent = data.data[0][i];
+						tr.appendChild(td);
+					}
+				thead.appendChild(tr);
+			table.appendChild(thead);
+			var tbody = document.createElement("tbody");
+				for (var ii=0;ii<data.data.length;ii++) {
+					var tr2 = document.createElement("tr");
+					for (var i=0;i<data.data[ii].length;i++) {
+						var td = document.createElement("td");
+						td.textContent = data.data[ii][i];
+						tr2.appendChild(td);
+					}
+					tbody.appendChild(tr2);
+				}
+			table.appendChild(tbody);
+		tableDiv.appendChild(table);
+		
+	console.log(data.data);
 }
