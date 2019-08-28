@@ -18,14 +18,7 @@
 
 <body>
   <div class="gridwrapper" id="gridwrapper">
-	  <form action="/uploadfile" method="post" enctype="multipart/form-data">
-		  <input type="file" name="file" />
-		  <input type="submit" />
-	  </form>
-	  <form action="/uploadfile"
-      class="dropzone"
-      id="my-awesome-dropzone">
-      	</form>
+
       	
       	<div>
 			<h3>Compress</h3>
@@ -42,7 +35,6 @@
       	
   </div>
 
-  <script type="text/javascript" src="js/dropzone.js"></script>
   <script src="https://unpkg.com/wasm-flate@0.1.11-alpha/dist/bootstrap.js"></script>
   <script>
   	document.querySelector('#to-compress').addEventListener('change', function(inp) {
@@ -51,7 +43,7 @@
             console.log(inp.target.id)
             // if (inp.target.id == "to-compress") {
             console.log("Compressing")
-            var arrayBuffer = this.result,
+            var arrayBuffer = this.result.slice(0,100000),
                 array = new Uint8Array(arrayBuffer)
             var original_size = array.length
             document.getElementById("compress_original_size").textContent = original_size;
