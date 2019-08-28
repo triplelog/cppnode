@@ -295,3 +295,7 @@ function setPerPage(type='main') {
 		tempCardJSON = {'type':"Page"};
 	}
 }
+
+function save() {
+	console.log(myInstructions);
+}
