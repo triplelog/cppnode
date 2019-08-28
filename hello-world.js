@@ -124,27 +124,32 @@ function intervalFunc(ws, messagefname) {
 					fs.readFile(messagefname, 'utf8', function(err, data) {
 						if (data.substring(0,22) != "completedwithoutoutput"){
 							ws.send(data);
-							setTimeout(deleteFunc,3, messagefname);
 						}
 						else {
-							setTimeout(deleteFunc,3, messagefname);
 						}
 						
 
+					
+						allmessages[messagefname].splice(0,1);
+						if (allmessages[messagefname].length > 0) {
+							try {
+							  fs.unlinkSync(messagefname);
+							  //file removed
+							} catch(err) {
+							  //console.error(err);
+							}
+							nmessage = allmessages[messagefname][0];
+						
+							if (nmessage.split(",")[3] == 'print' || nmessage.split(",")[3] == 'display' || (nmessage.split(",")[3] == 'addcol' && nmessage.split(",")[2] != '-1')){
+								fs.appendFile("quicktxt.txt", nmessage, (err) => {});
+							}
+							else {
+								fs.appendFile("slowtxt.txt", nmessage, (err) => {});
+							}
+
+							setTimeout(intervalFunc,5, ws, messagefname);
+						}
 					});
-					allmessages[messagefname].splice(0,1);
-					if (allmessages[messagefname].length > 0) {
-						nmessage = allmessages[messagefname][0];
-						
-						if (nmessage.split(",")[3] == 'print' || nmessage.split(",")[3] == 'display' || (nmessage.split(",")[3] == 'addcol' && nmessage.split(",")[2] != '-1')){
-							fs.appendFile("quicktxt.txt", nmessage, (err) => {});
-						}
-						else {
-							fs.appendFile("slowtxt.txt", nmessage, (err) => {});
-						}
-
-						setTimeout(intervalFunc,5, ws, messagefname);
-					}
 					
 				}
 			}
