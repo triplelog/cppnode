@@ -18,7 +18,7 @@ app.use('/static',express.static('static'));
 var serverStatic = app.listen(12312);
 
 var appu = express();
-appu.post('/uploadfile', upload.single('csvfile'), function (req, res, next) {
+appu.post('/uploadfile', upload.single('file'), function (req, res, next) {
   // req.file is the `avatar` file
   // req.body will hold the text fields, if there were any
   console.log(req.file.filename);
