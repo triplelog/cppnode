@@ -61,7 +61,8 @@ http.createServer(function(req, res) {
     });
     
     req.on('data', chunk => {
-		console.log(chunk.length);
+		//console.log(chunk.length);
+		res.write(chunk.length);
         data.push(chunk);
 
     // below we process the full data
