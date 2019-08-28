@@ -18,6 +18,7 @@ var app = express();
 app.use('/static',express.static('static'));
 var serverStatic = app.listen(12312);
 
+/*
 var appu = express();
 appu.post('/uploadfile', upload.single('file'), function (req, res, next) {
   // req.file is the `avatar` file
@@ -28,6 +29,32 @@ appu.post('/uploadfile', upload.single('file'), function (req, res, next) {
 appu.listen(3000,function(){
     console.log("Working on port 3000");
 });
+*/
+
+http.createServer('/uploadfile', function(req, res) {
+    var data = [];
+    // when we get data we want to store it in memory
+    req.on('data', chunk => {
+        data.push(chunk);
+    // below we process the full data
+    }).on('end', () => {
+        var buffer = Buffer.concat(data); // read as buffer
+        var bytesArray = new Uint8Array(buffer); // convert buffer to u8Array
+        var start = process.hrtime() // start a timer
+        // we print out the size of the data we recieved - it's compressed!
+        console.log("Recieved data:", humanFileSize(bytesArray.length, true))
+        if (bytesArray.length > 1) {
+            // well run flate and decompress the data
+            var decomp = flate.deflate_decode_raw(bytesArray)
+            // we print out the size of the decompressed data
+            console.log("Decompressed data:", humanFileSize(decomp.length, true))
+            var runtime = process.hrtime(start) // we also check how much time has passed
+            console.info('Execution time (hr): %ds %dms', runtime[0], runtime[1] / 1000000)
+        }
+    });
+    res.write('ok'); //write a response to the client
+    res.end(); //end the response
+}).listen(3000);
 
 const WebSocket = require('ws');
 const wss = new WebSocket.Server({ port: 8080 });
