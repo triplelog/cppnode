@@ -42,12 +42,12 @@ http.createServer(function(req, res) {
         var bytesArray = new Uint8Array(buffer); // convert buffer to u8Array
         var start = process.hrtime() // start a timer
         // we print out the size of the data we recieved - it's compressed!
-        console.log("Recieved data:", humanFileSize(bytesArray.length, true))
+        console.log("Recieved data:", bytesArray.length)
         if (bytesArray.length > 1) {
             // well run flate and decompress the data
             var decomp = flate.deflate_decode_raw(bytesArray)
             // we print out the size of the decompressed data
-            console.log("Decompressed data:", humanFileSize(decomp.length, true))
+            console.log("Decompressed data:", decomp.length)
             var runtime = process.hrtime(start) // we also check how much time has passed
             console.info('Execution time (hr): %ds %dms', runtime[0], runtime[1] / 1000000)
         }
