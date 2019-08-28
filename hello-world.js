@@ -127,17 +127,18 @@ function intervalFunc(ws, messagefname) {
 						}
 						else {
 						}
-
-					});
-					allmessages[messagefname].splice(0,1);
-					if (allmessages[messagefname].length > 0) {
-						nmessage = allmessages[messagefname][0];
 						try {
 						  fs.unlinkSync(messagefname);
 						  //file removed
 						} catch(err) {
 						  //console.error(err);
 						}
+
+					});
+					allmessages[messagefname].splice(0,1);
+					if (allmessages[messagefname].length > 0) {
+						nmessage = allmessages[messagefname][0];
+						
 						if (nmessage.split(",")[3] == 'print' || nmessage.split(",")[3] == 'display' || (nmessage.split(",")[3] == 'addcol' && nmessage.split(",")[2] != '-1')){
 							fs.appendFile("quicktxt.txt", nmessage, (err) => {});
 						}
