@@ -68,7 +68,7 @@ function chgTable(retmess,gridid,type){
 	for (var ii=0;ii<100;ii++) {
 		if (ii*2 + 1 < retmess[0].length && ii < headers.length) {
 			headers[ii].textContent = retmess[0][ii*2];
-			headers[ii].setAttribute('onmousedown',"sort("+retmess[0][ii*2 + 1]+","+tableend+")");
+			headers[ii].setAttribute('onmousedown',"sort("+retmess[0][ii*2 + 1]+",'"+tableend+"')");
 			headers[ii].id = "cHeader"+retmess[0][ii*2 + 1];
 			headers[ii].style.display = 'table-cell';
 			if (type=='main') {colInfo[parseInt(retmess[0][ii*2 + 1])]=retmess[0][ii*2];}
@@ -79,7 +79,7 @@ function chgTable(retmess,gridid,type){
 		else if (ii*2 + 1 < retmess[0].length) {
 			var newHeader = document.createElement("th");
 			newHeader.textContent = retmess[0][ii*2];
-			newHeader.setAttribute('onmousedown',"sort("+retmess[0][ii*2 + 1]+","+tableend+")");
+			newHeader.setAttribute('onmousedown',"sort("+retmess[0][ii*2 + 1]+",'"+tableend+"')");
 			newHeader.id = "cHeader"+retmess[0][ii*2 + 1];
 			newHeader.style.display = 'table-cell';
 			newHeader.classList.add("th-sm");
