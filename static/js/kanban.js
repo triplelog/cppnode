@@ -39,7 +39,7 @@ dragula([document.getElementById("otherUser2"), document.getElementById("otherUs
 
 function createInstructionCard(cardData) {
 
-
+	/*
 	var containerEl = document.getElementById(cardData.id);
 	var newEl = document.createElement("div");
 	newEl.classList.add("kanban"+cardData.type);
@@ -88,6 +88,7 @@ function createInstructionCard(cardData) {
 	containerEl.appendChild(newEl);
 	cardData.dragID = "inputID"+idCounter;
 	idCounter++;
+	*/
 	
 }
 
