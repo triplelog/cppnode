@@ -76,7 +76,7 @@ const { exec } = require('child_process');
 
 exec('"../cppsv/nanotable" 31 batterleader');
 fs.writeFile("quicktxt.txt", "", (err) => {});
-//fs.writeFile("slowtxt.txt", "", (err) => {});
+fs.writeFile("slowtxt.txt", "", (err) => {});
 var allmessages = {};
 wss.on('connection', function connection(ws) {
 	
