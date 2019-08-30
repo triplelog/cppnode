@@ -74,7 +74,7 @@ const WebSocket = require('ws');
 const wss = new WebSocket.Server({ port: 8080 });
 const { exec } = require('child_process');
 
-exec('"../cppsv/asthreefilespart" 31 batterleader');
+exec('"../cppsv/nanotable" 31 batterleader');
 fs.writeFile("quicktxt.txt", "", (err) => {});
 fs.writeFile("slowtxt.txt", "", (err) => {});
 var allmessages = {};
