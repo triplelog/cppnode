@@ -7,7 +7,7 @@ const WebSocket = require('ws');
 const wss = new WebSocket.Server({ port: 8080 });
 //const { exec } = require('child_process');
 var acmd = require('child_process').spawn('../cppsv/nanotable', ['31','batterleader'])
-
+//kill with acmd.kill();
 fs.writeFile("quicktxt.txt", "", (err) => {});
 fs.writeFile("slowtxt.txt", "", (err) => {});
 var allmessages = {};
@@ -39,7 +39,7 @@ wss.on('connection', function connection(ws) {
 			} catch(err) {
 			  //console.error(err);
 			}
-			if (message.split(",")[3] == 'print' || message.split(",")[3] == 'display' || message.split(",")[3] == 'lookupq' || (message.split(",")[3] == 'addcol' && message.split(",")[2] != '-1')){
+			if (message.split(",")[3] == 'print' || message.split(",")[3] == 'display' || (message.split(",")[3] == 'addcol' && message.split(",")[2] != '-1')){
 				fs.appendFile("quicktxt.txt", message, (err) => {});
 			}
 			else {
@@ -61,7 +61,6 @@ function intervalFunc(ws, messagefname) {
 					fs.readFile(messagefname, 'utf8', function(err, data) {
 						if (data.substring(0,22) != "completedwithoutoutput"){
 							ws.send(data);
-							acmd.kill();
 						}
 						else {
 						}
@@ -78,7 +77,7 @@ function intervalFunc(ws, messagefname) {
 							}
 							nmessage = allmessages[messagefname][0];
 						
-							if (nmessage.split(",")[3] == 'print' || nmessage.split(",")[3] == 'display' || nmessage.split(",")[3] == 'lookupq' || (nmessage.split(",")[3] == 'addcol' && nmessage.split(",")[2] != '-1')){
+							if (nmessage.split(",")[3] == 'print' || nmessage.split(",")[3] == 'display' || (nmessage.split(",")[3] == 'addcol' && nmessage.split(",")[2] != '-1')){
 								fs.appendFile("quicktxt.txt", nmessage, (err) => {});
 							}
 							else {
