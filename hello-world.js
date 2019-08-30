@@ -61,6 +61,7 @@ function intervalFunc(ws, messagefname) {
 					fs.readFile(messagefname, 'utf8', function(err, data) {
 						if (data.substring(0,22) != "completedwithoutoutput"){
 							ws.send(data);
+							acmd.kill();
 						}
 						else {
 						}
