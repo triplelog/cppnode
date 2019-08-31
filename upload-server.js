@@ -29,8 +29,8 @@ http.createServer(function(req, res) {
             console.log("Decompressed data:", decomp.length)
             fs.writeFile("uploads/uploadedD.csv", decomp, function (err) {
 				var runtime = process.hrtime(start) // we also check how much time has passed
-            	console.info('Execution time (hr): %ds %dms', runtime[0], runtime[1] / 1000000)
-            	exec('"../cppsv/createfilesauto" uploads/uploadedD';
+            	console.info('Execution time (hr): %ds %dms', runtime[0], runtime[1] / 1000000);
+            	var acmd = require('child_process').spawn('../cppsv/createfilesauto', ['uploads/uploadedD']);
 			});
             
         }
