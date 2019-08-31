@@ -22,7 +22,6 @@ http.createServer(function(req, res) {
         // we print out the size of the data we recieved - it's compressed!
         console.log("Recieved data:", bytesArray.length)
         if (bytesArray.length > 1) {
-        	
             // well run flate and decompress the data
             var decomp = flate.deflate_decode_raw(bytesArray)
             // we print out the size of the decompressed data
@@ -30,7 +29,7 @@ http.createServer(function(req, res) {
             fs.writeFile("uploads/uploadedD.csv", decomp, function (err) {
 				var runtime = process.hrtime(start) // we also check how much time has passed
             	console.info('Execution time (hr): %ds %dms', runtime[0], runtime[1] / 1000000);
-            	var acmd = require('child_process').spawn('../cppsv/createfilesauto', ['uploads/uploadedD']);
+            	var acmd = require('child_process').spawn('../cppsv/createnanotable', ['uploads/uploadedD']);
 			});
             
         }
