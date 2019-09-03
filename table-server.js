@@ -49,9 +49,8 @@ wss.on('connection', function connection(ws) {
 					setTimeout(intervalFunc,5, ws, messagefname);
 				}
 				else {
-					cachedFunc(ws,messagefname);
-					
-						
+					cachedFunc(ws,message,messagefname);
+
 				}
 			}
 			else {
@@ -60,7 +59,7 @@ wss.on('connection', function connection(ws) {
 					setTimeout(intervalFunc,5, ws, messagefname);
 				}
 				else {
-					cachedFunc(ws,messagefname);
+					cachedFunc(ws,message,messagefname);
 				}
 			}
 	
@@ -73,12 +72,30 @@ wss.on('connection', function connection(ws) {
 });
 
 
-function cachedFunc(ws, messagefname) {
-	ws.send("[[\"a1\",-1,\"a3\",1],[0,1],[2,3]]");
-	allusers[messagefname].messages.splice(0,1);
-	if (allusers[messagefname].messages.length > 0) {
-		cachedFunc(ws,messagefname);
+function cachedFunc(ws, message, messagefname) {
+	var outputcsv = "[[";
+	fs.stat("uploads/upmkd3w0.csv", function(err, stats) {
+		if (!err && stats.isFile() && stats.size > 16) {
+			fs.readFile(messagefname, 'utf8', function(err, data) {
+				outputcsv += data.split("\n")[0];
+				outputcsv += "],[";
+				outputcsv += data.split("\n")[1];
+				outputcsv += "]]";
+				ws.send(outputcsv);
+				
+				
+				allusers[messagefname].messages.splice(0,1);
+				if (allusers[messagefname].messages.length > 0) {
+					cachedFunc(ws,message,messagefname);
+				}
+			}
+		}
+		else {
+			setTimeout(cachedFunc,5,ws,message,messagefname);
+		}
 	}
+
+	
 }
 function intervalFunc(ws, messagefname) {
 		fs.stat(messagefname, function(err, stats) {
