@@ -58,11 +58,13 @@ wss.on('connection', function connection(ws) {
 			}
 			else if (message.split(",")[3] == 'print' || message.split(",")[3] == 'display' || (message.split(",")[3] == 'addcol' && message.split(",")[2] != '-1')){
 				fs.appendFile("quicktxt.txt", message, (err) => {});
+				console.log(message, 'quick');
 				setTimeout(intervalFunc,5, ws, messagefname);
 
 			}
 			else {
 				fs.appendFile("slowtxt.txt", message, (err) => {});
+				console.log(message, 'slow');
 				setTimeout(intervalFunc,5, ws, messagefname);
 
 			}
