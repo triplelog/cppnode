@@ -76,7 +76,7 @@ function cachedFunc(ws, message, messagefname) {
 	var outputcsv = "[[";
 	fs.stat("uploads/upmkd3w0.csv", function(err, stats) {
 		if (!err && stats.isFile() && stats.size > 16) {
-			fs.readFile(messagefname, 'utf8', function(err, data) {
+			fs.readFile("uploads/upmkd3w0.csv", 'utf8', function(err, data) {
 				outputcsv += data.split("\n")[0];
 				outputcsv += "],[";
 				outputcsv += data.split("\n")[1];
