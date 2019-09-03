@@ -12,12 +12,13 @@ fs.writeFile("quicktxt.txt", "", (err) => {});
 fs.writeFile("slowtxt.txt", "", (err) => {});
 var allmessages = {};
 wss.on('connection', function connection(ws) {
-	
+  console.log("hello");
   ws.on('message', function incoming(message) {
   	if (message.substring(0,4)=='Save'){
   		fs.writeFile("saved.txt", message, (err) => {});
   	}
   	else{
+  		console.log(message);
 		message += '\n';
 		message = message.replace(/\|/g, '\n');
 		message = message.replace(/\\n/g, '\r\n');
