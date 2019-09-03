@@ -79,6 +79,11 @@ function cachedFunc(ws, message, messagefname) {
 	var endRow = parseInt(message.split(",")[2])+1;
 	if (message.split(",")[3] == 'sort') {
 		allusers[messagefname].sort = parseInt(message.split(",")[4]);
+		allusers[messagefname].messages.splice(0,1);
+		if (allusers[messagefname].messages.length > 0) {
+			var nmessage = allusers[messagefname].messages[0];
+			cachedFunc(ws,nmessage,messagefname);
+		}
 	}
 	else if (message.split(",")[3] == 'print') {
 		fs.stat("uploads/"+allusers[messagefname].table+allusers[messagefname].sort+".csv", function(err, stats) {
@@ -98,7 +103,8 @@ function cachedFunc(ws, message, messagefname) {
 				
 					allusers[messagefname].messages.splice(0,1);
 					if (allusers[messagefname].messages.length > 0) {
-						cachedFunc(ws,message,messagefname);
+						var nmessage = allusers[messagefname].messages[0];
+						cachedFunc(ws,nmessage,messagefname);
 					}
 				});
 			}
