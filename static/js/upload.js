@@ -25,6 +25,12 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 		xmlHttp.send(array);
 		console.log(xmlHttp.responseText);
 		
+		xmlHttp = new XMLHttpRequest();
+		xmlHttp.open("POST", "/savefile?name=xxx", false); // false for synchronous request
+		xmlHttp.send("hi");
+		console.log(xmlHttp.responseText);
+		
+		
 		return xmlHttp.responseText;
 	}
 	reader.readAsArrayBuffer(this.files[0]);
