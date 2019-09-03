@@ -146,9 +146,11 @@ function intervalFunc(ws, messagefname) {
 						
 							if (nmessage.split(",")[3] == 'print' || nmessage.split(",")[3] == 'display' || (nmessage.split(",")[3] == 'addcol' && nmessage.split(",")[2] != '-1')){
 								fs.appendFile("quicktxt.txt", nmessage, (err) => {});
+								console.log(nmessage, 'quick');
 							}
 							else {
 								fs.appendFile("slowtxt.txt", nmessage, (err) => {});
+								console.log(nmessage, 'slow');
 							}
 
 							setTimeout(intervalFunc,5, ws, messagefname);
