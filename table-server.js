@@ -32,7 +32,6 @@ wss.on('connection', function connection(ws) {
 		allmessages[messagefname].push(message);
 	
 		if (allmessages[messagefname].length == 1) {
-			console.log("added");
 			try {
 			  fs.unlinkSync(messagefname);
 			  //file removed
@@ -55,10 +54,8 @@ wss.on('connection', function connection(ws) {
 });
 
 function intervalFunc(ws, messagefname) {
-		console.log(messagefname);
 		fs.stat(messagefname, function(err, stats) {
 			if (!err) {
-				console.log("g");
 				if (stats.isFile() && stats.size > 16) {
 					
 					fs.readFile(messagefname, 'utf8', function(err, data) {
@@ -91,9 +88,8 @@ function intervalFunc(ws, messagefname) {
 						}
 					});
 				}
-				else {
-					console.log(stats.isFile(), stats.size);
-					setTimeout(intervalFunc,5, ws, messagefname)
+				else if (stats.isFile()) {
+					//Add logic here
 				}
 			}
 			else {
