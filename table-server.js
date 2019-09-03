@@ -18,7 +18,6 @@ wss.on('connection', function connection(ws) {
   		fs.writeFile("saved.txt", message, (err) => {});
   	}
   	else{
-  		console.log(message);
 		message += '\n';
 		message = message.replace(/\|/g, '\n');
 		message = message.replace(/\\n/g, '\r\n');
