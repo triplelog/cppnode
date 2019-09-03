@@ -14,15 +14,17 @@ const wss = new WebSocket.Server({ port: 8080 });
 //fs.writeFile("slowtxt.txt", "", (err) => {});
 var allusers = {};
 wss.on('connection', function connection(ws) {
-  var userid = "ff1.csv";
-  console.log(ws);
-  allusers[userid]={'messages':[],'table':"upzywzy",'memory':false,'sort':0};
-  ws.send(userid);
-  var tarcmd = require('child_process').spawn('tar', ['xvzf','uploads/'+allusers[userid].table+'.csv.tar.gz']);
 
   ws.on('message', function incoming(message) {
   	if (message.substring(0,4)=='Save'){
   		fs.writeFile("saved.txt", message, (err) => {});
+  	}
+  	else if (message.substring(0,5)=='Table'){
+  		var tablename = message.split(",")[1];
+  		var userid = "ff1.csv";
+  		allusers[userid]={'messages':[],'table':"up"+tablename,'memory':false,'sort':0};
+  		var tarcmd = require('child_process').spawn('tar', ['xvzf','uploads/'+allusers[userid].table+'.csv.tar.gz']);
+  		ws.send(userid);
   	}
   	else if (message.substring(0,4)=='Load'){
   		messagefname = message.split(",")[1];
