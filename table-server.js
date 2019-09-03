@@ -10,8 +10,10 @@ var acmd = require('child_process').spawn('../cppsv/nanotable', ['31','batterlea
 //kill with acmd.kill();
 fs.writeFile("quicktxt.txt", "", (err) => {});
 fs.writeFile("slowtxt.txt", "", (err) => {});
-var allmessages = {};
+var allusers = {};
 wss.on('connection', function connection(ws) {
+  var userid = "ff1.csv";
+  allusers[userid]={'messages':[],'table':"batterleader"};
   ws.on('message', function incoming(message) {
   	if (message.substring(0,4)=='Save'){
   		fs.writeFile("saved.txt", message, (err) => {});
@@ -26,12 +28,10 @@ wss.on('connection', function connection(ws) {
 		//wss.clients.forEach(function each(client) {
 		//	client.send("hi");
 		//});
-		if (!allmessages[messagefname]) {
-			allmessages[messagefname] = [];
-		}
-		allmessages[messagefname].push(message);
+
+		allusers[messagefname].messages.push(message);
 	
-		if (allmessages[messagefname].length == 1) {
+		if (allusers[messagefname].messages.length == 1) {
 			try {
 			  fs.unlinkSync(messagefname);
 			  //file removed
@@ -67,15 +67,15 @@ function intervalFunc(ws, messagefname) {
 						
 
 					
-						allmessages[messagefname].splice(0,1);
-						if (allmessages[messagefname].length > 0) {
+						allusers[messagefname].messages.splice(0,1);
+						if (allusers[messagefname].messages.length > 0) {
 							try {
 							  fs.unlinkSync(messagefname);
 							  //file removed
 							} catch(err) {
 							  //console.error(err);
 							}
-							nmessage = allmessages[messagefname][0];
+							nmessage = allusers[messagefname].messages[0];
 						
 							if (nmessage.split(",")[3] == 'print' || nmessage.split(",")[3] == 'display' || (nmessage.split(",")[3] == 'addcol' && nmessage.split(",")[2] != '-1')){
 								fs.appendFile("quicktxt.txt", nmessage, (err) => {});
