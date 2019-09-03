@@ -32,15 +32,13 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 			if (!datatypes[i]['Not']){datatypes[i]['Not'] = 0;}
 			if (!datatypes[i]['Int']){datatypes[i]['Int'] = 0;}
 			if (datatypes[i]['Int']> datatypes[i]['Not']){
-				ctypestr += "1";
+				ctypestr += ",1";
 			}
 			else {
-				ctypestr += "0";
+				ctypestr += ",0";
 			}
 		}
-		console.log(ctypestr);
-		console.log(datatypes);
-		xmlHttp.send("-1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1");
+		xmlHttp.send(ctypestr);
 		console.log(xmlHttp.responseText);
 		
 		
