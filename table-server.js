@@ -55,10 +55,12 @@ wss.on('connection', function connection(ws) {
 });
 
 function intervalFunc(ws, messagefname) {
-		console.log("intfun");
+		console.log(messagefname);
 		fs.stat(messagefname, function(err, stats) {
 			if (!err) {
+				console.log("g");
 				if (stats.isFile() && stats.size > 16) {
+					console.log("h");
 					fs.readFile(messagefname, 'utf8', function(err, data) {
 						if (data.substring(0,22) != "completedwithoutoutput"){
 							ws.send(data);
