@@ -14,6 +14,7 @@ var allusers = {};
 wss.on('connection', function connection(ws) {
   var userid = "ff1.csv";
   allusers[userid]={'messages':[],'table':"batterleader"};
+  ws.send(userid);
   ws.on('message', function incoming(message) {
   	if (message.substring(0,4)=='Save'){
   		fs.writeFile("saved.txt", message, (err) => {});
