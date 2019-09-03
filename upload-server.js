@@ -13,10 +13,10 @@ http.createServer(function(req, res) {
     var data = [];
 
     // when we get data we want to store it in memory
-    
+    console.log(req);
     
     req.on('end', () => {
-    	console.log(req.path);
+    	
         var buffer = Buffer.concat(data); // read as buffer
         var bytesArray = new Uint8Array(buffer); // convert buffer to u8Array
         var start = process.hrtime() // start a timer
