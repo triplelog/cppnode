@@ -24,6 +24,7 @@ wss.on('connection', function connection(ws) {
   		fs.writeFile("saved.txt", message, (err) => {});
   	}
   	else{
+  		console.log(message);
 		message += '\n';
 		message = message.replace(/\|/g, '\n');
 		message = message.replace(/\\n/g, '\r\n');
@@ -43,7 +44,7 @@ wss.on('connection', function connection(ws) {
 			} catch(err) {
 			  //console.error(err);
 			}
-			console.log(message);
+			
 			if ((message.split(",")[3] == 'sort' && parseInt(message.split(",")[4]) < 26) || message.split(",")[3] == 'print' || message.split(",")[3] == 'display' || (message.split(",")[3] == 'addcol' && message.split(",")[2] != '-1')){
 				if (allusers[messagefname].memory){
 					fs.appendFile("quicktxt.txt", message, (err) => {});
