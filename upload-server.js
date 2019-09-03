@@ -53,8 +53,10 @@ http.createServer(function(req, res) {
     	req.on('data', chunk => {
 			//console.log(chunk.length);
 			//res.write(chunk.length);
-			console.log(chunk);
-
+			var bytesArray = new Uint8Array(chunk);
+			
+			var colinfo = new TextDecoder("utf-8").decode(bytesArray);
+			console.log(colinfo);
 		// below we process the full data
 		});
     	var acmd = require('child_process').spawn('../cppsv/createnanotable', ['uploads/up'+filepart]);
