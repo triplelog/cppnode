@@ -29,6 +29,8 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 		xmlHttp.open("POST", "/savefile?n="+filen, false); // false for synchronous request
 		var ctypestr = "-1";
 		for (var i=0;i<datatypes.length;i++) {
+			if (!datatypes[i]['Not']){datatypes[i]['Not'] = 0;}
+			if (!datatypes[i]['Int']){datatypes[i]['Int'] = 0;}
 			if (datatypes[i]['Int']> datatypes[i]['Not']){
 				ctypestr += "1";
 			}
