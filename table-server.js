@@ -18,7 +18,7 @@ wss.on('connection', function connection(ws) {
   allusers[userid]={'messages':[],'table':"upmkd3w",'memory':false};
   ws.send(userid);
   var tarcmd = require('child_process').spawn('tar', ['xvzf','uploads/upmkd3w.csv.tar.gz']);
-  tarcmd.kill();
+
   ws.on('message', function incoming(message) {
   	if (message.substring(0,4)=='Save'){
   		fs.writeFile("saved.txt", message, (err) => {});
