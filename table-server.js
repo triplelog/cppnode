@@ -6,15 +6,19 @@ var fs = require("fs");
 const WebSocket = require('ws');
 const wss = new WebSocket.Server({ port: 8080 });
 //const { exec } = require('child_process');
-var acmd = require('child_process').spawn('../cppsv/nanotable', ['31','batterleader'])
+
+//var acmd = require('child_process').spawn('../cppsv/nanotable', ['31','uploads/upmkd3w'])
 //kill with acmd.kill();
-fs.writeFile("quicktxt.txt", "", (err) => {});
-fs.writeFile("slowtxt.txt", "", (err) => {});
+
+//fs.writeFile("quicktxt.txt", "", (err) => {});
+//fs.writeFile("slowtxt.txt", "", (err) => {});
 var allusers = {};
 wss.on('connection', function connection(ws) {
   var userid = "ff1.csv";
-  allusers[userid]={'messages':[],'table':"batterleader"};
+  allusers[userid]={'messages':[],'table':"upmkd3w",'memory':false};
   ws.send(userid);
+  var tarcmd = require('child_process').spawn('tar', ['xvzf','uploads/upmkd3w.csv.tar.gz']);
+  tarcmd.kill();
   ws.on('message', function incoming(message) {
   	if (message.substring(0,4)=='Save'){
   		fs.writeFile("saved.txt", message, (err) => {});
@@ -40,13 +44,27 @@ wss.on('connection', function connection(ws) {
 			  //console.error(err);
 			}
 			if (message.split(",")[3] == 'print' || message.split(",")[3] == 'display' || (message.split(",")[3] == 'addcol' && message.split(",")[2] != '-1')){
-				fs.appendFile("quicktxt.txt", message, (err) => {});
+				if (allusers[messagefname].memory){
+					fs.appendFile("quicktxt.txt", message, (err) => {});
+					setTimeout(intervalFunc,5, ws, messagefname);
+				}
+				else {
+					cachedFunc(ws,messagefname);
+					
+						
+				}
 			}
 			else {
-				fs.appendFile("slowtxt.txt", message, (err) => {});
+				if (allusers[messagefname].memory){
+					fs.appendFile("slowtxt.txt", message, (err) => {});
+					setTimeout(intervalFunc,5, ws, messagefname);
+				}
+				else {
+					cachedFunc(ws,messagefname);
+				}
 			}
 	
-			setTimeout(intervalFunc,5, ws, messagefname);
+			
 		}
 	}
 	
@@ -54,6 +72,14 @@ wss.on('connection', function connection(ws) {
   });
 });
 
+
+function cachedFunc(ws, messagefname) {
+	ws.send("[[\"a1\",-1,\"a3\",1],[0,1],[2,3]]");
+	allusers[messagefname].messages.splice(0,1);
+	if (allusers[messagefname].messages.length > 0) {
+		cachedFunc(ws,messagefname);
+	}
+}
 function intervalFunc(ws, messagefname) {
 		fs.stat(messagefname, function(err, stats) {
 			if (!err) {
