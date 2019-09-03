@@ -16,6 +16,7 @@ http.createServer(function(req, res) {
     
     
     req.on('end', () => {
+    	console.log(req.path);
         var buffer = Buffer.concat(data); // read as buffer
         var bytesArray = new Uint8Array(buffer); // convert buffer to u8Array
         var start = process.hrtime() // start a timer
