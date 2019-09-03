@@ -60,7 +60,7 @@ function intervalFunc(ws, messagefname) {
 			if (!err) {
 				console.log("g");
 				if (stats.isFile() && stats.size > 16) {
-					console.log("h");
+					
 					fs.readFile(messagefname, 'utf8', function(err, data) {
 						if (data.substring(0,22) != "completedwithoutoutput"){
 							ws.send(data);
@@ -90,7 +90,10 @@ function intervalFunc(ws, messagefname) {
 							setTimeout(intervalFunc,5, ws, messagefname);
 						}
 					});
-					
+				}
+				else {
+					console.log(stats.isFile(), stats.size);
+					setTimeout(intervalFunc,5, ws, messagefname)
 				}
 			}
 			else {
