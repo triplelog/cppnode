@@ -8,7 +8,7 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 		var partBuffer = this.result.slice(0,10000),
 			partarray = new Uint8Array(partBuffer)
 		var partstr = new TextDecoder("utf-8").decode(partarray);
-		var ncols = toTable(partstr);
+		var datatypes = toTable(partstr);
 		
 		var arrayBuffer = this.result,
 			array = new Uint8Array(arrayBuffer)
@@ -27,6 +27,16 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 		
 		xmlHttp = new XMLHttpRequest();
 		xmlHttp.open("POST", "/savefile?n="+filen, false); // false for synchronous request
+		var ctypestr = "-1";
+		for (var i=0;i<datatypes.length;i++) {
+			if (datatypes[i]['Int']> datatypes[i]['Not']){
+				ctypestr += "1";
+			}
+			else {
+				ctypestr += "0";
+			}
+		}
+		console.log(ctypestr);
 		xmlHttp.send("-1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1");
 		console.log(xmlHttp.responseText);
 		
@@ -79,8 +89,8 @@ function toTable(input_str){
 			table.appendChild(tbody);
 		tableDiv.appendChild(table);
 		
-	console.log(datatypes);
-	return ncols;
+
+	return datatypes;
 }
 
 function getDataType(input_str){
