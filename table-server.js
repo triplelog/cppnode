@@ -55,6 +55,7 @@ wss.on('connection', function connection(ws) {
 });
 
 function intervalFunc(ws, messagefname) {
+		console.log("intfun");
 		fs.stat(messagefname, function(err, stats) {
 			if (!err) {
 				if (stats.isFile() && stats.size > 16) {
