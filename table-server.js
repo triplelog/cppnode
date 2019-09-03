@@ -74,9 +74,9 @@ wss.on('connection', function connection(ws) {
 
 function cachedFunc(ws, message, messagefname) {
 	var outputcsv = "[[";
-	fs.stat("uploads/uphmi4a0.csv", function(err, stats) {
+	fs.stat("uploads/uphmi4a4.csv", function(err, stats) {
 		if (!err && stats.isFile() && stats.size > 16) {
-			fs.readFile("uploads/uphmi4a0.csv", 'utf8', function(err, data) {
+			fs.readFile("uploads/uphmi4a4.csv", 'utf8', function(err, data) {
 				var spldata = data.split("\n");
 				for (var i=0;i<spldata.length-1;i++) {
 					outputcsv += spldata[i];
