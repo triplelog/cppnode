@@ -15,7 +15,7 @@ const wss = new WebSocket.Server({ port: 8080 });
 var allusers = {};
 wss.on('connection', function connection(ws) {
   var userid = "ff1.csv";
-  allusers[userid]={'messages':[],'table':"up0gcmu",'memory':false,'sort':0};
+  allusers[userid]={'messages':[],'table':"up00v4w",'memory':false,'sort':0};
   ws.send(userid);
   var tarcmd = require('child_process').spawn('tar', ['xvzf','uploads/'+allusers[userid].table+'.csv.tar.gz']);
 
