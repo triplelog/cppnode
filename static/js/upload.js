@@ -37,6 +37,7 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 			}
 		}
 		console.log(ctypestr);
+		console.log(datatypes);
 		xmlHttp.send("-1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1");
 		console.log(xmlHttp.responseText);
 		
