@@ -30,7 +30,7 @@ http.createServer(function(req, res) {
 				fs.writeFile("uploads/up"+filepart+".csv", decomp, function (err) {
 					var runtime = process.hrtime(start) // we also check how much time has passed
 					console.info('Execution time (hr): %ds %dms', runtime[0], runtime[1] / 1000000);
-					var acmd = require('child_process').spawn('../cppsv/createnanotable', ['uploads/up'+filepart]);
+					
 				});
 			
 			}
@@ -48,7 +48,10 @@ http.createServer(function(req, res) {
 		});
     }
     else if (req.url.substring(0,9) == "/savefile"){
-    	console.log(req.url);
+    	var filepart = req.url.substring(12,req.url.length);
+    	console.log(filepart);
+    	
+    	var acmd = require('child_process').spawn('../cppsv/createnanotable', ['uploads/up'+filepart]);
     	res.write("there"); //write a response to the client
 		res.end();
     }

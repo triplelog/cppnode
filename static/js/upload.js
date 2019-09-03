@@ -23,10 +23,10 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 		var xmlHttp = new XMLHttpRequest();
 		xmlHttp.open("POST", "/uploadfile", false); // false for synchronous request
 		xmlHttp.send(array);
-		console.log(xmlHttp.responseText);
+		var filen = xmlHttp.responseText);
 		
 		xmlHttp = new XMLHttpRequest();
-		xmlHttp.open("POST", "/savefile?name=xxx", false); // false for synchronous request
+		xmlHttp.open("POST", "/savefile?n="+filen, false); // false for synchronous request
 		xmlHttp.send("hi");
 		console.log(xmlHttp.responseText);
 		
