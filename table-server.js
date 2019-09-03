@@ -29,7 +29,7 @@ wss.on('connection', function connection(ws) {
   		allusers[messagefname].memory = true;
   		var acmd = require('child_process').spawn('../cppsv/nanotable', ['28','2','uploads/'+allusers[messagefname].table]);
   		fs.writeFile("quicktxt.txt", "", (err) => {});
-		fs.writeFile("slowtxt.txt", messagefname+",0,10,sort,0", (err) => {});
+		fs.writeFile("slowtxt.txt", messagefname+",0,10,sort,0\n", (err) => {});
   	}
   	else{
   		console.log(message);
