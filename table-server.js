@@ -59,7 +59,7 @@ wss.on('connection', function connection(ws) {
 					setTimeout(intervalFunc,5, ws, messagefname);
 				}
 				else {
-					cachedFunc(ws,message,messagefname);
+					//load into memory
 				}
 			}
 	
@@ -74,15 +74,19 @@ wss.on('connection', function connection(ws) {
 
 function cachedFunc(ws, message, messagefname) {
 	var outputcsv = "[[";
+	var startRow = parseInt(message.split(",")[1])+1;
+	var endRow = parseInt(message.split(",")[2])+1;
 	fs.stat("uploads/uphmi4a4.csv", function(err, stats) {
 		if (!err && stats.isFile() && stats.size > 16) {
 			fs.readFile("uploads/uphmi4a4.csv", 'utf8', function(err, data) {
 				var spldata = data.split("\n");
-				for (var i=0;i<spldata.length-1;i++) {
+				outputcsv += spldata[0];
+				outputcsv += "],[";
+				for (var i=startRow;i<endRow-1;i++) {
 					outputcsv += spldata[i];
 					outputcsv += "],[";
 				}
-				outputcsv += spldata[spldata.length-1];
+				outputcsv += spldata[endRow-1];
 				outputcsv += "]]";
 				ws.send(outputcsv);
 				
