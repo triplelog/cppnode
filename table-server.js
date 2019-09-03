@@ -25,6 +25,7 @@ wss.on('connection', function connection(ws) {
   	}
   	else if (message.substring(0,4)=='Load'){
   		messagefname = message.split(",")[1];
+  		console.log(messagefname);
   		allusers[messagefname].memory = true;
   		var acmd = require('child_process').spawn('../cppsv/nanotable', ['28','2','uploads/'+allusers[messagefname].table]);
   		fs.writeFile("quicktxt.txt", "", (err) => {});
