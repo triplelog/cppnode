@@ -15,9 +15,9 @@ const wss = new WebSocket.Server({ port: 8080 });
 var allusers = {};
 wss.on('connection', function connection(ws) {
   var userid = "ff1.csv";
-  allusers[userid]={'messages':[],'table':"upmkd3w",'memory':false};
+  allusers[userid]={'messages':[],'table':"uphmi4a",'memory':false};
   ws.send(userid);
-  var tarcmd = require('child_process').spawn('tar', ['xvzf','uploads/upmkd3w.csv.tar.gz']);
+  var tarcmd = require('child_process').spawn('tar', ['xvzf','uploads/uphmi4a.csv.tar.gz']);
 
   ws.on('message', function incoming(message) {
   	if (message.substring(0,4)=='Save'){
@@ -74,12 +74,15 @@ wss.on('connection', function connection(ws) {
 
 function cachedFunc(ws, message, messagefname) {
 	var outputcsv = "[[";
-	fs.stat("uploads/upmkd3w0.csv", function(err, stats) {
+	fs.stat("uploads/uphmi4a.csv", function(err, stats) {
 		if (!err && stats.isFile() && stats.size > 16) {
-			fs.readFile("uploads/upmkd3w0.csv", 'utf8', function(err, data) {
-				outputcsv += data.split("\n")[0];
-				outputcsv += "],[";
-				outputcsv += data.split("\n")[1];
+			fs.readFile("uploads/uphmi4a.csv", 'utf8', function(err, data) {
+				var spldata = data.split("\n");
+				for (var i=0;i<splidata.length-1;i++) {
+					outputcsv += ;
+					outputcsv += "],[";
+				}
+				outputcsv += data.split("\n")[splidata.length-1];
 				outputcsv += "]]";
 				ws.send(outputcsv);
 				
