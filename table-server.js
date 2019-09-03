@@ -80,31 +80,33 @@ function cachedFunc(ws, message, messagefname) {
 	if (message.split(",")[3] == 'sort') {
 		allusers[messagefname].sort = parseInt(message.split(",")[4]);
 	}
-	fs.stat("uploads/"+allusers[messagefname].table+allusers[messagefname].sort+".csv", function(err, stats) {
-		if (!err && stats.isFile() && stats.size > 16) {
-			fs.readFile("uploads/"+allusers[messagefname].table+allusers[messagefname].sort+".csv", 'utf8', function(err, data) {
-				var spldata = data.split("\n");
-				outputcsv += spldata[0];
-				outputcsv += "],[";
-				for (var i=startRow;i<endRow-1;i++) {
-					outputcsv += spldata[i];
+	else if (message.split(",")[3] == 'print') {
+		fs.stat("uploads/"+allusers[messagefname].table+allusers[messagefname].sort+".csv", function(err, stats) {
+			if (!err && stats.isFile() && stats.size > 16) {
+				fs.readFile("uploads/"+allusers[messagefname].table+allusers[messagefname].sort+".csv", 'utf8', function(err, data) {
+					var spldata = data.split("\n");
+					outputcsv += spldata[0];
 					outputcsv += "],[";
-				}
-				outputcsv += spldata[endRow-1];
-				outputcsv += "]]";
-				ws.send(outputcsv);
+					for (var i=startRow;i<endRow-1;i++) {
+						outputcsv += spldata[i];
+						outputcsv += "],[";
+					}
+					outputcsv += spldata[endRow-1];
+					outputcsv += "]]";
+					ws.send(outputcsv);
 				
 				
-				allusers[messagefname].messages.splice(0,1);
-				if (allusers[messagefname].messages.length > 0) {
-					cachedFunc(ws,message,messagefname);
-				}
-			});
-		}
-		else {
-			setTimeout(cachedFunc,5,ws,message,messagefname);
-		}
-	});
+					allusers[messagefname].messages.splice(0,1);
+					if (allusers[messagefname].messages.length > 0) {
+						cachedFunc(ws,message,messagefname);
+					}
+				});
+			}
+			else {
+				setTimeout(cachedFunc,5,ws,message,messagefname);
+			}
+		});
+	}
 
 	
 }
