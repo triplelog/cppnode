@@ -93,7 +93,7 @@ function cachedFunc(ws, message, messagefname) {
 		else {
 			setTimeout(cachedFunc,5,ws,message,messagefname);
 		}
-	}
+	});
 
 	
 }
