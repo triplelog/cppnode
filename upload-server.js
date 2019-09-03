@@ -35,7 +35,7 @@ http.createServer(function(req, res) {
             
         }
         
-        res.write('ok'); //write a response to the client
+        res.write(filepart); //write a response to the client
     	res.end(); //end the response
     });
     

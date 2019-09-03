@@ -25,9 +25,8 @@ wss.on('connection', function connection(ws) {
   	}
   	else if (message.substring(0,4)=='Load'){
   		messagefname = message.split(",")[1];
-  		console.log(messagefname);
   		allusers[messagefname].memory = true;
-  		var acmd = require('child_process').spawn('../cppsv/nanotable', ['28','2','uploads/'+allusers[messagefname].table]);
+  		var acmd = require('child_process').spawn('../cppsv/nanotable', ['uploads/'+allusers[messagefname].table]);
   		fs.writeFile("quicktxt.txt", "", (err) => {});
 		fs.writeFile("slowtxt.txt", messagefname+",0,10,sort,0\n", (err) => {});
   	}
@@ -58,13 +57,11 @@ wss.on('connection', function connection(ws) {
 			}
 			else if (message.split(",")[3] == 'print' || message.split(",")[3] == 'display' || (message.split(",")[3] == 'addcol' && message.split(",")[2] != '-1')){
 				fs.appendFile("quicktxt.txt", message, (err) => {});
-				console.log(message, 'quick');
 				setTimeout(intervalFunc,5, ws, messagefname);
 
 			}
 			else {
 				fs.appendFile("slowtxt.txt", message, (err) => {});
-				console.log(message, 'slow');
 				setTimeout(intervalFunc,5, ws, messagefname);
 
 			}
@@ -131,7 +128,6 @@ function intervalFunc(ws, messagefname) {
 							ws.send(data);
 						}
 						else {
-							console.log(data);
 						}
 						
 						allusers[messagefname].messages.splice(0,1);
@@ -146,11 +142,9 @@ function intervalFunc(ws, messagefname) {
 						
 							if (nmessage.split(",")[3] == 'print' || nmessage.split(",")[3] == 'display' || (nmessage.split(",")[3] == 'addcol' && nmessage.split(",")[2] != '-1')){
 								fs.appendFile("quicktxt.txt", nmessage, (err) => {});
-								console.log(nmessage, 'quick');
 							}
 							else {
 								fs.appendFile("slowtxt.txt", nmessage, (err) => {});
-								console.log(nmessage, 'slow');
 							}
 
 							setTimeout(intervalFunc,5, ws, messagefname);
