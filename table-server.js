@@ -12,7 +12,6 @@ fs.writeFile("quicktxt.txt", "", (err) => {});
 fs.writeFile("slowtxt.txt", "", (err) => {});
 var allmessages = {};
 wss.on('connection', function connection(ws) {
-  console.log("hello");
   ws.on('message', function incoming(message) {
   	if (message.substring(0,4)=='Save'){
   		fs.writeFile("saved.txt", message, (err) => {});
@@ -33,6 +32,7 @@ wss.on('connection', function connection(ws) {
 		allmessages[messagefname].push(message);
 	
 		if (allmessages[messagefname].length == 1) {
+			console.log("added");
 			try {
 			  fs.unlinkSync(messagefname);
 			  //file removed
