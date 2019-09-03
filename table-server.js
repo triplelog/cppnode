@@ -78,11 +78,11 @@ function cachedFunc(ws, message, messagefname) {
 		if (!err && stats.isFile() && stats.size > 16) {
 			fs.readFile("uploads/uphmi4a.csv", 'utf8', function(err, data) {
 				var spldata = data.split("\n");
-				for (var i=0;i<splidata.length-1;i++) {
-					outputcsv += ;
+				for (var i=0;i<spldata.length-1;i++) {
+					outputcsv += spldata[i];
 					outputcsv += "],[";
 				}
-				outputcsv += data.split("\n")[splidata.length-1];
+				outputcsv += spldata[spldata.length-1];
 				outputcsv += "]]";
 				ws.send(outputcsv);
 				
