@@ -27,7 +27,7 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 		
 		xmlHttp = new XMLHttpRequest();
 		xmlHttp.open("POST", "/savefile?n="+filen, false); // false for synchronous request
-		xmlHttp.send("hi");
+		xmlHttp.send("-1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1");
 		console.log(xmlHttp.responseText);
 		
 		

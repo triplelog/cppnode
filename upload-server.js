@@ -50,7 +50,13 @@ http.createServer(function(req, res) {
     else if (req.url.substring(0,9) == "/savefile"){
     	var filepart = req.url.substring(12,req.url.length);
     	console.log(filepart);
-    	
+    	req.on('data', chunk => {
+			//console.log(chunk.length);
+			//res.write(chunk.length);
+			console.log(chunk);
+
+		// below we process the full data
+		});
     	var acmd = require('child_process').spawn('../cppsv/createnanotable', ['uploads/up'+filepart]);
     	res.write("there"); //write a response to the client
 		res.end();
