@@ -15,13 +15,20 @@ const wss = new WebSocket.Server({ port: 8080 });
 var allusers = {};
 wss.on('connection', function connection(ws) {
   var userid = "ff1.csv";
-  allusers[userid]={'messages':[],'table':"upz7xlu",'memory':false,'sort':0};
+  allusers[userid]={'messages':[],'table':"up",'memory':false,'sort':0};
   ws.send(userid);
   var tarcmd = require('child_process').spawn('tar', ['xvzf','uploads/'+allusers[userid].table+'.csv.tar.gz']);
 
   ws.on('message', function incoming(message) {
   	if (message.substring(0,4)=='Save'){
   		fs.writeFile("saved.txt", message, (err) => {});
+  	}
+  	else if (message.substring(0,4)=='Load'){
+  		messagefname = message.split(",")[1];
+  		allusers[messagefname].memory = true;
+  		var acmd = require('child_process').spawn('../cppsv/nanotable', ['28','2','uploads/'+allusers[messagefname].table]);
+  		fs.writeFile("quicktxt.txt", "", (err) => {});
+		fs.writeFile("slowtxt.txt", messagefname+",0,10,sort,0", (err) => {});
   	}
   	else{
   		console.log(message);
@@ -45,24 +52,18 @@ wss.on('connection', function connection(ws) {
 			  //console.error(err);
 			}
 			
-			if ((message.split(",")[3] == 'sort' && parseInt(message.split(",")[4]) < 26) || message.split(",")[3] == 'print' || message.split(",")[3] == 'display' || (message.split(",")[3] == 'addcol' && message.split(",")[2] != '-1')){
-				if (allusers[messagefname].memory){
-					fs.appendFile("quicktxt.txt", message, (err) => {});
-					setTimeout(intervalFunc,5, ws, messagefname);
-				}
-				else {
-					cachedFunc(ws,message,messagefname);
+			if (!allusers[messagefname].memory){
+				cachedFunc(ws,message,messagefname);
+			}
+			else if (message.split(",")[3] == 'print' || message.split(",")[3] == 'display' || (message.split(",")[3] == 'addcol' && message.split(",")[2] != '-1')){
+				fs.appendFile("quicktxt.txt", message, (err) => {});
+				setTimeout(intervalFunc,5, ws, messagefname);
 
-				}
 			}
 			else {
-				if (allusers[messagefname].memory){
-					fs.appendFile("slowtxt.txt", message, (err) => {});
-					setTimeout(intervalFunc,5, ws, messagefname);
-				}
-				else {
-					//load into memory
-				}
+				fs.appendFile("slowtxt.txt", message, (err) => {});
+				setTimeout(intervalFunc,5, ws, messagefname);
+
 			}
 	
 			
@@ -141,7 +142,7 @@ function intervalFunc(ws, messagefname) {
 							}
 							nmessage = allusers[messagefname].messages[0];
 						
-							if ((nmessage.split(",")[3] == 'sort' && parseInt(nmessage.split(",")[4]) < 26) || nmessage.split(",")[3] == 'print' || nmessage.split(",")[3] == 'display' || (nmessage.split(",")[3] == 'addcol' && nmessage.split(",")[2] != '-1')){
+							if (nmessage.split(",")[3] == 'print' || nmessage.split(",")[3] == 'display' || (nmessage.split(",")[3] == 'addcol' && nmessage.split(",")[2] != '-1')){
 								fs.appendFile("quicktxt.txt", nmessage, (err) => {});
 							}
 							else {
