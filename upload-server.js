@@ -13,7 +13,7 @@ http.createServer(function(req, res) {
     var data = [];
 
     // when we get data we want to store it in memory
-    console.log(req);
+    console.log(req.url);
     
     req.on('end', () => {
     	
