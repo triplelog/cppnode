@@ -129,10 +129,9 @@ function intervalFunc(ws, messagefname) {
 							ws.send(data);
 						}
 						else {
+							console.log(data);
 						}
 						
-
-					
 						allusers[messagefname].messages.splice(0,1);
 						if (allusers[messagefname].messages.length > 0) {
 							try {
