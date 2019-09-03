@@ -15,9 +15,9 @@ const wss = new WebSocket.Server({ port: 8080 });
 var allusers = {};
 wss.on('connection', function connection(ws) {
   var userid = "ff1.csv";
-  allusers[userid]={'messages':[],'table':"uphmi4a",'memory':false};
+  allusers[userid]={'messages':[],'table':"uphmi4a",'memory':false,'sort':0};
   ws.send(userid);
-  var tarcmd = require('child_process').spawn('tar', ['xvzf','uploads/uphmi4a.csv.tar.gz']);
+  var tarcmd = require('child_process').spawn('tar', ['xvzf','uploads/'+allusers[userid].table+'.csv.tar.gz']);
 
   ws.on('message', function incoming(message) {
   	if (message.substring(0,4)=='Save'){
@@ -43,7 +43,7 @@ wss.on('connection', function connection(ws) {
 			} catch(err) {
 			  //console.error(err);
 			}
-			if (message.split(",")[3] == 'print' || message.split(",")[3] == 'display' || (message.split(",")[3] == 'addcol' && message.split(",")[2] != '-1')){
+			if ((message.split(",")[3] == 'sort' && parseInt(message.split(",")[4]) < 6) || message.split(",")[3] == 'print' || message.split(",")[3] == 'display' || (message.split(",")[3] == 'addcol' && message.split(",")[2] != '-1')){
 				if (allusers[messagefname].memory){
 					fs.appendFile("quicktxt.txt", message, (err) => {});
 					setTimeout(intervalFunc,5, ws, messagefname);
@@ -76,9 +76,12 @@ function cachedFunc(ws, message, messagefname) {
 	var outputcsv = "[[";
 	var startRow = parseInt(message.split(",")[1])+1;
 	var endRow = parseInt(message.split(",")[2])+1;
-	fs.stat("uploads/uphmi4a4.csv", function(err, stats) {
+	if (message.split(",")[3] == 'sort') {
+		allusers[messagefname].sort = parseInt(message.split(",")[4]);
+	}
+	fs.stat("uploads/"+allusers[messagefname].table+allusers[messagefname].sort+".csv", function(err, stats) {
 		if (!err && stats.isFile() && stats.size > 16) {
-			fs.readFile("uploads/uphmi4a4.csv", 'utf8', function(err, data) {
+			fs.readFile("uploads/"+allusers[messagefname].table+allusers[messagefname].sort+".csv", 'utf8', function(err, data) {
 				var spldata = data.split("\n");
 				outputcsv += spldata[0];
 				outputcsv += "],[";
@@ -128,7 +131,7 @@ function intervalFunc(ws, messagefname) {
 							}
 							nmessage = allusers[messagefname].messages[0];
 						
-							if (nmessage.split(",")[3] == 'print' || nmessage.split(",")[3] == 'display' || (nmessage.split(",")[3] == 'addcol' && nmessage.split(",")[2] != '-1')){
+							if ((nmessage.split(",")[3] == 'sort' && parseInt(nmessage.split(",")[4]) < 6) || nmessage.split(",")[3] == 'print' || nmessage.split(",")[3] == 'display' || (nmessage.split(",")[3] == 'addcol' && nmessage.split(",")[2] != '-1')){
 								fs.appendFile("quicktxt.txt", nmessage, (err) => {});
 							}
 							else {
