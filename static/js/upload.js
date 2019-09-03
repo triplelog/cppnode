@@ -5,10 +5,10 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 
 		console.log("Compressing")
 		
-		var partBuffer = this.result.slice(0,1000),
+		var partBuffer = this.result.slice(0,100000),
 			partarray = new Uint8Array(partBuffer)
 		var partstr = new TextDecoder("utf-8").decode(partarray);
-		toTable(partstr);
+		var ncols = toTable(partstr);
 		
 		var arrayBuffer = this.result,
 			array = new Uint8Array(arrayBuffer)
@@ -24,6 +24,7 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 		xmlHttp.open("POST", "/uploadfile", false); // false for synchronous request
 		xmlHttp.send(array);
 		console.log(xmlHttp.responseText);
+		
 		return xmlHttp.responseText;
 	}
 	reader.readAsArrayBuffer(this.files[0]);
@@ -35,6 +36,7 @@ function toTable(input_str){
 	
 	var data = Papa.parse(input_str);
 	var datatypes = [];
+	var ncols = Math.max(data.data[0].length,data.data[1].length);
 	
 	var tableDiv = document.getElementById("outputTable");
 	tableDiv.classList.add("flex-center");
@@ -72,6 +74,7 @@ function toTable(input_str){
 		tableDiv.appendChild(table);
 		
 	console.log(datatypes);
+	return ncols;
 }
 
 function getDataType(input_str){
