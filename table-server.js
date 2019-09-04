@@ -31,7 +31,7 @@ wss.on('connection', function connection(ws) {
   		allusers[messagefname].memory = true;
   		var acmd = require('child_process').spawn('../cppsv/nanotable', ['uploads/'+allusers[messagefname].table]);
   		fs.writeFile("quicktxt.txt", "", (err) => {});
-		fs.writeFile("slowtxt.txt", messagefname+",0,10,sort,0\n", (err) => {});
+  		fs.writeFile("slowtxt.txt", "", (err) => {});
   	}
   	else{
   		console.log(message);
@@ -109,7 +109,18 @@ function cachedFunc(ws, message, messagefname) {
 					allusers[messagefname].messages.splice(0,1);
 					if (allusers[messagefname].messages.length > 0) {
 						var nmessage = allusers[messagefname].messages[0];
-						cachedFunc(ws,nmessage,messagefname);
+						if (!allusers[messagefname].memory){
+							cachedFunc(ws,nmessage,messagefname);
+						}
+						else if (nmessage.split(",")[3] == 'print' || nmessage.split(",")[3] == 'display' || (nmessage.split(",")[3] == 'addcol' && nmessage.split(",")[2] != '-1')){
+							fs.appendFile("quicktxt.txt", nmessage, (err) => {});
+							setTimeout(intervalFunc,5, ws, messagefname);
+
+						}
+						else {
+							fs.appendFile("slowtxt.txt", nmessage, (err) => {});
+							setTimeout(intervalFunc,5, ws, messagefname);
+						}
 					}
 				});
 			}
