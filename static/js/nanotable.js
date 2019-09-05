@@ -104,7 +104,7 @@ class NanoTable extends HTMLElement {
   		table.appendChild(tfoot);
   	table.style.overflowY = "auto";
   	table.style.overflowX = "auto";
-  	table.style.maxHeight = "400px";
+  	table.style.maxHeight = "40vh";
   	table.style.margin = "0px";
   	table.style.border = "1px dashed blue";
   	table.style.maxWidth = (this.parentNode.clientWidth-20)+"px";
