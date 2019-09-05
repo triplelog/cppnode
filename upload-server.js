@@ -55,7 +55,7 @@ http.createServer(function(req, res) {
 			var bytesArray = new Uint8Array(chunk);
 			
 			var colinfo = new TextDecoder("utf-8").decode(bytesArray);
-			colinfo = decodeURIComponent(colinfo);
+			colinfo = decodeURIComponent(colinfo).substring(7,);
 			console.log(colinfo);
 			var acmd = require('child_process').spawn('../cppsv/createnanotable', ['uploads/up'+filepart, colinfo]);
 		// below we process the full data
