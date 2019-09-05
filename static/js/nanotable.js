@@ -106,7 +106,7 @@ class NanoTable extends HTMLElement {
   	table.style.overflowX = "auto";
   	table.style.maxHeight = "400px";
   	table.style.margin = "0px";
-  	table.style.maxWidth = (this.parentNode.offsetWidth-20)+"px";
+  	table.style.maxWidth = (this.parentNode.offsetWidth-50)+"px";
   	table.style.display = "block";
   	table.addEventListener("scroll",e => {this.scrollTable(e);});
   	//this.appendChild(table);
