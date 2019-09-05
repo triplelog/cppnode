@@ -4,7 +4,7 @@ var express = require('express');
 const flate = require('wasm-flate');
 
 var app = express();
-app.use('/static',express.static('stati'));
+app.use('/',express.static('static'));
 var serverStatic = app.listen(12312);
 
 
