@@ -95,13 +95,13 @@ function cachedFunc(ws, message, messagefname) {
 			if (!err && stats.isFile() && stats.size > 16) {
 				fs.readFile("uploads/"+allusers[messagefname].table+allusers[messagefname].sort+".csv", 'utf8', function(err, data) {
 					var spldata = data.split("\n");
-					outputcsv += spldata[0];
+					outputcsv += "\"Rk\",-1,"+spldata[0];
 					outputcsv += "],[";
 					for (var i=startRow;i<endRow-1;i++) {
-						outputcsv += spldata[i];
+						outputcsv += (i+1)+','+spldata[i];
 						outputcsv += "],[";
 					}
-					outputcsv += spldata[endRow-1];
+					outputcsv += endRow+','+spldata[endRow-1];
 					outputcsv += "]]";
 					ws.send(outputcsv);
 				
