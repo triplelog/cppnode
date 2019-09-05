@@ -21,7 +21,7 @@ wss.on('connection', function connection(ws) {
   	}
   	else if (message.substring(0,5)=='Table'){
   		var tablename = message.split(",")[1];
-  		var userid = "ff1.csv";
+  		var userid = "ff"+Math.random().toString(36).substring(5, 10);+".csv";
   		allusers[userid]={'messages':[],'table':"up"+tablename,'memory':false,'sort':0};
   		var tarcmd = require('child_process').spawn('tar', ['xvzf','uploads/'+allusers[userid].table+'.csv.tar.gz']);
   		ws.send(userid);
