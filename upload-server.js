@@ -30,13 +30,14 @@ http.createServer(function(req, res) {
 				fs.writeFile("uploads/up"+filepart+".csv", decomp, function (err) {
 					var runtime = process.hrtime(start) // we also check how much time has passed
 					console.info('Execution time (hr): %ds %dms', runtime[0], runtime[1] / 1000000);
+					res.write(filepart); //write a response to the client
+					res.end(); //end the response
 					
 				});
 			
 			}
 		
-			res.write(filepart); //write a response to the client
-			res.end(); //end the response
+			
 		});
 	
 		req.on('data', chunk => {
@@ -58,11 +59,17 @@ http.createServer(function(req, res) {
 			colinfo = decodeURIComponent(colinfo).substring(7,);
 			console.log(colinfo);
 			var acmd = require('child_process').spawn('../cppsv/createnanotable', ['uploads/up'+filepart, colinfo]);
+			var htmltxt = "<html>\n</html>";
+			fs.writeFile("static/"+filepart+".html", htmltxt, function (err) {
+			
+				res.write(filepart); //write a response to the client
+				res.end(); //end the response
+				
+			});
 		// below we process the full data
 		});
     	
-    	res.write(filepart); //write a response to the client
-		res.end();
+
     }
     
 }).listen(3000);
