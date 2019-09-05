@@ -264,7 +264,7 @@ class NanoTable extends HTMLElement {
   }
   
   addData(retmess) {
-	if (retmess.length == 0) {return 0;}
+	
 	if (retmess[0][0].substring(0,5)=="Pivot"){
 		this.currentTable = "pivot@" + retmess[0][0].substring(6,retmess[0][0].length-2);
 		retmess[0][0] = "Rk";
