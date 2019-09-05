@@ -88,7 +88,6 @@ function intervalFunc(res,filepart) {
 			}
 		}
 		else {
-			console.log(filepart);
 			setTimeout(intervalFunc,20, res, filepart);
 		}
 		
