@@ -111,8 +111,8 @@ class NanoTable extends HTMLElement {
   	table.style.display = "block";
   	table.addEventListener("scroll",e => {this.scrollTable(e);});
   	//this.appendChild(table);
-  	this.shadowRoot.style.margin = "0px";
-  	this.shadowRoot.style.padding = "0px";
+  	this.style.margin = "0px";
+  	this.style.padding = "0px";
   	this.shadowRoot.appendChild(table);
   	
   }
