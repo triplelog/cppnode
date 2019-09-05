@@ -25,8 +25,6 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 		xmlHttp.send(array);
 		var filen = xmlHttp.responseText;
 		
-		xmlHttp = new XMLHttpRequest();
-		xmlHttp.open("POST", "/savefile?n="+filen, false); // false for synchronous request
 		var ctypestr = "-1";
 		for (var i=0;i<datatypes.length;i++) {
 			if (!datatypes[i]['Not']){datatypes[i]['Not'] = 0;}
@@ -38,8 +36,12 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 				ctypestr += ",0";
 			}
 		}
-		xmlHttp.send(ctypestr);
-		console.log(xmlHttp.responseText);
+		createConfirmForm(filen,ctypestr);
+		//xmlHttp = new XMLHttpRequest();
+		//xmlHttp.open("POST", "/savefile?n="+filen, false); // false for synchronous request
+		
+		//xmlHttp.send(ctypestr);
+		//console.log(xmlHttp.responseText);
 		
 		
 		return xmlHttp.responseText;
@@ -47,6 +49,20 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 	reader.readAsArrayBuffer(this.files[0]);
 }, false);
 
+function createConfirmForm(name,ctypestr){
+	var form = document.createElement("form");
+	form.setAttribute("action","/savefile?n="+filen);
+	form.setAttribute("method","post");
+		var input = document.createElement("input");
+		input.setAttribute("type","text");
+		input.setAttribute("name","ctypes");
+		input.value = ctypestr;
+		form.appendChild(input);
+		var button = document.createElement("button");
+		button.textContent = "Submit";
+		form.appendChild(button);
+	document.getElementById("formholder").appendChild(form);
+}
 function toTable(input_str){
 	
 	
