@@ -4,7 +4,7 @@ var express = require('express');
 const flate = require('wasm-flate');
 
 var app = express();
-app.use('/static',express.static('static'));
+app.use('/static',express.static('stati'));
 var serverStatic = app.listen(12312);
 
 
@@ -60,7 +60,7 @@ http.createServer(function(req, res) {
 			console.log(colinfo);
 			var acmd = require('child_process').spawn('../cppsv/createnanotable', ['uploads/up'+filepart, colinfo]);
 			var htmltxt = "<html>\n</html>";
-			fs.writeFile("static/"+filepart+".html", htmltxt, function (err) {
+			fs.writeFile("static/tables/"+filepart+".html", htmltxt, function (err) {
 			
 				res.write(filepart); //write a response to the client
 				res.end(); //end the response
