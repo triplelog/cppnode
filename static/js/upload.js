@@ -49,7 +49,7 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 	reader.readAsArrayBuffer(this.files[0]);
 }, false);
 
-function createConfirmForm(name,ctypestr){
+function createConfirmForm(filen,ctypestr){
 	var form = document.createElement("form");
 	form.setAttribute("action","/savefile?n="+filen);
 	form.setAttribute("method","post");
