@@ -22,14 +22,14 @@ wss.on('connection', function connection(ws) {
   	else if (message.substring(0,5)=='Table'){
   		var tablename = message.split(",")[1];
   		var userid = "ff"+Math.random().toString(36).substring(5, 10);+".csv";
-  		allusers[userid]={'messages':[],'table':"up"+tablename,'memory':false,'sort':0,'quick':'up'+tablename+'quick.txt','slow':'up'+tablename+'slow.txt'};
+  		allusers[userid]={'messages':[],'table':"up"+tablename,'memory':false,'sort':0,'quick':'quick/up'+tablename+'.txt','slow':'slow/up'+tablename+'.txt'};
   		var tarcmd = require('child_process').spawn('tar', ['xvzf','uploads/'+allusers[userid].table+'.csv.tar.gz']);
   		ws.send(userid);
   	}
   	else if (message.substring(0,4)=='Load'){
   		messagefname = message.split(",")[1];
   		allusers[messagefname].memory = true;
-  		var acmd = require('child_process').spawn('../cppsv/nanotable', ["uploads/"+allusers[messagefname].table]);
+  		var acmd = require('child_process').spawn('../cppsv/nanotable', [allusers[messagefname].table]);
   		fs.writeFile(allusers[messagefname].quick, "", (err) => {});
   		fs.writeFile(allusers[messagefname].slow, "", (err) => {});
   	}
