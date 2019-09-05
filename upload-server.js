@@ -49,21 +49,18 @@ http.createServer(function(req, res) {
     }
     else if (req.url.substring(0,9) == "/savefile"){
     	var filepart = req.url.substring(12,req.url.length);
-    	console.log(filepart);
     	req.on('data', chunk => {
 			//console.log(chunk.length);
 			//res.write(chunk.length);
 			var bytesArray = new Uint8Array(chunk);
 			
 			var colinfo = new TextDecoder("utf-8").decode(bytesArray);
-			console.log(colinfo);
-			console.log(decodeURI(colinfo));
-			console.log(decodeURIComponent(colinfo));
+			colinfo = decodeURIComponent(colinfo);
 			var acmd = require('child_process').spawn('../cppsv/createnanotable', ['uploads/up'+filepart, colinfo]);
 		// below we process the full data
 		});
     	
-    	res.write("there"); //write a response to the client
+    	res.write(filepart); //write a response to the client
 		res.end();
     }
     
