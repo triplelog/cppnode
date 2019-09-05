@@ -73,22 +73,23 @@ function intervalFunc(res,filepart) {
 	fs.stat('uploads/up'+filepart+'.csv.tar.gz', function(err, stats) {
 		if (!err) {
 			if (stats.isFile() && stats.size > 16) {
+				console.log('hiu');
 				fs.readFile('templates/nanotest.html', 'utf8', function(err, contents) {
 					fs.writeFile("static/tables/"+filepart+".html", contents.replace('{{tablesrc}}',filepart), function (err) {
-			
+						console.log('hiz');
 						res.writeHead(302, {'Location': '/tables/' + filepart+'.html'});
 						res.end();
 				
 					});
 				});
-				
+				console.log('hiy');
 			}
 			else if (stats.isFile()) {
+				console.log('hi');
 				//Add logic here
 			}
 		}
 		else {
-			console.log(filepart);
 			setTimeout(intervalFunc,20, res, filepart);
 		}
 		
