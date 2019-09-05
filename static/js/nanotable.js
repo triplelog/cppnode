@@ -22,14 +22,14 @@ class NanoTable extends HTMLElement {
     
 	
 	var _this = this;
-	this.colInfo = {14:'HR',6:'H'};
+	this.colInfo = {};
     this.createTable();
     this.addPaginate();
     this.addColumnButton();
     this.addFilterButton();
     this.addPivotButton();
     this.addColumnOperationButtons();
-    this.addData([["a1",-1,"a2",1],[0,1],[2,3]]);
+    this.addData([[]]);
     this.startRow = 0;
     this.endRow = 10;
     this.userid = "ff.csv";
