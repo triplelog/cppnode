@@ -29,7 +29,6 @@ class NanoTable extends HTMLElement {
     this.addFilterButton();
     this.addPivotButton();
     this.addColumnOperationButtons();
-    this.addData([[]]);
     this.startRow = 0;
     this.endRow = 10;
     this.userid = "ff.csv";
@@ -265,7 +264,7 @@ class NanoTable extends HTMLElement {
   }
   
   addData(retmess) {
-	
+	if (retmess.length == 0) {return 0;}
 	if (retmess[0][0].substring(0,5)=="Pivot"){
 		this.currentTable = "pivot@" + retmess[0][0].substring(6,retmess[0][0].length-2);
 		retmess[0][0] = "Rk";
