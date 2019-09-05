@@ -59,7 +59,7 @@ http.createServer(function(req, res) {
 			colinfo = decodeURIComponent(colinfo).substring(7,);
 			console.log(colinfo);
 			var acmd = require('child_process').spawn('../cppsv/createnanotable', ['uploads/up'+filepart, colinfo]);
-			setTimeout(intervalFunc,20, res, filepart);
+			setTimeout(intervalFunc,50, res, filepart, 0);
 			
 		// below we process the full data
 		});
@@ -69,25 +69,27 @@ http.createServer(function(req, res) {
     
 }).listen(3000);
 
-function intervalFunc(res,filepart) {
+function intervalFunc(res,filepart, oldsize) {
 	fs.stat('uploads/up'+filepart+'.csv.tar.gz', function(err, stats) {
 		if (!err) {
-			if (stats.isFile() && stats.size > 16) {
+			if (stats.isFile() && stats.size > 16 && stats.size == oldsize) {
 				fs.readFile('templates/nanotest.html', 'utf8', function(err, contents) {
 					fs.writeFile("static/tables/"+filepart+".html", contents.replace('{{tablesrc}}',filepart), function (err) {
-						console.log('hiz');
 						res.writeHead(302, {'Location': '/tables/' + filepart+'.html'});
 						res.end();
 				
 					});
 				});
 			}
+			else if (stats.isFile()) {
+				setTimeout(intervalFunc,50, res, filepart, stats.size);
+			}
 			else {
-				setTimeout(intervalFunc,20, res, filepart);
+				setTimeout(intervalFunc,50, res, filepart, 0);
 			}
 		}
 		else {
-			setTimeout(intervalFunc,20, res, filepart);
+			setTimeout(intervalFunc,50, res, filepart, 0);
 		}
 		
 	});
