@@ -60,7 +60,7 @@ http.createServer(function(req, res) {
 			console.log(colinfo);
 			var acmd = require('child_process').spawn('../cppsv/createnanotable', ['uploads/up'+filepart, colinfo]);
 			fs.readFile('templates/nanotest.html', 'utf8', function(err, contents) {
-				fs.writeFile("static/tables/"+filepart+".html", contents, function (err) {
+				fs.writeFile("static/tables/"+filepart+".html", contents.replace('{{tablesrc}}',filepart), function (err) {
 			
 					res.writeHead(302, {'Location': '/tables/' + filepart+'.html'});
 					res.end();
