@@ -59,7 +59,7 @@ http.createServer(function(req, res) {
 			colinfo = decodeURIComponent(colinfo).substring(7,);
 			console.log(colinfo);
 			var acmd = require('child_process').spawn('../cppsv/createnanotable', ['uploads/up'+filepart, colinfo]);
-			setTimeout(intervalFunc,20, filepart);
+			setTimeout(intervalFunc,20, res, filepart);
 			
 		// below we process the full data
 		});
@@ -69,7 +69,7 @@ http.createServer(function(req, res) {
     
 }).listen(3000);
 
-function intervalFunc(filepart) {
+function intervalFunc(res,filepart) {
 	fs.stat('uploads/up'+filepart+'.csv.tar.gz', function(err, stats) {
 		if (!err) {
 			if (stats.isFile() && stats.size > 16) {
@@ -88,7 +88,7 @@ function intervalFunc(filepart) {
 			}
 		}
 		else {
-			setTimeout(intervalFunc,20, filepart);
+			setTimeout(intervalFunc,20, res, filepart);
 		}
 		
 	});
