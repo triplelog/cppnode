@@ -62,8 +62,8 @@ http.createServer(function(req, res) {
 			var htmltxt = "<html>\n</html>";
 			fs.writeFile("static/tables/"+filepart+".html", htmltxt, function (err) {
 			
-				res.write(filepart); //write a response to the client
-				res.end(); //end the response
+				res.writeHead(302, {'Location': '/tables/' + filepart+'.html'});
+				res.end();
 				
 			});
 		// below we process the full data
