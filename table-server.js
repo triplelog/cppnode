@@ -98,10 +98,10 @@ function cachedFunc(ws, message, messagefname) {
 					outputcsv += "\"Rk\",-1,"+spldata[0];
 					outputcsv += "],[";
 					for (var i=startRow;i<endRow-1;i++) {
-						outputcsv += (i+1)+','+spldata[i];
+						outputcsv += (i)+','+spldata[i];
 						outputcsv += "],[";
 					}
-					outputcsv += endRow+','+spldata[endRow-1];
+					outputcsv += (endRow-1)+','+spldata[endRow-1];
 					outputcsv += "]]";
 					ws.send(outputcsv);
 				
