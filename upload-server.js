@@ -59,13 +59,15 @@ http.createServer(function(req, res) {
 			colinfo = decodeURIComponent(colinfo).substring(7,);
 			console.log(colinfo);
 			var acmd = require('child_process').spawn('../cppsv/createnanotable', ['uploads/up'+filepart, colinfo]);
-			var htmltxt = "<html>\n</html>";
-			fs.writeFile("static/tables/"+filepart+".html", htmltxt, function (err) {
+			fs.readFile('templates/nanotest.html', 'utf8', function(err, contents) {
+				fs.writeFile("static/tables/"+filepart+".html", contents, function (err) {
 			
-				res.writeHead(302, {'Location': '/tables/' + filepart+'.html'});
-				res.end();
+					res.writeHead(302, {'Location': '/tables/' + filepart+'.html'});
+					res.end();
 				
+				});
 			});
+			
 		// below we process the full data
 		});
     	
