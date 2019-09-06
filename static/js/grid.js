@@ -89,58 +89,11 @@ function createPerm(tmpEl,divid,tablePrefix="tableP",tabletype="pivot") {
 	maxbutton.addEventListener("click",maxEl);
 	tmpEl.appendChild(maxbutton);
 	
-	var tableDiv = document.createElement("div");
-	tableDiv.classList.add("flex-center");
-	tableDiv.classList.add("flex-column");
-		var table = document.createElement("table");
-		table.classList.add("striped");
-		table.classList.add("hoverable");
-			var thead = document.createElement("thead");
-			thead.style.display = "none";
-			thead.id = tablePrefix+"head";
-				var tr = document.createElement("tr");
-				tr.id = "move"+tablePrefix+"Columns";
-				thead.appendChild(tr);
-			table.appendChild(thead);
-			var tbody = document.createElement("tbody");
-			tbody.style.display = "none";
-			tbody.id = tablePrefix+"body";
-				for (var i=0;i<10;i++) {
-					var tr2 = document.createElement("tr");
-					tbody.appendChild(tr2);
-				}
-			table.appendChild(tbody);
-		tableDiv.appendChild(table);
-	var pageDiv = document.createElement("div");
-	pageDiv.id = "paginate"+tabletype;
-	pageDiv.classList.add('paginate');
-		var link = document.createElement("a");
-		link.id = "pagePrev";
-		link.setAttribute("onmousedown","newPage('Previous','"+tabletype+"')");
-		link.textContent = "Previous";
-		pageDiv.appendChild(link);
-		
-		link = document.createElement("a");
-		link.id = "page1";
-		link.setAttribute("onmousedown","newPage(1,'"+tabletype+"')");
-		link.textContent = "1";
-		link.classList.add("active");
-		pageDiv.appendChild(link);
-		for (var i=2;i<11;i++) {
-			link = document.createElement("a");
-			link.id = "page"+i;
-			link.setAttribute("onmousedown","newPage("+i+",'"+tabletype+"')");
-			link.textContent = i;
-			pageDiv.appendChild(link);
-		}
-		link = document.createElement("a");
-		link.id = "pageNext";
-		link.setAttribute("onmousedown","newPage('Next','"+tabletype+"')");
-		link.textContent = "Next";
-		pageDiv.appendChild(link);
+	var tltable = document.createElement("nano-table");
+	tltable.setAttribute("src","z10t0");
+	tltable.style.display = "inline-block";
+	tmpEl.appendChild(tltable);
 	
-	tmpEl.appendChild(tableDiv);
-	tmpEl.appendChild(pageDiv);
 }
 function createTmp(allElements) {
 	var allN = allElements.length;
