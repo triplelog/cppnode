@@ -956,15 +956,19 @@ latestKnownScrollY = 0;
 ticking = false;
 var myVar = setTimeout(after10,50);
 function updateHP() {
+	/*
 	ticking = false;
 	document.querySelector("nano-table").moveHeader(0);
 	clearTimeout(myVar);
 	myVar = setTimeout(after10,50);
+	*/
 
 }
 
 function after10() {
+	/*
 	document.querySelector("nano-table").moveHeader(latestKnownScrollY);
+	*/
 }
   
 function makePost(infixexpr) {
