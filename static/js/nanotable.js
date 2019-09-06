@@ -109,11 +109,9 @@ class NanoTable extends HTMLElement {
   	table.style.maxHeight = "40vh";
   	table.style.margin = "0px";
   	table.style.border = "1px dashed blue";
-  	table.style.maxWidth = (this.parentNode.clientWidth-20)+"px";
   	table.style.display = "block";
   	table.addEventListener("scroll",e => {this.scrollTable(e);});
   	//this.appendChild(table);
-  	this.style.maxWidth = (this.parentNode.clientWidth-20)+"px";
   	this.shadowRoot.appendChild(table);
   	
   }
@@ -286,6 +284,9 @@ class NanoTable extends HTMLElement {
   }
   
   addData(retmess) {
+  	var table = this.shadowRoot.querySelector('table');
+    table.style.maxWidth = (this.parentNode.clientWidth-20)+"px";
+    this.style.maxWidth = (this.parentNode.clientWidth-20)+"px";
   	if (this.usecards){
 		this.addDataCards(retmess);
 		return 0;
