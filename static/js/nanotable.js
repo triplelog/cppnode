@@ -466,52 +466,39 @@ class NanoTable extends HTMLElement {
 		if (cards.length <= i) {
 			var newcard = document.createElement('div');
 			newcard.classList.add("card");
+				var newhead = document.createElement('div');
+				newhead.classList.add("section");
+				newcard.appendChild(newhead);
+				var newbody = document.createElement('div');
+				newbody.classList.add("section");
+				newcard.appendChild(newbody);
 			containerrow.appendChild(newcard);
 		}
 	}
 	
-	cards = containerrow.querySelectorAll('div');
+	cards = containerrow.querySelectorAll('.card');
 	for (var i=0;i<cards.length;i++){
 		if (retmess.length-1 <= i) {
 			cards[i].style.display = 'none';
-			cards[i].textContent = "";
+			cards[i].querySelectorAll('div')[0].textContent = "";
+			cards[i].querySelectorAll('div')[1].textContent = "";
 		}
 		else {
 			cards[i].style.display = 'flex';
-			cards[i].textContent = "";
+			cards[i].querySelectorAll('div')[0].textContent = "";
+			cards[i].querySelectorAll('div')[1].textContent = "";
 		}
 	}
 	
 	for (var i=0;i<retmess.length-1;i++){
 
 		//const results = cards[i].querySelectorAll('td');
-		for (var ii=0;ii<Math.max(retmess[i+1].length,cards.length);ii++) {
-			if (2 == 2){//ii < retmess[i+1].length && ii < results.length) {
-				/*
-				results[ii].textContent = retmess[i+1][ii]; //add one because of header
-				results[ii].style.display = 'table-cell';
-				*/
-				cards[i].textContent += ","+retmess[i+1][ii];
-			}
-			else if (ii < cards.length) {
-				//results[ii].style.display = 'none';
-			}
-			else if (ii < retmess[i+1].length) {
-				/*
-				var newResult = document.createElement("td");
-				newResult.textContent = retmess[i+1][ii];
-				newResult.style.display = 'table-cell';
-				newResult.id = 'cell-'+i+'-'+ii;
-				newResult.addEventListener("click",e => {this.cellClick(e,0);});
-				rows[i].appendChild(newResult);
-				*/
-			}
-			else {
-				break;
-			}
+		cards[i].querySelectorAll('div')[0].textContent += retmess[i+1][0]+":";
+		cards[i].querySelectorAll('div')[0].textContent += retmess[i+1][1];
+		for (var ii=2;ii<Math.max(retmess[i+1].length,cards.length);ii++) {
+			cards[i].querySelectorAll('div')[1].textContent += retmess[i+1][ii]+"\n";
 		}
 	}
-	console.log(this.shadowRoot.innerHTML);
   }
   
   addFootCards(retmess) {
