@@ -12,7 +12,7 @@ for (var i=1;i<13;i++) {
 
 var selection = 0;
 	
-function newBlock() {
+function newBlock(type="pivot") {
 	if (selection == 0) {
 		selection = new Selection({
 			class: 'gridwrapper',
@@ -49,7 +49,20 @@ function newBlock() {
 	
 		}).on('stop', evt => {
 			if (document.getElementById("tmpgrid")){
-				createPerm(document.getElementById('tmpgrid'));
+				var tmpEl = document.getElementById('tmpgrid');
+				if (type == "pivot"){
+					createPerm(tmpEl,type+"table1",'tableP','pivot');
+				}
+				else if (type == "streak"){
+					createPerm(tmpEl,type+"Table1",'tableS','streak');
+				}
+				else if (type == "main"){
+					createPerm(tmpEl,type+"Table1",'tableM','streak');
+				}
+				else if (type == "games"){
+					createPerm(tmpEl,type+"Table1",'tableS','streak');
+				}
+				
 			}
 	
 		});
@@ -69,7 +82,8 @@ function rearrangeMode() {
 	baseNode.parentNode.appendChild(toChange);
 }
 
-function createPerm(tmpEl) {
+function createPerm(tmpEl,divid,tablePrefix="tableP",tabletype="pivot") {
+	tmpEl.id = divid;
 	var maxbutton = document.createElement("button");
 	maxbutton.textContent = "F";
 	maxbutton.addEventListener("click",maxEl);
