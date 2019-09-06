@@ -126,6 +126,8 @@ class NanoTable extends HTMLElement {
 		var containerrow = document.createElement('div');
 		containerrow.classList.add("row");
 	container.appendChild(containerrow);
+	container.style.overflowY = "auto";
+	container.style.maxHeight = "40vh";
   	container.style.border = "1px dashed blue";
   	container.style.maxWidth = (this.parentNode.clientWidth-20)+"px";
   	this.style.maxWidth = (this.parentNode.clientWidth-20)+"px";
