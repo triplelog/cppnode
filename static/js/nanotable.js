@@ -510,6 +510,7 @@ class NanoTable extends HTMLElement {
 			}
 		}
 	}
+	console.log(this.shadowRoot.innerHTML);
   }
   
   addFootCards(retmess) {
