@@ -23,8 +23,8 @@ class NanoTable extends HTMLElement {
 	
 	var _this = this;
 	this.colInfo = {};
-    //this.createTable();
-    this.createCards();
+    this.createTable();
+    //this.createCards();
     this.addPaginate();
     this.addColumnButton();
     this.addFilterButton();
@@ -42,6 +42,7 @@ class NanoTable extends HTMLElement {
 	this.sortondown = false;
 	this.currentMode = "sort";
 	this.currentTable = "main";
+	this.usecards = false;
     
     
     this.ws = new WebSocket('ws://155.138.201.160:8080');
@@ -285,8 +286,10 @@ class NanoTable extends HTMLElement {
   }
   
   addData(retmess) {
-	this.addDataCards(retmess);
-	return 0;
+  	if (this.usecards){
+		this.addDataCards(retmess);
+		return 0;
+	}
 	
 	if (retmess[0][0].substring(0,5)=="Pivot"){
 		this.currentTable = "pivot@" + retmess[0][0].substring(6,retmess[0][0].length-2);
