@@ -495,7 +495,7 @@ class NanoTable extends HTMLElement {
 		//const results = cards[i].querySelectorAll('td');
 		cards[i].querySelectorAll('div')[0].textContent += retmess[i+1][0]+":";
 		cards[i].querySelectorAll('div')[0].textContent += retmess[i+1][1];
-		for (var ii=2;ii<Math.max(retmess[i+1].length,cards.length);ii++) {
+		for (var ii=2;ii<Math.max(retmess[i+1].length);ii++) {
 			cards[i].querySelectorAll('div')[1].textContent += retmess[i+1][ii]+"\n";
 		}
 	}
@@ -830,6 +830,7 @@ class NanoTable extends HTMLElement {
   
   setPerPage(e,x) {
   	var diff = parseInt(this.shadowRoot.querySelector("#perPage").value);
+  	if (diff < 1){return 0;}
   	this.startRow = this.startRow - (this.startRow % diff);
   	this.endRow = this.startRow + diff;
   	var cpage = this.startRow / diff + 1;
