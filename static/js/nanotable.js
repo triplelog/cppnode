@@ -459,7 +459,7 @@ class NanoTable extends HTMLElement {
 	*/
 	
 	var containerrow = this.shadowRoot.querySelector('.row');
-	const cards = containerrow.querySelectorAll('div');
+	var cards = containerrow.querySelectorAll('div');
 	
 	for (var i=0;i<retmess.length-1;i++){
 		if (cards.length <= i) {
