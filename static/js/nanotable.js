@@ -23,7 +23,8 @@ class NanoTable extends HTMLElement {
 	
 	var _this = this;
 	this.colInfo = {};
-    this.createTable();
+    //this.createTable();
+    this.createCards();
     this.addPaginate();
     this.addColumnButton();
     this.addFilterButton();
@@ -116,6 +117,21 @@ class NanoTable extends HTMLElement {
   	
   }
   
+  createCards() {
+  	
+  	const shadowRoot = this.attachShadow({mode: 'open'});
+  	var container = document.createElement('div');
+  	container.classList.add("container");
+		var containerrow = document.createElement('div');
+		containerrow.classList.add("row");
+	container.appendChild(containerrow);
+  	container.style.border = "1px dashed blue";
+  	container.style.maxWidth = (this.parentNode.clientWidth-20)+"px";
+  	this.style.maxWidth = (this.parentNode.clientWidth-20)+"px";
+  	this.shadowRoot.appendChild(container);
+  	
+  }
+  
   scrollTable(e) {
   	latestKnownScrollY = e.target.scrollTop;
 	this.requestTick();
@@ -133,8 +149,6 @@ class NanoTable extends HTMLElement {
 	}
 	ticking = true;
   }
-  
-  
   
   addPaginate() {
   	var pageDiv = document.createElement("div");
@@ -268,6 +282,8 @@ class NanoTable extends HTMLElement {
   }
   
   addData(retmess) {
+	this.addDataCards(retmess);
+	return 0;
 	
 	if (retmess[0][0].substring(0,5)=="Pivot"){
 		this.currentTable = "pivot@" + retmess[0][0].substring(6,retmess[0][0].length-2);
@@ -355,6 +371,148 @@ class NanoTable extends HTMLElement {
   }
   
   addFoot(retmess) {
+	
+	var tfoot = this.shadowRoot.querySelector('tfoot');
+	var rows = tfoot.querySelectorAll('tr');
+	for (var i=0;i<retmess.length;i++){
+		if (rows.length <= i) {
+			var newrow = document.createElement('tr');
+			tfoot.appendChild(newrow);
+		}
+	}
+	rows = tfoot.querySelectorAll('tr');
+	for (var i=0;i<rows.length;i++){
+		if (retmess.length <= i) {
+			rows[i].style.display = 'none';
+		}
+		else {
+			rows[i].style.display = 'table-row';
+		}
+	}
+	
+	for (var i=0;i<retmess.length;i++){
+
+		const results = rows[i].querySelectorAll('td');
+		for (var ii=0;ii<Math.max(retmess[i].length,results.length);ii++) {
+			if (ii < retmess[i].length && ii < results.length) {
+				results[ii].textContent = retmess[i][ii];
+				results[ii].style.display = 'table-cell';
+			}
+			else if (ii < results.length) {
+				results[ii].style.display = 'none';
+			}
+			else if (ii < retmess[i].length) {
+				var newResult = document.createElement("td");
+				newResult.textContent = retmess[i][ii];
+				newResult.style.display = 'table-cell';
+				rows[i].appendChild(newResult);
+			}
+			else {
+				break;
+			}
+		}
+	}
+  }
+  
+  addDataCards(retmess) {
+	
+	if (retmess[0][0].substring(0,5)=="Pivot"){
+		this.currentTable = "pivot@" + retmess[0][0].substring(6,retmess[0][0].length-2);
+		retmess[0][0] = "Rk";
+	}
+	/*
+	var containerrow = this.shadowRoot.querySelector('.row');
+	const cards = containerrow.querySelectorAll('div');
+	*/
+	/*
+	for (var ii=0;ii*2 + 1<Math.max(retmess[0].length,cards.length*2 + 1);ii++) {
+		if (ii*2 + 1 < retmess[0].length && ii < cards.length) {
+			headers[ii].textContent = retmess[0][ii*2];
+			headers[ii].id = "cHeader"+retmess[0][ii*2 + 1];
+			headers[ii].style.display = 'table-cell';
+			this.colInfo[parseInt(retmess[0][ii*2 + 1])]=retmess[0][ii*2];
+		}
+		else if (ii < headers.length) {
+			headers[ii].style.display = 'none';
+		}
+		else if (ii*2 + 1 < retmess[0].length) {
+			var newHeader = document.createElement("th");
+			newHeader.textContent = retmess[0][ii*2];
+			newHeader.addEventListener('mouseover',e => {this.sort(e,0);});
+			newHeader.addEventListener('mousedown',e => {this.sort(e,1);});
+			newHeader.addEventListener('mouseout',e => {this.sort(e,2);});
+			newHeader.addEventListener('mouseup',e => {this.sort(e,3);});
+			newHeader.setAttribute("draggable","true");
+			newHeader.addEventListener('dragstart',e => {this.dragColumn(e,0);});
+			newHeader.addEventListener("dragover", e => {e.preventDefault();});
+  			newHeader.addEventListener("drop", e => {e.preventDefault(); this.dropColumn(e,1);});
+			newHeader.id = "cHeader"+retmess[0][ii*2 + 1];
+			newHeader.style.display = 'table-cell';
+			newHeader.classList.add("th-sm");
+			this.colInfo[parseInt(retmess[0][ii*2 + 1])]=retmess[0][ii*2];
+			headrow.appendChild(newHeader);
+		}
+		else {
+			break;
+		}
+	}
+	*/
+	
+	var containerrow = this.shadowRoot.querySelector('.row');
+	const cards = containerrow.querySelectorAll('div');
+	
+	for (var i=0;i<retmess.length-1;i++){
+		if (cards.length <= i) {
+			var newcard = document.createElement('div');
+			newcard.classList.add("card");
+			containerrow.appendChild(newcard);
+		}
+	}
+	
+	cards = containerrow.querySelectorAll('div');
+	for (var i=0;i<cards.length;i++){
+		if (retmess.length-1 <= i) {
+			cards[i].style.display = 'none';
+			cards[i].textContent = "";
+		}
+		else {
+			cards[i].style.display = 'flex';
+			cards[i].textContent = "";
+		}
+	}
+	
+	for (var i=0;i<retmess.length-1;i++){
+
+		//const results = cards[i].querySelectorAll('td');
+		for (var ii=0;ii<Math.max(retmess[i+1].length,results.length);ii++) {
+			if (2 == 2){//ii < retmess[i+1].length && ii < results.length) {
+				/*
+				results[ii].textContent = retmess[i+1][ii]; //add one because of header
+				results[ii].style.display = 'table-cell';
+				*/
+				cards[i].textContent += ","+retmess[i+1][ii];
+			}
+			else if (ii < results.length) {
+				//results[ii].style.display = 'none';
+			}
+			else if (ii < retmess[i+1].length) {
+				/*
+				var newResult = document.createElement("td");
+				newResult.textContent = retmess[i+1][ii];
+				newResult.style.display = 'table-cell';
+				newResult.id = 'cell-'+i+'-'+ii;
+				newResult.addEventListener("click",e => {this.cellClick(e,0);});
+				rows[i].appendChild(newResult);
+				*/
+			}
+			else {
+				break;
+			}
+		}
+	}
+  }
+  
+  addFootCards(retmess) {
 	
 	var tfoot = this.shadowRoot.querySelector('tfoot');
 	var rows = tfoot.querySelectorAll('tr');
