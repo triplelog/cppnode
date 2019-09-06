@@ -831,6 +831,7 @@ class NanoTable extends HTMLElement {
   setPerPage(e,x) {
   	var diff = parseInt(this.shadowRoot.querySelector("#perPage").value);
   	if (diff < 1){return 0;}
+  	console.log("diff:",diff);
   	this.startRow = this.startRow - (this.startRow % diff);
   	this.endRow = this.startRow + diff;
   	var cpage = this.startRow / diff + 1;
