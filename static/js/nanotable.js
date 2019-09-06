@@ -120,7 +120,7 @@ class NanoTable extends HTMLElement {
   createCards() {
   	
   	const shadowRoot = this.attachShadow({mode: 'open'});
-  	shadowRoot.innerHTML = "<style></style>";
+  	shadowRoot.innerHTML = "<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/mini.css/3.0.1/mini-default.min.css');</style>";
   	var container = document.createElement('div');
   	container.classList.add("container");
 		var containerrow = document.createElement('div');
