@@ -500,7 +500,7 @@ class NanoTable extends HTMLElement {
 		cards[i].querySelectorAll('div')[0].textContent += retmess[i+1][0]+":";
 		cards[i].querySelectorAll('div')[0].textContent += retmess[i+1][1];
 		for (var ii=2;ii<Math.max(retmess[i+1].length);ii++) {
-			cards[i].querySelectorAll('div')[1].textContent += retmess[i+1][ii]+"\n";
+			cards[i].querySelectorAll('div')[1].textContent += retmess[0][2*ii]+": "+retmess[i+1][ii]+",";
 		}
 	}
   }
