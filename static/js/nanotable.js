@@ -484,7 +484,7 @@ class NanoTable extends HTMLElement {
 	for (var i=0;i<retmess.length-1;i++){
 
 		//const results = cards[i].querySelectorAll('td');
-		for (var ii=0;ii<Math.max(retmess[i+1].length,results.length);ii++) {
+		for (var ii=0;ii<Math.max(retmess[i+1].length,cards.length);ii++) {
 			if (2 == 2){//ii < retmess[i+1].length && ii < results.length) {
 				/*
 				results[ii].textContent = retmess[i+1][ii]; //add one because of header
@@ -492,7 +492,7 @@ class NanoTable extends HTMLElement {
 				*/
 				cards[i].textContent += ","+retmess[i+1][ii];
 			}
-			else if (ii < results.length) {
+			else if (ii < cards.length) {
 				//results[ii].style.display = 'none';
 			}
 			else if (ii < retmess[i+1].length) {
