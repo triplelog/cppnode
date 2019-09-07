@@ -50,7 +50,7 @@ wss.on('connection', function connection(ws) {
 		else if (dm.command == 'filter'){
 			message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',filter,'+dm.formula+'\n';
 			message2 = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',print,'+allusers[userid].currentTable+'\n';
-			if (allusers[userid].currentTable == 'main';) {
+			if (allusers[userid].currentTable == 'main') {
 				message3 = userid+',0,-1,filter,'+dm.formula+'\n';
 			}
 		}
@@ -60,7 +60,7 @@ wss.on('connection', function connection(ws) {
 		else if (dm.command == 'addcol'){
 			message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',addcol,'+dm.formula+'\n';
 			message2 = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',print,'+allusers[userid].currentTable+'\n';
-			if (allusers[userid].currentTable == 'main';) {
+			if (allusers[userid].currentTable == 'main') {
 				message3 = userid+',0,-1,addcol,'+dm.formula+'\n';
 			}
 		}
