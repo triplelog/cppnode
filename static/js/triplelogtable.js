@@ -230,7 +230,7 @@ class TriplelogTable extends HTMLElement {
 	for (var i=0;i<4;i++) {	
 		var operButton = document.createElement("button");
 		operButton.textContent = operations[i];
-		operButton.addEventListener("click", e => {this.columnOperation(operations[i]);});
+		operButton.addEventListener("click", e => {this.columnOperation(e);});
 		this.shadowRoot.appendChild(operButton);
 	}
   }
@@ -683,8 +683,8 @@ class TriplelogTable extends HTMLElement {
   	}
   }
   
-  columnOperation(operation) {
-  	var jsonmessage = {'command':operation.toLowerCase()};
+  columnOperation(e) {
+  	var jsonmessage = {'command':e.target.textContent.toLowerCase()};
 	this.ws.send(JSON.stringify(jsonmessage));
   }
   
