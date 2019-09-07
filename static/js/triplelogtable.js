@@ -366,84 +366,48 @@ class TriplelogTable extends HTMLElement {
   }
   
   sort(e,x) {
-  	var d = new Date();
-	var n = d.getTime();
-	console.log(n);
 	
   	var sortCol = e.target.id.substring(7,e.target.id.length);
-  	var type = "main";
   	
   	if (this.currentMode == "sort" && this.currentTable == "main") {
-  		if (this.usecache){
-  			if (x==0){
-				//Ignore mouseover
-			}
-			else if (x==1){
-				var mymessage = this.userid+","+ this.startRow +","+ this.endRow +",sort,"+ sortCol;
-				this.ws.send(mymessage);
-				mymessage = this.userid+","+ this.startRow +","+ this.endRow +",print,"+type;
-				this.ws.send(mymessage);
-				this.showit = false;
-				//this.cancelit = false;
-				this.foundit = false;
-			}
-			else if (x==2){
-				//Cancel Sort
-				//this.cancelit = true;
-				this.sortondown = false;
-			}
-			else if (x==3){
-			
-				//Release Array and load table into memory, set usecache to false
-				this.usecache = false;
-				if (this.foundit){
-					this.addData(this.retdata);
-					this.showit = true;
-				}
-				else {
-					this.showit = true;
-					this.foundit = true;
-				}
-				this.ws.send("Load,"+this.userid);
-				this.ws.send(this.userid+",0,10,sort,"+sortCol);
-				this.sortondown = true;
-				
-			}
-  		}
-  		else {
-			if (x==0){
-				//var mymessage = this.userid+","+ this.startRow +","+ this.endRow +",sort,"+ sortCol;
-				//this.ws.send(mymessage);
-				//this.sortondown = false;
-				this.sortondown = true;
-			}
-			else if (x==1){
-				if (this.sortondown) {
-					var mymessage = this.userid+","+ this.startRow +","+ this.endRow +",sort,"+ sortCol;
-					this.ws.send(mymessage);
-				}
-				var mymessage = this.userid+","+ this.startRow +","+ this.endRow +",print,"+type;
-				this.ws.send(mymessage);
-				this.showit = false;
-				this.foundit = false;
-			}
-			else if (x==2){
-				//Cancel Sort
-				this.sortondown = false;
-			}
-			else if (x==3){
-				if (this.foundit){
-					this.addData(this.retdata);
-					this.showit = true;
-				}
-				else {
-					this.showit = true;
-					this.foundit = true;
-				}
+		if (x==0){
+			//Ignore mouseover
+			if (!this.usecache){
 				this.sortondown = true;
 			}
 		}
+		else if (x==1){
+			if (this.sortondown || this.usecache) {
+				var mymessage = this.userid+","+ this.startRow +","+ this.endRow +",sort,"+ sortCol;
+				this.ws.send(mymessage);
+			}
+			var mymessage = this.userid+","+ this.startRow +","+ this.endRow +",print,main";
+			this.ws.send(mymessage);
+			this.showit = false;
+			this.foundit = false;
+		}
+		else if (x==2){
+			this.sortondown = false;
+		}
+		else if (x==3){
 		
+			//Release Array and load table into memory, set usecache to false
+			
+			if (this.foundit){
+				this.addData(this.retdata);
+				this.showit = true;
+			}
+			else {
+				this.showit = true;
+				this.foundit = true;
+			}
+			if (this.usecache){
+				this.usecache = false;
+				var jsonmessage = {'command':'load'};
+				this.ws.send(JSON.stringify(jsonmessage));
+			}
+			this.sortondown = true;
+		}
 	}
 
   }
@@ -528,8 +492,8 @@ class TriplelogTable extends HTMLElement {
 				this.showit = true;
 				this.foundit = true;
 			}
-			this.ws.send("Load,"+this.userid);
-			this.ws.send(this.userid+",0,10,sort,0");
+			var jsonmessage = {'command':'load'};
+			this.ws.send(JSON.stringify(jsonmessage));
 			var mymessage = this.userid+","+"0,-1,addcol,"+ colFormula;
 			this.ws.send(mymessage);
 		}
