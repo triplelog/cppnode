@@ -92,7 +92,7 @@ class NanoTable extends HTMLElement {
   
   createTable() {
   	
-  	const shadowRoot = this.attachShadow({mode: 'open'});
+  	const shadowRoot = this.attachShadow({mode: 'closed'});
   	var table = document.createElement('table');
   		var thead = document.createElement('thead');
   			var tr = document.createElement('tr');
