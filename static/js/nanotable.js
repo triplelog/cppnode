@@ -151,7 +151,7 @@ class NanoTable extends HTMLElement {
   }
   
   after10() {
-	this.moveHeader(this.latestKnownScrollY);
+	_this.moveHeader(_this.latestKnownScrollY);
   }
   
   
