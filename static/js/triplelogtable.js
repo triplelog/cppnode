@@ -166,6 +166,16 @@ class TriplelogTable extends HTMLElement {
   		modeDropdown.appendChild(option);
   		
   		option = document.createElement("option");
+  		option.value = "filter";
+  		option.textContent = "Filter";
+  		modeDropdown.appendChild(option);
+  		
+  		option = document.createElement("option");
+  		option.value = "sum";
+  		option.textContent = "Sums, ...";
+  		modeDropdown.appendChild(option);
+  		
+  		option = document.createElement("option");
   		option.value = "arrange";
   		option.textContent = "Arrange";
   		modeDropdown.appendChild(option);
@@ -645,7 +655,9 @@ class TriplelogTable extends HTMLElement {
   	this.currentMode = e.target.value;
   	['pivotDiv','filterDiv','opDiv','columnDiv'].forEach( tmpDiv => {this.shadowRoot.querySelector('#'+tmpDiv).style.display = 'none';});
   	if (this.currentMode == 'newcol') {this.shadowRoot.querySelector('#columnDiv').style.display = 'inline-block';}
+  	else if (this.currentMode == 'filter') {this.shadowRoot.querySelector('#filterDiv').style.display = 'inline-block';}
   	else if (this.currentMode == 'pivot') {this.shadowRoot.querySelector('#pivotDiv').style.display = 'inline-block';}
+  	else if (this.currentMode == 'sum') {this.shadowRoot.querySelector('#opDiv').style.display = 'inline-block';}
   }
   
   dragColumn(e,x) {
