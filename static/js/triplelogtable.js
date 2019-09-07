@@ -624,7 +624,7 @@ class TriplelogTable extends HTMLElement {
 		this.endRow = diff;
 		var jsonmessage = {'command':'pivot','column':1};
 		this.ws.send(JSON.stringify(jsonmessage));
-		mymessage = this.userid+","+this.startRow +","+ this.endRow+",print,pivot@0";
+		var mymessage = this.userid+","+this.startRow +","+ this.endRow+",print,pivot@0";
 		this.ws.send(mymessage);
 		this.showit = false;
 		this.foundit = false;
