@@ -62,6 +62,7 @@ wss.on('connection', function connection(ws) {
 	}
 	else if (dm.command == 'sort'){
 		message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',sort,'+dm.column+'\n';
+		message2 = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',print,main\n';
 	}
 	else if (dm.command == 'addcol'){
 		message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',addcol,'+dm.formula+'\n';
