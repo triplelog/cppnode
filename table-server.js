@@ -14,147 +14,107 @@ const wss = new WebSocket.Server({ port: 8080 });
 //fs.writeFile("slowtxt.txt", "", (err) => {});
 var allusers = {};
 wss.on('connection', function connection(ws) {
-  var userid = "ff"+Math.random().toString(36).substring(5, 10);+".csv";
+  var userid = "ff"+Math.random().toString(36).substring(5, 10)+".csv";
   ws.on('message', function incoming(message) {
-    if (message.substring(0,1)=='{'){
-  		console.log(JSON.parse(message));
-  		var dm = JSON.parse(message);
-  		var message2 = "";
-  		var message3 = "";
-  		if (dm.command == 'display'){
-			message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',display,'+dm.column+'@'+dm.location+'\n';
-		}
-		else if (dm.command == 'sum' || dm.command == 'max' || dm.command == 'min' || dm.command == 'mean'){
-			message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+','+dm.command+',main\n';
-		}
-		else if (dm.command == 'print'){
-			if (!isNaN(dm.startrow)){allusers[userid].startRow = parseInt(dm.startrow);}
-			if (!isNaN(dm.endrow)){allusers[userid].endRow = parseInt(dm.endrow);}
-			
-			if (dm.type == 'pivot'){
-				allusers[userid].currentTable = 'pivot@0';
-				message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',print,'+allusers[userid].currentTable+'\n';
-			}
-			else if (dm.type == 'main'){
-				allusers[userid].currentTable = 'main';
-				message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',print,'+allusers[userid].currentTable+'\n';
-			}
-			else {message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',print,'+allusers[userid].currentTable+'\n';}
-		}
-		else if (dm.command == 'pivot'){
-			message = userid+',0,'+(allusers[userid].endRow-allusers[userid].startRow) +',pivot,'+dm.column+'@6\n';
-			allusers[userid].endRow = parseInt(allusers[userid].endRow-allusers[userid].startRow);
-			allusers[userid].startRow = 0;
-			allusers[userid].currentTable = 'pivot@0';
-		}
-		else if (dm.command == 'filter'){
-			message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',filter,'+dm.formula+'\n';
-			message2 = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',print,'+allusers[userid].currentTable+'\n';
-			if (allusers[userid].currentTable == 'main') {
-				message3 = userid+',0,-1,filter,'+dm.formula+'\n';
-			}
-		}
-		else if (dm.command == 'sort'){
-			message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',sort,'+dm.column+'\n';
-		}
-		else if (dm.command == 'addcol'){
-			message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',addcol,'+dm.formula+'\n';
-			message2 = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',print,'+allusers[userid].currentTable+'\n';
-			if (allusers[userid].currentTable == 'main') {
-				message3 = userid+',0,-1,addcol,'+dm.formula+'\n';
-			}
-		}
-		else if (dm.command == 'load'){
-			allusers[userid].memory = true;
-			var acmd = require('child_process').spawn('../cppsv/nanotable', [allusers[userid].table]);
-			fs.writeFile(allusers[userid].quick, "", (err) => {});
-			fs.writeFile(allusers[userid].slow, "", (err) => {});
-			message = userid+',0,10,sort,0\n';
-		}
-
+	console.log(JSON.parse(message));
+	var dm = JSON.parse(message);
+	var message2 = "";
+	var message3 = "";
+	if (dm.command == 'create'){
+		var tablename = dm.src;
+		allusers[userid]={'messages':[],'startRow':0,'endRow':10,'currentTable':'main','table':"up"+tablename,'memory':false,'sort':0,'quick':'quick/up'+tablename+'.txt','slow':'slow/up'+tablename+'.txt'};
+		var tarcmd = require('child_process').spawn('tar', ['xvzf','uploads/'+allusers[userid].table+'.csv.tar.gz']);
+		message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',sort,0\n';
+		message2 = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',print,'+allusers[userid].currentTable+'\n';
+	}
+	else if (dm.command == 'display'){
+		message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',display,'+dm.column+'@'+dm.location+'\n';
+	}
+	else if (dm.command == 'sum' || dm.command == 'max' || dm.command == 'min' || dm.command == 'mean'){
+		message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+','+dm.command+',main\n';
+	}
+	else if (dm.command == 'print'){
+		if (!isNaN(dm.startrow)){allusers[userid].startRow = parseInt(dm.startrow);}
+		if (!isNaN(dm.endrow)){allusers[userid].endRow = parseInt(dm.endrow);}
 		
-	
-		if (allusers[userid].messages.length == 0) {
-			allusers[userid].messages.push(message);
-			if (message2.length > 3) {allusers[userid].messages.push(message2);}
-			if (message3.length > 3) {allusers[userid].messages.push(message3);}
-			try {
-			  fs.unlinkSync(userid);
-			  //file removed
-			} catch(err) {
-			  //console.error(err);
-			}
-			
-			if (!allusers[userid].memory){
-				cachedFunc(ws,message,userid);
-			}
-			else if (message.split(",")[3] == 'print' || message.split(",")[3] == 'display' || (message.split(",")[3] == 'addcol' && message.split(",")[2] != '-1')){
-				fs.appendFile(allusers[userid].quick, message, (err) => {});
-				setTimeout(intervalFunc,5, ws, userid);
-
-			}
-			else {
-				fs.appendFile(allusers[userid].slow, message, (err) => {});
-				setTimeout(intervalFunc,5, ws, userid);
-
-			}
+		if (dm.type == 'pivot'){
+			allusers[userid].currentTable = 'pivot@0';
+			message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',print,'+allusers[userid].currentTable+'\n';
 		}
-		else {
-			allusers[userid].messages.push(message);
-			if (message2.length > 3) {allusers[userid].messages.push(message2);}
-			if (message3.length > 3) {allusers[userid].messages.push(message3);}
+		else if (dm.type == 'main'){
+			allusers[userid].currentTable = 'main';
+			message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',print,'+allusers[userid].currentTable+'\n';
 		}
-  	}
-  	else if (message.substring(0,4)=='Save'){
-  		fs.writeFile("saved.txt", message, (err) => {});
-  	}
-  	else if (message.substring(0,5)=='Table'){
-  		var tablename = message.split(",")[1];
-  		
-  		allusers[userid]={'messages':[],'startRow':0,'endRow':10,'currentTable':'main','table':"up"+tablename,'memory':false,'sort':0,'quick':'quick/up'+tablename+'.txt','slow':'slow/up'+tablename+'.txt'};
-  		var tarcmd = require('child_process').spawn('tar', ['xvzf','uploads/'+allusers[userid].table+'.csv.tar.gz']);
-  		ws.send(userid);
-  	}
-  	else{
-  		console.log("why?",message);
-		message += '\n';
-		message = message.replace(/\|/g, '\n');
-		message = message.replace(/\\n/g, '\r\n');
-	
-	
-		//wss.clients.forEach(function each(client) {
-		//	client.send("hi");
-		//});
-
-		allusers[userid].messages.push(message);
-	
-		if (allusers[userid].messages.length == 1) {
-			try {
-			  fs.unlinkSync(userid);
-			  //file removed
-			} catch(err) {
-			  //console.error(err);
-			}
-			
-			if (!allusers[userid].memory){
-				cachedFunc(ws,message,userid);
-			}
-			else if (message.split(",")[3] == 'print' || message.split(",")[3] == 'display' || (message.split(",")[3] == 'addcol' && message.split(",")[2] != '-1')){
-				fs.appendFile(allusers[userid].quick, message, (err) => {});
-				setTimeout(intervalFunc,5, ws, userid);
-
-			}
-			else {
-				fs.appendFile(allusers[userid].slow, message, (err) => {});
-				setTimeout(intervalFunc,5, ws, userid);
-
-			}
-	
-			
+		else {message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',print,'+allusers[userid].currentTable+'\n';}
+	}
+	else if (dm.command == 'pivot'){
+		message = userid+',0,'+(allusers[userid].endRow-allusers[userid].startRow) +',pivot,'+dm.column+'@6\n';
+		allusers[userid].endRow = parseInt(allusers[userid].endRow-allusers[userid].startRow);
+		allusers[userid].startRow = 0;
+		allusers[userid].currentTable = 'pivot@0';
+	}
+	else if (dm.command == 'filter'){
+		message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',filter,'+dm.formula+'\n';
+		message2 = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',print,'+allusers[userid].currentTable+'\n';
+		if (allusers[userid].currentTable == 'main') {
+			message3 = userid+',0,-1,filter,'+dm.formula+'\n';
 		}
 	}
+	else if (dm.command == 'sort'){
+		message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',sort,'+dm.column+'\n';
+	}
+	else if (dm.command == 'addcol'){
+		message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',addcol,'+dm.formula+'\n';
+		message2 = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',print,'+allusers[userid].currentTable+'\n';
+		if (allusers[userid].currentTable == 'main') {
+			message3 = userid+',0,-1,addcol,'+dm.formula+'\n';
+		}
+	}
+	else if (dm.command == 'load'){
+		allusers[userid].memory = true;
+		var acmd = require('child_process').spawn('../cppsv/nanotable', [allusers[userid].table]);
+		fs.writeFile(allusers[userid].quick, "", (err) => {});
+		fs.writeFile(allusers[userid].slow, "", (err) => {});
+		message = userid+',0,10,sort,0\n';
+	}
+	else {
+		console.log("what?",message);
+		return 0;
+	}
+
 	
-	
+
+	if (allusers[userid].messages.length == 0) {
+		allusers[userid].messages.push(message);
+		if (message2.length > 3) {allusers[userid].messages.push(message2);}
+		if (message3.length > 3) {allusers[userid].messages.push(message3);}
+		try {
+		  fs.unlinkSync(userid);
+		  //file removed
+		} catch(err) {
+		  //console.error(err);
+		}
+		
+		if (!allusers[userid].memory){
+			cachedFunc(ws,message,userid);
+		}
+		else if (message.split(",")[3] == 'print' || message.split(",")[3] == 'display' || (message.split(",")[3] == 'addcol' && message.split(",")[2] != '-1')){
+			fs.appendFile(allusers[userid].quick, message, (err) => {});
+			setTimeout(intervalFunc,5, ws, userid);
+
+		}
+		else {
+			fs.appendFile(allusers[userid].slow, message, (err) => {});
+			setTimeout(intervalFunc,5, ws, userid);
+
+		}
+	}
+	else {
+		allusers[userid].messages.push(message);
+		if (message2.length > 3) {allusers[userid].messages.push(message2);}
+		if (message3.length > 3) {allusers[userid].messages.push(message3);}
+	}
+
   });
 });
 

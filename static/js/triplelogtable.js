@@ -12,7 +12,6 @@ class TriplelogTable extends HTMLElement {
     this.addButtons();
     this.startRow = 0;
     this.endRow = 10;
-    this.userid;
     this.usecache = true;
     this.showit = true;
     this.foundit = true;
@@ -57,15 +56,14 @@ class TriplelogTable extends HTMLElement {
 			}
 		}
 		else{
-			_this.userid = evt.data;
-			_this.ws.send(_this.userid+",0,10,sort,0");
-			_this.ws.send(_this.userid+",0,10,print,main");
+			alert("Bad Message");
 		}
 	};
 	
 	
 	this.ws.onopen = function(){
-		_this.ws.send("Table,"+_this.getAttribute('src'));
+		var jsonmessage = {'command':'create','src':_this.getAttribute('src')};
+		_this.ws.send(JSON.stringify(jsonmessage));
 	};
 	
 	
