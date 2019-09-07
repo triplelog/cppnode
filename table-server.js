@@ -26,9 +26,14 @@ wss.on('connection', function connection(ws) {
 			message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+','+dm.command+',main\n';
 		}
 		else if (dm.command == 'print'){
-			message = userid+','+dm.startrow+','+dm.endrow+',print,'+allusers[userid].currentTable+'\n';
-			allusers[userid].startRow = parseInt(dm.startrow);
-			allusers[userid].endRow = parseInt(dm.endrow);
+			if (dm.startrow){
+				message = userid+','+dm.startrow+','+dm.endrow+',print,'+allusers[userid].currentTable+'\n';
+				allusers[userid].startRow = parseInt(dm.startrow);
+				allusers[userid].endRow = parseInt(dm.endrow);
+			}
+			else {
+				message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',print,'+allusers[userid].currentTable+'\n';
+			}
 		}
 		else if (dm.command == 'pivot'){
 			message = userid+',0,'+(allusers[userid].endRow-allusers[userid].startRow) +',pivot,'+dm.column+'@6\n';
