@@ -25,6 +25,11 @@ wss.on('connection', function connection(ws) {
 		else if (dm.command == 'sum' || dm.command == 'max' || dm.command == 'min' || dm.command == 'mean'){
 			message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+','+dm.command+',main\n';
 		}
+		else if (dm.command == 'print'){
+			message = userid+','+dm.startrow+','+dm.endrow+',print,'+allusers[userid].currentTable+'\n';
+			allusers[userid].startRow = parseInt(dm.startrow);
+			allusers[userid].endRow = parseInt(dm.endrow);
+		}
 		console.log(message);
 	
 		//wss.clients.forEach(function each(client) {
@@ -64,7 +69,7 @@ wss.on('connection', function connection(ws) {
   	else if (message.substring(0,5)=='Table'){
   		var tablename = message.split(",")[1];
   		
-  		allusers[userid]={'messages':[],'startRow':0,'endRow':10,'table':"up"+tablename,'memory':false,'sort':0,'quick':'quick/up'+tablename+'.txt','slow':'slow/up'+tablename+'.txt'};
+  		allusers[userid]={'messages':[],'startRow':0,'endRow':10,'currentTable':'main','table':"up"+tablename,'memory':false,'sort':0,'quick':'quick/up'+tablename+'.txt','slow':'slow/up'+tablename+'.txt'};
   		var tarcmd = require('child_process').spawn('tar', ['xvzf','uploads/'+allusers[userid].table+'.csv.tar.gz']);
   		ws.send(userid);
   	}

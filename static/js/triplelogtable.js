@@ -663,8 +663,10 @@ class TriplelogTable extends HTMLElement {
 		  allPageNums[i].classList.remove("active");
 		}
 	}
-	var mymessage = this.userid+","+ this.startRow +","+ this.endRow +",print,"+this.currentTable;
-	this.ws.send(mymessage);
+	//var mymessage = this.userid+","+ this.startRow +","+ this.endRow +",print,"+this.currentTable;
+	var jsonmessage = {'command':'print','startrow':this.startRow,'endrow':this.endRow};
+	this.ws.send(JSON.stringify(jsonmessage));
+	//this.ws.send(mymessage);
   }
   
   filterCell(e) {
@@ -689,7 +691,6 @@ class TriplelogTable extends HTMLElement {
   		if (this.shadowRoot.querySelector("#filterFormula").value != ""){
   			this.shadowRoot.querySelector("#filterFormula").value += 'AND';
   		}
-  		
   		this.shadowRoot.querySelector("#filterFormula").value += colName.toUpperCase()+this.comparisonMode+val;  		
   	}
   }
