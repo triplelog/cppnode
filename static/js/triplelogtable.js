@@ -189,6 +189,7 @@ class TriplelogTable extends HTMLElement {
 		columnButton.addEventListener("mouseup", e => {this.newCol(e,1);});
 		columnDiv.appendChild(columnButton);
 	columnDiv.style.display = 'none';
+	columnDiv.id = "columnDiv";
 	this.shadowRoot.appendChild(columnDiv);
 	
 	var filterDiv = document.createElement("div");
@@ -212,6 +213,7 @@ class TriplelogTable extends HTMLElement {
 			filterDiv.appendChild(compButton);
 		}
 	filterDiv.style.display = 'none';
+	filterDiv.id = "filterDiv";
 	this.shadowRoot.appendChild(filterDiv);
 	
 	var pivotDiv = document.createElement("div");
@@ -226,6 +228,7 @@ class TriplelogTable extends HTMLElement {
 		pivotButton.addEventListener("mouseup", e => {this.newPivot(e,3);});
 		pivotDiv.appendChild(pivotButton);
 	pivotDiv.style.display = 'none';
+	pivotDiv.id = "pivotDiv";
 	this.shadowRoot.appendChild(pivotDiv);
 	
 	var opDiv = document.createElement("div");
@@ -237,6 +240,7 @@ class TriplelogTable extends HTMLElement {
 			opDiv.appendChild(operButton);
 		}
 	opDiv.style.display = 'none';
+	opDiv.id = "opDiv";
 	this.shadowRoot.appendChild(opDiv);
   }
   
@@ -639,6 +643,9 @@ class TriplelogTable extends HTMLElement {
   
   chgMode(e,x) {
   	this.currentMode = e.target.value;
+  	['pivotDiv','filterDiv','opDiv','columnDiv'].forEach( tmpDiv => {this.shadowRoot.querySelector('#'+tmpDiv).style.display = 'none';});
+  	if (this.currentMode == 'newcol') {this.shadowRoot.querySelector('#columnDiv').style.display = 'inline-block';}
+  	else if (this.currentMode == 'pivot') {this.shadowRoot.querySelector('#pivotDiv').style.display = 'inline-block';}
   }
   
   dragColumn(e,x) {
