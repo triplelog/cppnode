@@ -141,23 +141,22 @@ class NanoTable extends HTMLElement {
   	
   }
   
+  moveHeader(moveAmt) {
+  	var thead = this.shadowRoot.querySelector("thead");
+  	thead.style.transform = 'translate(0px, '+moveAmt+'px)';
+  }
+  
   scrollTable(e) {
   	this.latestKnownScrollY = e.target.scrollTop;
   	this.moveHeader(0);
 	clearTimeout(this.scrollTimeout);
-	console.log(this.latestKnownScrollY);
 	this.scrollTimeout = setTimeout(this.after10,50);
   	
   }
   
   after10() {
-	_this.moveHeader(_this.latestKnownScrollY);
-  }
-  
-  
-  moveHeader(moveAmt) {
-  	var thead = this.shadowRoot.querySelector("thead");
-  	thead.style.transform = 'translate(0px, '+moveAmt+'px)';
+  	console.log(this.latestKnownScrollY);
+	this.moveHeader(this.latestKnownScrollY);
   }
   
   requestTick() {
