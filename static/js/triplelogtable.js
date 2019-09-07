@@ -568,19 +568,23 @@ class TriplelogTable extends HTMLElement {
   	var type = 'main';
 	let rawFormula = this.shadowRoot.querySelector("#filterFormula").value;
 	if (rawFormula == ''){return 0;}
-	let filterFormula = postfixify(rawFormula,this.colInfo);
-	console.log(filterFormula);
+	try {
+		let filterFormula = postfixify(rawFormula,this.colInfo);
+	}
+	catch (e) {
+		return 0;
+	}
 	
 	if (this.usecache){
 		this.usecache = false;
-		this.ws.send("Load,"+this.userid);
-		this.ws.send(this.userid+",0,10,sort,0");
+		var jsonmessage = {'command':'load'};
+		this.ws.send(JSON.stringify(jsonmessage));
 	}
 	
 	
-	if (x == 0){
-		var mymessage = this.userid+","+ this.startRow +","+ this.endRow +",filter,"+ filterFormula;
-		this.ws.send(mymessage);
+	if (x == 0){//mouseover
+		var jsonmessage = {'command':'filter','formula':filterFormula};
+		this.ws.send(JSON.stringify(jsonmessage));
 	}
 	else if (x == 1){
 		var mymessage = this.userid+","+ this.startRow +","+ this.endRow +",print,"+type;
@@ -655,7 +659,7 @@ class TriplelogTable extends HTMLElement {
 		  allPageNums[i].classList.remove("active");
 		}
 	}
-	var jsonmessage = {'command':'print','startrow':''+this.startRow+'','endrow':this.endRow};
+	var jsonmessage = {'command':'print','startrow':this.startRow,'endrow':this.endRow};
 	this.ws.send(JSON.stringify(jsonmessage));
   }
   

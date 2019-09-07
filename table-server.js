@@ -26,15 +26,13 @@ wss.on('connection', function connection(ws) {
 			message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+','+dm.command+',main\n';
 		}
 		else if (dm.command == 'print'){
-			if (!isNaN(dm.startrow)){
+			if (!isNaN(dm.startrow) && !isNaN(dm.endrow)){
 				message = userid+','+dm.startrow+','+dm.endrow+',print,'+allusers[userid].currentTable+'\n';
 				allusers[userid].startRow = parseInt(dm.startrow);
 				allusers[userid].endRow = parseInt(dm.endrow);
-				console.log("hey");
 			}
 			else {
 				message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',print,'+allusers[userid].currentTable+'\n';
-				console.log("there");
 			}
 		}
 		else if (dm.command == 'pivot'){
@@ -43,6 +41,9 @@ wss.on('connection', function connection(ws) {
 			allusers[userid].startRow = 0;
 			allusers[userid].currentTable = 'pivot@0';
 		}
+		else if (dm.command == 'filter'){
+			message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',filter,'+dm.formula+'\n';
+		}
 		else if (dm.command == 'load'){
 			allusers[userid].memory = true;
 			var acmd = require('child_process').spawn('../cppsv/nanotable', [allusers[userid].table]);
@@ -50,11 +51,6 @@ wss.on('connection', function connection(ws) {
 			fs.writeFile(allusers[userid].slow, "", (err) => {});
 			message = userid+',0,10,sort,0\n';
 		}
-		console.log('hi',message);
-	
-		//wss.clients.forEach(function each(client) {
-		//	client.send("hi");
-		//});
 
 		allusers[userid].messages.push(message);
 	
