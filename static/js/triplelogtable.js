@@ -378,11 +378,11 @@ class TriplelogTable extends HTMLElement {
 		}
 		else if (x==1){
 			if (this.sortondown || this.usecache) {
-				var mymessage = this.userid+","+ this.startRow +","+ this.endRow +",sort,"+ sortCol;
-				this.ws.send(mymessage);
+				var jsonmessage = {'command':'sort','column':sortCol};
+				this.ws.send(JSON.stringify(jsonmessage));
 			}
-			var mymessage = this.userid+","+ this.startRow +","+ this.endRow +",print,main";
-			this.ws.send(mymessage);
+			var jsonmessage = {'command':'print'};
+			this.ws.send(JSON.stringify(jsonmessage));
 			this.showit = false;
 			this.foundit = false;
 		}
@@ -469,63 +469,43 @@ class TriplelogTable extends HTMLElement {
   		rawFormula = rawFormula.split(':')[1];
   		
   	}
-	colFormula = postfixify(rawFormula,this.colInfo)+'@'+newColName;
-	var type = 'main';
-	//console.log(colFormula);
-	
-	if (this.usecache){
-		if (x==0){
-			var mymessage = this.userid+","+ this.startRow +","+ this.endRow +",addcol,"+ colFormula;
-			this.ws.send(mymessage);
-			mymessage = this.userid+","+ this.startRow +","+ this.endRow +",print,"+type;
-			this.ws.send(mymessage);
-			this.showit = false;
-			this.foundit = false;
+  	try {
+		colFormula = postfixify(rawFormula,this.colInfo)+'@'+newColName;
+	}
+	catch (e) {
+		return 0;
+	}
+
+	if (x==0){
+		if (this.currentTable == "pivot@0"){colFormula += "@0";}
+		
+		var jsonmessage = {'command':'addcol','formula':colFormula};
+		this.ws.send(JSON.stringify(jsonmessage));
+		jsonmessage = {'command':'print'};
+		this.ws.send(JSON.stringify(jsonmessage));
+		this.showit = false;
+		this.foundit = false;
+	}
+	else {
+		
+		if (this.foundit){
+			this.addData(this.retdata);
+			this.showit = true;
 		}
 		else {
+			this.showit = true;
+			this.foundit = true;
+		}
+		if (this.usecache){
 			this.usecache = false;
-			if (this.foundit){
-				this.addData(this.retdata);
-				this.showit = true;
-			}
-			else {
-				this.showit = true;
-				this.foundit = true;
-			}
 			var jsonmessage = {'command':'load'};
 			this.ws.send(JSON.stringify(jsonmessage));
+		}
+		if (this.currentTable == "main") {
 			var mymessage = this.userid+","+"0,-1,addcol,"+ colFormula;
 			this.ws.send(mymessage);
 		}
 	}
-	else {
-		if (x==0){
-			if (this.currentTable == "pivot@0"){colFormula += "@0";}
-			
-			var mymessage = this.userid+","+ this.startRow +","+ this.endRow +",addcol,"+ colFormula;
-			console.log(mymessage)
-			this.ws.send(mymessage);
-			mymessage = this.userid+","+ this.startRow +","+ this.endRow +",print,"+this.currentTable;
-			this.ws.send(mymessage);
-			this.showit = false;
-			this.foundit = false;
-		}
-		else {
-			if (this.foundit){
-				this.addData(this.retdata);
-				this.showit = true;
-			}
-			else {
-				this.showit = true;
-				this.foundit = true;
-			}
-			if (this.currentTable == "main") {
-				var mymessage = this.userid+","+"0,-1,addcol,"+ colFormula;
-				this.ws.send(mymessage);
-			}
-		}
-	}
-	
 	
   }
   

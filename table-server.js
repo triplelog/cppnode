@@ -44,6 +44,12 @@ wss.on('connection', function connection(ws) {
 		else if (dm.command == 'filter'){
 			message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',filter,'+dm.formula+'\n';
 		}
+		else if (dm.command == 'sort'){
+			message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',sort,'+dm.column+'\n';
+		}
+		else if (dm.command == 'addcol'){
+			message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',addcol,'+dm.formula+'\n';
+		}
 		else if (dm.command == 'load'){
 			allusers[userid].memory = true;
 			var acmd = require('child_process').spawn('../cppsv/nanotable', [allusers[userid].table]);
@@ -88,12 +94,6 @@ wss.on('connection', function connection(ws) {
   		allusers[userid]={'messages':[],'startRow':0,'endRow':10,'currentTable':'main','table':"up"+tablename,'memory':false,'sort':0,'quick':'quick/up'+tablename+'.txt','slow':'slow/up'+tablename+'.txt'};
   		var tarcmd = require('child_process').spawn('tar', ['xvzf','uploads/'+allusers[userid].table+'.csv.tar.gz']);
   		ws.send(userid);
-  	}
-  	else if (message.substring(0,4)=='Load'){
-  		allusers[userid].memory = true;
-  		var acmd = require('child_process').spawn('../cppsv/nanotable', [allusers[userid].table]);
-  		fs.writeFile(allusers[userid].quick, "", (err) => {});
-  		fs.writeFile(allusers[userid].slow, "", (err) => {});
   	}
   	else{
   		console.log(message);
