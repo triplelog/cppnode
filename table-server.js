@@ -30,9 +30,11 @@ wss.on('connection', function connection(ws) {
 				message = userid+','+dm.startrow+','+dm.endrow+',print,'+allusers[userid].currentTable+'\n';
 				allusers[userid].startRow = parseInt(dm.startrow);
 				allusers[userid].endRow = parseInt(dm.endrow);
+				console.log("hey");
 			}
 			else {
 				message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',print,'+allusers[userid].currentTable+'\n';
+				console.log("there");
 			}
 		}
 		else if (dm.command == 'pivot'){
@@ -48,7 +50,7 @@ wss.on('connection', function connection(ws) {
 			fs.writeFile(allusers[userid].slow, "", (err) => {});
 			message = userid+',0,10,sort,0\n';
 		}
-		console.log(message);
+		console.log('hi',message);
 	
 		//wss.clients.forEach(function each(client) {
 		//	client.send("hi");
