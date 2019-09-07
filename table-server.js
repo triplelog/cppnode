@@ -16,7 +16,10 @@ var allusers = {};
 wss.on('connection', function connection(ws) {
   var userid = "ff"+Math.random().toString(36).substring(5, 10);+".csv";
   ws.on('message', function incoming(message) {
-  	if (message.substring(0,4)=='Save'){
+    if (message.substring(0,1)=='{'){
+  		console.log(JSON.parse(message));
+  	}
+  	else if (message.substring(0,4)=='Save'){
   		fs.writeFile("saved.txt", message, (err) => {});
   	}
   	else if (message.substring(0,5)=='Table'){

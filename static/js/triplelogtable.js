@@ -759,14 +759,11 @@ class TriplelogTable extends HTMLElement {
   dropColumn(e,x) {
     if (this.currentMode == 'arrange') {
     	if (e.dataTransfer.getData("text").substring(7,) != e.target.id.substring(7,)){
-			var mymessage = this.userid+","+ this.startRow +","+ this.endRow +",display,"+e.dataTransfer.getData("text").substring(7,);
+    		var jsonmessage = {'command':'display','column':e.dataTransfer.getData("text").substring(7,),'location':'-3'};
 			if (x == 1){
-				mymessage += "@"+e.target.id.substring(7,);
+				jsonmessage.location = e.target.id.substring(7,);
 			}
-			else {
-				mymessage += "@-3";
-			}
-			this.ws.send(mymessage);
+			this.ws.send(JSON.stringify(jsonmessage));
 		}
     }
   }
