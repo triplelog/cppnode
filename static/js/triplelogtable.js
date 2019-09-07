@@ -590,7 +590,7 @@ class TriplelogTable extends HTMLElement {
 	
 	
 	if (x == 1){ //mousedown
-		var jsonmessage = {'command':'pivot','pivotcol':pivotID,'sort':6,'columns':[6,7,8]};
+		var jsonmessage = {'command':'pivot','pivotcol':pivotID,'sort':5,'columns':[6,7,8]};
 		this.ws.send(JSON.stringify(jsonmessage));
 		jsonmessage = {'command':'print'};
 		this.ws.send(JSON.stringify(jsonmessage));
