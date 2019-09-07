@@ -22,7 +22,7 @@ wss.on('connection', function connection(ws) {
   		if (dm.command == 'display'){
 			message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',display,'+dm.column+'@'+dm.location+'\n';
 		}
-		else if (dm.command == 'sum' || dm.command == 'max' || dm.command == 'min' || dm.command == 'mean' ||){
+		else if (dm.command == 'sum' || dm.command == 'max' || dm.command == 'min' || dm.command == 'mean'){
 			message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+','+dm.command+',main\n';
 		}
 		console.log(message);
