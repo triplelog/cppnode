@@ -475,18 +475,16 @@ class TriplelogTable extends HTMLElement {
 	catch (e) {
 		return 0;
 	}
-
+	if (this.usecache){
+		this.usecache = false;
+		var jsonmessage = {'command':'load'};
+		this.ws.send(JSON.stringify(jsonmessage));
+	}
 	if (x==0){ //mousedown
-		if (this.usecache){
-			this.usecache = false;
-			var jsonmessage = {'command':'load'};
-			this.ws.send(JSON.stringify(jsonmessage));
-		}
+		
 		if (this.currentTable == "pivot@0"){colFormula += "@0";}
 		
 		var jsonmessage = {'command':'addcol','formula':colFormula};
-		this.ws.send(JSON.stringify(jsonmessage));
-		jsonmessage = {'command':'print'};
 		this.ws.send(JSON.stringify(jsonmessage));
 		this.showit = false;
 		this.foundit = false;
@@ -501,21 +499,13 @@ class TriplelogTable extends HTMLElement {
 			this.showit = true;
 			this.foundit = true;
 		}
-		if (this.usecache){
-			this.usecache = false;
-			var jsonmessage = {'command':'load'};
-			this.ws.send(JSON.stringify(jsonmessage));
-		}
-		if (this.currentTable == "main") {
-			var mymessage = this.userid+","+"0,-1,addcol,"+ colFormula;
-			this.ws.send(mymessage);
-		}
+		
 	}
 	
   }
   
   newFilter(e,x) {
-  	var type = 'main';
+  	if (this.currentTable != 'main'){return 0;}
 	let rawFormula = this.shadowRoot.querySelector("#filterFormula").value;
 	if (rawFormula == '' || rawFormula == this.currentFilter){return 0;}
 	var filterFormula;
@@ -525,6 +515,8 @@ class TriplelogTable extends HTMLElement {
 	catch (e) {
 		return 0;
 	}
+	
+	
 	
 	if (this.usecache){
 		this.usecache = false;
@@ -536,14 +528,11 @@ class TriplelogTable extends HTMLElement {
 	if (x == 0){//mouseover Filter button
 		var jsonmessage = {'command':'filter','formula':filterFormula};
 		this.ws.send(JSON.stringify(jsonmessage));
-	}
-	else if (x == 1){//mousedown
-		var jsonmessage = {'command':'print'};
-		this.ws.send(JSON.stringify(jsonmessage));
-		mymessage = this.userid+","+"0,-1,filter,"+ filterFormula;
-		this.ws.send(mymessage);
 		this.showit = false;
 		this.foundit = false;
+	}
+	else if (x == 1){//mousedown
+		
 	}
 	else if (x == 3){//mouseup
 		if (this.foundit){
