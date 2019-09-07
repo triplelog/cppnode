@@ -109,6 +109,7 @@ class TriplelogTable extends HTMLElement {
   moveHeader(moveAmt) {
   	var thead = this.shadowRoot.querySelector("thead");
   	thead.style.transform = 'translate(0px, '+moveAmt+'px)';
+  	console.log(moveAmt);
   }
   
   scrollTable(e) {
