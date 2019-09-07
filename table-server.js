@@ -14,24 +14,23 @@ const wss = new WebSocket.Server({ port: 8080 });
 //fs.writeFile("slowtxt.txt", "", (err) => {});
 var allusers = {};
 wss.on('connection', function connection(ws) {
-
+  var userid = "ff"+Math.random().toString(36).substring(5, 10);+".csv";
   ws.on('message', function incoming(message) {
   	if (message.substring(0,4)=='Save'){
   		fs.writeFile("saved.txt", message, (err) => {});
   	}
   	else if (message.substring(0,5)=='Table'){
   		var tablename = message.split(",")[1];
-  		var userid = "ff"+Math.random().toString(36).substring(5, 10);+".csv";
+  		
   		allusers[userid]={'messages':[],'table':"up"+tablename,'memory':false,'sort':0,'quick':'quick/up'+tablename+'.txt','slow':'slow/up'+tablename+'.txt'};
   		var tarcmd = require('child_process').spawn('tar', ['xvzf','uploads/'+allusers[userid].table+'.csv.tar.gz']);
   		ws.send(userid);
   	}
   	else if (message.substring(0,4)=='Load'){
-  		messagefname = message.split(",")[1];
-  		allusers[messagefname].memory = true;
-  		var acmd = require('child_process').spawn('../cppsv/nanotable', [allusers[messagefname].table]);
-  		fs.writeFile(allusers[messagefname].quick, "", (err) => {});
-  		fs.writeFile(allusers[messagefname].slow, "", (err) => {});
+  		allusers[userid].memory = true;
+  		var acmd = require('child_process').spawn('../cppsv/nanotable', [allusers[userid].table]);
+  		fs.writeFile(allusers[userid].quick, "", (err) => {});
+  		fs.writeFile(allusers[userid].slow, "", (err) => {});
   	}
   	else{
   		console.log(message);
@@ -39,33 +38,32 @@ wss.on('connection', function connection(ws) {
 		message = message.replace(/\|/g, '\n');
 		message = message.replace(/\\n/g, '\r\n');
 	
-		messagefname = message.split(",")[0];
 	
 		//wss.clients.forEach(function each(client) {
 		//	client.send("hi");
 		//});
 
-		allusers[messagefname].messages.push(message);
+		allusers[userid].messages.push(message);
 	
-		if (allusers[messagefname].messages.length == 1) {
+		if (allusers[userid].messages.length == 1) {
 			try {
-			  fs.unlinkSync(messagefname);
+			  fs.unlinkSync(userid);
 			  //file removed
 			} catch(err) {
 			  //console.error(err);
 			}
 			
-			if (!allusers[messagefname].memory){
-				cachedFunc(ws,message,messagefname);
+			if (!allusers[userid].memory){
+				cachedFunc(ws,message,userid);
 			}
 			else if (message.split(",")[3] == 'print' || message.split(",")[3] == 'display' || (message.split(",")[3] == 'addcol' && message.split(",")[2] != '-1')){
-				fs.appendFile(allusers[messagefname].quick, message, (err) => {});
-				setTimeout(intervalFunc,5, ws, messagefname);
+				fs.appendFile(allusers[userid].quick, message, (err) => {});
+				setTimeout(intervalFunc,5, ws, userid);
 
 			}
 			else {
-				fs.appendFile(allusers[messagefname].slow, message, (err) => {});
-				setTimeout(intervalFunc,5, ws, messagefname);
+				fs.appendFile(allusers[userid].slow, message, (err) => {});
+				setTimeout(intervalFunc,5, ws, userid);
 
 			}
 	
@@ -78,22 +76,22 @@ wss.on('connection', function connection(ws) {
 });
 
 
-function cachedFunc(ws, message, messagefname) {
+function cachedFunc(ws, message, userid) {
 	var outputcsv = "[[";
 	var startRow = parseInt(message.split(",")[1])+1;
 	var endRow = parseInt(message.split(",")[2])+1;
 	if (message.split(",")[3] == 'sort') {
-		allusers[messagefname].sort = parseInt(message.split(",")[4]);
-		allusers[messagefname].messages.splice(0,1);
-		if (allusers[messagefname].messages.length > 0) {
-			var nmessage = allusers[messagefname].messages[0];
-			cachedFunc(ws,nmessage,messagefname);
+		allusers[userid].sort = parseInt(message.split(",")[4]);
+		allusers[userid].messages.splice(0,1);
+		if (allusers[userid].messages.length > 0) {
+			var nmessage = allusers[userid].messages[0];
+			cachedFunc(ws,nmessage,userid);
 		}
 	}
 	else if (message.split(",")[3] == 'print') {
-		fs.stat("uploads/"+allusers[messagefname].table+allusers[messagefname].sort+".csv", function(err, stats) {
+		fs.stat("uploads/"+allusers[userid].table+allusers[userid].sort+".csv", function(err, stats) {
 			if (!err && stats.isFile() && stats.size > 16) {
-				fs.readFile("uploads/"+allusers[messagefname].table+allusers[messagefname].sort+".csv", 'utf8', function(err, data) {
+				fs.readFile("uploads/"+allusers[userid].table+allusers[userid].sort+".csv", 'utf8', function(err, data) {
 					var spldata = data.split("\n");
 					outputcsv += "\"Rk\",-1,"+spldata[0];
 					outputcsv += "],[";
@@ -106,62 +104,62 @@ function cachedFunc(ws, message, messagefname) {
 					ws.send(outputcsv);
 				
 				
-					allusers[messagefname].messages.splice(0,1);
-					if (allusers[messagefname].messages.length > 0) {
-						var nmessage = allusers[messagefname].messages[0];
-						if (!allusers[messagefname].memory){
-							cachedFunc(ws,nmessage,messagefname);
+					allusers[userid].messages.splice(0,1);
+					if (allusers[userid].messages.length > 0) {
+						var nmessage = allusers[userid].messages[0];
+						if (!allusers[userid].memory){
+							cachedFunc(ws,nmessage,userid);
 						}
 						else if (nmessage.split(",")[3] == 'print' || nmessage.split(",")[3] == 'display' || (nmessage.split(",")[3] == 'addcol' && nmessage.split(",")[2] != '-1')){
-							fs.appendFile(allusers[messagefname].quick, nmessage, (err) => {});
-							setTimeout(intervalFunc,5, ws, messagefname);
+							fs.appendFile(allusers[userid].quick, nmessage, (err) => {});
+							setTimeout(intervalFunc,5, ws, userid);
 
 						}
 						else {
-							fs.appendFile(allusers[messagefname].slow, nmessage, (err) => {});
-							setTimeout(intervalFunc,5, ws, messagefname);
+							fs.appendFile(allusers[userid].slow, nmessage, (err) => {});
+							setTimeout(intervalFunc,5, ws, userid);
 						}
 					}
 				});
 			}
 			else {
-				setTimeout(cachedFunc,5,ws,message,messagefname);
+				setTimeout(cachedFunc,5,ws,message,userid);
 			}
 		});
 	}
 
 	
 }
-function intervalFunc(ws, messagefname) {
-		fs.stat(messagefname, function(err, stats) {
+function intervalFunc(ws, userid) {
+		fs.stat(userid, function(err, stats) {
 			if (!err) {
 				if (stats.isFile() && stats.size > 16) {
 					
-					fs.readFile(messagefname, 'utf8', function(err, data) {
+					fs.readFile(userid, 'utf8', function(err, data) {
 						if (data.substring(0,22) != "completedwithoutoutput"){
 							ws.send(data);
 						}
 						else {
 						}
 						
-						allusers[messagefname].messages.splice(0,1);
-						if (allusers[messagefname].messages.length > 0) {
+						allusers[userid].messages.splice(0,1);
+						if (allusers[userid].messages.length > 0) {
 							try {
-							  fs.unlinkSync(messagefname);
+							  fs.unlinkSync(userid);
 							  //file removed
 							} catch(err) {
 							  //console.error(err);
 							}
-							nmessage = allusers[messagefname].messages[0];
+							nmessage = allusers[userid].messages[0];
 						
 							if (nmessage.split(",")[3] == 'print' || nmessage.split(",")[3] == 'display' || (nmessage.split(",")[3] == 'addcol' && nmessage.split(",")[2] != '-1')){
-								fs.appendFile(allusers[messagefname].quick, nmessage, (err) => {});
+								fs.appendFile(allusers[userid].quick, nmessage, (err) => {});
 							}
 							else {
-								fs.appendFile(allusers[messagefname].slow, nmessage, (err) => {});
+								fs.appendFile(allusers[userid].slow, nmessage, (err) => {});
 							}
 
-							setTimeout(intervalFunc,5, ws, messagefname);
+							setTimeout(intervalFunc,5, ws, userid);
 						}
 					});
 				}
@@ -170,15 +168,15 @@ function intervalFunc(ws, messagefname) {
 				}
 			}
 			else {
-				setTimeout(intervalFunc,20, ws, messagefname)
+				setTimeout(intervalFunc,20, ws, userid)
 			}
 			
 		});
 }
 
-function deleteFunc(messagefname) {
+function deleteFunc(userid) {
 	try {
-	  fs.unlinkSync(messagefname);
+	  fs.unlinkSync(userid);
 	} catch(err) {
 	  console.error(err);
 	}

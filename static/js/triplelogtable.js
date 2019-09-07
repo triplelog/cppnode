@@ -107,17 +107,15 @@ class TriplelogTable extends HTMLElement {
   }
   
   moveHeader(moveAmt) {
-  	console.log(moveAmt);
   	var thead = this.shadowRoot.querySelector("thead");
   	thead.style.transform = 'translate(0px, '+moveAmt+'px)';
-  	
   }
   
   scrollTable(e) {
   	this.latestKnownScrollY = e.target.scrollTop;
   	this.moveHeader(0);
 	clearTimeout(this.scrollTimeout);
-	this.scrollTimeout = setTimeout(after10,1000,this.latestKnownScrollY,this);
+	this.scrollTimeout = setTimeout(after10,300,this.latestKnownScrollY,this);
   	
   }
   
