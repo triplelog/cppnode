@@ -1,30 +1,13 @@
-class NanoTable extends HTMLElement {
+class TriplelogTable extends HTMLElement {
+  
 
-  // A getter/setter for an open property.
-  get src() {
-    return this.hasAttribute('src');
-  }
-  
-  
-  // Can define constructor arguments if you wish.
   constructor() {
-    // If you define a constructor, always call super() first!
-    // This is specific to CE and required by the spec.
-    super();
-
-    /* Setup a click listener on <nano-table> itself.
-    this.addEventListener('click', e => {
-      this.ws.send('ff.csv,0,10,print,main');
-      
-    });
-    */
-    
+    super();    
     
 	
 	var _this = this;
 	this.colInfo = {};
     this.createTable();
-    //this.createCards();
     this.addPaginate();
     this.addColumnButton();
     this.addFilterButton();
@@ -32,7 +15,7 @@ class NanoTable extends HTMLElement {
     this.addColumnOperationButtons();
     this.startRow = 0;
     this.endRow = 10;
-    this.userid = "ff.csv";
+    this.userid;
     this.usecache = true;
     this.showit = true;
     this.foundit = true;
@@ -120,24 +103,6 @@ class NanoTable extends HTMLElement {
   	table.addEventListener("scroll",e => {this.scrollTable(e);});
   	//this.appendChild(table);
   	this.shadowRoot.appendChild(table);
-  	
-  }
-  
-  createCards() {
-  	
-  	const shadowRoot = this.attachShadow({mode: 'open'});
-  	shadowRoot.innerHTML = "<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/mini.css/3.0.1/mini-default.min.css');</style>";
-  	var container = document.createElement('div');
-  	container.classList.add("container");
-		var containerrow = document.createElement('div');
-		containerrow.classList.add("row");
-	container.appendChild(containerrow);
-	container.style.overflowY = "auto";
-	container.style.maxHeight = "40vh";
-  	container.style.border = "1px dashed blue";
-  	container.style.maxWidth = (this.parentNode.clientWidth-20)+"px";
-  	this.style.maxWidth = (this.parentNode.clientWidth-20)+"px";
-  	this.shadowRoot.appendChild(container);
   	
   }
   
@@ -298,10 +263,6 @@ class NanoTable extends HTMLElement {
   	var table = this.shadowRoot.querySelector('table');
     table.style.maxWidth = (this.parentNode.clientWidth-20)+"px";
     this.style.maxWidth = (this.parentNode.clientWidth-20)+"px";
-  	if (this.usecards){
-		this.addDataCards(retmess);
-		return 0;
-	}
 	
 	if (retmess[0][0].substring(0,5)=="Pivot"){
 		this.currentTable = "pivot@" + retmess[0][0].substring(6,retmess[0][0].length-2);
@@ -389,140 +350,6 @@ class NanoTable extends HTMLElement {
   }
   
   addFoot(retmess) {
-	
-	var tfoot = this.shadowRoot.querySelector('tfoot');
-	var rows = tfoot.querySelectorAll('tr');
-	for (var i=0;i<retmess.length;i++){
-		if (rows.length <= i) {
-			var newrow = document.createElement('tr');
-			tfoot.appendChild(newrow);
-		}
-	}
-	rows = tfoot.querySelectorAll('tr');
-	for (var i=0;i<rows.length;i++){
-		if (retmess.length <= i) {
-			rows[i].style.display = 'none';
-		}
-		else {
-			rows[i].style.display = 'table-row';
-		}
-	}
-	
-	for (var i=0;i<retmess.length;i++){
-
-		const results = rows[i].querySelectorAll('td');
-		for (var ii=0;ii<Math.max(retmess[i].length,results.length);ii++) {
-			if (ii < retmess[i].length && ii < results.length) {
-				results[ii].textContent = retmess[i][ii];
-				results[ii].style.display = 'table-cell';
-			}
-			else if (ii < results.length) {
-				results[ii].style.display = 'none';
-			}
-			else if (ii < retmess[i].length) {
-				var newResult = document.createElement("td");
-				newResult.textContent = retmess[i][ii];
-				newResult.style.display = 'table-cell';
-				rows[i].appendChild(newResult);
-			}
-			else {
-				break;
-			}
-		}
-	}
-  }
-  
-  addDataCards(retmess) {
-	
-	if (retmess[0][0].substring(0,5)=="Pivot"){
-		this.currentTable = "pivot@" + retmess[0][0].substring(6,retmess[0][0].length-2);
-		retmess[0][0] = "Rk";
-	}
-	/*
-	var containerrow = this.shadowRoot.querySelector('.row');
-	const cards = containerrow.querySelectorAll('div');
-	*/
-	/*
-	for (var ii=0;ii*2 + 1<Math.max(retmess[0].length,cards.length*2 + 1);ii++) {
-		if (ii*2 + 1 < retmess[0].length && ii < cards.length) {
-			headers[ii].textContent = retmess[0][ii*2];
-			headers[ii].id = "cHeader"+retmess[0][ii*2 + 1];
-			headers[ii].style.display = 'table-cell';
-			this.colInfo[parseInt(retmess[0][ii*2 + 1])]=retmess[0][ii*2];
-		}
-		else if (ii < headers.length) {
-			headers[ii].style.display = 'none';
-		}
-		else if (ii*2 + 1 < retmess[0].length) {
-			var newHeader = document.createElement("th");
-			newHeader.textContent = retmess[0][ii*2];
-			newHeader.addEventListener('mouseover',e => {this.sort(e,0);});
-			newHeader.addEventListener('mousedown',e => {this.sort(e,1);});
-			newHeader.addEventListener('mouseout',e => {this.sort(e,2);});
-			newHeader.addEventListener('mouseup',e => {this.sort(e,3);});
-			newHeader.setAttribute("draggable","true");
-			newHeader.addEventListener('dragstart',e => {this.dragColumn(e,0);});
-			newHeader.addEventListener("dragover", e => {e.preventDefault();});
-  			newHeader.addEventListener("drop", e => {e.preventDefault(); this.dropColumn(e,1);});
-			newHeader.id = "cHeader"+retmess[0][ii*2 + 1];
-			newHeader.style.display = 'table-cell';
-			newHeader.classList.add("th-sm");
-			this.colInfo[parseInt(retmess[0][ii*2 + 1])]=retmess[0][ii*2];
-			headrow.appendChild(newHeader);
-		}
-		else {
-			break;
-		}
-	}
-	*/
-	
-	var containerrow = this.shadowRoot.querySelector('.row');
-	var cards = containerrow.querySelectorAll('.card');
-	
-	for (var ii=0;ii*2 + 1<retmess[0].length;ii++) {
-		this.colInfo[parseInt(retmess[0][ii*2 + 1])]=retmess[0][ii*2];
-	}
-	
-	for (var i=0;i<retmess.length-1;i++){
-		if (cards.length <= i) {
-			var newcard = document.createElement('div');
-			newcard.classList.add("card");
-				var newhead = document.createElement('div');
-				newhead.classList.add("section");
-				newcard.appendChild(newhead);
-				var newbody = document.createElement('div');
-				newbody.classList.add("section");
-				newcard.appendChild(newbody);
-			containerrow.appendChild(newcard);
-		}
-	}
-	
-	cards = containerrow.querySelectorAll('.card');
-	for (var i=0;i<cards.length;i++){
-		if (retmess.length-1 <= i) {
-			cards[i].style.display = 'none';
-			cards[i].querySelectorAll('div')[0].textContent = "";
-			cards[i].querySelectorAll('div')[1].textContent = "";
-		}
-		else {
-			cards[i].style.display = 'flex';
-			cards[i].querySelectorAll('div')[0].textContent = "";
-			cards[i].querySelectorAll('div')[1].textContent = "";
-		}
-	}
-	
-	for (var i=0;i<retmess.length-1;i++){
-
-		//const results = cards[i].querySelectorAll('td');
-		cards[i].querySelectorAll('div')[0].textContent += retmess[i+1][0]+":";
-		cards[i].querySelectorAll('div')[0].textContent += retmess[i+1][1];
-		for (var ii=2;ii<Math.max(retmess[i+1].length);ii++) {
-			cards[i].querySelectorAll('div')[1].textContent += retmess[0][2*ii]+": "+retmess[i+1][ii]+",";
-		}
-	}
-  }
-  
-  addFootCards(retmess) {
 	
 	var tfoot = this.shadowRoot.querySelector('tfoot');
 	var rows = tfoot.querySelectorAll('tr');
@@ -960,7 +787,7 @@ class NanoTable extends HTMLElement {
   
 }
 
-customElements.define('nano-table', NanoTable);
+customElements.define('triplelog-table', TriplelogTable);
 
 function after10(lks,ntel) {
 	ntel.moveHeader(lks);
