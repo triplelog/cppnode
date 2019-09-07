@@ -93,6 +93,12 @@ class NanoTable extends HTMLElement {
   createTable() {
   	
   	const shadowRoot = this.attachShadow({mode: 'open'});
+  	shadowRoot.innerHTML += "<style>.paginate { display: inline-block;}</style>";
+  	shadowRoot.innerHTML += "<style>.paginate a {color: black; float: left; padding: 4px 8px;text-decoration: none;}</style>";
+  	shadowRoot.innerHTML += "<style>.paginate a.active {background-color: #4CAF50;color: white;}</style>";
+  	shadowRoot.innerHTML += "<style>.paginate a:hover:not(.active) {background-color: #ddd;}</style>";
+  	shadowRoot.innerHTML += "<style>.paginate a:hover {cursor: pointer;}</style>";
+  	
   	var table = document.createElement('table');
   		var thead = document.createElement('thead');
   			var tr = document.createElement('tr');
