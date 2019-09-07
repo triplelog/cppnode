@@ -254,10 +254,10 @@ class TriplelogTable extends HTMLElement {
 		else if (ii*2 + 1 < retmess[0].length) {
 			var newHeader = document.createElement("th");
 			newHeader.textContent = retmess[0][ii*2];
-			newHeader.addEventListener('mouseover',e => {this.sort(e,0);})
-					.addEventListener('mousedown',e => {this.sort(e,1);})
-					.addEventListener('mouseout',e => {this.sort(e,2);})
-					.addEventListener('mouseup',e => {this.sort(e,3);});
+			newHeader.addEventListener('mouseover',e => {this.sort(e,0);});
+			newHeader.addEventListener('mousedown',e => {this.sort(e,1);});
+			newHeader.addEventListener('mouseout',e => {this.sort(e,2);});
+			newHeader.addEventListener('mouseup',e => {this.sort(e,3);});
 			newHeader.setAttribute("draggable","true");
 			newHeader.addEventListener('dragstart',e => {this.dragColumn(e,0);});
 			newHeader.addEventListener("dragover", e => {e.preventDefault();});
