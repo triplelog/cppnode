@@ -568,8 +568,9 @@ class TriplelogTable extends HTMLElement {
   	var type = 'main';
 	let rawFormula = this.shadowRoot.querySelector("#filterFormula").value;
 	if (rawFormula == ''){return 0;}
+	var filterFormula;
 	try {
-		let filterFormula = postfixify(rawFormula,this.colInfo);
+		filterFormula = postfixify(rawFormula,this.colInfo);
 	}
 	catch (e) {
 		return 0;
