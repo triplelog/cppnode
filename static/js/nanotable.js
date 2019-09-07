@@ -144,6 +144,7 @@ class NanoTable extends HTMLElement {
   scrollTable(e) {
   	this.latestKnownScrollY = e.target.scrollTop;
   	this.moveHeader(0);
+  	console.log(this.latestKnownScrollY);
 	clearTimeout(this.scrollTimeout);
 	this.scrollTimeout = setTimeout(this.after10,50);
   	
