@@ -613,25 +613,23 @@ class TriplelogTable extends HTMLElement {
 	
 	if (this.usecache){
 		this.usecache = false;
-		//this.ws.send("Load,"+this.userid);
 		var jsonmessage = {'command':'load'};
 		this.ws.send(JSON.stringify(jsonmessage));
-		//this.ws.send(this.userid+",0,10,sort,0");
 	}
 	
 	
-	if (x == 1){
+	if (x == 1){ //mousedown
 		var diff = this.endRow - this.startRow;
 		this.startRow = 0;
 		this.endRow = diff;
-		var mymessage = this.userid+","+ this.startRow +","+ this.endRow +",pivot,1@6";
-		this.ws.send(mymessage);
+		var jsonmessage = {'command':'pivot','column':1};
+		this.ws.send(JSON.stringify(jsonmessage));
 		mymessage = this.userid+","+this.startRow +","+ this.endRow+",print,pivot@0";
 		this.ws.send(mymessage);
 		this.showit = false;
 		this.foundit = false;
 	}
-	else if (x == 3){
+	else if (x == 3){ //mouseup
 		if (this.foundit){
 			this.addData(this.retdata);
 			this.showit = true;

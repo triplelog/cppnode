@@ -30,6 +30,12 @@ wss.on('connection', function connection(ws) {
 			allusers[userid].startRow = parseInt(dm.startrow);
 			allusers[userid].endRow = parseInt(dm.endrow);
 		}
+		else if (dm.command == 'pivot'){
+			message = userid+',0,'+(allusers[userid].endRow-allusers[userid].startRow) +',pivot,'+dm.column+'@6\n';
+			allusers[userid].endRow = parseInt(allusers[userid].endRow-allusers[userid].startRow);
+			allusers[userid].startRow = 0;
+			allusers[userid].currentTable = 'pivot@0';
+		}
 		else if (dm.command == 'load'){
 			allusers[userid].memory = true;
 			var acmd = require('child_process').spawn('../cppsv/nanotable', [allusers[userid].table]);
