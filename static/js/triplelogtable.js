@@ -115,17 +115,8 @@ class TriplelogTable extends HTMLElement {
   	this.latestKnownScrollY = e.target.scrollTop;
   	this.moveHeader(0);
 	clearTimeout(this.scrollTimeout);
-	this.scrollTimeout = setTimeout(after10,100,this.latestKnownScrollY,this);
+	this.scrollTimeout = setTimeout(after10,1000,this.latestKnownScrollY,this);
   	
-  }
-  
-  
-  
-  requestTick() {
-  	if(!ticking) {
-		requestAnimationFrame(updateHP);
-	}
-	ticking = true;
   }
   
   addPaginate() {
