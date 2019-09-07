@@ -150,14 +150,11 @@ class NanoTable extends HTMLElement {
   	this.latestKnownScrollY = e.target.scrollTop;
   	this.moveHeader(0);
 	clearTimeout(this.scrollTimeout);
-	this.scrollTimeout = setTimeout(_this.after10,50);
+	this.scrollTimeout = setTimeout(after10,50,this.latestKnownScrollY,this);
   	
   }
   
-  after10() {
-  	console.log(_this.latestKnownScrollY);
-	this.moveHeader(this.latestKnownScrollY);
-  }
+  
   
   requestTick() {
   	if(!ticking) {
@@ -965,6 +962,10 @@ class NanoTable extends HTMLElement {
 
 customElements.define('nano-table', NanoTable);
 
+function after10(lks,ntel) {
+  	console.log(lks);
+	ntel.moveHeader(lks);
+  }
 
 function makePost(infixexpr) {
 	prec = {}
