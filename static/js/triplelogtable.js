@@ -111,7 +111,7 @@ class TriplelogTable extends HTMLElement {
   	this.latestKnownScrollY = e.target.scrollTop;
   	this.moveHeader(0);
 	clearTimeout(this.scrollTimeout);
-	this.scrollTimeout = setTimeout(after10,300,this.latestKnownScrollY,this);
+	this.scrollTimeout = setTimeout(after10,150,this.latestKnownScrollY,this);
   	
   }
   
@@ -564,6 +564,7 @@ class TriplelogTable extends HTMLElement {
 			this.showit = true;
 			this.foundit = true;
 		}
+		this.shadowRoot.querySelector("#filterFormula").value = "";
 		this.currentFilter = rawFormula;
 	}
 
