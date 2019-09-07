@@ -202,18 +202,13 @@ class TriplelogTable extends HTMLElement {
 	filterButton.addEventListener("mouseup", e => {this.newFilter(e,3);});
 	this.shadowRoot.appendChild(filterButton);
 	
-	var gtButton = document.createElement("button");
-	gtButton.textContent = '>';
-	gtButton.addEventListener("click", e => {this.filterCell(e,0);});
-	this.shadowRoot.appendChild(gtButton);
-	var ltButton = document.createElement("button");
-	ltButton.textContent = '<';
-	ltButton.addEventListener("click", e => {this.filterCell(e,1);});
-	this.shadowRoot.appendChild(ltButton);
-	var eqButton = document.createElement("button");
-	eqButton.textContent = '=';
-	eqButton.addEventListener("click", e => {this.filterCell(e,2);});
-	this.shadowRoot.appendChild(eqButton);
+	var comparisons = ['>','<','='];
+	for (var i=0;i<3;i++) {	
+		var compButton = document.createElement("button");
+		compButton.textContent = comparisons[i];
+		compButton.addEventListener("click", e => {this.filterCell(e);});
+		this.shadowRoot.appendChild(compButton);
+	}
 
   	var pivotFormula = document.createElement("input");
   	pivotFormula.setAttribute("type","text");
@@ -672,15 +667,8 @@ class TriplelogTable extends HTMLElement {
 	this.ws.send(mymessage);
   }
   
-  filterCell(e,x) {
-  	if (x == 0) {
-		this.gtMode = true;
-		this.ltMode = false;
-  	}
-  	else if (x == 1) {
-  		this.gtMode = false;
-		this.ltMode = true;
-  	}
+  filterCell(e) {
+	this.comparisonMode = e.target.textContent;
   }
   
   columnOperation(e) {
@@ -689,7 +677,7 @@ class TriplelogTable extends HTMLElement {
   }
   
   cellClick(e,x) {
-  	if (this.gtMode || this.ltMode){
+  	if (this.comparisonMode == '>' || this.comparisonMode == '<' || this.comparisonMode == '='){
   		var cell = e.target.id;
   		var val = parseInt(this.shadowRoot.querySelector('#'+cell).textContent);
   		var col = parseInt(cell.split('-')[2]);
@@ -702,13 +690,7 @@ class TriplelogTable extends HTMLElement {
   			this.shadowRoot.querySelector("#filterFormula").value += 'AND';
   		}
   		
-  		if (this.gtMode) {
-  			this.shadowRoot.querySelector("#filterFormula").value += colName.toUpperCase()+'>'+val;
-  		}
-  		else if (this.ltMode) {
-  			this.shadowRoot.querySelector("#filterFormula").value += colName.toUpperCase()+'<'+val;
-  		}
-  		
+  		this.shadowRoot.querySelector("#filterFormula").value += colName.toUpperCase()+this.comparisonMode+val;  		
   	}
   }
   
