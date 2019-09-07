@@ -571,12 +571,16 @@ class TriplelogTable extends HTMLElement {
   }
   
   newPivot(e,x) {
-  	/*
-	let rawFormula = this.shadowRoot.querySelector("#filterFormula").value;
-	if (rawFormula == ''){return 0;}
-	let filterFormula = postfixify(rawFormula,this.colInfo);
-	console.log(filterFormula);
-	*/
+  	
+	let pivotCol = this.shadowRoot.querySelector("#pivotFormula").value.toUpperCase();
+	var pivotID = -1;
+	for (var ii in this.colInfo) {
+		if (this.colInfo[ii].toUpperCase() == pivotCol) {
+			pivotID = ii;
+			break;
+		}
+	}
+	if (pivotID < 0){return 0;}
 	
 	if (this.usecache){
 		this.usecache = false;
@@ -586,7 +590,7 @@ class TriplelogTable extends HTMLElement {
 	
 	
 	if (x == 1){ //mousedown
-		var jsonmessage = {'command':'pivot','column':1};
+		var jsonmessage = {'command':'pivot','pivotcol':pivotID,'sort':6,'columns':[6,7,8]};
 		this.ws.send(JSON.stringify(jsonmessage));
 		jsonmessage = {'command':'print'};
 		this.ws.send(JSON.stringify(jsonmessage));

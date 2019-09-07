@@ -48,7 +48,7 @@ wss.on('connection', function connection(ws) {
 		else {message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',print,'+allusers[userid].currentTable+'\n';}
 	}
 	else if (dm.command == 'pivot'){
-		message = userid+',0,'+(allusers[userid].endRow-allusers[userid].startRow) +',pivot,'+dm.column+'@6\n';
+		message = userid+',0,'+(allusers[userid].endRow-allusers[userid].startRow) +',pivot,'+dm.pivotcol+'@'+dm.sort+'\n';
 		allusers[userid].endRow = parseInt(allusers[userid].endRow-allusers[userid].startRow);
 		allusers[userid].startRow = 0;
 		allusers[userid].currentTable = 'pivot@0';
