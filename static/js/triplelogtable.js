@@ -177,56 +177,67 @@ class TriplelogTable extends HTMLElement {
   }
   
   addButtons() {
-  	var columnFormula = document.createElement("input");
-  	columnFormula.setAttribute("type","text");
-  	columnFormula.id = "columnFormula";
-  	this.shadowRoot.appendChild(columnFormula);
-  	var columnButton = document.createElement("button");
-	columnButton.classList.add('columnButton');
-	columnButton.textContent = 'Columns';
-	columnButton.addEventListener("mousedown", e => {this.newCol(e,0);});
-	columnButton.addEventListener("mouseup", e => {this.newCol(e,1);});
-	this.shadowRoot.appendChild(columnButton);
-
-  	var filterFormula = document.createElement("input");
-  	filterFormula.setAttribute("type","text");
-  	filterFormula.id = "filterFormula";
-  	this.shadowRoot.appendChild(filterFormula);
-  	var filterButton = document.createElement("button");
-	filterButton.classList.add('filterButton');
-	filterButton.textContent = 'Filter';
-	filterButton.addEventListener("mouseover", e => {this.newFilter(e,0);});
-	filterButton.addEventListener("mousedown", e => {this.newFilter(e,1);});
-	filterButton.addEventListener("mouseout", e => {this.newFilter(e,2);});
-	filterButton.addEventListener("mouseup", e => {this.newFilter(e,3);});
-	this.shadowRoot.appendChild(filterButton);
+  	var columnDiv = document.createElement("div");
+		var columnFormula = document.createElement("input");
+		columnFormula.setAttribute("type","text");
+		columnFormula.id = "columnFormula";
+		columnDiv.appendChild(columnFormula);
+		var columnButton = document.createElement("button");
+		columnButton.classList.add('columnButton');
+		columnButton.textContent = 'New Column';
+		columnButton.addEventListener("mousedown", e => {this.newCol(e,0);});
+		columnButton.addEventListener("mouseup", e => {this.newCol(e,1);});
+		columnDiv.appendChild(columnButton);
+	columnDiv.style.display = 'none';
+	this.shadowRoot.appendChild(columnDiv);
 	
-	var comparisons = ['>','<','='];
-	for (var i=0;i<3;i++) {	
-		var compButton = document.createElement("button");
-		compButton.textContent = comparisons[i];
-		compButton.addEventListener("click", e => {this.filterCell(e);});
-		this.shadowRoot.appendChild(compButton);
-	}
-
-  	var pivotFormula = document.createElement("input");
-  	pivotFormula.setAttribute("type","text");
-  	pivotFormula.id = "pivotFormula";
-  	this.shadowRoot.appendChild(pivotFormula);
-  	var pivotButton = document.createElement("button");
-	pivotButton.classList.add('pivotButton');
-	pivotButton.textContent = 'Pivot';
-	pivotButton.addEventListener("mousedown", e => {this.newPivot(e,1);});
-	pivotButton.addEventListener("mouseup", e => {this.newPivot(e,3);});
-	this.shadowRoot.appendChild(pivotButton);
+	var filterDiv = document.createElement("div");
+		var filterFormula = document.createElement("input");
+		filterFormula.setAttribute("type","text");
+		filterFormula.id = "filterFormula";
+		filterDiv.appendChild(filterFormula);
+		var filterButton = document.createElement("button");
+		filterButton.classList.add('filterButton');
+		filterButton.textContent = 'Filter';
+		filterButton.addEventListener("mouseover", e => {this.newFilter(e,0);});
+		filterButton.addEventListener("mousedown", e => {this.newFilter(e,1);});
+		filterButton.addEventListener("mouseout", e => {this.newFilter(e,2);});
+		filterButton.addEventListener("mouseup", e => {this.newFilter(e,3);});
+		filterDiv.appendChild(filterButton);
+		var comparisons = ['>','<','='];
+		for (var i=0;i<3;i++) {	
+			var compButton = document.createElement("button");
+			compButton.textContent = comparisons[i];
+			compButton.addEventListener("click", e => {this.filterCell(e);});
+			filterDiv.appendChild(compButton);
+		}
+	filterDiv.style.display = 'none';
+	this.shadowRoot.appendChild(filterDiv);
 	
-	var operations = ['Sum','Mean','Max','Min'];
-	for (var i=0;i<4;i++) {	
-		var operButton = document.createElement("button");
-		operButton.textContent = operations[i];
-		operButton.addEventListener("click", e => {this.columnOperation(e);});
-		this.shadowRoot.appendChild(operButton);
-	}
+	var pivotDiv = document.createElement("div");
+		var pivotFormula = document.createElement("input");
+		pivotFormula.setAttribute("type","text");
+		pivotFormula.id = "pivotFormula";
+		pivotDiv.appendChild(pivotFormula);
+		var pivotButton = document.createElement("button");
+		pivotButton.classList.add('pivotButton');
+		pivotButton.textContent = 'Pivot';
+		pivotButton.addEventListener("mousedown", e => {this.newPivot(e,1);});
+		pivotButton.addEventListener("mouseup", e => {this.newPivot(e,3);});
+		pivotDiv.appendChild(pivotButton);
+	pivotDiv.style.display = 'none';
+	this.shadowRoot.appendChild(pivotDiv);
+	
+	var opDiv = document.createElement("div");
+		var operations = ['Sum','Mean','Max','Min'];
+		for (var i=0;i<4;i++) {	
+			var operButton = document.createElement("button");
+			operButton.textContent = operations[i];
+			operButton.addEventListener("click", e => {this.columnOperation(e);});
+			opDiv.appendChild(operButton);
+		}
+	opDiv.style.display = 'none';
+	this.shadowRoot.appendChild(opDiv);
   }
   
   addData(retmess) {
