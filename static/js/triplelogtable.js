@@ -25,6 +25,7 @@ class TriplelogTable extends HTMLElement {
 	this.usecards = false;
     this.scrollTimeout;
     this.latestKnownScrollY = 0;
+    this.currentFilter = "";
     
     this.ws = new WebSocket('ws://155.138.201.160:8080');
     
@@ -567,7 +568,7 @@ class TriplelogTable extends HTMLElement {
   newFilter(e,x) {
   	var type = 'main';
 	let rawFormula = this.shadowRoot.querySelector("#filterFormula").value;
-	if (rawFormula == ''){return 0;}
+	if (rawFormula == '' || rawFormula == this.currentFilter){return 0;}
 	var filterFormula;
 	try {
 		filterFormula = postfixify(rawFormula,this.colInfo);
@@ -583,19 +584,19 @@ class TriplelogTable extends HTMLElement {
 	}
 	
 	
-	if (x == 0){//mouseover
+	if (x == 0){//mouseover Filter button
 		var jsonmessage = {'command':'filter','formula':filterFormula};
 		this.ws.send(JSON.stringify(jsonmessage));
 	}
-	else if (x == 1){
-		var mymessage = this.userid+","+ this.startRow +","+ this.endRow +",print,"+type;
-		this.ws.send(mymessage);
+	else if (x == 1){//mousedown
+		var jsonmessage = {'command':'print'};
+		this.ws.send(JSON.stringify(jsonmessage));
 		mymessage = this.userid+","+"0,-1,filter,"+ filterFormula;
 		this.ws.send(mymessage);
 		this.showit = false;
 		this.foundit = false;
 	}
-	else if (x == 3){
+	else if (x == 3){//mouseup
 		if (this.foundit){
 			this.addData(this.retdata);
 			this.showit = true;
@@ -604,6 +605,7 @@ class TriplelogTable extends HTMLElement {
 			this.showit = true;
 			this.foundit = true;
 		}
+		this.currentFilter = rawFormula;
 	}
 
   }
