@@ -757,22 +757,18 @@ class TriplelogTable extends HTMLElement {
   }
   
   dropColumn(e,x) {
-  	if (x == 1){
-  		if (this.currentMode == 'arrange') {
-  			if (e.dataTransfer.getData("text").substring(7,) != e.target.id.substring(7,)){
-				var mymessage = this.userid+","+ this.startRow +","+ this.endRow +",display,"+e.dataTransfer.getData("text").substring(7,);
-				mymessage += "@"+e.target.id.substring(7,);
-				this.ws.send(mymessage);
-			}
-		}
-  	}
-  	else {
-		if (this.currentMode == 'arrange') {
+    if (this.currentMode == 'arrange') {
+    	if (e.dataTransfer.getData("text").substring(7,) != e.target.id.substring(7,)){
 			var mymessage = this.userid+","+ this.startRow +","+ this.endRow +",display,"+e.dataTransfer.getData("text").substring(7,);
-			mymessage += "@-3";
+			if (x == 1){
+				mymessage += "@"+e.target.id.substring(7,);
+			}
+			else {
+				mymessage += "@-3";
+			}
 			this.ws.send(mymessage);
 		}
-  	}
+    }
   }
 	
   
