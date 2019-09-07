@@ -9,10 +9,7 @@ class TriplelogTable extends HTMLElement {
 	this.colInfo = {};
     this.createTable();
     this.addPaginate();
-    this.addColumnButton();
-    this.addFilterButton();
-    this.addPivotButton();
-    this.addColumnOperationButtons();
+    this.addButtons();
     this.startRow = 0;
     this.endRow = 10;
     this.userid;
@@ -180,7 +177,7 @@ class TriplelogTable extends HTMLElement {
 	
   }
   
-  addColumnButton() {
+  addButtons() {
   	var columnFormula = document.createElement("input");
   	columnFormula.setAttribute("type","text");
   	columnFormula.id = "columnFormula";
@@ -191,9 +188,7 @@ class TriplelogTable extends HTMLElement {
 	columnButton.addEventListener("mousedown", e => {this.newCol(e,0);});
 	columnButton.addEventListener("mouseup", e => {this.newCol(e,1);});
 	this.shadowRoot.appendChild(columnButton);
-  }
-  
-  addFilterButton() {
+
   	var filterFormula = document.createElement("input");
   	filterFormula.setAttribute("type","text");
   	filterFormula.id = "filterFormula";
@@ -219,9 +214,7 @@ class TriplelogTable extends HTMLElement {
 	eqButton.textContent = '=';
 	eqButton.addEventListener("click", e => {this.filterCell(e,2);});
 	this.shadowRoot.appendChild(eqButton);
-  }
-  
-  addPivotButton() {
+
   	var pivotFormula = document.createElement("input");
   	pivotFormula.setAttribute("type","text");
   	pivotFormula.id = "pivotFormula";
@@ -232,26 +225,14 @@ class TriplelogTable extends HTMLElement {
 	pivotButton.addEventListener("mousedown", e => {this.newPivot(e,1);});
 	pivotButton.addEventListener("mouseup", e => {this.newPivot(e,3);});
 	this.shadowRoot.appendChild(pivotButton);
-
-  }
-  
-  addColumnOperationButtons() {
-	var sumButton = document.createElement("button");
-	sumButton.textContent = 'Sum';
-	sumButton.addEventListener("click", e => {this.columnOperation('sum');});
-	this.shadowRoot.appendChild(sumButton);
-	var meanButton = document.createElement("button");
-	meanButton.textContent = 'Mean';
-	meanButton.addEventListener("click", e => {this.columnOperation('mean');});
-	this.shadowRoot.appendChild(meanButton);
-	var maxButton = document.createElement("button");
-	maxButton.textContent = 'Max';
-	maxButton.addEventListener("click", e => {this.columnOperation('max');});
-	this.shadowRoot.appendChild(maxButton);
-	var minButton = document.createElement("button");
-	minButton.textContent = 'Min';
-	minButton.addEventListener("click", e => {this.columnOperation('min');});
-	this.shadowRoot.appendChild(minButton);
+	
+	var operations = ['Sum','Mean','Max','Min'];
+	for (var i=0;i<4;i++) {	
+		var operButton = document.createElement("button");
+		operButton.textContent = operations[i];
+		operButton.addEventListener("click", e => {this.columnOperation(operations[i].toLowerCase());});
+		this.shadowRoot.appendChild(operButton);
+	}
   }
   
   addData(retmess) {
