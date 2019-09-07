@@ -26,7 +26,7 @@ wss.on('connection', function connection(ws) {
 			message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+','+dm.command+',main\n';
 		}
 		else if (dm.command == 'print'){
-			if (dm.startrow){
+			if (!isNaN(dm.startrow)){
 				message = userid+','+dm.startrow+','+dm.endrow+',print,'+allusers[userid].currentTable+'\n';
 				allusers[userid].startRow = parseInt(dm.startrow);
 				allusers[userid].endRow = parseInt(dm.endrow);

@@ -655,7 +655,7 @@ class TriplelogTable extends HTMLElement {
 		  allPageNums[i].classList.remove("active");
 		}
 	}
-	var jsonmessage = {'command':'print','startrow':this.startRow,'endrow':this.endRow};
+	var jsonmessage = {'command':'print','startrow':''+this.startRow+'','endrow':this.endRow};
 	this.ws.send(JSON.stringify(jsonmessage));
   }
   
