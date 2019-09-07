@@ -238,16 +238,20 @@ class TriplelogTable extends HTMLElement {
   addColumnOperationButtons() {
 	var sumButton = document.createElement("button");
 	sumButton.textContent = 'Sum';
-	sumButton.addEventListener("click", e => {this.columnOperation(e,0);});
+	sumButton.addEventListener("click", e => {this.columnOperation('sum');});
 	this.shadowRoot.appendChild(sumButton);
 	var meanButton = document.createElement("button");
 	meanButton.textContent = 'Mean';
-	meanButton.addEventListener("click", e => {this.columnOperation(e,1);});
+	meanButton.addEventListener("click", e => {this.columnOperation('mean');});
 	this.shadowRoot.appendChild(meanButton);
 	var maxButton = document.createElement("button");
 	maxButton.textContent = 'Max';
-	maxButton.addEventListener("click", e => {this.columnOperation(e,2);});
+	maxButton.addEventListener("click", e => {this.columnOperation('max');});
 	this.shadowRoot.appendChild(maxButton);
+	var minButton = document.createElement("button");
+	minButton.textContent = 'Min';
+	minButton.addEventListener("click", e => {this.columnOperation('min');});
+	this.shadowRoot.appendChild(minButton);
   }
   
   addData(retmess) {
@@ -698,24 +702,9 @@ class TriplelogTable extends HTMLElement {
   	}
   }
   
-  columnOperation(e,x) {
-  	var type = 'main';
-  	if (x == 0) {
-		var mymessage = this.userid+","+ this.startRow +","+ this.endRow +",sum,"+type;
-		this.ws.send(mymessage);
-  	}
-  	else if (x == 1) {
-  		var mymessage = this.userid+","+ this.startRow +","+ this.endRow +",mean,"+type;
-		this.ws.send(mymessage);
-  	}
-  	else if (x == 2) {
-  		var mymessage = this.userid+","+ this.startRow +","+ this.endRow +",max,"+type;
-		this.ws.send(mymessage);
-  	}
-  	else if (x == 3) {
-  		var mymessage = this.userid+","+ this.startRow +","+ this.endRow +",min,"+type;
-		this.ws.send(mymessage);
-  	}
+  columnOperation(operation) {
+  	var jsonmessage = {'command':operation};
+	this.ws.send(JSON.stringify(jsonmessage));
   }
   
   cellClick(e,x) {
@@ -750,9 +739,6 @@ class TriplelogTable extends HTMLElement {
   	if (this.currentMode == 'arrange') {
   		e.dataTransfer.setData("text", e.target.id);
   		e.dataTransfer.dropEffect = "move";
-  		//var img = document.createElement("img");
-    	//img.src = "http://kryogenix.org/images/hackergotchi-simpler.png";
-   		//e.dataTransfer.setDragImage(img, 0, 0);
   	}
   }
   
