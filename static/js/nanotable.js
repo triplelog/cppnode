@@ -43,7 +43,8 @@ class NanoTable extends HTMLElement {
 	this.currentMode = "sort";
 	this.currentTable = "main";
 	this.usecards = false;
-    
+    this.scrollTimeout;
+    this.latestKnownScrollY = 0;
     
     this.ws = new WebSocket('ws://155.138.201.160:8080');
     
@@ -141,10 +142,17 @@ class NanoTable extends HTMLElement {
   }
   
   scrollTable(e) {
-  	latestKnownScrollY = e.target.scrollTop;
-	this.requestTick();
+  	this.latestKnownScrollY = e.target.scrollTop;
+  	this.moveHeader(0);
+	clearTimeout(this.scrollTimeout);
+	this.scrollTimeout = setTimeout(this.after10,50);
   	
   }
+  
+  after10() {
+	document.querySelector("nano-table").moveHeader(this.latestKnownScrollY);
+  }
+  
   
   moveHeader(moveAmt) {
   	var thead = this.shadowRoot.querySelector("thead");
@@ -958,25 +966,6 @@ class NanoTable extends HTMLElement {
 customElements.define('nano-table', NanoTable);
 
 
-latestKnownScrollY = 0;
-ticking = false;
-var myVar = setTimeout(after10,50);
-function updateHP() {
-	/*
-	ticking = false;
-	document.querySelector("nano-table").moveHeader(0);
-	clearTimeout(myVar);
-	myVar = setTimeout(after10,50);
-	*/
-
-}
-
-function after10() {
-	/*
-	document.querySelector("nano-table").moveHeader(latestKnownScrollY);
-	*/
-}
-  
 function makePost(infixexpr) {
 	prec = {}
 	prec["*"] = 4
