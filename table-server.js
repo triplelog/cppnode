@@ -30,6 +30,13 @@ wss.on('connection', function connection(ws) {
 			allusers[userid].startRow = parseInt(dm.startrow);
 			allusers[userid].endRow = parseInt(dm.endrow);
 		}
+		else if (dm.command == 'load'){
+			allusers[userid].memory = true;
+			var acmd = require('child_process').spawn('../cppsv/nanotable', [allusers[userid].table]);
+			fs.writeFile(allusers[userid].quick, "", (err) => {});
+			fs.writeFile(allusers[userid].slow, "", (err) => {});
+			message = userid+',0,10,sort,0\n';
+		}
 		console.log(message);
 	
 		//wss.clients.forEach(function each(client) {

@@ -447,13 +447,8 @@ class TriplelogTable extends HTMLElement {
 
   }
   
-  newPage(e) {
-  
-	var d = new Date();
-	var n = d.getTime();
-	console.log(n);
-	
-	var pageId = e.target.id.substring(4,e.target.id.length);
+  newPage(e) {	
+	var pageId = e.target.id.substring(4,);
 	var cpage = 1;
 
 	if (pageId == 'Next'){
@@ -492,8 +487,8 @@ class TriplelogTable extends HTMLElement {
 		  allPageNums[i].classList.remove("active");
 		}
 	  }
-	var mymessage = this.userid+","+ this.startRow +","+ this.endRow +",print,"+this.currentTable;
-	this.ws.send(mymessage);
+	var jsonmessage = {'command':'print','startrow':this.startRow,'endrow':this.endRow};
+	this.ws.send(JSON.stringify(jsonmessage));
 
 
   }
@@ -618,8 +613,10 @@ class TriplelogTable extends HTMLElement {
 	
 	if (this.usecache){
 		this.usecache = false;
-		this.ws.send("Load,"+this.userid);
-		this.ws.send(this.userid+",0,10,sort,0");
+		//this.ws.send("Load,"+this.userid);
+		var jsonmessage = {'command':'load'};
+		this.ws.send(JSON.stringify(jsonmessage));
+		//this.ws.send(this.userid+",0,10,sort,0");
 	}
 	
 	
@@ -663,10 +660,8 @@ class TriplelogTable extends HTMLElement {
 		  allPageNums[i].classList.remove("active");
 		}
 	}
-	//var mymessage = this.userid+","+ this.startRow +","+ this.endRow +",print,"+this.currentTable;
 	var jsonmessage = {'command':'print','startrow':this.startRow,'endrow':this.endRow};
 	this.ws.send(JSON.stringify(jsonmessage));
-	//this.ws.send(mymessage);
   }
   
   filterCell(e) {
