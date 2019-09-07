@@ -18,6 +18,40 @@ wss.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
     if (message.substring(0,1)=='{'){
   		console.log(JSON.parse(message));
+  		var dm = JSON.parse(message);
+		message = userid+',0,10,display,'+dm.column+'@'+dm.location+'\n';
+		console.log(message);
+	
+		//wss.clients.forEach(function each(client) {
+		//	client.send("hi");
+		//});
+
+		allusers[userid].messages.push(message);
+	
+		if (allusers[userid].messages.length == 1) {
+			try {
+			  fs.unlinkSync(userid);
+			  //file removed
+			} catch(err) {
+			  //console.error(err);
+			}
+			
+			if (!allusers[userid].memory){
+				cachedFunc(ws,message,userid);
+			}
+			else if (message.split(",")[3] == 'print' || message.split(",")[3] == 'display' || (message.split(",")[3] == 'addcol' && message.split(",")[2] != '-1')){
+				fs.appendFile(allusers[userid].quick, message, (err) => {});
+				setTimeout(intervalFunc,5, ws, userid);
+
+			}
+			else {
+				fs.appendFile(allusers[userid].slow, message, (err) => {});
+				setTimeout(intervalFunc,5, ws, userid);
+
+			}
+	
+			
+		}
   	}
   	else if (message.substring(0,4)=='Save'){
   		fs.writeFile("saved.txt", message, (err) => {});
