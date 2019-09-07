@@ -476,7 +476,12 @@ class TriplelogTable extends HTMLElement {
 		return 0;
 	}
 
-	if (x==0){
+	if (x==0){ //mousedown
+		if (this.usecache){
+			this.usecache = false;
+			var jsonmessage = {'command':'load'};
+			this.ws.send(JSON.stringify(jsonmessage));
+		}
 		if (this.currentTable == "pivot@0"){colFormula += "@0";}
 		
 		var jsonmessage = {'command':'addcol','formula':colFormula};
@@ -486,7 +491,7 @@ class TriplelogTable extends HTMLElement {
 		this.showit = false;
 		this.foundit = false;
 	}
-	else {
+	else { //mouseup
 		
 		if (this.foundit){
 			this.addData(this.retdata);
