@@ -606,17 +606,17 @@ class TriplelogTable extends HTMLElement {
 	let pivotSortR = this.shadowRoot.querySelector("#pivotSort").value.toUpperCase();
 	let pivotColumnsR = this.shadowRoot.querySelector("#pivotColumns").value.toUpperCase().split(",");
 	var pivotColumns = []; var pivotSort;
-	if (pivotSortR[i].substring(0,4)=="sum("){
-		pivotSort = [pivotSortR[i].substring(4,pivotSortR[i].length-1),'s'];
+	if (pivotSortR.substring(0,4)=="sum("){
+		pivotSort = [pivotSortR.substring(4,pivotSortR.length-1),'s'];
 	}
-	else if (pivotSortR[i].substring(0,4)=="max("){
-		pivotSort = [pivotSortR[i].substring(4,pivotSortR[i].length-1),'x'];
+	else if (pivotSortR.substring(0,4)=="max("){
+		pivotSort = [pivotSortR.substring(4,pivotSortR.length-1),'x'];
 	}
-	else if (pivotSortR[i].substring(0,4)=="min("){
-		pivotSort = [pivotSortR[i].substring(4,pivotSortR[i].length-1),'n'];
+	else if (pivotSortR.substring(0,4)=="min("){
+		pivotSort = [pivotSortR.substring(4,pivotSortR.length-1),'n'];
 	}
 	else{
-		pivotSort = [pivotSortR[i],'s'];
+		pivotSort = [pivotSortR,'s'];
 	}
 	for (var i=0;i<pivotColumnsR.length;i++){
 		if (pivotColumnsR[i].substring(0,4)=="sum("){
