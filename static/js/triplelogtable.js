@@ -606,32 +606,33 @@ class TriplelogTable extends HTMLElement {
 	let pivotSortR = this.shadowRoot.querySelector("#pivotSort").value.toUpperCase();
 	let pivotColumnsR = this.shadowRoot.querySelector("#pivotColumns").value.toUpperCase().split(",");
 	var pivotColumns = []; var pivotSort;
-	if (pivotSortR.substring(0,4)=="sum("){
+	if (pivotSortR.substring(0,4)=="SUM("){
 		pivotSort = [pivotSortR.substring(4,pivotSortR.length-1),'s'];
 	}
-	else if (pivotSortR.substring(0,4)=="max("){
+	else if (pivotSortR.substring(0,4)=="MAX("){
 		pivotSort = [pivotSortR.substring(4,pivotSortR.length-1),'x'];
 	}
-	else if (pivotSortR.substring(0,4)=="min("){
+	else if (pivotSortR.substring(0,4)=="MIN("){
 		pivotSort = [pivotSortR.substring(4,pivotSortR.length-1),'n'];
 	}
 	else{
 		pivotSort = [pivotSortR,'s'];
 	}
 	for (var i=0;i<pivotColumnsR.length;i++){
-		if (pivotColumnsR[i].substring(0,4)=="sum("){
+		if (pivotColumnsR[i].substring(0,4)=="SUM("){
 			pivotColumns.push([pivotColumnsR[i].substring(4,pivotColumnsR[i].length-1),'s']);
 		}
-		else if (pivotColumnsR[i].substring(0,4)=="max("){
+		else if (pivotColumnsR[i].substring(0,4)=="MAX("){
 			pivotColumns.push([pivotColumnsR[i].substring(4,pivotColumnsR[i].length-1),'x']);
 		}
-		else if (pivotColumnsR[i].substring(0,4)=="min("){
+		else if (pivotColumnsR[i].substring(0,4)=="MIN("){
 			pivotColumns.push([pivotColumnsR[i].substring(4,pivotColumnsR[i].length-1),'n']);
 		}
 		else{
 			pivotColumns.push([pivotColumnsR[i],'s']);
 		}
 	}
+	console.log(pivotColumns);
 	var pivotID = -1;
 	var sortID = -1;
 	var colIDs = [];
