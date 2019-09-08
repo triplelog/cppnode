@@ -281,6 +281,7 @@ class TriplelogTable extends HTMLElement {
 		else if (ii*2 + 1 < retmess[0].length) {
 			var headerCell = document.createElement("th");
 			var newHeader = document.createElement("a");
+			newHeader.setAttribute("draggable","false");
 			newHeader.textContent = retmess[0][ii*2];
 			newHeader.addEventListener('mouseover',e => {this.sort(e,0);});
 			newHeader.addEventListener('mousedown',e => {this.sort(e,1);});
@@ -671,6 +672,11 @@ class TriplelogTable extends HTMLElement {
   	else if (this.currentMode == 'filter') {this.shadowRoot.querySelector('#filterDiv').style.display = 'inline-block';}
   	else if (this.currentMode == 'pivot') {this.shadowRoot.querySelector('#pivotDiv').style.display = 'inline-block';}
   	else if (this.currentMode == 'sum') {this.shadowRoot.querySelector('#opDiv').style.display = 'inline-block';}
+  	if (this.usecache){
+		this.usecache = false;
+		var jsonmessage = {'command':'load'};
+		this.ws.send(JSON.stringify(jsonmessage));
+	}
   }
   
   dragColumn(e,x) {
