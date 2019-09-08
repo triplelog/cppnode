@@ -610,9 +610,9 @@ class TriplelogTable extends HTMLElement {
 	var colIDs = [];
 	for (var ii in this.colInfo) {
 		if (this.colInfo[ii].toUpperCase() == pivotCol) {pivotID = ii;}
-		if (this.colInfo[ii].toUpperCase() == pivotSort) {sortID = ii;}
+		if (this.colInfo[ii].toUpperCase() == pivotSort) {sortID = 's'+ii;}
 		for (var i=0;i<pivotColumns.length;i++) {
-			if (this.colInfo[ii].toUpperCase() == pivotColumns[i]) {colIDs.push(ii);}
+			if (this.colInfo[ii].toUpperCase() == pivotColumns[i]) {colIDs.push('x'+ii);}
 		}
 	}
 	if (pivotID < 0){return 0;}
