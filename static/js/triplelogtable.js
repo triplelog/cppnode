@@ -281,18 +281,18 @@ class TriplelogTable extends HTMLElement {
 		else if (ii*2 + 1 < retmess[0].length) {
 			var headerCell = document.createElement("th");
 			var newHeader = document.createElement("a");
-			newHeader.setAttribute("draggable","false");
-			newHeader.addEventListener("dragover", e => {e.preventDefault();});
-			newHeader.addEventListener("drop", e => {e.preventDefault();});
 			newHeader.textContent = retmess[0][ii*2];
+			newHeader.style.display = 'inline-block';
+  			newHeader.style.height = '100%';
+  			newHeader.style.width = '100%';
 			newHeader.addEventListener('mouseover',e => {this.sort(e,0);});
 			newHeader.addEventListener('mousedown',e => {this.sort(e,1);});
 			newHeader.addEventListener('mouseout',e => {this.sort(e,2);});
 			newHeader.addEventListener('mouseup',e => {this.sort(e,3);});
-			headerCell.setAttribute("draggable","true");
-			headerCell.addEventListener('dragstart',e => {this.dragColumn(e,0);});
-			headerCell.addEventListener("dragover", e => {e.preventDefault();});
-  			headerCell.addEventListener("drop", e => {e.preventDefault(); this.dropColumn(e,1);});
+			newHeader.setAttribute("draggable","true");
+			newHeader.addEventListener('dragstart',e => {this.dragColumn(e,0);});
+			newHeader.addEventListener("dragover", e => {e.preventDefault();});
+  			newHeader.addEventListener("drop", e => {e.preventDefault(); this.dropColumn(e,1);});
 			headerCell.id = "cHeader"+retmess[0][ii*2 + 1];
 			headerCell.style.display = 'table-cell';
 			headerCell.classList.add("th-sm");
@@ -683,17 +683,17 @@ class TriplelogTable extends HTMLElement {
   
   dragColumn(e,x) {
   	if (this.currentMode == 'arrange') {
-  		e.dataTransfer.setData("text", e.target.id);
+  		e.dataTransfer.setData("text", e.target.parentNode.id);
   		e.dataTransfer.dropEffect = "move";
   	}
   }
   
   dropColumn(e,x) {
     if (this.currentMode == 'arrange') {
-    	if (e.dataTransfer.getData("text").substring(7,) != e.target.id.substring(7,)){
+    	if (e.dataTransfer.getData("text").substring(7,) != e.target.parentNode.id.substring(7,)){
     		var jsonmessage = {'command':'display','column':e.dataTransfer.getData("text").substring(7,),'location':'-3'};
 			if (x == 1){
-				jsonmessage.location = e.target.id.substring(7,);
+				jsonmessage.location = e.target.parentNode.id.substring(7,);
 			}
 			this.ws.send(JSON.stringify(jsonmessage));
 		}
