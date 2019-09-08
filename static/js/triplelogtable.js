@@ -83,6 +83,7 @@ class TriplelogTable extends HTMLElement {
   		var thead = document.createElement('thead');
   			var tr = document.createElement('tr');
   			tr.style.display = "table-row";
+  			tr.style.background ='white';
 			thead.appendChild(tr);
   		thead.style.background ='white';
   		table.appendChild(thead);
@@ -280,16 +281,15 @@ class TriplelogTable extends HTMLElement {
 		}
 		else if (ii*2 + 1 < retmess[0].length) {
 			var headerCell = document.createElement("th");
-			var newHeader = document.createElement("input");
+			var newHeader = document.createElement("button");
 			newHeader.textContent = retmess[0][ii*2];
 			newHeader.style.display = 'inline-block';
   			newHeader.style.height = '100%';
   			newHeader.style.width = '100%';
-  			newHeader.setAttribute('type',"button");
-			newHeader.addEventListener('mouseover',e => {this.sort(e,0);});
-			newHeader.addEventListener('mousedown',e => {this.sort(e,1);});
-			newHeader.addEventListener('mouseout',e => {this.sort(e,2);});
-			newHeader.addEventListener('mouseup',e => {this.sort(e,3);});
+			newHeader.addEventListener('mouseover',e => {this.mousehead(e,0);});
+			newHeader.addEventListener('mousedown',e => {this.mousehead(e,1);});
+			newHeader.addEventListener('mouseout',e => {this.mousehead(e,2);});
+			newHeader.addEventListener('mouseup',e => {this.mousehead(e,3);});
 			newHeader.setAttribute("draggable","true");
 			newHeader.addEventListener('dragstart',e => {this.dragColumn(e,0);});
 			newHeader.addEventListener("dragover", e => {e.preventDefault();});
@@ -396,48 +396,60 @@ class TriplelogTable extends HTMLElement {
 	}
   }
   
-  sort(e,x) {
-	
+  mousehead(e,x) {
   	if (this.currentMode == "sort") {
-  		var sortCol = e.target.parentNode.id.substring(7,e.target.parentNode.id.length);
-		if (x==0){
-			//Ignore mouseover
-			if (!this.usecache){
-				this.sortondown = true;
-			}
-		}
-		else if (x==1){
-			if (this.sortondown || this.usecache) {
-				var jsonmessage = {'command':'sort','column':sortCol};
-				this.ws.send(JSON.stringify(jsonmessage));
-			}
-			this.showit = false;
-			this.foundit = false;
-		}
-		else if (x==2){
-			this.sortondown = false;
-		}
-		else if (x==3){
-		
-			//Release Array and load table into memory, set usecache to false
-			
-			if (this.foundit){
-				this.addData(this.retdata);
-				this.showit = true;
-			}
-			else {
-				this.showit = true;
-				this.foundit = true;
-			}
-			if (this.usecache){
-				this.usecache = false;
-				var jsonmessage = {'command':'load'};
-				this.ws.send(JSON.stringify(jsonmessage));
-			}
+  		sort(e,x);
+  	}
+  	else if (this.currentMode == "pivot") {
+  		pivot(e,x);
+  	}
+  }
+  
+  pivot(e,x) {
+  	if (x == 3) {
+		var pivotCol = e.target.textContent;
+		this.shadowRoot.querySelector("#pivotCol").value = pivotCol;
+	}
+  }
+  
+  sort(e,x) {
+	var sortCol = e.target.parentNode.id.substring(7,e.target.parentNode.id.length);
+	if (x==0){
+		//Ignore mouseover
+		if (!this.usecache){
 			this.sortondown = true;
 		}
 	}
-
+	else if (x==1){
+		if (this.sortondown || this.usecache) {
+			var jsonmessage = {'command':'sort','column':sortCol};
+			this.ws.send(JSON.stringify(jsonmessage));
+		}
+		this.showit = false;
+		this.foundit = false;
+	}
+	else if (x==2){
+		this.sortondown = false;
+	}
+	else if (x==3){
+	
+		//Release Array and load table into memory, set usecache to false
+		
+		if (this.foundit){
+			this.addData(this.retdata);
+			this.showit = true;
+		}
+		else {
+			this.showit = true;
+			this.foundit = true;
+		}
+		if (this.usecache){
+			this.usecache = false;
+			var jsonmessage = {'command':'load'};
+			this.ws.send(JSON.stringify(jsonmessage));
+		}
+		this.sortondown = true;
+	}
   }
   
   newPage(e) {	
