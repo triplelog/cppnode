@@ -270,7 +270,7 @@ class TriplelogTable extends HTMLElement {
 	const headers = headrow.querySelectorAll('th');
 	for (var ii=0;ii*2 + 1<Math.max(retmess[0].length,headers.length*2 + 1);ii++) {
 		if (ii*2 + 1 < retmess[0].length && ii < headers.length) {
-			headers[ii].textContent = retmess[0][ii*2];
+			headers[ii].querySelector('a').textContent = retmess[0][ii*2];
 			headers[ii].id = "cHeader"+retmess[0][ii*2 + 1];
 			headers[ii].style.display = 'table-cell';
 			this.colInfo[parseInt(retmess[0][ii*2 + 1])]=retmess[0][ii*2];
