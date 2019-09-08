@@ -607,13 +607,13 @@ class TriplelogTable extends HTMLElement {
 	let pivotColumnsR = this.shadowRoot.querySelector("#pivotColumns").value.toUpperCase().split(",");
 	var pivotColumns = []; var pivotSort;
 	if (pivotSortR[i].substring(0,4)=="sum("){
-		pivotSort = [pivotSortR[i].substring(4,pivotSortR[i].length-1),'s']);
+		pivotSort = [pivotSortR[i].substring(4,pivotSortR[i].length-1),'s'];
 	}
 	else if (pivotSortR[i].substring(0,4)=="max("){
-		pivotSort = [pivotSortR[i].substring(4,pivotSortR[i].length-1),'x']);
+		pivotSort = [pivotSortR[i].substring(4,pivotSortR[i].length-1),'x'];
 	}
 	else if (pivotSortR[i].substring(0,4)=="min("){
-		pivotSort = [pivotSortR[i].substring(4,pivotSortR[i].length-1),'n']);
+		pivotSort = [pivotSortR[i].substring(4,pivotSortR[i].length-1),'n'];
 	}
 	else{
 		pivotSort = [pivotSortR[i],'s']);
