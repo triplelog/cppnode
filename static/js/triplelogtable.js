@@ -282,6 +282,8 @@ class TriplelogTable extends HTMLElement {
 			var headerCell = document.createElement("th");
 			var newHeader = document.createElement("a");
 			newHeader.setAttribute("draggable","false");
+			newHeader.addEventListener("dragover", e => {e.preventDefault();});
+			newHeader.addEventListener("drop", e => {e.preventDefault();});
 			newHeader.textContent = retmess[0][ii*2];
 			newHeader.addEventListener('mouseover',e => {this.sort(e,0);});
 			newHeader.addEventListener('mousedown',e => {this.sort(e,1);});
