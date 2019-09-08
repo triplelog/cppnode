@@ -285,6 +285,7 @@ class TriplelogTable extends HTMLElement {
 			newHeader.style.display = 'inline-block';
   			newHeader.style.height = '100%';
   			newHeader.style.width = '100%';
+  			newHeader.setAttribute('tabindex',"0");
 			newHeader.addEventListener('mouseover',e => {this.sort(e,0);});
 			newHeader.addEventListener('mousedown',e => {this.sort(e,1);});
 			newHeader.addEventListener('mouseout',e => {this.sort(e,2);});
