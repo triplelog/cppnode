@@ -616,7 +616,7 @@ class TriplelogTable extends HTMLElement {
 		pivotSort = [pivotSortR[i].substring(4,pivotSortR[i].length-1),'n'];
 	}
 	else{
-		pivotSort = [pivotSortR[i],'s']);
+		pivotSort = [pivotSortR[i],'s'];
 	}
 	for (var i=0;i<pivotColumnsR.length;i++){
 		if (pivotColumnsR[i].substring(0,4)=="sum("){
