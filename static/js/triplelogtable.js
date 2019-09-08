@@ -279,21 +279,23 @@ class TriplelogTable extends HTMLElement {
 			headers[ii].style.display = 'none';
 		}
 		else if (ii*2 + 1 < retmess[0].length) {
-			var newHeader = document.createElement("th");
+			var headerCell = document.createElement("th");
+			var newHeader = document.createElement("a");
 			newHeader.textContent = retmess[0][ii*2];
 			newHeader.addEventListener('mouseover',e => {this.sort(e,0);});
 			newHeader.addEventListener('mousedown',e => {this.sort(e,1);});
 			newHeader.addEventListener('mouseout',e => {this.sort(e,2);});
 			newHeader.addEventListener('mouseup',e => {this.sort(e,3);});
-			newHeader.setAttribute("draggable","true");
-			newHeader.addEventListener('dragstart',e => {this.dragColumn(e,0);});
-			newHeader.addEventListener("dragover", e => {e.preventDefault();});
-  			newHeader.addEventListener("drop", e => {e.preventDefault(); this.dropColumn(e,1);});
-			newHeader.id = "cHeader"+retmess[0][ii*2 + 1];
-			newHeader.style.display = 'table-cell';
-			newHeader.classList.add("th-sm");
+			headerCell.setAttribute("draggable","true");
+			headerCell.addEventListener('dragstart',e => {this.dragColumn(e,0);});
+			headerCell.addEventListener("dragover", e => {e.preventDefault();});
+  			headerCell.addEventListener("drop", e => {e.preventDefault(); this.dropColumn(e,1);});
+			headerCell.id = "cHeader"+retmess[0][ii*2 + 1];
+			headerCell.style.display = 'table-cell';
+			headerCell.classList.add("th-sm");
 			this.colInfo[parseInt(retmess[0][ii*2 + 1])]=retmess[0][ii*2];
-			headrow.appendChild(newHeader);
+			headerCell.appendChild(newHeader);
+			headrow.appendChild(headerCell);
 		}
 		else {
 			break;
@@ -392,9 +394,8 @@ class TriplelogTable extends HTMLElement {
   
   sort(e,x) {
 	
-  	var sortCol = e.target.id.substring(7,e.target.id.length);
-  	
   	if (this.currentMode == "sort") {
+  		var sortCol = e.target.parentNode.id.substring(7,e.target.parentNode.id.length);
 		if (x==0){
 			//Ignore mouseover
 			if (!this.usecache){
@@ -654,16 +655,12 @@ class TriplelogTable extends HTMLElement {
   		var thead = this.shadowRoot.querySelector('thead');
 		const headrow = thead.querySelector('tr');
 		const headers = headrow.querySelectorAll('th');
-		var colName = headers[col].textContent;
+		var colName = headers[col].querySelector('a').textContent;
   		console.log(val,colName);
   		if (this.shadowRoot.querySelector("#filterFormula").value != ""){
   			this.shadowRoot.querySelector("#filterFormula").value += 'AND';
   		}
   		this.shadowRoot.querySelector("#filterFormula").value += colName.toUpperCase()+this.comparisonMode+val;  
-  		var onPopper = this.shadowRoot.querySelector('#pivotButton');	
-  		var popper = new Popper(e.target, onPopper, {
-			placement: 'top'
-		});	
   	}
   }
   
