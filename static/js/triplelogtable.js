@@ -271,7 +271,7 @@ class TriplelogTable extends HTMLElement {
 	const headers = headrow.querySelectorAll('th');
 	for (var ii=0;ii*2 + 1<Math.max(retmess[0].length,headers.length*2 + 1);ii++) {
 		if (ii*2 + 1 < retmess[0].length && ii < headers.length) {
-			headers[ii].querySelector('a').textContent = retmess[0][ii*2];
+			headers[ii].querySelector('button').textContent = retmess[0][ii*2];
 			headers[ii].id = "cHeader"+retmess[0][ii*2 + 1];
 			headers[ii].style.display = 'table-cell';
 			this.colInfo[parseInt(retmess[0][ii*2 + 1])]=retmess[0][ii*2];
@@ -671,7 +671,7 @@ class TriplelogTable extends HTMLElement {
   		var thead = this.shadowRoot.querySelector('thead');
 		const headrow = thead.querySelector('tr');
 		const headers = headrow.querySelectorAll('th');
-		var colName = headers[col].querySelector('a').textContent;
+		var colName = headers[col].querySelector('button').textContent;
   		console.log(val,colName);
   		if (this.shadowRoot.querySelector("#filterFormula").value != ""){
   			this.shadowRoot.querySelector("#filterFormula").value += 'AND';
