@@ -398,10 +398,10 @@ class TriplelogTable extends HTMLElement {
   
   mousehead(e,x) {
   	if (this.currentMode == "sort") {
-  		sort(e,x);
+  		this.sort(e,x);
   	}
   	else if (this.currentMode == "pivot") {
-  		pivot(e,x);
+  		this.pivot(e,x);
   	}
   }
   
