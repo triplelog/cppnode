@@ -576,14 +576,16 @@ class TriplelogTable extends HTMLElement {
   	
 	let pivotCol = this.shadowRoot.querySelector("#pivotCol").value.toUpperCase();
 	let pivotSort = this.shadowRoot.querySelector("#pivotSort").value.toUpperCase();
-	let pivotColumns = this.shadowRoot.querySelector("#pivotColumns").value.toUpperCase();
+	let pivotColumns = this.shadowRoot.querySelector("#pivotColumns").value.toUpperCase().split(",");
 	var pivotID = -1;
 	var sortID = -1;
-	var colID = -1;
+	var colIDs = [];
 	for (var ii in this.colInfo) {
 		if (this.colInfo[ii].toUpperCase() == pivotCol) {pivotID = ii;}
 		if (this.colInfo[ii].toUpperCase() == pivotSort) {sortID = ii;}
-		if (this.colInfo[ii].toUpperCase() == pivotColumns) {colID = ii;}
+		for (var i=0;i<pivotColumns.length;i++) {
+			if (this.colInfo[ii].toUpperCase() == pivotColumns[i]) {colIDs.push(ii);}
+		}
 	}
 	if (pivotID < 0){return 0;}
 	
@@ -595,7 +597,7 @@ class TriplelogTable extends HTMLElement {
 	
 	
 	if (x == 1){ //mousedown
-		var jsonmessage = {'command':'pivot','pivotcol':pivotID,'sort':sortID,'columns':[colID]};
+		var jsonmessage = {'command':'pivot','pivotcol':pivotID,'sort':sortID,'columns':colIDs};
 		this.ws.send(JSON.stringify(jsonmessage));
 		jsonmessage = {'command':'print'};
 		this.ws.send(JSON.stringify(jsonmessage));
