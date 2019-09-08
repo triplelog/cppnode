@@ -659,7 +659,11 @@ class TriplelogTable extends HTMLElement {
   		if (this.shadowRoot.querySelector("#filterFormula").value != ""){
   			this.shadowRoot.querySelector("#filterFormula").value += 'AND';
   		}
-  		this.shadowRoot.querySelector("#filterFormula").value += colName.toUpperCase()+this.comparisonMode+val;  		
+  		this.shadowRoot.querySelector("#filterFormula").value += colName.toUpperCase()+this.comparisonMode+val;  
+  		var onPopper = this.shadowRoot.querySelector('#pivotButton');	
+  		var popper = new Popper(e.target, onPopper, {
+			placement: 'top'
+		});	
   	}
   }
   
