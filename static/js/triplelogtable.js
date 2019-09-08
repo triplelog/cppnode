@@ -227,10 +227,12 @@ class TriplelogTable extends HTMLElement {
 	this.shadowRoot.appendChild(filterDiv);
 	
 	var pivotDiv = document.createElement("div");
-		var pivotFormula = document.createElement("input");
-		pivotFormula.setAttribute("type","text");
-		pivotFormula.id = "pivotFormula";
-		pivotDiv.appendChild(pivotFormula);
+		["pivotCol","pivotSort","pivotColumns"].forEach( pfid => {
+			var pivotFormula = document.createElement("input");
+			pivotFormula.setAttribute("type","text");
+			pivotFormula.id = pfid;
+			pivotDiv.appendChild(pivotFormula);
+		});
 		var pivotButton = document.createElement("button");
 		pivotButton.classList.add('pivotButton');
 		pivotButton.textContent = 'Pivot';
@@ -572,13 +574,16 @@ class TriplelogTable extends HTMLElement {
   
   newPivot(e,x) {
   	
-	let pivotCol = this.shadowRoot.querySelector("#pivotFormula").value.toUpperCase();
+	let pivotCol = this.shadowRoot.querySelector("#pivotCol").value.toUpperCase();
+	let pivotSort = this.shadowRoot.querySelector("#pivotSort").value.toUpperCase();
+	let pivotColumns = this.shadowRoot.querySelector("#pivotColumns").value.toUpperCase();
 	var pivotID = -1;
+	var sortID = -1;
+	var colID = -1;
 	for (var ii in this.colInfo) {
-		if (this.colInfo[ii].toUpperCase() == pivotCol) {
-			pivotID = ii;
-			break;
-		}
+		if (this.colInfo[ii].toUpperCase() == pivotCol) {pivotID = ii;}
+		if (this.colInfo[ii].toUpperCase() == pivotSort) {sortID = ii;}
+		if (this.colInfo[ii].toUpperCase() == pivotColumns) {colID = ii;}
 	}
 	if (pivotID < 0){return 0;}
 	
@@ -590,7 +595,7 @@ class TriplelogTable extends HTMLElement {
 	
 	
 	if (x == 1){ //mousedown
-		var jsonmessage = {'command':'pivot','pivotcol':pivotID,'sort':5,'columns':[6,7,8]};
+		var jsonmessage = {'command':'pivot','pivotcol':pivotID,'sort':sortID,'columns':[colID]};
 		this.ws.send(JSON.stringify(jsonmessage));
 		jsonmessage = {'command':'print'};
 		this.ws.send(JSON.stringify(jsonmessage));
