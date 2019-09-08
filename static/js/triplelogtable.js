@@ -280,12 +280,12 @@ class TriplelogTable extends HTMLElement {
 		}
 		else if (ii*2 + 1 < retmess[0].length) {
 			var headerCell = document.createElement("th");
-			var newHeader = document.createElement("button");
+			var newHeader = document.createElement("input");
 			newHeader.textContent = retmess[0][ii*2];
 			newHeader.style.display = 'inline-block';
   			newHeader.style.height = '100%';
   			newHeader.style.width = '100%';
-  			newHeader.setAttribute('tabindex',"0");
+  			newHeader.setAttribute('type',"button");
 			newHeader.addEventListener('mouseover',e => {this.sort(e,0);});
 			newHeader.addEventListener('mousedown',e => {this.sort(e,1);});
 			newHeader.addEventListener('mouseout',e => {this.sort(e,2);});
