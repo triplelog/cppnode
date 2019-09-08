@@ -25,6 +25,7 @@ class TriplelogTable extends HTMLElement {
     this.scrollTimeout;
     this.latestKnownScrollY = 0;
     this.currentFilter = "";
+    this.pivotMode = "pivotcol";
     
     this.ws = new WebSocket('ws://155.138.201.160:8080');
     
@@ -407,8 +408,18 @@ class TriplelogTable extends HTMLElement {
   
   pivot(e,x) {
   	if (x == 3) {
-		var pivotCol = e.target.textContent;
-		this.shadowRoot.querySelector("#pivotCol").value = pivotCol;
+		var clickedCol = e.target.textContent;
+		if (this.pivotMode == 'pivotcol'){
+			this.shadowRoot.querySelector("#pivotCol").value = clickedCol;
+			this.pivotMode = 'sortcol';
+		}
+		else if (this.pivotMode == 'sortcol'){
+			this.shadowRoot.querySelector("#pivotSort").value = clickedCol;
+			this.pivotMode = 'columns';
+		}
+		else if (this.pivotMode == 'columns'){
+			this.shadowRoot.querySelector("#pivotColumns").value += clickedCol+',';
+		}
 	}
   }
   
@@ -685,7 +696,7 @@ class TriplelogTable extends HTMLElement {
   	['pivotDiv','filterDiv','opDiv','columnDiv'].forEach( tmpDiv => {this.shadowRoot.querySelector('#'+tmpDiv).style.display = 'none';});
   	if (this.currentMode == 'newcol') {this.shadowRoot.querySelector('#columnDiv').style.display = 'inline-block';}
   	else if (this.currentMode == 'filter') {this.shadowRoot.querySelector('#filterDiv').style.display = 'inline-block';}
-  	else if (this.currentMode == 'pivot') {this.shadowRoot.querySelector('#pivotDiv').style.display = 'inline-block';}
+  	else if (this.currentMode == 'pivot') {this.pivotMode = "pivotcol"; this.shadowRoot.querySelector('#pivotDiv').style.display = 'inline-block';}
   	else if (this.currentMode == 'sum') {this.shadowRoot.querySelector('#opDiv').style.display = 'inline-block';}
   	if (this.usecache){
 		this.usecache = false;
