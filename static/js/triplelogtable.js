@@ -603,16 +603,43 @@ class TriplelogTable extends HTMLElement {
   newPivot(e,x) {
   	
 	let pivotCol = this.shadowRoot.querySelector("#pivotCol").value.toUpperCase();
-	let pivotSort = this.shadowRoot.querySelector("#pivotSort").value.toUpperCase();
-	let pivotColumns = this.shadowRoot.querySelector("#pivotColumns").value.toUpperCase().split(",");
+	let pivotSortR = this.shadowRoot.querySelector("#pivotSort").value.toUpperCase();
+	let pivotColumnsR = this.shadowRoot.querySelector("#pivotColumns").value.toUpperCase().split(",");
+	var pivotColumns = []; var pivotSort;
+	if (pivotSortR[i].substring(0,4)=="sum("){
+		pivotSort = [pivotSortR[i].substring(4,pivotSortR[i].length-1),'s']);
+	}
+	else if (pivotSortR[i].substring(0,4)=="max("){
+		pivotSort = [pivotSortR[i].substring(4,pivotSortR[i].length-1),'x']);
+	}
+	else if (pivotSortR[i].substring(0,4)=="min("){
+		pivotSort = [pivotSortR[i].substring(4,pivotSortR[i].length-1),'n']);
+	}
+	else{
+		pivotSort = [pivotSortR[i],'s']);
+	}
+	for (var i=0;i<pivotColumnsR.length;i++){
+		if (pivotColumnsR[i].substring(0,4)=="sum("){
+			pivotColumns.push([pivotColumnsR[i].substring(4,pivotColumnsR[i].length-1),'s']);
+		}
+		else if (pivotColumnsR[i].substring(0,4)=="max("){
+			pivotColumns.push([pivotColumnsR[i].substring(4,pivotColumnsR[i].length-1),'x']);
+		}
+		else if (pivotColumnsR[i].substring(0,4)=="min("){
+			pivotColumns.push([pivotColumnsR[i].substring(4,pivotColumnsR[i].length-1),'n']);
+		}
+		else{
+			pivotColumns.push([pivotColumnsR[i],'s']);
+		}
+	}
 	var pivotID = -1;
 	var sortID = -1;
 	var colIDs = [];
 	for (var ii in this.colInfo) {
 		if (this.colInfo[ii].toUpperCase() == pivotCol) {pivotID = ii;}
-		if (this.colInfo[ii].toUpperCase() == pivotSort) {sortID = 's'+ii;}
+		if (this.colInfo[ii].toUpperCase() == pivotSort[0]) {sortID = pivotSort[1]+ii;}
 		for (var i=0;i<pivotColumns.length;i++) {
-			if (this.colInfo[ii].toUpperCase() == pivotColumns[i]) {colIDs.push('x'+ii);}
+			if (this.colInfo[ii].toUpperCase() == pivotColumns[i][0]) {colIDs.push(pivotColumns[i][1]+ii);}
 		}
 	}
 	if (pivotID < 0){return 0;}
