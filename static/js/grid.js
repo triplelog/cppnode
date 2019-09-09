@@ -71,9 +71,14 @@ function rearrangeMode() {
 
 function createPerm(tmpEl) {
 	var maxbutton = document.createElement("button");
-	maxbutton.textContent = "F";
+	maxbutton.innerHTML = "<span class='icon-link'></span>";
 	maxbutton.addEventListener("click",maxEl);
 	tmpEl.appendChild(maxbutton);
+	
+	var newbutton = document.createElement("button");
+	newbutton.innerHTML = "<span class='icon-edit'></span>";
+	newbutton.addEventListener("click",newEl);
+	tmpEl.appendChild(newbutton);
 	
 	var tltable = document.createElement("tab-dn");
 	tltable.setAttribute("src","tffyz");
@@ -127,6 +132,10 @@ function maxEl(evt){
 	console.log(nrows);
 	toMax.style.gridRow = "1 / " + Math.trunc(nrows + 1);
 	
+}
+
+function newEl(evt) {
+	alert(evt.target.parentNode.id);
 }
 
 function normEl(evt){
