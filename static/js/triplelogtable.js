@@ -606,31 +606,23 @@ class TriplelogTable extends HTMLElement {
 	let pivotSortR = this.shadowRoot.querySelector("#pivotSort").value.toUpperCase();
 	let pivotColumnsR = this.shadowRoot.querySelector("#pivotColumns").value.toUpperCase().split(",");
 	var pivotColumns = []; var pivotSort;
-	if (pivotSortR.substring(0,4)=="SUM("){
-		pivotSort = [pivotSortR.substring(4,pivotSortR.length-1),'s'];
-	}
-	else if (pivotSortR.substring(0,4)=="MAX("){
-		pivotSort = [pivotSortR.substring(4,pivotSortR.length-1),'x'];
-	}
-	else if (pivotSortR.substring(0,4)=="MIN("){
-		pivotSort = [pivotSortR.substring(4,pivotSortR.length-1),'n'];
-	}
-	else{
-		pivotSort = [pivotSortR,'s'];
-	}
+	if (pivotSortR.substring(0,4)=="SUM("){pivotSort = [pivotSortR.substring(4,pivotSortR.length-1),'s'];}
+	else if (pivotSortR.substring(0,4)=="MAX("){pivotSort = [pivotSortR.substring(4,pivotSortR.length-1),'x'];}
+	else if (pivotSortR.substring(0,4)=="MIN("){pivotSort = [pivotSortR.substring(4,pivotSortR.length-1),'n'];}
+	else if (pivotSortR.substring(0,4)=="MEAN("){pivotSort = [pivotSortR.substring(4,pivotSortR.length-1),'a'];}
+	else if (pivotSortR.substring(0,4)=="FIRST("){pivotSort = [pivotSortR.substring(4,pivotSortR.length-1),'f'];}
+	else if (pivotSortR.substring(0,4)=="LAST("){pivotSort = [pivotSortR.substring(4,pivotSortR.length-1),'l'];}
+	else if (pivotSortR.substring(0,4)=="COUNTIF("){pivotSort = [pivotSortR.substring(4,pivotSortR.length-1),'c'];}
+	else{pivotSort = [pivotSortR,'s'];}
 	for (var i=0;i<pivotColumnsR.length;i++){
-		if (pivotColumnsR[i].substring(0,4)=="SUM("){
-			pivotColumns.push([pivotColumnsR[i].substring(4,pivotColumnsR[i].length-1),'s']);
-		}
-		else if (pivotColumnsR[i].substring(0,4)=="MAX("){
-			pivotColumns.push([pivotColumnsR[i].substring(4,pivotColumnsR[i].length-1),'x']);
-		}
-		else if (pivotColumnsR[i].substring(0,4)=="MIN("){
-			pivotColumns.push([pivotColumnsR[i].substring(4,pivotColumnsR[i].length-1),'n']);
-		}
-		else{
-			pivotColumns.push([pivotColumnsR[i],'s']);
-		}
+		if (pivotColumnsR[i].substring(0,4)=="SUM("){pivotColumns.push([pivotColumnsR[i].substring(4,pivotColumnsR[i].length-1),'s']);}
+		else if (pivotColumnsR[i].substring(0,4)=="MAX("){pivotColumns.push([pivotColumnsR[i].substring(4,pivotColumnsR[i].length-1),'x']);}
+		else if (pivotColumnsR[i].substring(0,4)=="MIN("){pivotColumns.push([pivotColumnsR[i].substring(4,pivotColumnsR[i].length-1),'n']);}
+		else if (pivotColumnsR[i].substring(0,4)=="MEAN("){pivotColumns.push([pivotColumnsR[i].substring(4,pivotColumnsR[i].length-1),'a']);}
+		else if (pivotColumnsR[i].substring(0,4)=="FIRST("){pivotColumns.push([pivotColumnsR[i].substring(4,pivotColumnsR[i].length-1),'f']);}
+		else if (pivotColumnsR[i].substring(0,4)=="LAST("){pivotColumns.push([pivotColumnsR[i].substring(4,pivotColumnsR[i].length-1),'l']);}
+		else if (pivotColumnsR[i].substring(0,4)=="COUNTIF("){pivotColumns.push([pivotColumnsR[i].substring(4,pivotColumnsR[i].length-1),'c']);}
+		else{pivotColumns.push([pivotColumnsR[i],'s']);}
 	}
 	console.log(pivotColumns);
 	var pivotID = -1;
