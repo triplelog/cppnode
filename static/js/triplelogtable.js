@@ -609,19 +609,19 @@ class TriplelogTable extends HTMLElement {
 	if (pivotSortR.substring(0,4)=="SUM("){pivotSort = [pivotSortR.substring(4,pivotSortR.length-1),'s'];}
 	else if (pivotSortR.substring(0,4)=="MAX("){pivotSort = [pivotSortR.substring(4,pivotSortR.length-1),'x'];}
 	else if (pivotSortR.substring(0,4)=="MIN("){pivotSort = [pivotSortR.substring(4,pivotSortR.length-1),'n'];}
-	else if (pivotSortR.substring(0,4)=="MEAN("){pivotSort = [pivotSortR.substring(4,pivotSortR.length-1),'a'];}
-	else if (pivotSortR.substring(0,4)=="FIRST("){pivotSort = [pivotSortR.substring(4,pivotSortR.length-1),'f'];}
-	else if (pivotSortR.substring(0,4)=="LAST("){pivotSort = [pivotSortR.substring(4,pivotSortR.length-1),'l'];}
-	else if (pivotSortR.substring(0,4)=="COUNTIF("){pivotSort = [pivotSortR.substring(4,pivotSortR.length-1),'c'];}
+	else if (pivotSortR.substring(0,5)=="MEAN("){pivotSort = [pivotSortR.substring(5,pivotSortR.length-1),'a'];}
+	else if (pivotSortR.substring(0,6)=="FIRST("){pivotSort = [pivotSortR.substring(6,pivotSortR.length-1),'f'];}
+	else if (pivotSortR.substring(0,5)=="LAST("){pivotSort = [pivotSortR.substring(5,pivotSortR.length-1),'l'];}
+	else if (pivotSortR.substring(0,8)=="COUNTIF("){pivotSort = [pivotSortR.substring(8,pivotSortR.length-1),'c'];}
 	else{pivotSort = [pivotSortR,'s'];}
 	for (var i=0;i<pivotColumnsR.length;i++){
 		if (pivotColumnsR[i].substring(0,4)=="SUM("){pivotColumns.push([pivotColumnsR[i].substring(4,pivotColumnsR[i].length-1),'s']);}
 		else if (pivotColumnsR[i].substring(0,4)=="MAX("){pivotColumns.push([pivotColumnsR[i].substring(4,pivotColumnsR[i].length-1),'x']);}
 		else if (pivotColumnsR[i].substring(0,4)=="MIN("){pivotColumns.push([pivotColumnsR[i].substring(4,pivotColumnsR[i].length-1),'n']);}
-		else if (pivotColumnsR[i].substring(0,4)=="MEAN("){pivotColumns.push([pivotColumnsR[i].substring(4,pivotColumnsR[i].length-1),'a']);}
-		else if (pivotColumnsR[i].substring(0,4)=="FIRST("){pivotColumns.push([pivotColumnsR[i].substring(4,pivotColumnsR[i].length-1),'f']);}
-		else if (pivotColumnsR[i].substring(0,4)=="LAST("){pivotColumns.push([pivotColumnsR[i].substring(4,pivotColumnsR[i].length-1),'l']);}
-		else if (pivotColumnsR[i].substring(0,4)=="COUNTIF("){pivotColumns.push([pivotColumnsR[i].substring(4,pivotColumnsR[i].length-1),'c']);}
+		else if (pivotColumnsR[i].substring(0,5)=="MEAN("){pivotColumns.push([pivotColumnsR[i].substring(5,pivotColumnsR[i].length-1),'a']);}
+		else if (pivotColumnsR[i].substring(0,6)=="FIRST("){pivotColumns.push([pivotColumnsR[i].substring(6,pivotColumnsR[i].length-1),'f']);}
+		else if (pivotColumnsR[i].substring(0,5)=="LAST("){pivotColumns.push([pivotColumnsR[i].substring(5,pivotColumnsR[i].length-1),'l']);}
+		else if (pivotColumnsR[i].substring(0,8)=="COUNTIF("){pivotColumns.push([pivotColumnsR[i].substring(8,pivotColumnsR[i].length-1),'c']);}
 		else{pivotColumns.push([pivotColumnsR[i],'s']);}
 	}
 	console.log(pivotColumns);
