@@ -820,7 +820,7 @@ function makePost(infixexpr) {
 	for (var i=0;i<postfixList.length;i++){
 		var ci = postfixList[i];
 		if ("*/+~><=![]&|".indexOf(ci) == -1){
-			intstr += ci + '_'
+			intstr += ci + '|'
 			expstr += '#'
 		}
 		else if (ci == '~'){
@@ -911,7 +911,7 @@ function postfixify(input_str,colInfo) {
 	//Convert column names
 	console.log(twoparts[0]);
 	console.log(twoparts[1]);
-	var firstpart = twoparts[0].split("_");
+	var firstpart = twoparts[0].split("|");
 	for (var i=0;i<firstpart.length;i++){
 		if (parseInt(firstpart[i]).toString() != firstpart[i]){
 			for (var ii in colInfo) {
