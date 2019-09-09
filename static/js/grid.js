@@ -92,7 +92,7 @@ function createPerm(tmpEl) {
 	
 	var alltables = document.createElement("select");
 		var onetable = document.createElement("object");
-		onetable.value = tltable.id;
+		onetable.setAttribute("value",tltable.id);
 		onetable.textContent = tltable.id;
 		alltables.appendChild(onetable);
 	tmpEl.appendChild(alltables);
@@ -160,11 +160,11 @@ function newData(evt) {
 	
 	var alltables = tabGrid.querySelector("select");
 		var onetable = document.createElement("object");
-		onetable.value = tltable.id;
+		onetable.setAttribute("value",tltable.id);
 		onetable.textContent = tltable.id;
 		alltables.appendChild(onetable);
 
-
+	console.log(alltabl);
 }
 
 function normEl(evt){
