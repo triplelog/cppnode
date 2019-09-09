@@ -74,12 +74,12 @@ function rearrangeMode() {
 function createPerm(tmpEl) {
 	tmpEl.id = Math.random().toString(36).substring(5, 10);
 	var maxbutton = document.createElement("button");
-	maxbutton.innerHTML = "<span class='icon-link'></span>";
+	maxbutton.innerHTML = "<span class='icon-link' style='pointer-events: none'></span>";
 	maxbutton.addEventListener("click",maxEl);
 	tmpEl.appendChild(maxbutton);
 	
 	var newbutton = document.createElement("button");
-	newbutton.innerHTML = "<span class='icon-edit'></span>";
+	newbutton.innerHTML = "<span class='icon-edit' style='pointer-events: none'></span>";
 	newbutton.addEventListener("click",newData);
 	tmpEl.appendChild(newbutton);
 	
@@ -87,7 +87,15 @@ function createPerm(tmpEl) {
 	tltable.setAttribute("src","tffyz");
 	tltable.style.display = "inline-block";
 	tltable.style.background = "white";
+	tltable.id = Math.random().toString(36).substring(5, 10);
 	tmpEl.appendChild(tltable);
+	
+	var alltables = document.createElement("select");
+		var onetable = document.createElement("object");
+		onetable.value = tltable.id;
+		onetable.textContent = tltable.id;
+		alltables.appendChild(onetable);
+	tmpEl.appendChild(alltables);
 	
 }
 function createTmp(allElements) {
@@ -141,14 +149,22 @@ function maxEl(evt){
 function newData(evt) {
 	var tabGrid = evt.target.parentNode;
 	
-	tabGrid.removeChild(tabGrid.querySelector("tab-dn"));
+	var alltabs = tabGrid.querySelectorAll("tab-dn");
+	for (var i=0;i<alltabs.length;i++) {alltabs[i].style.display = 'none';}
 	
 	var tltable = document.createElement("tab-dn");
 	tltable.setAttribute("src","tffyz");
 	tltable.style.display = "inline-block";
+	tltable.id = Math.random().toString(36).substring(5, 10);
 	tabGrid.appendChild(tltable);
 	
-	console.log(tabDN);
+	var alltables = tabGrid.querySelector("select");
+		var onetable = document.createElement("object");
+		onetable.value = tltable.id;
+		onetable.textContent = tltable.id;
+		alltables.appendChild(onetable);
+
+
 }
 
 function normEl(evt){
