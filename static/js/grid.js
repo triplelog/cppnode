@@ -95,6 +95,7 @@ function createPerm(tmpEl) {
 		onetable.setAttribute("value",tltable.id);
 		onetable.textContent = tltable.id;
 		alltables.appendChild(onetable);
+	alltables.addEventListener("change",switchTab);
 	tmpEl.appendChild(alltables);
 	
 }
@@ -161,10 +162,14 @@ function newData(evt) {
 	var alltables = tabGrid.querySelector("select");
 		var onetable = document.createElement("option");
 		onetable.setAttribute("value",tltable.id);
+		onetable.setAttribute("selected","true");
 		onetable.textContent = tltable.id;
 		alltables.appendChild(onetable);
 
-	console.log(alltabl);
+}
+
+function switchTab(evt) {
+	alert(evt.target.tag);
 }
 
 function normEl(evt){
