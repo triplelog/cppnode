@@ -635,7 +635,8 @@ class TriplelogTable extends HTMLElement {
 			if (this.colInfo[ii].toUpperCase() == pivotColumns[i][0]) {colIDs.push(pivotColumns[i][1]+ii);}
 		}
 	}
-	if (pivotSort[0] == 'c'){sortID = pivotSort[1];}
+	//if (pivotSort[0] == 'c'){sortID = pivotSort[1];}
+	sortID = 'c4_1.1.I|##>';
 	if (pivotID < 0){return 0;}
 	
 	if (this.usecache){
