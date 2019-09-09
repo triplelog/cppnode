@@ -136,7 +136,15 @@ function maxEl(evt){
 }
 
 function newData(evt) {
-	var tabDN = evt.target.parentNode.querySelector('tab-dn');
+	var tabGrid = evt.target.parentNode;
+	
+	tabGrid.removeChild(tabGrid.querySelector("tab-dn"));
+	
+	var tltable = document.createElement("tab-dn");
+	tltable.setAttribute("src","tffyz");
+	tltable.style.display = "inline-block";
+	tabGrid.appendChild(tltable);
+	
 	console.log(tabDN);
 }
 
