@@ -50,6 +50,8 @@ function newBlock() {
 		}).on('stop', evt => {
 			if (document.getElementById("tmpgrid")){
 				createPerm(document.getElementById('tmpgrid'));
+				selection.destroy();
+				selection = 0;
 			}
 	
 		});
@@ -132,7 +134,7 @@ function maxEl(evt){
 	
 	var nrows = toMax.offsetHeight / 100;
 	console.log(nrows);
-	toMax.style.gridRow = "1 / " + Math.trunc(nrows + 1);
+	toMax.style.gridRow = "1 / " + Math.trunc(nrows + 2);
 	
 }
 
