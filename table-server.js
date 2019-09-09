@@ -4,7 +4,7 @@ var fs = require("fs");
 
 
 const WebSocket = require('ws');
-const wss = new WebSocket.Server({ port: 8080 });
+const wss = new WebSocket.Server({ port: 8080 , origin: 'http://155.138.201.160'});
 //const { exec } = require('child_process');
 
 //var acmd = require('child_process').spawn('../cppsv/nanotable', ['31','uploads/upmkd3w'])
@@ -14,7 +14,6 @@ const wss = new WebSocket.Server({ port: 8080 });
 //fs.writeFile("slowtxt.txt", "", (err) => {});
 var allusers = {};
 wss.on('connection', function connection(ws) {
-  console.log(ws);
   var userid = "ff"+Math.random().toString(36).substring(5, 10)+".csv";
   ws.on('message', function incoming(message) {
 	console.log(JSON.parse(message));
