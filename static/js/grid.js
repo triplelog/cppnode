@@ -70,6 +70,7 @@ function rearrangeMode() {
 }
 
 function createPerm(tmpEl) {
+	tmpEl.id = Math.random().toString(36).substring(5, 10);
 	var maxbutton = document.createElement("button");
 	maxbutton.innerHTML = "<span class='icon-link'></span>";
 	maxbutton.addEventListener("click",maxEl);
@@ -77,7 +78,7 @@ function createPerm(tmpEl) {
 	
 	var newbutton = document.createElement("button");
 	newbutton.innerHTML = "<span class='icon-edit'></span>";
-	newbutton.addEventListener("click",newEl);
+	newbutton.addEventListener("click",newData);
 	tmpEl.appendChild(newbutton);
 	
 	var tltable = document.createElement("tab-dn");
@@ -134,8 +135,9 @@ function maxEl(evt){
 	
 }
 
-function newEl(evt) {
-	alert(evt.target.parentNode.id);
+function newData(evt) {
+	var tabDN = evt.target.parentNode.querySelector('tab-dn');
+	console.log(tabDN);
 }
 
 function normEl(evt){
