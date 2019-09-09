@@ -84,6 +84,7 @@ function createPerm(tmpEl) {
 	var tltable = document.createElement("tab-dn");
 	tltable.setAttribute("src","tffyz");
 	tltable.style.display = "inline-block";
+	tltable.style.background = "white";
 	tmpEl.appendChild(tltable);
 	
 }
