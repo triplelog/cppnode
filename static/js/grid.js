@@ -169,7 +169,9 @@ function newData(evt) {
 }
 
 function switchTab(evt) {
-	alert(evt.target.tag);
+	var tabGrid = evt.target.parentNode;
+	var alltabs = tabGrid.querySelectorAll("tab-dn");
+	for (var i=0;i<alltabs.length;i++) {if (alltabs[i].id == evt.target.value) {alltabs[i].style.display = 'inline-block';} else {alltabs[i].style.display = 'none';}}
 }
 
 function normEl(evt){
