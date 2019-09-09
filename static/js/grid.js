@@ -75,8 +75,8 @@ function createPerm(tmpEl) {
 	maxbutton.addEventListener("click",maxEl);
 	tmpEl.appendChild(maxbutton);
 	
-	var tltable = document.createElement("nano-table");
-	tltable.setAttribute("src","z10t0");
+	var tltable = document.createElement("tab-dn");
+	tltable.setAttribute("src","tffyz");
 	tltable.style.display = "inline-block";
 	tmpEl.appendChild(tltable);
 	
