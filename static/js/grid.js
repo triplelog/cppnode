@@ -83,13 +83,6 @@ function createPerm(tmpEl) {
 	newbutton.addEventListener("click",newData);
 	tmpEl.appendChild(newbutton);
 	
-	var tltable = document.createElement("tab-dn");
-	tltable.setAttribute("src","tffyz");
-	tltable.style.display = "inline-block";
-	tltable.style.background = "white";
-	tltable.id = Math.random().toString(36).substring(5, 10);
-	tmpEl.appendChild(tltable);
-	
 	var alltables = document.createElement("select");
 		var onetable = document.createElement("option");
 		onetable.setAttribute("value",tltable.id);
@@ -97,6 +90,15 @@ function createPerm(tmpEl) {
 		alltables.appendChild(onetable);
 	alltables.addEventListener("change",switchTab);
 	tmpEl.appendChild(alltables);
+	
+	var tltable = document.createElement("tab-dn");
+	tltable.setAttribute("src","tffyz");
+	tltable.style.display = "inline-block";
+	tltable.style.background = "white";
+	tltable.id = Math.random().toString(36).substring(5, 10);
+	tmpEl.appendChild(tltable);
+	
+	
 	
 }
 function createTmp(allElements) {
