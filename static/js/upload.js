@@ -10,12 +10,12 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 			partarray = new Uint8Array(partBuffer)
 		var partstr = new TextDecoder("utf-8").decode(partarray);
 		var datatypes = toTable(partstr);
-		
+		fullCompression(ffile,[]);
 		
 		
 	}
 	readerP.readAsArrayBuffer(ffile.slice(0,10000));
-	fullCompression(ffile,[]);
+	
 	
 	
 	
