@@ -1,5 +1,5 @@
 document.querySelector('#to-compress').addEventListener('change', function(inp) {
-	var readerP = new FileReaderSync();
+	var readerP = new FileReader();
 	var ffile = this.files[0];
 	readerP.onload = function() {
 		console.log(inp.target.id)
