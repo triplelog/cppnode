@@ -7,14 +7,14 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 
 		console.log("Compressing")
 		
-		var partBuffer = this.result,
+		var partBuffer = this.result.slice(0,10000),
 			partarray = new Uint8Array(partBuffer)
 		var partstr = new TextDecoder("utf-8").decode(partarray);
 		datatypes = toTable(partstr);
-		readerF.readAsArrayBuffer(this.files[0]);
+		readerF.readAsArrayBuffer(this.result);
 		
 	}
-	readerP.readAsArrayBuffer(this.files[0].slice(0,10000));
+	readerP.readAsArrayBuffer(this.files[0]);
 	
 	
 	readerF.onload = function() {
