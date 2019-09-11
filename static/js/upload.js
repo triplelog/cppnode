@@ -1,5 +1,5 @@
 document.querySelector('#to-compress').addEventListener('change', function(inp) {
-	var readerP = new FileReader();
+	var readerP = new FileReaderSync();
 	var ffile = this.files[0];
 	readerP.onload = function() {
 		console.log(inp.target.id)
@@ -10,7 +10,7 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 			partarray = new Uint8Array(partBuffer)
 		var partstr = new TextDecoder("utf-8").decode(partarray);
 		var datatypes = toTable(partstr);
-		//fullCompression(ffile,[]);
+		fullCompression(ffile,[]);
 		
 		
 	}
