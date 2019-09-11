@@ -83,7 +83,7 @@ function toTable(input_str){
 						tr.appendChild(td);
 						datatypes.push({});
 					}
-				thead.appendChild(tr);
+				//thead.appendChild(tr);
 			table.appendChild(thead);
 			var tbody = document.createElement("tbody");
 				for (var ii=1;ii<data.data.length-1;ii++) {
@@ -139,7 +139,8 @@ function toTable(input_str){
 		th.classList.add('rotate');
 		newRow.appendChild(th);
 	}
-	thead.insertBefore(newRow, thead.childNodes[0]);
+	//thead.insertBefore(newRow, thead.childNodes[0]);
+	thead.appendChild(newRow);
 
 	return ctypestr;
 }
