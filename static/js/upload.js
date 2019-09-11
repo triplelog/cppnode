@@ -10,6 +10,7 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 		var partstr = new TextDecoder("utf-8").decode(partarray);
 		var datatypes = toTable(partstr);
 		
+		/*
 		var arrayBuffer = this.result,
 			array = new Uint8Array(arrayBuffer)
 		var original_size = array.length
@@ -45,8 +46,10 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 		
 		
 		return xmlHttp.responseText;
+		*/
 	}
-	reader.readAsArrayBuffer(this.files[0]);
+	reader.readAsArrayBuffer(this.files[0].slice(0,10000));
+	//reader.readAsArrayBuffer(this.files[0]);
 }, false);
 
 function createConfirmForm(filen,ctypestr){
