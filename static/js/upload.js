@@ -1,19 +1,20 @@
 document.querySelector('#to-compress').addEventListener('change', function(inp) {
 	var readerP = new FileReader();
+	var datatypes;
 	readerP.onload = function() {
 		console.log(inp.target.id)
 
 		console.log("Compressing")
 		
-		var partBuffer = this.result.slice(0,10000),
+		var partBuffer = this.result,
 			partarray = new Uint8Array(partBuffer)
 		var partstr = new TextDecoder("utf-8").decode(partarray);
-		var datatypes = toTable(partstr);
+		datatypes = toTable(partstr);
 		
 		
 	}
 	readerP.readAsArrayBuffer(this.files[0].slice(0,10000));
-	/*
+	
 	var readerF = new FileReader();
 	readerF.onload = function() {
 		console.log(inp.target.id)
@@ -51,7 +52,7 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 		return xmlHttp.responseText;
 	}
 	readerF.readAsArrayBuffer(this.files[0]);
-	*/
+	
 }, false);
 
 function createConfirmForm(filen,ctypestr){
