@@ -13,7 +13,7 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 		
 	}
 	readerP.readAsArrayBuffer(this.files[0].slice(0,10000));
-	
+	/*
 	var readerF = new FileReader();
 	readerF.onload = function() {
 		console.log(inp.target.id)
@@ -51,6 +51,7 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 		return xmlHttp.responseText;
 	}
 	readerF.readAsArrayBuffer(this.files[0]);
+	*/
 }, false);
 
 function createConfirmForm(filen,ctypestr){
