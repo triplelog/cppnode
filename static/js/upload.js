@@ -1,7 +1,6 @@
 document.querySelector('#to-compress').addEventListener('change', function(inp) {
 	var readerP = new FileReader();
-	var datatypes;
-	var readerF = new FileReader();
+	
 	readerP.onload = function() {
 		console.log(inp.target.id)
 
@@ -10,13 +9,21 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 		var partBuffer = this.result.slice(0,10000),
 			partarray = new Uint8Array(partBuffer)
 		var partstr = new TextDecoder("utf-8").decode(partarray);
-		datatypes = toTable(partstr);
-		this.readerF.readAsArrayBuffer(this.result);
+		var datatypes = toTable(partstr);
+		fullCompression(this.result,datatypes);
+		
 		
 	}
 	readerP.readAsArrayBuffer(this.files[0]);
 	
 	
+	
+	
+	
+}, false);
+
+function fullCompression(to_compress,datatypes) {
+	var readerF = new FileReader();
 	readerF.onload = function() {
 		console.log(inp.target.id)
 
@@ -52,10 +59,8 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 		
 		return xmlHttp.responseText;
 	}
-	
-	
-}, false);
-
+	readerF.readAsArrayBuffer(to_compress);
+}
 function createConfirmForm(filen,ctypestr){
 	var form = document.createElement("form");
 	form.setAttribute("action","/savefile?n="+filen);
