@@ -11,7 +11,7 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 			partarray = new Uint8Array(partBuffer)
 		var partstr = new TextDecoder("utf-8").decode(partarray);
 		datatypes = toTable(partstr);
-		readerF.readAsArrayBuffer(this.result);
+		this.readerF.readAsArrayBuffer(this.result);
 		
 	}
 	readerP.readAsArrayBuffer(this.files[0]);
