@@ -130,12 +130,16 @@ function toTable(input_str){
 	}
 	var newRow = document.createElement('tr');
 	for (var i=0;i<cheaders.length;i++){
-		var td = document.createElement("th");
-		td.textContent = cheaders[i];
-		newRow.appendChild(td);
+		var th = document.createElement("th");
+		var tdiv = document.createElement("div");
+		var tspan = document.createElement("span");
+		tspan.textContent = cheaders[i];
+		tdiv.appendChild(tspan);
+		th.appendChild(tdiv);
+		th.classList.add('rotate');
+		newRow.appendChild(th);
 	}
 	thead.insertBefore(newRow, thead.childNodes[0]);
-	//<th class="rotate"><div><span>Column header 1</span></div></th>
 
 	return ctypestr;
 }
