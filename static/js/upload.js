@@ -26,8 +26,6 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 function fullCompression(to_compress,datatypes) {
 	var readerF = new FileReader();
 	readerF.onload = function() {
-		console.log(inp.target.id)
-
 		console.log("Compressing")
 		
 		var arrayBuffer = this.result,
