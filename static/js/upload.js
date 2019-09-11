@@ -1,6 +1,6 @@
 document.querySelector('#to-compress').addEventListener('change', function(inp) {
 	var readerP = new FileReader();
-	
+	var ffile = this.files[0];
 	readerP.onload = function() {
 		console.log(inp.target.id)
 
@@ -14,8 +14,8 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 		
 		
 	}
-	readerP.readAsArrayBuffer(this.files[0].slice(0,10000));
-	fullCompression(this.files[0],[]);
+	readerP.readAsArrayBuffer(ffile.slice(0,10000));
+	fullCompression(ffile,[]);
 	
 	
 	
