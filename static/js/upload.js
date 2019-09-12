@@ -11,7 +11,7 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 			partarray = new Uint8Array(partBuffer)
 		var partstr = new TextDecoder("utf-8").decode(partarray);
 		var ctypestr = toTable(partstr);
-		var syncWorker = new Worker('uploadworker.js');
+		var syncWorker = new Worker('js/uploadworker.js');
 		syncWorker.postMessage(ffile);
 		//fullCompression(ffile,ctypestr);
 		syncWorker.onmessage = function(e) {
