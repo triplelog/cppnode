@@ -3,33 +3,28 @@
 self.addEventListener('message', function(e) {
     var data=e.data;
     try {
-    	/*
-        var readerF = new FileReader();
-		readerF.onload = function() {
+    	
+        var readerP = new FileReader();
+	
+		readerP.onload = function() {
+			console.log(inp.target.id)
+
 			console.log("Compressing")
 		
-			var arrayBuffer = this.result,
-				array = new Uint8Array(arrayBuffer)
-			var original_size = array.length
-
-			var array = flate.deflate_encode_raw(array)
-			var compressed_size = array.length
-			//console.log(original_size, compressed_size)
-
-			var xmlHttp = new XMLHttpRequest();
-			xmlHttp.open("POST", "/uploadfile", false); // false for synchronous request
-			xmlHttp.send(array);
-			var filen = xmlHttp.responseText;	
+			var partBuffer = this.result,
+				partarray = new Uint8Array(partBuffer)
+			var partstr = new TextDecoder("utf-8").decode(partarray);
+		
 			postMessage({
-				result: 'done',
-				filen: filen
+				result: partstr
 			});
+		
+		
+		
 		}
-		readerF.readAsArrayBuffer(data);
-		*/
-		postMessage({
-				result: 'done'
-			});
+		readerP.readAsArrayBuffer(data.slice(0,10000));
+		
+		
         
    } catch(e){
         postMessage({

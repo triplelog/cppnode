@@ -1,31 +1,43 @@
 document.querySelector('#to-compress').addEventListener('change', function(inp) {
 	
-	var readerP = new FileReader();
+	var syncWorker = new Worker('js/uploadworker.js');
 	var ffile = this.files[0];
-	readerP.onload = function() {
-		console.log(inp.target.id)
-
-		console.log("Compressing")
+	syncWorker.postMessage(ffile);
+	syncWorker.onmessage = function(e) {
+		console.log(e.data.result);
+		var ctypestr = toTable(e.data.result);
 		
-		var partBuffer = this.result,
-			partarray = new Uint8Array(partBuffer)
-		var partstr = new TextDecoder("utf-8").decode(partarray);
-		var ctypestr = toTable(partstr);
-		var syncWorker = new Worker('js/uploadworker.js');
-		syncWorker.postMessage(ffile);
-		//fullCompression(ffile,ctypestr);
-		syncWorker.onmessage = function(e) {
-			console.log(e.data.result);
-			//createConfirmForm(e.data.filen,e.data.result);
-		};
-		
-	}
-	readerP.readAsArrayBuffer(ffile.slice(0,10000));
+		var filen = fullCompression(ffile,ctypestr);
+		createConfirmForm(filen,ctypestr);
+	};
+	
 
 	
 	
 }, false);
 
+
+function fullCompression(to_compress,ctypestr) {
+	var readerF = new FileReader();
+	readerF.onload = function() {
+		console.log("Compressing")
+	
+		var arrayBuffer = this.result,
+			array = new Uint8Array(arrayBuffer)
+		var original_size = array.length
+
+		var array = flate.deflate_encode_raw(array)
+		var compressed_size = array.length
+		//console.log(original_size, compressed_size)
+
+		var xmlHttp = new XMLHttpRequest();
+		xmlHttp.open("POST", "/uploadfile", false); // false for synchronous request
+		xmlHttp.send(array);
+		var filen = xmlHttp.responseText;	
+		return filen;
+	}
+	readerF.readAsArrayBuffer(to_compress);
+}
 
 
 function createConfirmForm(filen,ctypestr){
