@@ -7,7 +7,6 @@ self.addEventListener('message', function(e) {
         var readerP = new FileReader();
 	
 		readerP.onload = function() {
-			console.log(inp.target.id)
 
 			console.log("Compressing")
 		
