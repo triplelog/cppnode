@@ -4,11 +4,10 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 	var ffile = this.files[0];
 	syncWorker.postMessage(ffile);
 	syncWorker.onmessage = function(e) {
-		console.log(e.data.result);
 		var ctypestr = toTable(e.data.result);
 		
-		var filen = fullCompression(ffile,ctypestr);
-		createConfirmForm(filen,ctypestr);
+		//var filen = fullCompression(ffile,ctypestr);
+		//createConfirmForm(filen,ctypestr);
 	};
 	
 
