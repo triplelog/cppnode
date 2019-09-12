@@ -5,9 +5,7 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 	syncWorker.postMessage(ffile);
 	syncWorker.onmessage = function(e) {
 		var ctypestr = toTable(e.data.result);
-		
-		var filen = fullCompression(ffile,ctypestr);
-		createConfirmForm(filen,ctypestr);
+		setTimeout(100,fullCompression,ffile,ctypestr);
 	};
 	
 
@@ -33,7 +31,7 @@ function fullCompression(to_compress,ctypestr) {
 		xmlHttp.open("POST", "/uploadfile", false); // false for synchronous request
 		xmlHttp.send(array);
 		var filen = xmlHttp.responseText;	
-		return filen;
+		createConfirmForm(filen,ctypestr);
 	}
 	readerF.readAsArrayBuffer(to_compress);
 }
