@@ -2,11 +2,12 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 	
 	var syncWorker = new Worker('js/uploadworker.js');
 	var ffile = this.files[0];
+	var ctypestr;
 	syncWorker.postMessage(ffile);
 	syncWorker.onmessage = function(e) {
-		var ctypestr = toTable(e.data.result);
-		setTimeout(fullCompression,100,ffile,ctypestr);
+		ctypestr = toTable(e.data.result);
 	};
+	setTimeout(fullCompression,1000,ffile,ctypestr);
 	
 
 	

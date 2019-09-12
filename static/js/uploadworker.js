@@ -3,7 +3,6 @@
 self.addEventListener('message', function(e) {
     var data=e.data;
     try {
-    	
         var readerP = new FileReader();
 	
 		readerP.onload = function() {
@@ -18,13 +17,9 @@ self.addEventListener('message', function(e) {
 				result: partstr
 			});
 		
-		
-		
 		}
 		readerP.readAsArrayBuffer(data.slice(0,10000));
-		
-		
-        
+
    } catch(e){
         postMessage({
             result:'error'
