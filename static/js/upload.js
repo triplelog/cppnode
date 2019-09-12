@@ -21,10 +21,7 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 		
 	}
 	readerP.readAsArrayBuffer(ffile.slice(0,10000));
-	
-	
-	
-	
+
 	
 	
 }, false);
