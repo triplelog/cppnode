@@ -15,8 +15,8 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 		syncWorker.postMessage(ffile);
 		//fullCompression(ffile,ctypestr);
 		syncWorker.onmessage = function(e) {
-			console.log(e.data.filen,e.data.result);
-			createConfirmForm(e.data.filen,e.data.result);
+			console.log(e.data.result);
+			//createConfirmForm(e.data.filen,e.data.result);
 		};
 		
 	}

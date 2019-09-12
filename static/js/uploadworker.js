@@ -3,6 +3,7 @@ importScripts('https://unpkg.com/wasm-flate@0.1.11-alpha/dist/bootstrap.js');
 self.addEventListener('message', function(e) {
     var data=e.data;
     try {
+    	/*
         var readerF = new FileReader();
 		readerF.onload = function() {
 			console.log("Compressing")
@@ -25,6 +26,10 @@ self.addEventListener('message', function(e) {
 			});
 		}
 		readerF.readAsArrayBuffer(data);
+		*/
+		postMessage({
+				result: 'done'
+			});
         
    } catch(e){
         postMessage({
