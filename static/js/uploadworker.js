@@ -20,8 +20,8 @@ self.addEventListener('message', function(e) {
 			xmlHttp.send(array);
 			var filen = xmlHttp.responseText;	
 			postMessage({
-				result: 'done';
-				filen: filen;
+				result: 'done',
+				filen: filen
 			});
 		}
 		readerF.readAsArrayBuffer(data);
