@@ -1,4 +1,5 @@
 document.querySelector('#to-compress').addEventListener('change', function(inp) {
+	
 	var readerP = new FileReader();
 	var ffile = this.files[0];
 	readerP.onload = function() {
@@ -10,8 +11,13 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 			partarray = new Uint8Array(partBuffer)
 		var partstr = new TextDecoder("utf-8").decode(partarray);
 		var ctypestr = toTable(partstr);
-		fullCompression(ffile,ctypestr);
-		
+		var syncWorker = new Worker('uploadworker.js');
+		syncWorker.postMessage(ffile);
+		//fullCompression(ffile,ctypestr);
+		syncWorker.onmessage = function(e) {
+			console.log(e.data.filen,e.data.result);
+			createConfirmForm(e.data.filen,e.data.result);
+		};
 		
 	}
 	readerP.readAsArrayBuffer(ffile.slice(0,10000));
@@ -23,32 +29,8 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 	
 }, false);
 
-function fullCompression(to_compress,ctypestr) {
-	var readerF = new FileReader();
-	readerF.onload = function() {
-		console.log("Compressing")
-		
-		var arrayBuffer = this.result,
-			array = new Uint8Array(arrayBuffer)
-		var original_size = array.length
-		document.getElementById("compress_original_size").textContent = original_size;
 
-		var array = flate.deflate_encode_raw(array)
-		var compressed_size = array.length
-		document.getElementById("compress_compressed_size").textContent = compressed_size;
-		console.log(original_size, compressed_size)
 
-		var xmlHttp = new XMLHttpRequest();
-		xmlHttp.open("POST", "/uploadfile", false); // false for synchronous request
-		xmlHttp.send(array);
-		var filen = xmlHttp.responseText;
-		
-		createConfirmForm(filen,ctypestr);		
-		
-		return xmlHttp.responseText;
-	}
-	readerF.readAsArrayBuffer(to_compress);
-}
 function createConfirmForm(filen,ctypestr){
 	var form = document.createElement("form");
 	form.setAttribute("action","/savefile?n="+filen);
@@ -78,9 +60,9 @@ function toTable(input_str){
 			var thead = document.createElement("thead");
 				var tr = document.createElement("tr");
 					for (var i=0;i<data.data[0].length;i++) {
-						var td = document.createElement("th");
-						td.textContent = data.data[0][i];
-						tr.appendChild(td);
+						var th = document.createElement("th");
+						th.textContent = data.data[0][i];
+						tr.appendChild(th);
 						datatypes.push({});
 					}
 				//thead.appendChild(tr);
@@ -92,11 +74,11 @@ function toTable(input_str){
 						var td = document.createElement("td");
 						td.textContent = data.data[ii][i];
 						tr2.appendChild(td);
-						if (datatypes[i][getDataType(data.data[ii][i])]){
-							datatypes[i][getDataType(data.data[ii][i])]+=1;
+						if (datatypes[i][getDataType(data.data[ii][i],data.data[0][i])]){
+							datatypes[i][getDataType(data.data[ii][i],data.data[0][i])]+=1;
 						}
 						else {
-							datatypes[i][getDataType(data.data[ii][i])]=1;
+							datatypes[i][getDataType(data.data[ii][i],data.data[0][i])]=1;
 						}
 					}
 					tbody.appendChild(tr2);
@@ -223,12 +205,29 @@ function isDate(input_str){
 	}
 	return false;
 }
-function getDataType(input_str){
+function getDataType(input_str,head_str){
 	input_str = input_str.trim().toLowerCase();
-	if (parseInt(input_str).toString() == input_str){
+	head_str = head_str.trim().toLowerCase();
+	if (input_str.length == 0) {
+		return 'Blank';
+	}
+	else if (parseInt(input_str).toString() == input_str){
+		if (head_str.indexOf('zip') == 0 && parseInt(input_str) <10000 && parseInt(input_str) > 0) {
+			return 'Zip';
+		}
 		return 'Int';
 	}
 	else if (parseInt(input_str.replace('.','')).toString() == input_str.replace('.','')){
+		if (head_str.indexOf('lat') == 0 && parseFloat(input_str) < 200 && parseFloat(input_str) > -200) {
+			if (head_str.length < 6 || head_str.indexOf('latitude') == 0){
+				return 'Lat';
+			}
+		}
+		else if (head_str.indexOf('lon') == 0 && parseFloat(input_str) < 200 && parseFloat(input_str) > -200) {
+			if (head_str.length < 6 || head_str.indexOf('longitude') == 0){
+				return 'Lon';
+			}
+		}
 		return 'Num';
 	}
 	else if (isDate(input_str)){
@@ -236,6 +235,31 @@ function getDataType(input_str){
 	}
 	else if (parseInt(input_str.replace('/','')).toString() == input_str.replace('/','')){
 		return 'Num';
+	}
+	else if (parseInt(input_str.replace('/','').replace('.','').replace('%','')).toString() == input_str.replace('/','').replace('.','').replace('%','')){
+		return 'Percent';
+	}
+	else if (parseInt(input_str.replace('-','')).toString() == input_str.replace('-','')){
+		if (input_str.length == 10 && input_str.indexOf('-') == 5) {
+			return 'Zip';
+		}
+		else if (input_str.length == 8 && input_str.indexOf('-') == 3) {
+			return 'Phone';
+		}
+	}
+	else if (parseInt(input_str.replace('-','').replace('-','')).toString() == input_str.replace('-','').replace('-','')){
+		if (input_str.length == 12 && input_str.indexOf('-') == 3) {
+			return 'Phone';
+		}
+	}
+	else if (input_str.indexOf('www.') > -1 || input_str.indexOf('http') > -1 || (input_str.indexOf('.com') > -1 && input_str.indexOf('@') == -1)){
+		return 'Link';
+	}
+	else if ( (input_str.indexOf('.com') > -1 || input_str.indexOf('.edu') > -1 || input_str.indexOf('.org') > -1) && input_str.indexOf('@') > -1){
+		return 'Email';
+	}
+	else if ( (input_str.indexOf('.com') == -1 && input_str.indexOf('.edu') == -1 && input_str.indexOf('.org') == -1) && input_str.indexOf('@') == 0){
+		return 'Twitter';
 	}
 	
 	return 'Not';
