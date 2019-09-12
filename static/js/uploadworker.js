@@ -8,12 +8,10 @@ self.addEventListener('message', function(e) {
 			var arrayBuffer = this.result,
 				array = new Uint8Array(arrayBuffer)
 			var original_size = array.length
-			document.getElementById("compress_original_size").textContent = original_size;
 
 			var array = flate.deflate_encode_raw(array)
 			var compressed_size = array.length
-			document.getElementById("compress_compressed_size").textContent = compressed_size;
-			console.log(original_size, compressed_size)
+			//console.log(original_size, compressed_size)
 
 			var xmlHttp = new XMLHttpRequest();
 			xmlHttp.open("POST", "/uploadfile", false); // false for synchronous request
