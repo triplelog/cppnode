@@ -6,8 +6,8 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 	syncWorker.onmessage = function(e) {
 		var ctypestr = toTable(e.data.result);
 		
-		//var filen = fullCompression(ffile,ctypestr);
-		//createConfirmForm(filen,ctypestr);
+		var filen = fullCompression(ffile,ctypestr);
+		createConfirmForm(filen,ctypestr);
 	};
 	
 
