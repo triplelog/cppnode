@@ -5,7 +5,7 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 	syncWorker.postMessage(ffile);
 	syncWorker.onmessage = function(e) {
 		var ctypestr = toTable(e.data.result);
-		setTimeout(100,fullCompression,ffile,ctypestr);
+		fullCompression(ffile,ctypestr);
 	};
 	
 
