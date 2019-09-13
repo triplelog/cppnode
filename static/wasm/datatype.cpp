@@ -46,7 +46,7 @@ char* trim(char* x) {
 */
 
 char* getType(char* x) {
-	char* out; int i;
+	char str[] = "Hello World"; int i;
 	/*
 	while (*x){
 		if (i == 0 && *x == ' '){}
@@ -55,7 +55,7 @@ char* getType(char* x) {
 		*x++;
 	}
 	*/
-	strcpy(out,"hi");
+	char* out = str;
 	/*
     input_str = input_str.trim().toLowerCase();
 	head_str = head_str.trim().toLowerCase();
