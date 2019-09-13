@@ -1,8 +1,9 @@
 var ctypestr = "";
 var filen = "";
+var syncWorker = new Worker('wasm/uploadworker.js');
 document.querySelector('#to-compress').addEventListener('change', function(inp) {
 	
-	var syncWorker = new Worker('wasm/uploadworker.js');
+	
 	var ffile = this.files[0];
 	syncWorker.postMessage(ffile);
 	syncWorker.onmessage = function(e) {

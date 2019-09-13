@@ -1,8 +1,4 @@
-
-
-self.addEventListener('message', function(e) {
-    var data=e.data;
-    var Module = {
+var Module = {
 		preRun: [],
 		postRun: [],
 		setStatus: function(text) {
@@ -26,6 +22,10 @@ self.addEventListener('message', function(e) {
 	};
 	Module.setStatus('Downloading...');
 	importScripts('datatype.js');
+
+self.addEventListener('message', function(e) {
+    var data=e.data;
+    
 	
     try {
         var readerP = new FileReader();
