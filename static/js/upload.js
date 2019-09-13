@@ -9,7 +9,7 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 		ctypestr = toTable(e.data.result);
 		//if (filen != ""){createConfirmForm();}
 	};
-	setTimeout(fullCompression,1000,ffile);
+	setTimeout(fullCompression,10,ffile);
 	
 
 	
