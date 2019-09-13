@@ -65,7 +65,7 @@
     <script>
     	
     	document.querySelector('.mybutton').addEventListener('click', function() {
-    		int_sqrt = Module.cwrap('int_sqrt', 'number', ['number']);
+    		int_sqrt = Module.cwrap('int_sqrt', 'string', ['string']);
 			console.log(int_sqrt(25));
 	  });
     </script>

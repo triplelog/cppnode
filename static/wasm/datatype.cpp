@@ -38,8 +38,8 @@ int main(int argc, char *argv[]) {
 
 extern "C" {
 
-int int_sqrt(int x) {
-  return sqrt(x);
+std::string int_sqrt(std::string x) {
+  return x;
 }
 
 }
