@@ -39,14 +39,14 @@ int main(int argc, char *argv[]) {
 extern "C" {
 
 
-char* trim(char* x) {
+char* trim(const char* xx) {
 	char *str = "xxxxx"; int i;
 	char *out = str;
-	while (*x){
-		if (i == 0 && *x == ' '){}
-		else if (i == 0 && *x == '\t'){}
-		else {out[i] = *x; i++;}
-		x++;
+	while (*xx){
+		if (i == 0 && *xx == ' '){}
+		else if (i == 0 && *xx == '\t'){}
+		else {out[i] = *xx; i++;}
+		xx++;
 	}
 	out[i] = '\0';
 	return out;
