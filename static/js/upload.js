@@ -1,13 +1,15 @@
+var ctypestr = "";
+var filen = "";
 document.querySelector('#to-compress').addEventListener('change', function(inp) {
 	
 	var syncWorker = new Worker('js/uploadworker.js');
 	var ffile = this.files[0];
-	var ctypestr;
 	syncWorker.postMessage(ffile);
 	syncWorker.onmessage = function(e) {
 		ctypestr = toTable(e.data.result);
+		if (filen != ""){createConfirmForm();}
 	};
-	setTimeout(fullCompression,1000,ffile,ctypestr);
+	setTimeout(fullCompression,10,ffile,ctypestr);
 	
 
 	
@@ -31,14 +33,15 @@ function fullCompression(to_compress,ctypestr) {
 		var xmlHttp = new XMLHttpRequest();
 		xmlHttp.open("POST", "/uploadfile", false); // false for synchronous request
 		xmlHttp.send(array);
-		var filen = xmlHttp.responseText;	
-		createConfirmForm(filen,ctypestr);
+		filen = xmlHttp.responseText;
+		if (ctypestr != ""){createConfirmForm();}
+		
 	}
 	readerF.readAsArrayBuffer(to_compress);
 }
 
 
-function createConfirmForm(filen,ctypestr){
+function createConfirmForm(){
 	var form = document.createElement("form");
 	form.setAttribute("action","/savefile?n="+filen);
 	form.setAttribute("method","post");
