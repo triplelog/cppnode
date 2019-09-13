@@ -53,7 +53,7 @@ char* getType(char* x) {
 		//else {out[i] = *x; i++;}
 		*x++;
 	}
-	out = "hi";
+	strcpy(out,"hi");
 	/*
     input_str = input_str.trim().toLowerCase();
 	head_str = head_str.trim().toLowerCase();
