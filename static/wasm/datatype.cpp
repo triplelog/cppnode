@@ -47,12 +47,14 @@ char* trim(char* x) {
 
 char* getType(char* x) {
 	char* out; int i;
+	/*
 	while (*x){
 		if (i == 0 && *x == ' '){}
 		else if (i == 0 && *x == '\t'){}
 		//else {out[i] = *x; i++;}
 		*x++;
 	}
+	*/
 	strcpy(out,"hi");
 	/*
     input_str = input_str.trim().toLowerCase();
