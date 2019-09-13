@@ -46,14 +46,14 @@ char* trim(char* x) {
 */
 
 char* getType(char* x) {
-	char out[10]; int i;
+	char* out; int i;
 	while (*x){
 		if (i == 0 && *x == ' '){}
 		else if (i == 0 && *x == '\t'){}
-		else {out[i] = *x; i++;}
+		//else {out[i] = *x; i++;}
 		*x++;
 	}
-	out[i] = '\0';
+	out = "hi";
 	/*
     input_str = input_str.trim().toLowerCase();
 	head_str = head_str.trim().toLowerCase();
@@ -111,7 +111,7 @@ char* getType(char* x) {
 		return 'Twitter';
 	}
 	*/
-	return *out;
+	return out;
 }
 
 
