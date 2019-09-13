@@ -48,12 +48,13 @@ char* trim(char* x) {
 char* getType(char* x) {
 	char* out[10]; int i;
 	while (*x){
-		if (i == 0 && *x == ' '){}
-		else if (i == 0 && *x == '\t'){}
-		else {out[i] = *x; i++;}
+		//if (i == 0 && *x == ' '){}
+		//else if (i == 0 && *x == '\t'){}
+		//else {out[i] = *x; i++;}
 		*x++;
 	}
-	out[i] = '\0';
+	out[0] = 'a';
+	out[1] = '\0';
 	/*
     input_str = input_str.trim().toLowerCase();
 	head_str = head_str.trim().toLowerCase();
