@@ -46,7 +46,7 @@ char* trim(char* x) {
 */
 
 char* getType(char* x) {
-	char str[] = "Hello World"; int i;
+	char str[12] = "Hello World"; int i;
 	/*
 	while (*x){
 		if (i == 0 && *x == ' '){}
@@ -113,7 +113,7 @@ char* getType(char* x) {
 		return 'Twitter';
 	}
 	*/
-	return out;
+	return *out;
 }
 
 
