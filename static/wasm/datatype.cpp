@@ -40,6 +40,11 @@ extern "C" {
 
 
 char* trim(const char *xx) {
+	
+}
+
+
+char* getType(char* x) {
 	char *str = "xxxxx"; int i;
 	char *out = str;
 	while (*xx){
@@ -50,12 +55,6 @@ char* trim(const char *xx) {
 	}
 	out[i] = '\0';
 	return out;
-}
-
-
-char* getType(char* x) {
-	char *xx = x;
-	return trim(xx);
 	/*
     input_str = input_str.trim().toLowerCase();
 	head_str = head_str.trim().toLowerCase();
