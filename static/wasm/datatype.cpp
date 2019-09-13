@@ -55,7 +55,6 @@ char* trim(char* x) {
 
 char* getType(char* x) {
 	
-	x = trim(x);
 	
 	/*
     input_str = input_str.trim().toLowerCase();
@@ -114,7 +113,7 @@ char* getType(char* x) {
 		return 'Twitter';
 	}
 	*/
-	return x;
+	return trim(x);
 }
 
 
