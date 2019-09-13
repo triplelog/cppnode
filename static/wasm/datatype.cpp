@@ -41,9 +41,10 @@ extern "C" {
 char* trim(char* x) {
 	char* out; int i;
 	while (*x){
-		if (i == 0 && *x == ' '){i = 0; *x++;}
-		else if (i == 0 && *x == '\t'){i = 0; *x++; }
+		if (i == 0 && *x == ' '){}
+		else if (i == 0 && *x == '\t'){}
 		else {out[i] = *x; i++;}
+		*x++;
 	}
 	out[i] = '\0';
 	return out;
