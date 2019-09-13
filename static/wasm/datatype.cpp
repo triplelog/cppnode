@@ -46,12 +46,13 @@ char* trim(char* x) {
 
 char* getType(char* x) {
 	
-	char *str = "xxxxx"; int i = 0; int ii; int qc;
+	char *str = "xxxxxxxxxx"; int i = 0; int ii; int qc;
 	char *out = str;
 	char * t;
 	bool chg = true;
 	do {
 		chg = false;
+		qc = 0;
 		for (t = x; *t != '\0'; t++){
 			if (i == 0 && *t == ' '){chg = true;}
 			else if (i == 0 && *t == '\t'){chg = true;}
@@ -70,7 +71,7 @@ char* getType(char* x) {
 			}
 		}
 		if (ii != i){chg = true;}
-		if (ii == qc){out[0] = ' '; out[ii-1] = '\0'; chg = true;}
+		if (ii == qc){out[0] = ' '; out[ii-1] = ' '; chg = true;}
 		else {out[ii] = '\0';}
 		x = out;
 		out = str;
