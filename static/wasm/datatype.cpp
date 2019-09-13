@@ -73,7 +73,7 @@ char* getType(char* x) {
 			}
 		}
 		if (ii != i){chg = true;}
-		if (ii == qc){out[0] = ' '; out[ii-1] = ' '; chg = true;}
+		if (ii == qc){out[0] = ' '; out[ii-1] = '\0'; chg = true;}
 		else {out[ii] = '\0';}
 		x = out;
 		out = str;
