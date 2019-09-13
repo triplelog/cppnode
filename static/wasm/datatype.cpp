@@ -49,22 +49,28 @@ char* getType(char* x) {
 	char *str = "xxxxx"; int i = 0; int ii;
 	char *out = str;
 	char * t;
-	for (t = x; *t != '\0'; t++){
-		if (i == 0 && *t == ' '){}
-		else if (i == 0 && *t == '\t'){}
-		else {
-			out[i] = *t;
-			i++;
-			if (*t == ' ' || *t == '\t'){
-			}
+	bool chg = true;
+	do {
+		chg = false;
+		for (t = x; *t != '\0'; t++){
+			if (i == 0 && *t == ' '){chg = true;}
+			else if (i == 0 && *t == '\t'){chg = true;}
 			else {
-				ii = i;
-			}
+				out[i] = *t;
+				i++;
+				if (*t == ' ' || *t == '\t'){
+				}
+				else {
+					ii = i;
+				}
 			
+			}
 		}
-	}
-	out[ii] = '\0';
-	x = out;
+		if (ii != i){chg = true;}
+		out[ii] = '\0';
+		x = out;
+		out = str;
+	} while (chg);
 	return x;
 	/*
     input_str = input_str.trim().toLowerCase();
