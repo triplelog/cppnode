@@ -113,7 +113,7 @@ char* getType(char* x) {
 		return 'Twitter';
 	}
 	*/
-	return &out;
+	return &str;
 }
 
 
