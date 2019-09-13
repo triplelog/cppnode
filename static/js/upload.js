@@ -9,7 +9,7 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 		ctypestr = toTable(e.data.result);
 		//if (filen != ""){createConfirmForm();}
 	};
-	setTimeout(fullCompression,1000,ffile,ctypestr);
+	setTimeout(fullCompression,1000,ffile);
 	
 
 	
@@ -17,7 +17,7 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 }, false);
 
 
-function fullCompression(to_compress,ctypestr) {
+function fullCompression(to_compress) {
 	var readerF = new FileReader();
 	readerF.onload = function() {
 		console.log("Compressing")
