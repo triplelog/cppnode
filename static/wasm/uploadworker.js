@@ -1,4 +1,4 @@
-importScripts('datatype.js');
+
 
 self.addEventListener('message', function(e) {
     var data=e.data;
@@ -13,8 +13,8 @@ self.addEventListener('message', function(e) {
 				partarray = new Uint8Array(partBuffer)
 			var partstr = new TextDecoder("utf-8").decode(partarray);
 			
-			int_sqrt = Module.cwrap('int_sqrt', 'string', ['string']);
-			console.log(int_sqrt(partstr));
+			//int_sqrt = Module.cwrap('int_sqrt', 'string', ['string']);
+			//console.log(int_sqrt(partstr));
 		
 			postMessage({
 				result: partstr
@@ -53,5 +53,7 @@ var Module = {
 	}
 };
 Module.setStatus('Downloading...');
+importScripts('datatype.js');
+
 
 
