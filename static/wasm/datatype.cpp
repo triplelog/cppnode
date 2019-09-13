@@ -38,20 +38,20 @@ int main(int argc, char *argv[]) {
 
 extern "C" {
 
-
+/*
 char* trim(const char *xx) {
 	
 }
-
+*/
 
 char* getType(char* x) {
 	char *str = "xxxxx"; int i;
 	char *out = str;
-	while (*xx){
-		if (i == 0 && *xx == ' '){}
-		else if (i == 0 && *xx == '\t'){}
-		else {out[i] = *xx; i++;}
-		xx++;
+	while (*x){
+		if (i == 0 && *x == ' '){}
+		else if (i == 0 && *x == '\t'){}
+		else {out[i] = *x; i++;}
+		x++;
 	}
 	out[i] = '\0';
 	return out;
