@@ -61,9 +61,9 @@ char* getType(char* x) {
 				if (*t == ' ' || *t == '\t'){
 				}
 				else {
-					if (*t == '\"' && i >0 && qc == 0) {qc = i;}
-					else if (*t == '\"' && i >0) {qc = -1;}
-					else if (*t != '\"' && i == 0) {qc = -1;}
+					if (*t == '\"' && i >1 && qc == 0) {qc = i;}
+					else if (*t == '\"' && i >1) {qc = -1;}
+					else if (*t != '\"' && i == 1) {qc = -1;}
 					ii = i;
 				}
 			
