@@ -49,9 +49,9 @@ char* getType(char* x) {
 	char *out = str;
 	char * t;
 	for (t = x; *t != '\0'; t++){
-		if (i == 0 && t == 'd'){}
-		else if (i == 0 && t == '\t'){}
-		else {out[i] = t; i++;}
+		if (i == 0 && *t == 'd'){}
+		else if (i == 0 && *t == '\t'){}
+		else {out[i] = *t; i++;}
 	}
 	ii = i-1;
 	if (ii == -1) {out[0] = '\0';}
