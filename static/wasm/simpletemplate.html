@@ -65,9 +65,9 @@
     <script>
     	
     	document.querySelector('.mybutton').addEventListener('click', function() {
-    		int_sqrt = Module.cwrap('int_sqrt', 'string', ['string']);
+    		int_sqrt = Module.cwrap('getType', 'string', ['string']);
     		var element = document.getElementById('output');
-			element.textContent += int_sqrt("astrhisfosdfsdkjfnsdkfjnsdfasdfasdfnaksjdfnkjsdnfksjdfsdfhsabdfhjsldbfhsdbfhdf\ndsjkfsadf");
+			element.textContent += '__'+int_sqrt(" \t abc")+'__|';
 	  });
     </script>
   </body>
