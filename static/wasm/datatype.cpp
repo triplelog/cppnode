@@ -45,13 +45,13 @@ char* trim(const char *xx) {
 */
 
 char* getType(char* x) {
-	char *str = "xxxxx"; int i; int ii;
+	char *str = "xxxxx"; int i = 0; int ii;
 	char *out = str;
-	while (*x){
-		if (i == 0 && *x == 'd'){}
-		else if (i == 0 && *x == '\t'){}
-		else {out[i] = *x; i++;}
-		x++;
+	char * t;
+	for (t = x; *t != '\0'; t++){
+		if (i == 0 && t == 'd'){}
+		else if (i == 0 && t == '\t'){}
+		else {out[i] = t; i++;}
 	}
 	ii = i-1;
 	if (ii == -1) {out[0] = '\0';}
