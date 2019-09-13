@@ -40,6 +40,12 @@ extern "C" {
 
 
 char* trim(char* x) {
+	
+}
+
+
+char* getType(char* x) {
+	
 	char *str = "xxxxx"; int i = 0; int ii;
 	char *out = str;
 	char * t;
@@ -58,15 +64,8 @@ char* trim(char* x) {
 		}
 	}
 	out[ii] = '\0';
-	return out;
-}
-
-
-char* getType(char* x) {
-	
-	
-	
-	return trim(x);
+	x = out;
+	return x;
 	/*
     input_str = input_str.trim().toLowerCase();
 	head_str = head_str.trim().toLowerCase();
