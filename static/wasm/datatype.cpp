@@ -38,13 +38,8 @@ int main(int argc, char *argv[]) {
 
 extern "C" {
 
-/*
-char* trim(const char *xx) {
-	
-}
-*/
 
-char* getType(char* x) {
+char* trim(const char *x) {
 	char *str = "xxxxx"; int i = 0; int ii;
 	char *out = str;
 	char * t;
@@ -63,9 +58,15 @@ char* getType(char* x) {
 		}
 	}
 	out[ii] = '\0';
-	
-	
 	return out;
+}
+
+
+char* getType(char* x) {
+	
+	
+	
+	return trim(x);
 	/*
     input_str = input_str.trim().toLowerCase();
 	head_str = head_str.trim().toLowerCase();
