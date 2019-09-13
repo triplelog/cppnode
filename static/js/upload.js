@@ -8,12 +8,11 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 	syncWorker.onmessage = function(e) {
 		ctypestr = toTable(e.data.result);
 		//if (filen != ""){createConfirmForm();}
+		setTimeout(fullCompression,10,ffile);
 	};
-	setTimeout(fullCompression,10,ffile);
+	
 	
 
-	
-	
 }, false);
 
 
