@@ -40,7 +40,7 @@ extern "C" {
 
 
 char* trim(char* x) {
-	
+	return x;
 }
 
 
