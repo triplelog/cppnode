@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
 extern "C" {
 
 
-char* trim(const char *x) {
+char* trim(char* x) {
 	char *str = "xxxxx"; int i = 0; int ii;
 	char *out = str;
 	char * t;
