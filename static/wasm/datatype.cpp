@@ -59,7 +59,7 @@ char* getType(char* x) {
 		while (ii>-1){
 			if (out[ii] == ' '){out[ii] = '\0';}
 			else if (out[ii] == '\t'){out[ii] = '\0';}
-			else if (out[ii] == '"'){out[ii] = '\0';}
+			else if (out[ii] == '\"'){out[ii] = '\0';}
 			else {out[ii+1] = '\0'; break;}
 			ii--;
 		}
