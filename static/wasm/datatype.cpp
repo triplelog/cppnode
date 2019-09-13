@@ -35,3 +35,11 @@ int main(int argc, char *argv[]) {
     printf("\n%d,%d\n", now,now - start);
 	return 0;
 }
+
+extern "C" {
+
+int int_sqrt(int x) {
+  return sqrt(x);
+}
+
+}

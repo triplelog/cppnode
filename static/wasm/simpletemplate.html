@@ -14,6 +14,7 @@
   <div id="output">
   	 
   </div>
+  <button class="mybutton">Run myFunction</button>
 	
   <script type='text/javascript'>
 
@@ -56,6 +57,11 @@
         }
       };
       Module.setStatus('Downloading...');
+      int_sqrt = Module.cwrap('int_sqrt', 'number', ['number']);
+      
+      document.querySelector('.mybutton').addEventListener('click', function() {
+			console.log(int_sqrt(25));
+	  });
       </script>
     {{{ SCRIPT }}}
   </body>
