@@ -46,7 +46,7 @@ char* trim(char* x) {
 */
 
 char* getType(char* x) {
-	char* out; int i;
+	char* out[10]; int i;
 	while (*x){
 		if (i == 0 && *x == ' '){}
 		else if (i == 0 && *x == '\t'){}
