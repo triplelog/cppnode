@@ -48,7 +48,7 @@ char* getType(char* x) {
 	char *str = "xxxxx"; int i; int ii;
 	char *out = str;
 	while (*x){
-		if (i == 0 && *x == ' '){}
+		if (i == 0 && *x == 'd'){}
 		else if (i == 0 && *x == '\t'){}
 		else {out[i] = *x; i++;}
 		x++;
