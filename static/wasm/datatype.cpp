@@ -46,16 +46,16 @@ char* trim(char* x) {
 */
 
 char* getType(char* x) {
-	char str[] = "Hello World"; int i;
-	/*
+	char *str = ""; int i;
+	char *out = str;
 	while (*x){
-		if (i == 0 && *x == ' '){}
-		else if (i == 0 && *x == '\t'){}
+		//if (i == 0 && *x == ' '){}
+		//else if (i == 0 && *x == '\t'){}
 		//else {out[i] = *x; i++;}
 		*x++;
 	}
-	*/
-	char *out = str;
+	
+	
 	/*
     input_str = input_str.trim().toLowerCase();
 	head_str = head_str.trim().toLowerCase();
