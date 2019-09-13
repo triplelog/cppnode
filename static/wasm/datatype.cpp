@@ -39,12 +39,13 @@ int main(int argc, char *argv[]) {
 extern "C" {
 
 char* trim(char* x) {
-	char* out = {}; int i;
+	char* out; int i;
 	while (*x){
 		if (i == 0 && *x == ' '){i = 0; *x++;}
 		else if (i == 0 && *x == '\t'){i = 0; *x++; }
 		else {out[i] = *x; i++;}
 	}
+	out[i] = '\0';
 	return out;
 }
 
