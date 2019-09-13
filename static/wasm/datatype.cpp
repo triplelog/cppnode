@@ -38,8 +38,78 @@ int main(int argc, char *argv[]) {
 
 extern "C" {
 
-char* int_sqrt(char* x) {
-  return x;
+char* trim(char* x) {
+	char* out = {}; int i;
+	while (*x){
+		if (i == 0 && *x == ' '){i = 0; *x++;}
+		else if (i == 0 && *x == '\t'){i = 0; *x++; }
+		else {out[i] = *x; i++;}
+	}
+	return out;
 }
+
+char* getType(char* x) {
+	x = trim(x);
+	/*
+    input_str = input_str.trim().toLowerCase();
+	head_str = head_str.trim().toLowerCase();
+	if (input_str.length == 0) {
+		return 'Blank';
+	}
+	else if (parseInt(input_str).toString() == input_str){
+		if (head_str.indexOf('zip') == 0 && parseInt(input_str) <10000 && parseInt(input_str) > 0) {
+			return 'Zip';
+		}
+		return 'Int';
+	}
+	else if (parseInt(input_str.replace('.','')).toString() == input_str.replace('.','')){
+		if (head_str.indexOf('lat') == 0 && parseFloat(input_str) < 200 && parseFloat(input_str) > -200) {
+			if (head_str.length < 6 || head_str.indexOf('latitude') == 0){
+				return 'Lat';
+			}
+		}
+		else if (head_str.indexOf('lon') == 0 && parseFloat(input_str) < 200 && parseFloat(input_str) > -200) {
+			if (head_str.length < 6 || head_str.indexOf('longitude') == 0){
+				return 'Lon';
+			}
+		}
+		return 'Num';
+	}
+	else if (isDate(input_str)){
+		return 'Date';//+isDate(input_str);
+	}
+	else if (parseInt(input_str.replace('/','')).toString() == input_str.replace('/','')){
+		return 'Num';
+	}
+	else if (parseInt(input_str.replace('/','').replace('.','').replace('%','')).toString() == input_str.replace('/','').replace('.','').replace('%','')){
+		return 'Percent';
+	}
+	else if (parseInt(input_str.replace('-','')).toString() == input_str.replace('-','')){
+		if (input_str.length == 10 && input_str.indexOf('-') == 5) {
+			return 'Zip';
+		}
+		else if (input_str.length == 8 && input_str.indexOf('-') == 3) {
+			return 'Phone';
+		}
+	}
+	else if (parseInt(input_str.replace('-','').replace('-','')).toString() == input_str.replace('-','').replace('-','')){
+		if (input_str.length == 12 && input_str.indexOf('-') == 3) {
+			return 'Phone';
+		}
+	}
+	else if (input_str.indexOf('www.') > -1 || input_str.indexOf('http') > -1 || (input_str.indexOf('.com') > -1 && input_str.indexOf('@') == -1)){
+		return 'Link';
+	}
+	else if ( (input_str.indexOf('.com') > -1 || input_str.indexOf('.edu') > -1 || input_str.indexOf('.org') > -1) && input_str.indexOf('@') > -1){
+		return 'Email';
+	}
+	else if ( (input_str.indexOf('.com') == -1 && input_str.indexOf('.edu') == -1 && input_str.indexOf('.org') == -1) && input_str.indexOf('@') == 0){
+		return 'Twitter';
+	}
+	*/
+	return x;
+}
+
+
 
 }
