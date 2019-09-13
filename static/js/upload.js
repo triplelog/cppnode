@@ -7,9 +7,9 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 	syncWorker.postMessage(ffile);
 	syncWorker.onmessage = function(e) {
 		ctypestr = toTable(e.data.result);
-		if (filen != ""){createConfirmForm();}
+		//if (filen != ""){createConfirmForm();}
 	};
-	setTimeout(fullCompression,10,ffile,ctypestr);
+	setTimeout(fullCompression,1000,ffile,ctypestr);
 	
 
 	
