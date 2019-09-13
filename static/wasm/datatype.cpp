@@ -53,6 +53,8 @@ char* getType(char* x) {
 	do {
 		chg = false;
 		qc = 0;
+		i = 0;
+		ii = 0;
 		for (t = x; *t != '\0'; t++){
 			if (i == 0 && *t == ' '){chg = true;}
 			else if (i == 0 && *t == '\t'){chg = true;}
