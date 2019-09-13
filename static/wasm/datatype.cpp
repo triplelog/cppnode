@@ -53,7 +53,9 @@ char* getType(char* x) {
 		else {out[i] = *x; i++;}
 		x++;
 	}
-	out[i] = '\0';
+	if (out[i-1] == ' '){out[i-1] = '\0';}
+	else {out[i] = '\0';}
+	
 	return out;
 	/*
     input_str = input_str.trim().toLowerCase();
