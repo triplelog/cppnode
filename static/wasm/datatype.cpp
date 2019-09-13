@@ -51,19 +51,18 @@ char* getType(char* x) {
 	for (t = x; *t != '\0'; t++){
 		if (i == 0 && *t == ' '){}
 		else if (i == 0 && *t == '\t'){}
-		else {out[i] = *t; i++;}
-	}
-	ii = i-1;
-	if (ii == -1) {out[0] = '\0';}
-	else {
-		while (ii>-1){
-			if (out[ii] == ' '){out[ii] = '\0';}
-			else if (out[ii] == '\t'){out[ii] = '\0';}
-			else if (out[ii] == '\''){out[ii] = '\0';}
-			else {out[ii+1] = '\0'; break;}
-			ii--;
+		else {
+			out[i] = *t;
+			i++;
+			if (*t == ' ' || *t == '\t'){
+			}
+			else {
+				ii = i;
+			}
+			
 		}
 	}
+	out[ii] = '\0';
 	
 	
 	return out;
