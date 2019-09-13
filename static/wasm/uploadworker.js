@@ -33,22 +33,6 @@ self.addEventListener('message', function(e) {
 var Module = {
 	preRun: [],
 	postRun: [],
-	print: (function() {
-	  var element = document.getElementById('output');
-	  if (element) element.textContent = ''; // clear browser cache
-	  return function(text) {
-		if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
-		// These replacements are necessary if you render to raw HTML
-		//text = text.replace(/&/g, "&amp;");
-		//text = text.replace(/</g, "&lt;");
-		//text = text.replace(/>/g, "&gt;");
-		//text = text.replace('\n', '<br>', 'g');
-		console.log(text);
-		if (element) {
-		  element.textContent += text + "\n";
-		}
-	  };
-	})(),
 	setStatus: function(text) {
 	  if (!Module.setStatus.last) Module.setStatus.last = { time: Date.now(), text: '' };
 	  if (text === Module.setStatus.last.text) return;
