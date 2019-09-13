@@ -38,7 +38,14 @@ int main(int argc, char *argv[]) {
 
 extern "C" {
 
+/*
 char* trim(char* x) {
+	
+	return out;
+}
+*/
+
+char* getType(char* x) {
 	char* out; int i;
 	while (*x){
 		if (i == 0 && *x == ' '){}
@@ -47,11 +54,6 @@ char* trim(char* x) {
 		*x++;
 	}
 	out[i] = '\0';
-	return out;
-}
-
-char* getType(char* x) {
-	x = trim(x);
 	/*
     input_str = input_str.trim().toLowerCase();
 	head_str = head_str.trim().toLowerCase();
@@ -109,7 +111,7 @@ char* getType(char* x) {
 		return 'Twitter';
 	}
 	*/
-	return x;
+	return out;
 }
 
 
