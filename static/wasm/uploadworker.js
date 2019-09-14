@@ -45,14 +45,21 @@ self.addEventListener('message', function(e) {
 			console.log(parsedstr.data[1][0]);
 			for (var i=0; i<parsedstr.data[1].length; i++ ) {
 				ctypestr += ",";
-				for (var ii=1; ii<2; ii++ ) {
+				var isdata = 0; var isstring = 0;
+				for (var ii=1; ii<parsedstr.data.length; ii++ ) {
 					var dtype = get_type(parsedstr.data[ii][i]);
 					if (dtype == "string") {
-						ctypestr += '0';
+						isstring++;
 					}
 					else {
-						ctypestr += '1';
+						isdata++;
 					}
+				}
+				if (isdata > isstring * 2) {
+					ctypestr += '1';
+				}
+				else {
+					ctypestr += '0';
 				}
 			}
 			
