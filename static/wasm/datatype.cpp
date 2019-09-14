@@ -51,6 +51,7 @@ char* getType(char* x) {
 	char * t;
 	bool chg = true;
 	int d;
+	//Trim whitespace and quotation marks
 	do {
 		chg = false;
 		qc = 0;
@@ -85,6 +86,28 @@ char* getType(char* x) {
 	
 	if (osl < 1){return "blank";}
 	else if (d == osl) {return "integer";}
+	if (d == 0) {return "string";}
+	
+	//Get fractions
+	do {
+		chg = false;
+		qc = 0;
+		i = 0;
+		ii = 0;
+		d = 0;
+		for (t = x; *t != '\0'; t++){
+			if (i > 0 && *t == '/'){ii = i;}
+			else {
+				out[i] = *t;
+				i++;
+				if (*t == '0' || *t == '1' || *t == '2' || *t == '3' || *t == '4' || *t == '5' || *t == '6' || *t == '7' || *t == '8' || *t == '9') {d++;}
+			}
+		}
+		
+
+	} while (chg);
+	
+	if (ii > 0 && ii < i && d == i) {return "fraction";}
 	return "string";
 	/*
     input_str = input_str.trim().toLowerCase();

@@ -41,8 +41,12 @@ self.addEventListener('message', function(e) {
 			
 			var get_type = Module.cwrap('getType', 'string', ['string']);
 			var parsedstr = Papa.parse(partstr);
-			console.log(parsedstr.data[0][0]);
-			console.log(get_type(parsedstr.data[0][0]));
+			console.log(parsedstr.data[1][0]);
+			console.log(get_type(parsedstr.data[1][0]));
+			console.log(get_type(parsedstr.data[1][1]));
+			console.log(get_type(parsedstr.data[1][2]));
+			console.log(get_type(parsedstr.data[1][3]));
+			
 		
 			postMessage({
 				result: partstr
