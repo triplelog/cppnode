@@ -71,7 +71,12 @@ function toTable(input_str,ctypestr){
 				var tr = document.createElement("tr");
 					for (var i=0;i<data.data[0].length;i++) {
 						var th = document.createElement("th");
-						th.textContent = data.data[0][i];
+						var tdiv = document.createElement("div");
+						var tspan = document.createElement("span");
+						tspan.textContent = data.data[0][i];
+						tdiv.appendChild(tspan);
+						th.appendChild(tdiv);
+						th.classList.add('rotate');
 						tr.appendChild(th);
 						datatypes.push({});
 					}
@@ -120,19 +125,14 @@ function toTable(input_str,ctypestr){
 			cheaders.push('Unknown');
 		}
 	}
-	var newRow = document.createElement('tr');
+	var headRow = thead.querySelector('tr');
+	var headCells = headRow.querySelectorAll('th');
 	for (var i=0;i<cheaders.length;i++){
-		var th = document.createElement("th");
-		var tdiv = document.createElement("div");
-		var tspan = document.createElement("span");
-		tspan.textContent = cheaders[i];
-		tdiv.appendChild(tspan);
-		th.appendChild(tdiv);
-		th.classList.add('rotate');
-		newRow.appendChild(th);
+		var th = headCells[i];
+		var tdiv = th.querySelector("div");
+		var tspan = tdiv.querySelector("span");
+		tspan.textContent += ' (as '+cheaders[i]+')';
 	}
-	//thead.insertBefore(newRow, thead.childNodes[0]);
-	thead.appendChild(newRow);
 
 	return ctypestr;
 }
