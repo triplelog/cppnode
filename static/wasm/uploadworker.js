@@ -22,7 +22,7 @@ var Module = {
 };
 Module.setStatus('Downloading...');
 importScripts('datatype.js');
-importScripts('js/papaparse.min.js');
+importScripts('../js/papaparse.min.js');
 
 self.addEventListener('message', function(e) {
     var data=e.data;
