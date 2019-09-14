@@ -68,6 +68,7 @@
     		int_sqrt = Module.cwrap('getType', 'string', ['string']);
     		var element = document.getElementById('output');
 			element.textContent += '__'+int_sqrt("\" \t abcd \" ")+'__|';
+			element.textContent += '__'+int_sqrt("\" \t  \" ")+'__|';
 	  });
     </script>
   </body>
