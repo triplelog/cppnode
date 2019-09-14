@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
 	return 0;
 }
 
-extern "C" {
+
 
 
 char* trim(char* x) {
@@ -143,4 +143,3 @@ char* getType(char* x) {
 
 
 
-}
