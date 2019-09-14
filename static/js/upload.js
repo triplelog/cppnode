@@ -80,7 +80,7 @@ function toTable(input_str,ctypestr){
 						tr.appendChild(th);
 						datatypes.push({});
 					}
-				//thead.appendChild(tr);
+				thead.appendChild(tr);
 			table.appendChild(thead);
 			var tbody = document.createElement("tbody");
 				for (var ii=1;ii<data.data.length-1;ii++) {

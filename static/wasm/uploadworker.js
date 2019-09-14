@@ -43,6 +43,9 @@ self.addEventListener('message', function(e) {
 			var parsedstr = Papa.parse(partstr);
 			var ctypestr = "-1";
 			console.log(parsedstr.data[1][0]);
+			for (var ii=1; ii<parsedstr.data.length; ii++ ) {
+				console.log(ii,parsedstr.data[ii].length);
+			}
 			for (var i=0; i<parsedstr.data[1].length; i++ ) {
 				ctypestr += ",";
 				var isdata = 0; var isstring = 0;
