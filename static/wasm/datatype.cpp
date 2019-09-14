@@ -50,11 +50,13 @@ char* getType(char* x) {
 	char *out = str;
 	char * t;
 	bool chg = true;
+	int d;
 	do {
 		chg = false;
 		qc = 0;
 		i = 0;
 		ii = 0;
+		d = 0;
 		for (t = x; *t != '\0'; t++){
 			if (i == 0 && *t == ' '){chg = true;}
 			else if (i == 0 && *t == '\t'){chg = true;}
@@ -67,6 +69,7 @@ char* getType(char* x) {
 					if (*t == '\"' && i >1 && qc == 0) {qc = i;}
 					else if (*t == '\"' && i >1) {qc = -1;}
 					else if (*t != '\"' && i == 1) {qc = -1;}
+					if (*t == '0' || *t == '1' || *t == '2' || *t == '3' || *t == '4' || *t == '5' || *t == '6' || *t == '7' || *t == '8' || *t == '9') {d++;}
 					ii = i;
 				}
 			
@@ -79,8 +82,10 @@ char* getType(char* x) {
 		out = str;
 	} while (chg);
 	
-	if (osl < 2){return "blank";}
-	return x;
+	
+	if (osl < 1){return "blank";}
+	else if (d == osl) {return "integer";}
+	return "string";
 	/*
     input_str = input_str.trim().toLowerCase();
 	head_str = head_str.trim().toLowerCase();
