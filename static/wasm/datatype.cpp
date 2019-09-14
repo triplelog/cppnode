@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
 	return 0;
 }
 
-
+extern "C" {
 
 
 char* trim(char* x) {
@@ -44,7 +44,7 @@ char* trim(char* x) {
 }
 
 
-char* getType(char* x) {
+std::string getType(char* x) {
 	
 	char *str = "xxxxxxxxxx"; int i = 0; int ii; int qc;
 	char *out = str;
@@ -80,7 +80,7 @@ char* getType(char* x) {
 	} while (chg);
 	
 	if (strlen(x) < 2){return "f";}
-	return x;
+	return "g";
 	/*
     input_str = input_str.trim().toLowerCase();
 	head_str = head_str.trim().toLowerCase();
@@ -143,3 +143,4 @@ char* getType(char* x) {
 
 
 
+}
