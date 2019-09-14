@@ -78,7 +78,13 @@ char* getType(char* x) {
 		x = out;
 		out = str;
 	} while (chg);
-	return x;
+	
+	if (strlen(x) < 1) {
+		return "blank";
+	}
+	else {
+		return x;
+	}
 	/*
     input_str = input_str.trim().toLowerCase();
 	head_str = head_str.trim().toLowerCase();
