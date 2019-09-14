@@ -46,6 +46,8 @@ self.addEventListener('message', function(e) {
 			console.log(get_type(parsedstr.data[1][1]));
 			console.log(get_type(parsedstr.data[1][2]));
 			console.log(get_type(parsedstr.data[1][3]));
+			console.log(get_type(parsedstr.data[1][4]));
+			console.log(get_type(parsedstr.data[1][5]));
 			
 		
 			postMessage({
