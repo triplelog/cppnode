@@ -97,8 +97,9 @@ char* getType(char* x) {
 		ii = 0;
 		d = 0;
 		for (t = x; *t != '\0'; t++){
-			if (i > 0 && *t == '/'){ii = i;}
+			if (*t == '/'){ii = i;}
 			else {
+				out[i] = *t;
 				i++;
 				if (*t == '0' || *t == '1' || *t == '2' || *t == '3' || *t == '4' || *t == '5' || *t == '6' || *t == '7' || *t == '8' || *t == '9') {d++;}
 			}
@@ -106,8 +107,8 @@ char* getType(char* x) {
 		
 
 	} while (chg);
-	
-	if (i > 0) {return x;}
+	out[i] = '\0';
+	if (i > 0) {return out;}
 	return "string";
 	/*
     input_str = input_str.trim().toLowerCase();
