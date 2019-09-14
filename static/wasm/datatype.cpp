@@ -72,7 +72,7 @@ char* getType(char* x) {
 			
 			}
 		}
-		if (ii < 1){ return "blank";}
+		//if (ii < 1){ return "blank";}
 		if (ii != i){chg = true;}
 		if (ii == qc && ii > 0){out[0] = ' '; out[ii-1] = '\0'; chg = true;}
 		else {out[ii] = '\0';}
