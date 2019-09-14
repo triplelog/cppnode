@@ -99,7 +99,6 @@ char* getType(char* x) {
 		for (t = x; *t != '\0'; t++){
 			if (i > 0 && *t == '/'){ii = i;}
 			else {
-				out[i] = *t;
 				i++;
 				if (*t == '0' || *t == '1' || *t == '2' || *t == '3' || *t == '4' || *t == '5' || *t == '6' || *t == '7' || *t == '8' || *t == '9') {d++;}
 			}
@@ -108,7 +107,7 @@ char* getType(char* x) {
 
 	} while (chg);
 	
-	if (d == i) {return "fraction";}
+	if (d > 0) {return x;}
 	return "string";
 	/*
     input_str = input_str.trim().toLowerCase();
