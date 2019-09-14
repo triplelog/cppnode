@@ -37,7 +37,7 @@ self.addEventListener('message', function(e) {
 		
 			var partBuffer = this.result,
 				partarray = new Uint8Array(partBuffer)
-			var partstr = new TextDecoder("utf-8").decode(partarray).replace(/,,/g,', ,');;
+			var partstr = new TextDecoder("utf-8").decode(partarray);
 			
 			var get_type = Module.cwrap('getType', 'string', ['string']);
 			var parsedstr = Papa.parse(partstr);
