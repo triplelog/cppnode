@@ -72,7 +72,6 @@ char* getType(char* x) {
 			
 			}
 		}
-		if (ii < 2){ return str;}
 		if (ii != i){chg = true;}
 		if (ii == qc && ii > 0){out[0] = ' '; out[ii-1] = '\0'; chg = true;}
 		else {out[ii] = '\0';}
@@ -80,7 +79,7 @@ char* getType(char* x) {
 		out = str;
 	} while (chg);
 	
-
+	if (x[0] == '\0'){return "f";}
 	return x;
 	/*
     input_str = input_str.trim().toLowerCase();
