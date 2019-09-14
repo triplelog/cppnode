@@ -50,6 +50,7 @@ char* getType(char* x) {
 	char *out = str;
 	char * t;
 	bool chg = true;
+	bool isblank = false;
 	do {
 		chg = false;
 		qc = 0;
@@ -72,6 +73,7 @@ char* getType(char* x) {
 			
 			}
 		}
+		if (ii < 1){isblank = true; break;}
 		if (ii != i){chg = true;}
 		if (ii == qc && ii > 0){out[0] = ' '; out[ii-1] = '\0'; chg = true;}
 		else {out[ii] = '\0';}
@@ -79,7 +81,7 @@ char* getType(char* x) {
 		out = str;
 	} while (chg && strlen(x) > 0);
 	
-	if (strlen(x) < 2) {
+	if (isblank) {
 		return "blank";
 	}
 	else {
