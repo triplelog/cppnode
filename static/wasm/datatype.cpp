@@ -79,7 +79,7 @@ char* getType(char* x) {
 		out = str;
 	} while (chg);
 	
-	if (*x == '\0'){return "f";}
+	if (!x){return "f";}
 	return x;
 	/*
     input_str = input_str.trim().toLowerCase();
