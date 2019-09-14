@@ -79,7 +79,7 @@ char* getType(char* x) {
 		out = str;
 	} while (chg && strlen(x) > 0);
 	
-	if (strlen(x) < 1) {
+	if (strlen(x) < 2) {
 		return "blank";
 	}
 	else {
