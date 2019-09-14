@@ -41,17 +41,25 @@ self.addEventListener('message', function(e) {
 			
 			var get_type = Module.cwrap('getType', 'string', ['string']);
 			var parsedstr = Papa.parse(partstr);
+			var ctypestr = "-1";
 			console.log(parsedstr.data[1][0]);
-			console.log(get_type(parsedstr.data[1][0]));
-			console.log(get_type(parsedstr.data[1][1]));
-			console.log(get_type(parsedstr.data[1][2]));
-			console.log(get_type(parsedstr.data[1][3]));
-			console.log(get_type(parsedstr.data[1][4]));
-			console.log(get_type(parsedstr.data[1][5]));
+			for (var i=0; i<parsedstr.data[1].length; i++ ) {
+				ctypestr += ",";
+				for (var ii=1; ii<2; ii++ ) {
+					var dtype = get_type(parsedstr.data[ii][i]);
+					if (dtype == "string") {
+						ctypestr += '0';
+					}
+					else {
+						ctypestr += '1';
+					}
+				}
+			}
 			
 		
 			postMessage({
-				result: partstr
+				result: partstr,
+				ctypestr: ctypestr
 			});
 		
 		}

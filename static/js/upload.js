@@ -7,7 +7,7 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 	var ffile = this.files[0];
 	syncWorker.postMessage(ffile);
 	syncWorker.onmessage = function(e) {
-		ctypestr = toTable(e.data.result);
+		ctypestr = toTable(e.data.result,e.data.ctypestr);
 		//if (filen != ""){createConfirmForm();}
 		setTimeout(fullCompression,1000,ffile);
 	};
@@ -55,7 +55,7 @@ function createConfirmForm(){
 		form.appendChild(button);
 	document.getElementById("formholder").appendChild(form);
 }
-function toTable(input_str){
+function toTable(input_str,ctypestr){
 	
 	var data = Papa.parse(input_str);
 	var datatypes = [];
@@ -96,7 +96,7 @@ function toTable(input_str){
 			table.appendChild(tbody);
 		tableDiv.appendChild(table);
 	
-	var ctypestr = '-1';
+	//var ctypestr = '-1';
 	var cheaders = [];
 	for (var i=0;i<datatypes.length;i++) {
 		if (!datatypes[i]['Not']){datatypes[i]['Not'] = 0;}
@@ -104,19 +104,19 @@ function toTable(input_str){
 		if (!datatypes[i]['Num']){datatypes[i]['Num'] = 0;}
 		if (!datatypes[i]['Date']){datatypes[i]['Date'] = 0;}
 		if (datatypes[i]['Num']+datatypes[i]['Int']> 2*(datatypes[i]['Not']+datatypes[i]['Date']) ){
-			ctypestr += ",1";
+			//ctypestr += ",1";
 			cheaders.push('Number');
 		}
 		else if (datatypes[i]['Date']> 2*(datatypes[i]['Int']+datatypes[i]['Not']+datatypes[i]['Num']) ){
-			ctypestr += ",2";
+			//ctypestr += ",2";
 			cheaders.push('Date');
 		}
 		else if (datatypes[i]['Not']> 2*(datatypes[i]['Int']+datatypes[i]['Date']+datatypes[i]['Num']) ){
-			ctypestr += ",0";
+			//ctypestr += ",0";
 			cheaders.push('String');
 		}
 		else {
-			ctypestr += ",?";
+			//ctypestr += ",?";
 			cheaders.push('Unknown');
 		}
 	}
