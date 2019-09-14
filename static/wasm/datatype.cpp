@@ -44,7 +44,7 @@ char* trim(char* x) {
 }
 
 
-int getType(char* x) {
+char* getType(char* x) {
 	
 	char *str = "xxxxxxxxxx"; int i = 0; int ii; int qc; int osl;
 	char *out = str;
@@ -79,8 +79,8 @@ int getType(char* x) {
 		out = str;
 	} while (chg);
 	
-	if (osl < 2){return 0;}
-	return osl;
+	if (osl < 2){return "blank";}
+	return x;
 	/*
     input_str = input_str.trim().toLowerCase();
 	head_str = head_str.trim().toLowerCase();
