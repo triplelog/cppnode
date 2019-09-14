@@ -19,9 +19,10 @@ var Module = {
 		  this.totalDependencies = Math.max(this.totalDependencies, left);
 		  Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
 		}
-	};
-	Module.setStatus('Downloading...');
-	importScripts('datatype.js');
+};
+Module.setStatus('Downloading...');
+importScripts('datatype.js');
+importScripts('js/papaparse.min.js');
 
 self.addEventListener('message', function(e) {
     var data=e.data;
@@ -39,7 +40,8 @@ self.addEventListener('message', function(e) {
 			var partstr = new TextDecoder("utf-8").decode(partarray);
 			
 			var get_type = Module.cwrap('getType', 'string', ['string']);
-			console.log(get_type("\" \t 123 \" "));
+			var parsedstr = Papa.parse(partstr);
+			console.log(get_type(partstr));
 		
 			postMessage({
 				result: partstr
