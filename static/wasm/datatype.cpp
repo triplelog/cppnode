@@ -108,7 +108,7 @@ char* getType(char* x) {
 
 	} while (chg);
 	
-	if (i > 0) {return "fraction";}
+	if (d == i) {return "fraction";}
 	return "string";
 	/*
     input_str = input_str.trim().toLowerCase();
