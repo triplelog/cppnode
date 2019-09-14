@@ -65,7 +65,7 @@
     <script>
     	
     	document.querySelector('.mybutton').addEventListener('click', function() {
-    		int_sqrt = Module.cwrap('getType', 'number', ['string']);
+    		int_sqrt = Module.cwrap('getType', 'string', ['string']);
     		var element = document.getElementById('output');
 			element.textContent += '__'+int_sqrt("\" \t abcd \" ")+'__|';
 			element.textContent += '__'+int_sqrt("\" \t  \" ")+'__|';
