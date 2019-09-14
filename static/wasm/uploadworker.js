@@ -39,7 +39,7 @@ self.addEventListener('message', function(e) {
 			var partstr = new TextDecoder("utf-8").decode(partarray);
 			
 			var get_type = Module.cwrap('getType', 'string', ['string']);
-			console.log(get_type(partstr));
+			console.log(get_type("\" \t 123 \" "));
 		
 			postMessage({
 				result: partstr
