@@ -107,7 +107,7 @@ char* getType(char* x) {
 
 	} while (chg);
 	
-	if (d > 0) {return x;}
+	if (i > 0) {return x;}
 	return "string";
 	/*
     input_str = input_str.trim().toLowerCase();
