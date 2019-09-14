@@ -77,7 +77,7 @@ char* getType(char* x) {
 		else {out[ii] = '\0';}
 		x = out;
 		out = str;
-	} while (chg);
+	} while (chg && strlen(x) > 0);
 	
 	if (strlen(x) < 1) {
 		return "blank";
