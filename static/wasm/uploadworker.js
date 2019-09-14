@@ -42,7 +42,8 @@ self.addEventListener('message', function(e) {
 			var get_type = Module.cwrap('getType', 'string', ['string']);
 			var parsedstr = Papa.parse(partstr);
 			var ctypestr = "-1";
-			console.log(parsedstr.data[1][0]);
+			console.log(parsedstr.data[1]);
+			console.log(partstr);
 			for (var ii=0; ii<10; ii++ ) {
 				console.log(ii,parsedstr.data[ii].length);
 			}
