@@ -42,30 +42,30 @@ self.addEventListener('message', function(e) {
 			
 			
 			var parsedstrH = Papa.parse(partstrH);
-			parsedstrH.pop();
+			parsedstrH.data.pop();
 			var partBufferE = this.result.slice(10000,20000),
 				partarrayE = new Uint8Array(partBufferE)
 			var partstrE = new TextDecoder("utf-8").decode(partarrayE);
 			
 
 			var parsedstrE = Papa.parse(partstrE);
-			parsedstrE.splice(0,1);
+			parsedstrE.data.splice(0,1);
 			
-			var parsedstr = parsedstrH.concat(parsedstrE);
+			var parsedstr = parsedstrH.data.concat(parsedstrE.data);
 			
 			var get_type = Module.cwrap('getType', 'string', ['string']);
 			
 			var ctypestr = "-1";
-			console.log(parsedstr.data[1]);
+			console.log(parsedstr[1]);
 			console.log(partstr);
 			for (var ii=0; ii<10; ii++ ) {
-				console.log(ii,parsedstr.data[ii].length);
+				console.log(ii,parsedstr[ii].length);
 			}
-			for (var i=0; i<parsedstr.data[1].length; i++ ) {
+			for (var i=0; i<parsedstr[1].length; i++ ) {
 				ctypestr += ",";
 				var isdata = 0; var isstring = 0;
-				for (var ii=1; ii<parsedstr.data.length; ii++ ) {
-					var dtype = get_type(parsedstr.data[ii][i]);
+				for (var ii=1; ii<parsedstr.length; ii++ ) {
+					var dtype = get_type(parsedstr[ii][i]);
 					if (dtype == "string") {
 						isstring++;
 					}
