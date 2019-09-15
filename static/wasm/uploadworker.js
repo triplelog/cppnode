@@ -87,8 +87,8 @@ self.addEventListener('message', function(e) {
 			});
 		
 		}
-		console.log(data.byteLength);
-		readerP.readAsArrayBuffer(data.slice(data.byteLength-20000,data.byteLength));
+		console.log(Buffer.byteLength(data));
+		readerP.readAsArrayBuffer(data.slice(Buffer.byteLength(data)-20000,Buffer.byteLength(data)));
 
    } catch(e){
         postMessage({
