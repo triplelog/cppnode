@@ -51,7 +51,7 @@ self.addEventListener('message', function(e) {
 			var parsedstrE = Papa.parse(partstrE);
 			parsedstrE.splice(0,1);
 			
-			var parsedstr = parsedstrH;
+			var parsedstr = parsedstrH.concat(parsedstrE);
 			
 			var get_type = Module.cwrap('getType', 'string', ['string']);
 			
@@ -88,7 +88,7 @@ self.addEventListener('message', function(e) {
 			});
 		
 		}
-		readerP.readAsArrayBuffer(data.slice(0,10000)+data.slice(data.length-10000,data.length));
+		readerP.readAsArrayBuffer(data.slice(0,10000).concat(data.slice(data.length-10000,data.length)));
 
    } catch(e){
         postMessage({
