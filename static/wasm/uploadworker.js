@@ -88,7 +88,7 @@ self.addEventListener('message', function(e) {
 		
 		}
 		console.log(Buffer.byteLength(data));
-		readerP.readAsArrayBuffer(data.slice(Buffer.byteLength(data)-20000,Buffer.byteLength(data)));
+		readerP.readAsArrayBuffer(data.slice(0,20000));
 
    } catch(e){
         postMessage({
