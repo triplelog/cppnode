@@ -25,17 +25,19 @@ table:not(.horizontal) th.rotate {
 }
 
 th.rotate > div {
-  transform: rotate(225deg);
-  transform-origin: 100% 100%;
+  transform: translate(-30px,130px) rotate(225deg);
+  transform-origin: 100% 0%;
+  height: 150px;
   
 }
   
 th.rotate > div > span {
-  border-bottom: 1px solid #ccc;
+  border-left: 1px solid #ccc;
   padding: 0px 5px;
   background: var(--table-head-back-color);
   writing-mode: vertical-lr;
   width: 20px;
+  height: 150px;
 }
 
 td {
