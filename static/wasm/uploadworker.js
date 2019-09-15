@@ -34,13 +34,27 @@ self.addEventListener('message', function(e) {
 		readerP.onload = function() {
 
 			console.log("Compressing")
-		
-			var partBuffer = this.result,
-				partarray = new Uint8Array(partBuffer)
-			var partstr = new TextDecoder("utf-8").decode(partarray);
+			
+			
+			var partBufferH = this.result.slice(0,10000),
+				partarrayH = new Uint8Array(partBufferH)
+			var partstrH = new TextDecoder("utf-8").decode(partarrayH);
+			
+			
+			var parsedstrH = Papa.parse(partstrH);
+			parsedstrH.pop();
+			var partBufferE = this.result.slice(10000,20000),
+				partarrayE = new Uint8Array(partBufferE)
+			var partstrE = new TextDecoder("utf-8").decode(partarrayE);
+			
+
+			var parsedstrE = Papa.parse(partstrE);
+			parsedstrE.splice(0,1);
+			
+			var parsedstr = parsedstrH.concat(parsedstrE);
 			
 			var get_type = Module.cwrap('getType', 'string', ['string']);
-			var parsedstr = Papa.parse(partstr);
+			
 			var ctypestr = "-1";
 			console.log(parsedstr.data[1]);
 			console.log(partstr);
@@ -74,7 +88,7 @@ self.addEventListener('message', function(e) {
 			});
 		
 		}
-		readerP.readAsArrayBuffer(data.slice(0,10000));
+		readerP.readAsArrayBuffer(data.slice(0,10000)+data.slice(data.length-10000,data.length));
 
    } catch(e){
         postMessage({
