@@ -57,7 +57,6 @@ self.addEventListener('message', function(e) {
 			
 			var ctypestr = "-1";
 			console.log(parsedstr[1]);
-			console.log(partstr);
 			for (var ii=0; ii<10; ii++ ) {
 				console.log(ii,parsedstr[ii].length);
 			}
