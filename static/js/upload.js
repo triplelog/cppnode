@@ -73,12 +73,11 @@ function toTable(input_str,ctypestr){
 						var th = document.createElement("th");
 						var tdiv = document.createElement("div");
 						var tspan = document.createElement("span");
-						tspan.textContent = data.data[0][i];
+						tspan.textContent = data.data[0][i]+' ';
 						tdiv.appendChild(tspan);
 						th.appendChild(tdiv);
 						th.classList.add('rotate');
 						tr.appendChild(th);
-						datatypes.push({});
 					}
 				thead.appendChild(tr);
 			table.appendChild(thead);
@@ -89,12 +88,6 @@ function toTable(input_str,ctypestr){
 						var td = document.createElement("td");
 						td.textContent = data.data[ii][i];
 						tr2.appendChild(td);
-						if (datatypes[i][getDataType(data.data[ii][i],data.data[0][i])]){
-							datatypes[i][getDataType(data.data[ii][i],data.data[0][i])]+=1;
-						}
-						else {
-							datatypes[i][getDataType(data.data[ii][i],data.data[0][i])]=1;
-						}
 					}
 					tbody.appendChild(tr2);
 				}
@@ -103,25 +96,18 @@ function toTable(input_str,ctypestr){
 	
 	//var ctypestr = '-1';
 	var cheaders = [];
-	for (var i=0;i<datatypes.length;i++) {
-		if (!datatypes[i]['Not']){datatypes[i]['Not'] = 0;}
-		if (!datatypes[i]['Int']){datatypes[i]['Int'] = 0;}
-		if (!datatypes[i]['Num']){datatypes[i]['Num'] = 0;}
-		if (!datatypes[i]['Date']){datatypes[i]['Date'] = 0;}
-		if (datatypes[i]['Num']+datatypes[i]['Int']> 2*(datatypes[i]['Not']+datatypes[i]['Date']) ){
-			//ctypestr += ",1";
+	var dtypes = ctypestr.split(',');
+	for (var i=1;i<dtypes.length;i++) {
+		if (dtypes[i] == '1' ){
 			cheaders.push('Number');
 		}
-		else if (datatypes[i]['Date']> 2*(datatypes[i]['Int']+datatypes[i]['Not']+datatypes[i]['Num']) ){
-			//ctypestr += ",2";
+		else if (dtypes[i] == '2'){
 			cheaders.push('Date');
 		}
-		else if (datatypes[i]['Not']> 2*(datatypes[i]['Int']+datatypes[i]['Date']+datatypes[i]['Num']) ){
-			//ctypestr += ",0";
+		else if (dtypes[i] == '0'){
 			cheaders.push('String');
 		}
 		else {
-			//ctypestr += ",?";
 			cheaders.push('Unknown');
 		}
 	}
@@ -131,7 +117,7 @@ function toTable(input_str,ctypestr){
 		var th = headCells[i];
 		var tdiv = th.querySelector("div");
 		var tspan = tdiv.querySelector("span");
-		tspan.innerHTML += '<a href="#">'+cheaders[i]+'</a>';
+		tspan.innerHTML += ' <a href="#">'+cheaders[i]+'</a>';
 	}
 
 	return ctypestr;
