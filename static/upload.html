@@ -19,9 +19,9 @@
 
 table:not(.horizontal) th.rotate {
   white-space: nowrap;
-  overflow: hidden;
+  overflow: visible;
   background: rgba(0,0,0,0);
-  max-width:20px;
+  height:150px;
 }
 
 th.rotate > div {
@@ -32,7 +32,6 @@ th.rotate > div > span {
   border-bottom: 1px solid #ccc;
   padding: 0px 5px;
   background: var(--table-head-back-color);
-  writing-mode: vertical-lr;
 }
 
 td {
