@@ -20,31 +20,18 @@ table:not(.horizontal) th.rotate {
   height: 150px;
   white-space: nowrap;
   overflow: visible;
+  background: rgba(0,0,0,0);
 }
 
 th.rotate > div {
-  transform: translate(0px, 51px) rotate(315deg);
+  transform: translate(10px, 121px) rotate(315deg);
   width: 10px;
+  background: var(--table-head-back-color);
 }
   
-  	th.rotatedd {
-  /* Something you can count on */
-  height: 40px;
-  white-space: nowrap;
-  
-}
-
-th.rotatedd > div {
-  transform: 
-    /* Magic Numbers */
-    translate(25px, 51px)
-    /* 45 is really 360 - 45 */
-    rotate(315deg);
-  width: 30px;
-}
 th.rotate > div > span {
   border-bottom: 1px solid #ccc;
-  padding: 5px 10px;
+  padding: 0px 5px;
 }
 
   
