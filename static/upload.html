@@ -25,8 +25,9 @@ table:not(.horizontal) th.rotate {
 }
 
 th.rotate > div {
-  transform: rotate(45deg);
+  transform: rotate(225deg);
   transform-origin: 100% 100%;
+  
 }
   
 th.rotate > div > span {
@@ -34,10 +35,12 @@ th.rotate > div > span {
   padding: 0px 5px;
   background: var(--table-head-back-color);
   writing-mode: vertical-lr;
+  width: 20px;
 }
 
 td {
 	border-right: 1px dashed black !important;
+	min-width: 20px;
 }
 
   
