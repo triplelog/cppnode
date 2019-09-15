@@ -76,7 +76,7 @@ function toTable(input_str,ctypestr){
 						tspan.textContent = data.data[0][i]+' ';
 						tdiv.appendChild(tspan);
 						th.appendChild(tdiv);
-						th.classList.add('rotate');
+						//th.classList.add('rotate');
 						tr.appendChild(th);
 					}
 				thead.appendChild(tr);
