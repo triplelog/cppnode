@@ -51,7 +51,7 @@ self.addEventListener('message', function(e) {
 			var parsedstrE = Papa.parse(partstrE);
 			parsedstrE.splice(0,1);
 			
-			var parsedstr = parsedstrH.concat(parsedstrE);
+			var parsedstr = parsedstrH;
 			
 			var get_type = Module.cwrap('getType', 'string', ['string']);
 			
