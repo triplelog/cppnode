@@ -131,7 +131,7 @@ function toTable(input_str,ctypestr){
 		var th = headCells[i];
 		var tdiv = th.querySelector("div");
 		var tspan = tdiv.querySelector("span");
-		tspan.textContent += ' (as '+cheaders[i]+')';
+		tspan.innerHTML += ' (as '+cheaders[i]+')';
 	}
 
 	return ctypestr;
