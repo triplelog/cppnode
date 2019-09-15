@@ -25,13 +25,15 @@ table:not(.horizontal) th.rotate {
 }
 
 th.rotate > div {
-  transform: translate(20px, 121px) rotate(330deg);
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
 }
   
 th.rotate > div > span {
   border-bottom: 1px solid #ccc;
   padding: 0px 5px;
   background: var(--table-head-back-color);
+  writing-mode: vertical-lr;
 }
 
 td {
