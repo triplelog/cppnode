@@ -133,7 +133,7 @@ char* getType(char* x) {
 	for (iii = 0; a[iii] != '\0'; iii++){
 		if (a[iii] == '.'){ii = i; qc++;}
 		else {
-			out[i] = a[iii];
+			b[i] = a[iii];
 			i++;
 			if (a[iii] == '0' || a[iii] == '1' || a[iii] == '2' || a[iii] == '3' || a[iii] == '4' || a[iii] == '5' || a[iii] == '6' || a[iii] == '7' || a[iii] == '8' || a[iii] == '9') {d++;}
 		}
