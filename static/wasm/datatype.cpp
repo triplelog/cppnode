@@ -111,6 +111,7 @@ char* getType(char* x) {
 	if (osl < 1){return "blank";}
 	else if (d == osl) {return "integer";}
 	if (d == 0) {return "string";}
+	return "string";
 	/*
 	//Get fractions
 	chg = true;
