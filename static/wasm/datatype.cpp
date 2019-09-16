@@ -101,7 +101,10 @@ char* getType(char* x) {
 		if (ii != i){chg = true;}
 		if (ii == qc && ii > 0){b[0] = ' '; b[ii-1] = '\0'; chg = true;}
 		else {b[ii] = '\0'; osl = ii;}
-		a = b;
+		for (iii = 0; b[iii] != '\0'; iii++){
+			a[iii] = b[iii];
+		}
+		a[iii] = b[iii];
 	} while (chg);
 	
 	
