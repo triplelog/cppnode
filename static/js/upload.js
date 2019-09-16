@@ -5,7 +5,7 @@ document.querySelector('#to-compress').addEventListener('change', function(inp) 
 	
 	
 	var ffile = this.files[0];
-	syncWorker.postMessage(ffile);
+	syncWorker.postMessage(ffile.slice(0,20000));
 	syncWorker.onmessage = function(e) {
 		ctypestr = toTable(e.data.result,e.data.ctypestr);
 		//if (filen != ""){createConfirmForm();}

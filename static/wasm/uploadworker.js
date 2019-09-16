@@ -87,7 +87,7 @@ self.addEventListener('message', function(e) {
 			});
 		
 		}
-		readerP.readAsArrayBuffer(data.slice(data.size-20000,data.size));
+		readerP.readAsArrayBuffer(data);
 
    } catch(e){
         postMessage({
