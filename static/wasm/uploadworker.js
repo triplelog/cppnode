@@ -43,7 +43,7 @@ self.addEventListener('message', function(e) {
 			
 			var parsedstrH = Papa.parse(partstrH);
 			parsedstrH.data.pop();
-			var partBufferE = this.result.slice(this.result.size-10000,this.result.size),
+			var partBufferE = this.result.slice(10000,20000),
 				partarrayE = new Uint8Array(partBufferE)
 			var partstrE = new TextDecoder("utf-8").decode(partarrayE);
 			
