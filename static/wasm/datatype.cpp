@@ -46,7 +46,7 @@ char* trim(char* x) {
 
 char* getType(char* x) {
 	
-	int i = 0; int ii; int qc; int osl;
+	int i = 0; int ii; int iii; int qc; int osl;
 	char a[20];
 	char b[20];
 	bool chg = true;
@@ -60,9 +60,6 @@ char* getType(char* x) {
 			if (*x == ' ' || *x == '\t'){
 			}
 			else {
-				if (*x == '\"' && i >1 && qc == 0) {qc = i;}
-				else if (*x == '\"' && i >1) {qc = -1;}
-				else if (*x != '\"' && i == 1) {qc = -1;}
 				if (*x == '0' || *x == '1' || *x == '2' || *x == '3' || *x == '4' || *x == '5' || *x == '6' || *x == '7' || *x == '8' || *x == '9') {d++;}
 				ii = i;
 			}
@@ -70,10 +67,12 @@ char* getType(char* x) {
 		}
 		x++;
 	}
-	if (d < 1){return "blank";}
+	
+	if (ii == 0){return "blank";}
+	else if (d < 1) {return "string";}
 	else if (d == ii) {return "integer";}
-	return "string";
-	/*
+	a[ii] = '\0';
+	
 	//Trim whitespace and quotation marks
 	do {
 		chg = false;
@@ -81,36 +80,35 @@ char* getType(char* x) {
 		i = 0;
 		ii = 0;
 		d = 0;
-		for (t = x; *t != '\0'; t++){
-			if (i == 0 && *t == ' '){chg = true;}
-			else if (i == 0 && *t == '\t'){chg = true;}
+		for (iii = 0; a[iii] != '\0'; iii++){
+			if (i == 0 && a[iii] == ' '){chg = true;}
+			else if (i == 0 && a[iii] == '\t'){chg = true;}
 			else {
-				out[i] = *t;
+				b[i] = a[iii];
 				i++;
-				if (*t == ' ' || *t == '\t'){
+				if (a[iii] == ' ' || a[iii] == '\t'){
 				}
 				else {
-					if (*t == '\"' && i >1 && qc == 0) {qc = i;}
-					else if (*t == '\"' && i >1) {qc = -1;}
-					else if (*t != '\"' && i == 1) {qc = -1;}
-					if (*t == '0' || *t == '1' || *t == '2' || *t == '3' || *t == '4' || *t == '5' || *t == '6' || *t == '7' || *t == '8' || *t == '9') {d++;}
+					if (a[iii] == '\"' && i >1 && qc == 0) {qc = i;}
+					else if (a[iii] == '\"' && i >1) {qc = -1;}
+					else if (a[iii] != '\"' && i == 1) {qc = -1;}
+					if (a[iii] == '0' || a[iii] == '1' || a[iii] == '2' || a[iii] == '3' || a[iii] == '4' || a[iii] == '5' || a[iii] == '6' || a[iii] == '7' || a[iii] == '8' || a[iii] == '9') {d++;}
 					ii = i;
 				}
 			
 			}
 		}
 		if (ii != i){chg = true;}
-		if (ii == qc && ii > 0){out[0] = ' '; out[ii-1] = '\0'; chg = true;}
-		else {out[ii] = '\0'; osl = ii;}
-		x = out;
-		out = str;
+		if (ii == qc && ii > 0){b[0] = ' '; b[ii-1] = '\0'; chg = true;}
+		else {b[ii] = '\0'; osl = ii;}
+		a = b;
 	} while (chg);
 	
 	
 	if (osl < 1){return "blank";}
 	else if (d == osl) {return "integer";}
 	if (d == 0) {return "string";}
-	
+	/*
 	//Get fractions
 	chg = true;
 	do {
