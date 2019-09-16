@@ -69,7 +69,6 @@ char* getType(char* x) {
 	}
 	
 	if (ii == 0){return "blank";}
-	else if (d < 1) {return "string";}
 	else if (d == ii) {return "integer";}
 	a[ii] = '\0';
 	
@@ -111,52 +110,37 @@ char* getType(char* x) {
 	if (osl < 1){return "blank";}
 	else if (d == osl) {return "integer";}
 	if (d == 0) {return "string";}
-	return "string";
-	/*
-	//Get fractions
-	chg = true;
-	do {
-		chg = false;
-		qc = 0;
-		i = 0;
-		ii = 0;
-		d = 0;
-		for (t = x; *t != '\0'; t++){
-			if (*t == '/'){ii = i; qc++;}
-			else {
-				out[i] = *t;
-				i++;
-				if (*t == '0' || *t == '1' || *t == '2' || *t == '3' || *t == '4' || *t == '5' || *t == '6' || *t == '7' || *t == '8' || *t == '9') {d++;}
-			}
-		}
-		
 
-	} while (chg);
-	out[i] = '\0';
+	
+	//Get fractions
+
+	qc = 0;i = 0;ii = 0;d = 0;
+	for (iii = 0; a[iii] != '\0'; iii++){
+		if (a[iii] == '/'){ii = i; qc++;}
+		else {
+			b[i] = a[iii];
+			i++;
+			if (a[iii] == '0' || a[iii] == '1' || a[iii] == '2' || a[iii] == '3' || a[iii] == '4' || a[iii] == '5' || a[iii] == '6' || a[iii] == '7' || a[iii] == '8' || a[iii] == '9') {d++;}
+		}
+	}
+	b[i] = '\0';
 	if (qc == 1 && d == i && ii < i && ii > 0) {return "fraction";}
 	
+	
 	//Get decimals
-	chg = true;
-	do {
-		chg = false;
-		qc = 0;
-		i = 0;
-		ii = 0;
-		d = 0;
-		for (t = x; *t != '\0'; t++){
-			if (*t == '.'){ii = i; qc++;}
-			else {
-				out[i] = *t;
-				i++;
-				if (*t == '0' || *t == '1' || *t == '2' || *t == '3' || *t == '4' || *t == '5' || *t == '6' || *t == '7' || *t == '8' || *t == '9') {d++;}
-			}
+
+	qc = 0;i = 0;ii = 0;d = 0;
+	for (iii = 0; a[iii] != '\0'; iii++){
+		if (a[iii] == '.'){ii = i; qc++;}
+		else {
+			out[i] = a[iii];
+			i++;
+			if (a[iii] == '0' || a[iii] == '1' || a[iii] == '2' || a[iii] == '3' || a[iii] == '4' || a[iii] == '5' || a[iii] == '6' || a[iii] == '7' || a[iii] == '8' || a[iii] == '9') {d++;}
 		}
-		
-
-	} while (chg);
-	out[i] = '\0';
+	}
+	b[i] = '\0';
 	if (qc == 1 && d == i) {return "decimal";}
-
+	/*
 	//Get dates
 	chg = true;
 	do {
