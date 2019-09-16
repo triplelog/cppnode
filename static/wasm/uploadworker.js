@@ -43,7 +43,7 @@ self.addEventListener('message', function(e) {
 			
 			var parsedstrH = Papa.parse(partstrH);
 			parsedstrH.data.pop();
-			var partBufferE = this.result.slice(10000,20000),
+			var partBufferE = this.result.slice(this.result.size-10000,this.result.size),
 				partarrayE = new Uint8Array(partBufferE)
 			var partstrE = new TextDecoder("utf-8").decode(partarrayE);
 			
@@ -87,7 +87,7 @@ self.addEventListener('message', function(e) {
 			});
 		
 		}
-		readerP.readAsArrayBuffer(data.slice(0,10000)+data.slice(data.size-10000,data.size));
+		readerP.readAsArrayBuffer(data);
 
    } catch(e){
         postMessage({
