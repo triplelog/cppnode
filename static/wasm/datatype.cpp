@@ -46,11 +46,34 @@ char* trim(char* x) {
 
 char* getType(char* x) {
 	
-	char *str = "xxxxxxxxxx"; int i = 0; int ii; int qc; int osl;
-	char *out = str;
-	char * t;
+	int i = 0; int ii; int qc; int osl;
+	char a[20];
+	char b[20];
 	bool chg = true;
 	int d;
+	while (*x){
+		if (i == 0 && *x == ' '){}
+		else if (i == 0 && *x == '\t'){}
+		else {
+			a[i] = *x;
+			i++;
+			if (*x == ' ' || *x == '\t'){
+			}
+			else {
+				if (*x == '\"' && i >1 && qc == 0) {qc = i;}
+				else if (*x == '\"' && i >1) {qc = -1;}
+				else if (*x != '\"' && i == 1) {qc = -1;}
+				if (*x == '0' || *x == '1' || *x == '2' || *x == '3' || *x == '4' || *x == '5' || *x == '6' || *x == '7' || *x == '8' || *x == '9') {d++;}
+				ii = i;
+			}
+		
+		}
+		x++;
+	}
+	if (d < 1){return "blank";}
+	else if (d == ii) {return "integer";}
+	return "string";
+	/*
 	//Trim whitespace and quotation marks
 	do {
 		chg = false;
@@ -155,6 +178,8 @@ char* getType(char* x) {
 	if (qc == 2 && d == i) {return "date";}	
 	
 	return "string";
+	*/
+	
 	/*
     input_str = input_str.trim().toLowerCase();
 	head_str = head_str.trim().toLowerCase();
