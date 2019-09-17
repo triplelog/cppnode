@@ -5,6 +5,8 @@ var syncWorker = new Worker('wasm/uploadworker.js');
 document.getElementById('dropArea').addEventListener('drop', handleDrop, false);
 
 function handleDrop(e) {
+  e.preventDefault();
+  e.stopPropagation();
   let dt = e.dataTransfer;
   let files = dt.files;
   document.getElementById('dropArea').style.display = 'none';
