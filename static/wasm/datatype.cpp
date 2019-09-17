@@ -53,7 +53,7 @@ char* getType(char* x) {
 	int d;
 	int val;
 	//Cppdata out = Cppdata(0);
-	
+	if (*x == '\0') {return "blank";}
 	//Trim whitespace and remove unneeded parentheses
 	while (*x){
 		if (i == 0 && *x == ' '){}
