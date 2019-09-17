@@ -138,7 +138,7 @@ char* getType(char* x) {
 	b[i] = '\0';
 	//out.v = 0; out.w = 1;
 	return "string";
-	*/
+
 	
 	/*
     input_str = input_str.trim().toLowerCase();
