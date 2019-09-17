@@ -54,6 +54,12 @@ tbody tr:nth-of-type(2n) {
 tbody tr:nth-of-type(2n-1) {
   background: rgb(240,240,240);
 }
+
+#dropArea {
+	width: 200px;
+	height: 200px;
+	border: 1px solid black;
+}
   
   </style>
 </head>
@@ -70,19 +76,23 @@ tbody tr:nth-of-type(2n-1) {
 
       	
       	<div>
-			<small>Upload a uncompressed file and it will be compressed and downloaded!</small>
+			<small>Upload a csv file.</small>
 			<br />
 			<input id="to-compress" type="file" />
 			<div id="result"></div>
+			<div id="formholder">
+      	
+      		</div>
+		</div>
+		<div id="dropArea">
+		
 		</div>
       	
       	<div id="outputTable">
       	
       	</div>
       	
-      	<div id="formholder">
       	
-      	</div>
       	
   </div>
 

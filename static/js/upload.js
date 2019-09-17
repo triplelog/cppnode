@@ -1,9 +1,25 @@
 var ctypestr = "";
 var filen = "";
 var syncWorker = new Worker('wasm/uploadworker.js');
+
+document.getElementById('dropArea').addEventListener('drop', handleDrop, false);
+
+function handleDrop(e) {
+  let dt = e.dataTransfer;
+  let files = dt.files;
+  document.getElementById('dropArea').style.display = 'none';
+  var ffile = files[0];
+	syncWorker.postMessage(ffile.slice(0,20000));
+	syncWorker.onmessage = function(e) {
+		ctypestr = toTable(e.data.result,e.data.ctypestr);
+		//if (filen != ""){createConfirmForm();}
+		setTimeout(fullCompression,1000,ffile);
+	};
+}
+
 document.querySelector('#to-compress').addEventListener('change', function(inp) {
 	
-	
+	document.getElementById('dropArea').style.display = 'none';
 	var ffile = this.files[0];
 	syncWorker.postMessage(ffile.slice(0,20000));
 	syncWorker.onmessage = function(e) {
