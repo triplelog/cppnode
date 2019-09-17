@@ -3,10 +3,16 @@ var filen = "";
 var syncWorker = new Worker('wasm/uploadworker.js');
 
 document.getElementById('dropArea').addEventListener('drop', handleDrop, false);
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+  document.getElementById('dropArea').addEventListener(eventName, preventDefaults, false)
+})
 
+function preventDefaults(e) {
+	e.preventDefault();
+    e.stopPropagation();
+}
 function handleDrop(e) {
-  e.preventDefault();
-  e.stopPropagation();
+  
   let dt = e.dataTransfer;
   let files = dt.files;
   document.getElementById('dropArea').style.display = 'none';
