@@ -231,10 +231,11 @@ class TabDN extends HTMLElement {
 	this.shadowRoot.appendChild(filterDiv);
 	
 	var pivotDiv = document.createElement("div");
-		["pivotCol","pivotSort","pivotColumns"].forEach( pfid => {
+		[["pivotCol","Pivot Column..."],["pivotSort","Sort Column..."],["pivotColumns","Show Columns..."]].forEach( pfid => {
 			var pivotFormula = document.createElement("input");
 			pivotFormula.setAttribute("type","text");
-			pivotFormula.id = pfid;
+			pivotFormula.id = pfid[0];
+			pivotFormula.setAttribute("placeholder",pfid[1]);
 			pivotDiv.appendChild(pivotFormula);
 		});
 		var pivotButton = document.createElement("button");
@@ -413,6 +414,8 @@ class TabDN extends HTMLElement {
 		var clickedCol = e.target.textContent;
 		if (this.pivotMode == 'pivotcol'){
 			this.shadowRoot.querySelector("#pivotCol").value = clickedCol;
+			this.shadowRoot.querySelector("#pivotCol").style.border = "1px solid black";
+			this.shadowRoot.querySelector("#pivotSort").style.border = "1px solid red";
 			this.pivotMode = 'sortcol';
 		}
 		else if (this.pivotMode == 'sortcol'){
