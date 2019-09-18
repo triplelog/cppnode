@@ -48,6 +48,24 @@ http.createServer(function(req, res) {
 		// below we process the full data
 		});
     }
+    else if (req.url == "/downloadfile"){
+		var data = [];
+
+		// when we get data we want to store it in memory
+		req.on('end', () => {
+			res.write("hello"); //write a response to the client
+			res.end(); //end the response
+			
+		});
+	
+		req.on('data', chunk => {
+			//console.log(chunk.length);
+			//res.write(chunk.length);
+			data.push(chunk);
+
+		// below we process the full data
+		});
+    }
     else if (req.url.substring(0,9) == "/savefile"){
     	var filepart = req.url.substring(12,req.url.length);
     	req.on('data', chunk => {
