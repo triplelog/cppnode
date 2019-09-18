@@ -398,11 +398,11 @@ class TabDN extends HTMLElement {
   }
   
   mousehead(e,x) {
-  	if (this.currentMode == "sort") {
-  		this.sort(e,x);
-  	}
-  	else if (this.currentMode == "pivot") {
+  	if (this.currentMode == "pivot") {
   		this.pivot(e,x);
+  	}
+  	else if (this.currentMode != "arrange") {
+  		this.sort(e,x);
   	}
   }
   

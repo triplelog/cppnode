@@ -116,9 +116,9 @@ char* getType(char* x) {
 	if (d == 0) {return "string";}
 
 	
-	//Get fractions and decimals
+	//Get fractions, decimals, and dates
 
-	qc = 0; qcc = 0; i = 0;ii = 0;d = 0;// out.v = 0; out.w = 0;
+	qc = 0; qcc = 0; i = 0;ii = 0;d = 0; //out.v = 0; out.w = 0; osl = 0;
 	for (iii = 0; a[iii] != '\0'; iii++){
 		if (a[iii] == '/'){ii = i; qc++;}
 		else if (a[iii] == '.'){ii = i; qcc++;}
@@ -126,17 +126,25 @@ char* getType(char* x) {
 			b[i] = a[iii];
 			i++;
 			if (a[iii] == '0' || a[iii] == '1' || a[iii] == '2' || a[iii] == '3' || a[iii] == '4' || a[iii] == '5' || a[iii] == '6' || a[iii] == '7' || a[iii] == '8' || a[iii] == '9') {
-				//if (qc == 0 && qcc == 0) {out.v = out.v*10 + (a[iii] - '0');}
-				//else {out.w = out.w*10 + (a[iii] - '0');}
+				/*if (qc == 0 && qcc == 0) {out.v = out.v*10 + (a[iii] - '0');}
+				else if (qc == 0 && out.v < 100000000) {out.v = out.v*10 + (a[iii] - '0'); out.w--;}
+				else if (qc == 1) {out.w = out.w*10 + (a[iii] - '0');}
+				else if (qc == 2) {osl = osl*10 + (a[iii] - '0');}*/
 				d++;
 			}
 		}
 	}
 	
-	if (qc == 1 && qcc == 0 && d == i && ii < i && ii > 0) {return "fraction";}
-	else if (qc == 0 && qcc == 1 && d == i) {return "decimal";}
+	if (qc == 1 && qcc == 0 && d == i && ii < i && ii > 0) {if (out.w != 1) {out.t = 'R';}; return "fraction";}
+	else if (qc == 0 && qcc == 1 && d == i) {out.t = 'F';return "decimal";}
+	else if (qc == 2 && qcc == 0 && d == i && ii < i && ii > 0) {
+		//if (out.v > 0 && out.w > 0 && osl > 0){
+			return "date";//createDate(out.v,out.w,osl);
+		//}		
+	}
 	b[i] = '\0';
 	//out.v = 0; out.w = 1;
+	//return out;
 	return "string";
 
 	
