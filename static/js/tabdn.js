@@ -100,6 +100,8 @@ class TabDN extends HTMLElement {
   	table.style.display = "block";
   	table.addEventListener("scroll",e => {this.scrollTable(e);});
   	//this.appendChild(table);
+  	console.log(this);
+  	console.log(this.parentNode);
   	this.shadowRoot.appendChild(table);
   	
   }
