@@ -144,9 +144,11 @@ class TabDN extends HTMLElement {
 		link.textContent = "Next";
 		link.addEventListener('mousedown',e => {this.newPage(e);});
 		pageDiv.appendChild(link);
+	pageDiv.innerHTML += ' Show: ';
 	var perPage = document.createElement("input");
 	perPage.setAttribute("type","number");
 	perPage.setAttribute("value","10");
+	perPage.style.width = "5em";
 	perPage.id = "perPage";
 	perPage.addEventListener("input",e => {this.setPerPage(e,0);});
 	pageDiv.appendChild(perPage);
