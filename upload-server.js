@@ -49,11 +49,11 @@ http.createServer(function(req, res) {
 		});
     }
     else if (req.url == "/downloadfile"){
-		var data = [];
+		var data = '';
 
 		// when we get data we want to store it in memory
 		req.on('end', () => {
-			res.write('data'); //write a response to the client
+			res.write(data); //write a response to the client
 			res.end(); //end the response
 			
 		});
@@ -61,7 +61,7 @@ http.createServer(function(req, res) {
 		req.on('data', chunk => {
 			//console.log(chunk.length);
 			//res.write(chunk.length);
-			data.push(chunk);
+			data = chunk;
 
 		// below we process the full data
 		});
