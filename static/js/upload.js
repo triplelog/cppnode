@@ -27,11 +27,11 @@ function handleDrop(e) {
 
 document.querySelector('#from-url').addEventListener('change', function() {
 	
-	console.log(document.getElementById('from-url').value);
+	//console.log(document.getElementById('from-url').value);
 	var xmlHttp = new XMLHttpRequest();
 		xmlHttp.open("POST", "/downloadfile", false); // false for synchronous request
-		xmlHttp.send('hi');
-		alert(xmlHttp.responseText);
+		xmlHttp.send(document.getElementById('from-url').value);
+		console.log(xmlHttp.responseText);
 
 }, false);
 

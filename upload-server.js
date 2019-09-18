@@ -53,7 +53,7 @@ http.createServer(function(req, res) {
 
 		// when we get data we want to store it in memory
 		req.on('end', () => {
-			res.write("hello"); //write a response to the client
+			res.write(data); //write a response to the client
 			res.end(); //end the response
 			
 		});
