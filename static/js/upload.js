@@ -25,6 +25,12 @@ function handleDrop(e) {
 	};
 }
 
+document.querySelector('#from-url').addEventListener('change', function() {
+	
+	console.log(document.getElementById('from-url').value);
+
+}, false);
+
 document.querySelector('#to-compress').addEventListener('change', function(inp) {
 	
 	document.getElementById('dropArea').style.display = 'none';
