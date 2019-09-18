@@ -469,6 +469,7 @@ class TabDN extends HTMLElement {
   }
   
   newPage(e) {	
+  	console.log(e);
 	var pageId = e.target.id.substring(4,);
 	var cpage = 1;
 
