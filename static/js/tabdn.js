@@ -94,14 +94,12 @@ class TabDN extends HTMLElement {
   		table.appendChild(tfoot);
   	table.style.overflowY = "auto";
   	table.style.overflowX = "auto";
-  	table.style.maxHeight = "50vh";
+  	table.style.maxHeight = "100vh";
   	table.style.margin = "0px";
   	table.style.border = "1px dashed blue";
   	table.style.display = "block";
   	table.addEventListener("scroll",e => {this.scrollTable(e);});
   	//this.appendChild(table);
-  	console.log(this);
-  	console.log(this.parentNode);
   	this.shadowRoot.appendChild(table);
   	
   }
@@ -266,6 +264,7 @@ class TabDN extends HTMLElement {
   addData(retmess) {
   	var table = this.shadowRoot.querySelector('table');
     table.style.maxWidth = (this.parentNode.clientWidth-20)+"px";
+    table.style.maxHeight = (this.parentNode.clientHeight-50)+"px";
     this.style.maxWidth = (this.parentNode.clientWidth-20)+"px";
 	
 	if (retmess[0][0].substring(0,5)=="Pivot"){
