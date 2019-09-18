@@ -94,7 +94,7 @@ class TabDN extends HTMLElement {
   		table.appendChild(tfoot);
   	table.style.overflowY = "auto";
   	table.style.overflowX = "auto";
-  	table.style.maxHeight = "40vh";
+  	table.style.maxHeight = "50vh";
   	table.style.margin = "0px";
   	table.style.border = "1px dashed blue";
   	table.style.display = "block";
