@@ -135,8 +135,8 @@ char* getType(char* x) {
 		}
 	}
 	
-	if (qc == 1 && qcc == 0 && d == i && ii < i && ii > 0) {if (out.w != 1) {out.t = 'R';}; return "fraction";}
-	else if (qc == 0 && qcc == 1 && d == i) {out.t = 'F';return "decimal";}
+	if (qc == 1 && qcc == 0 && d == i && ii < i && ii > 0) { return "fraction";}
+	else if (qc == 0 && qcc == 1 && d == i) {return "decimal";}
 	else if (qc == 2 && qcc == 0 && d == i && ii < i && ii > 0) {
 		//if (out.v > 0 && out.w > 0 && osl > 0){
 			return "date";//createDate(out.v,out.w,osl);
