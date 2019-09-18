@@ -414,12 +414,12 @@ class TabDN extends HTMLElement {
 		var clickedCol = e.target.textContent;
 		if (this.pivotMode == 'pivotcol'){
 			this.shadowRoot.querySelector("#pivotCol").value = clickedCol;
-			this.shadowRoot.querySelector("#pivotCol").style.border = "1px solid black";
-			this.shadowRoot.querySelector("#pivotSort").style.border = "1px solid red";
+			this.shadowRoot.querySelector("#pivotSort").focus();
 			this.pivotMode = 'sortcol';
 		}
 		else if (this.pivotMode == 'sortcol'){
 			this.shadowRoot.querySelector("#pivotSort").value = clickedCol;
+			this.shadowRoot.querySelector("#pivotColumns").focus();
 			this.pivotMode = 'columns';
 		}
 		else if (this.pivotMode == 'columns'){
@@ -722,7 +722,7 @@ class TabDN extends HTMLElement {
   	['pivotDiv','filterDiv','opDiv','columnDiv'].forEach( tmpDiv => {this.shadowRoot.querySelector('#'+tmpDiv).style.display = 'none';});
   	if (this.currentMode == 'newcol') {this.shadowRoot.querySelector('#columnDiv').style.display = 'inline-block';}
   	else if (this.currentMode == 'filter') {this.shadowRoot.querySelector('#filterDiv').style.display = 'inline-block';}
-  	else if (this.currentMode == 'pivot') {this.pivotMode = "pivotcol"; this.shadowRoot.querySelector('#pivotDiv').style.display = 'inline-block';}
+  	else if (this.currentMode == 'pivot') {this.pivotMode = "pivotcol"; this.shadowRoot.querySelector('#pivotDiv').style.display = 'inline-block'; this.shadowRoot.querySelector("#pivotCol").focus();}
   	else if (this.currentMode == 'sum') {this.shadowRoot.querySelector('#opDiv').style.display = 'inline-block';}
   	if (this.usecache){
 		this.usecache = false;
