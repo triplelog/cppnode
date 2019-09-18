@@ -264,9 +264,9 @@ class TabDN extends HTMLElement {
   addData(retmess) {
   	var table = this.shadowRoot.querySelector('table');
     table.style.maxWidth = (this.parentNode.clientWidth-20)+"px";
-    table.style.maxHeight = (this.parentNode.clientHeight-50)+"px";
+    table.style.maxHeight = (this.parentNode.clientHeight-40)+"px";
     this.style.maxWidth = (this.parentNode.clientWidth-20)+"px";
-    this.style.maxHeight = (this.parentNode.clientHeight-10)+"px";
+    this.style.maxHeight = (this.parentNode.clientHeight-1)+"px";
 	
 	if (retmess[0][0].substring(0,5)=="Pivot"){
 		this.currentTable = "pivot@" + retmess[0][0].substring(6,retmess[0][0].length-2);
