@@ -65,6 +65,13 @@ class TabDN extends HTMLElement {
 	this.ws.onopen = function(){
 		var jsonmessage = {'command':'create','src':_this.getAttribute('src')};
 		_this.ws.send(JSON.stringify(jsonmessage));
+		if (_this.getAttribute('autoload')){
+			if (_this.usecache){
+				_this.usecache = false;
+				var jsonmessage = {'command':'load'};
+				_this.ws.send(JSON.stringify(jsonmessage));
+			}
+		}
 	};
 	
 	
