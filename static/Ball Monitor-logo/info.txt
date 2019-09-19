@@ -1,0 +1,14 @@
+
+Hope you enjoy your new logo, here are the people that
+made your beautiful logo happen :)
+font name: Kingthings_Calligraphica_Italic
+font link: http://www.kingthingsfonts.co.uk/fonts/fonts.htm
+font author: Kingthings
+font author site: http://www.kingthingsfonts.co.uk/
+
+
+icon designer: Marieva Cunha
+icon designer link: /marievacunha
+        
+{"bg":"#9B6E10","icon":"#F5DADA","font":"#F5DADA","slogan":"#ffeeee"}
+      
