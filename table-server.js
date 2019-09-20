@@ -7,7 +7,7 @@ const options = {
   cert: fs.readFileSync('/etc/letsencrypt/live/tabdn.com/fullchain.pem')
 };
 
-https.createServer(options, (req, res) => {
+const server = https.createServer(options, (req, res) => {
   res.writeHead(200);
   res.end('hello world\n');
 }).listen(8080);
@@ -15,7 +15,7 @@ https.createServer(options, (req, res) => {
 
 const WebSocket = require('ws');
 //const wss = new WebSocket.Server({ port: 8080 , origin: 'http://tabdn.com'});
-const wss = new WebSocket.Server({ port: 8080});
+const wss = new WebSocket.Server({ server });
 //const { exec } = require('child_process');
 
 //var acmd = require('child_process').spawn('../cppsv/nanotable', ['31','uploads/upmkd3w'])
