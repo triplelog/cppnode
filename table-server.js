@@ -5,7 +5,7 @@ var fs = require("fs");
 
 const WebSocket = require('ws');
 //const wss = new WebSocket.Server({ port: 8080 , origin: 'http://tabdn.com'});
-const wss = new WebSocket.Server('wss://tabdn.com/', { port: 8080});
+const wss = new WebSocket.Server('ws://tabdn.com/', { port: 8080});
 //const { exec } = require('child_process');
 
 //var acmd = require('child_process').spawn('../cppsv/nanotable', ['31','uploads/upmkd3w'])
