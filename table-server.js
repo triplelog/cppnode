@@ -3,8 +3,8 @@ var fs = require("fs");
 const https = require('https');
 
 const options = {
-  key: fs.readFileSync('test/fixtures/keys/agent2-key.pem'),
-  cert: fs.readFileSync('test/fixtures/keys/agent2-cert.pem')
+  key: fs.readFileSync('/etc/letsencrypt/live/tabdn.com/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/tabdn.com/fullchain.pem')
 };
 
 https.createServer(options, (req, res) => {
