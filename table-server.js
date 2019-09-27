@@ -204,6 +204,9 @@ function cachedFunc(ws, message, userid) {
 					allusers[userid].messages.splice(0,1);
 					if (allusers[userid].messages.length > 0) {
 						var nmessage = allusers[userid].messages[0];
+						var d = new Date();
+						var n = d.getTime();
+						console.log('new message from cache', nmessage, "," ,allusers[userid].messages," ,",n);
 						if (!allusers[userid].memory){
 							cachedFunc(ws,nmessage,userid);
 						}
