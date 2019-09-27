@@ -132,6 +132,11 @@ wss.on('connection', function connection(ws) {
 
 		}
 		else {
+			if (message.indexOf('filter') > -1){
+				var d = new Date();
+				var n = d.getTime();
+				console.log('filter start',userid," , ",n);
+			}
 			fs.appendFile(allusers[userid].slow, message, (err) => {});
 			setTimeout(intervalFunc,5, ws, userid);
 
@@ -208,9 +213,18 @@ function intervalFunc(ws, userid) {
 					
 					fs.readFile(userid, 'utf8', function(err, data) {
 						if (data.substring(0,22) != "completedwithoutoutput"){
+							
+							var d = new Date();
+							var n = d.getTime();
+							console.log('output',userid," , ",n);
+							
 							ws.send(data);
 						}
 						else {
+							var d = new Date();
+							var n = d.getTime();
+							console.log('nooutput',userid," , ",n);
+							
 						}
 						
 						allusers[userid].messages.splice(0,1);
@@ -222,7 +236,11 @@ function intervalFunc(ws, userid) {
 							  //console.error(err);
 							}
 							nmessage = allusers[userid].messages[0];
-						
+							if (nmessage.indexOf('filter') > -1){
+								var d = new Date();
+								var n = d.getTime();
+								console.log('filter start',userid," , ",n);
+							}
 							if (nmessage.split(",")[3] == 'print' || nmessage.split(",")[3] == 'display' || (nmessage.split(",")[3] == 'addcol' && nmessage.split(",")[2] != '-1')){
 								fs.appendFile(allusers[userid].quick, nmessage, (err) => {});
 							}
