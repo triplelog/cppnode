@@ -216,6 +216,9 @@ function cachedFunc(ws, message, userid) {
 
 						}
 						else {
+							var d = new Date();
+							var n = d.getTime();
+							console.log('new slow message from cache', nmessage, "," ,allusers[userid].messages," ,",n);
 							fs.appendFile(allusers[userid].slow, nmessage, (err) => {});
 							setTimeout(intervalFunc,5, ws, userid);
 						}
