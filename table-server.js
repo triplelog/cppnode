@@ -124,8 +124,7 @@ wss.on('connection', function connection(ws) {
 			console.log('not new:',n);
 		}
 		
-		//message = userid+',0,10,sort,0\n';
-		message = userid+',0,10,print,main\n';
+		message = userid+',0,10,sort,0\n';
 	}
 	else {
 		console.log("what?",message);
@@ -250,6 +249,10 @@ function intervalFunc(ws, userid) {
 							  //console.error(err);
 							}
 							nmessage = allusers[userid].messages[0];
+							
+							var d = new Date();
+							var n = d.getTime();
+							console.log('new message', nmessage, "," ,allusers[userid].messages," ,",n);
 						
 							if (nmessage.split(",")[3] == 'print' || nmessage.split(",")[3] == 'display' || (nmessage.split(",")[3] == 'addcol' && nmessage.split(",")[2] != '-1')){
 								fs.appendFile(allusers[userid].quick, nmessage, (err) => {});
