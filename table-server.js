@@ -27,10 +27,8 @@ var allusers = {};
 wss.on('connection', function connection(ws) {
   var userid = "ff"+Math.random().toString(36).substring(5, 10)+".csv";
   ws.on('message', function incoming(message) {
-  	var d = new Date();
-	var n = d.getTime();
-	console.log('get input',JSON.parse(message)," ,",n);
-	//console.log(JSON.parse(message));
+
+	console.log(JSON.parse(message));
 	var dm = JSON.parse(message);
 	var message2 = "";
 	var message3 = "";
@@ -132,9 +130,6 @@ wss.on('connection', function connection(ws) {
 		return 0;
 	}
 
-	var d = new Date();
-	var n = d.getTime();
-	console.log('almost to new message', message, "," ,allusers[userid].messages," ,",n);
 
 	if (allusers[userid].messages.length == 0) {
 		allusers[userid].messages.push(message);
