@@ -75,6 +75,9 @@ wss.on('connection', function connection(ws) {
 		allusers[userid].currentTable = 'pivot@0';
 	}
 	else if (dm.command == 'filter'){
+		var d = new Date();
+		var n = d.getTime();
+		console.log('to filter',n);
 		message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',filter,'+dm.formula+'\n';
 		message2 = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',print,'+allusers[userid].currentTable+'\n';
 		if (allusers[userid].currentTable == 'main') {
@@ -93,6 +96,9 @@ wss.on('connection', function connection(ws) {
 		}
 	}
 	else if (dm.command == 'load'){
+		var d = new Date();
+		var n = d.getTime();
+		console.log('to load',n);
 		allusers[userid].memory = true;
 		var newtable = true;
 		for (var otheruserid in allusers) {
@@ -101,12 +107,23 @@ wss.on('connection', function connection(ws) {
 		  	break;
 		  }
 		}
+		var d = new Date();
+		var n = d.getTime();
+		console.log('searched users',n);
 		if (newtable){
-			
+			var d = new Date();
+			var n = d.getTime();
+			console.log('new:',n);
 			fs.writeFile(allusers[userid].quick, "", (err) => {});
 			fs.writeFile(allusers[userid].slow, "", (err) => {});
 			var acmd = require('child_process').spawn('../cppsv/nanotable', [allusers[userid].table]);
 		}
+		else {
+			var d = new Date();
+			var n = d.getTime();
+			console.log('not new:',n);
+		}
+		
 		message = userid+',0,10,sort,0\n';
 	}
 	else {
