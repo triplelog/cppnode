@@ -231,10 +231,13 @@ function intervalFunc(ws, userid) {
 						if (data.substring(0,22) != "completedwithoutoutput"){
 							var d = new Date();
 							var n = d.getTime();
-							console.log('send output',userid," ,",n);
+							console.log('send output',allusers[userid].messages," ,",n);
 							ws.send(data);
 						}
 						else {
+							var d = new Date();
+							var n = d.getTime();
+							console.log('no output',allusers[userid].messages," ,",n);
 						}
 						
 						allusers[userid].messages.splice(0,1);
