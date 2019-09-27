@@ -132,7 +132,9 @@ wss.on('connection', function connection(ws) {
 		return 0;
 	}
 
-	
+	var d = new Date();
+	var n = d.getTime();
+	console.log('almost to new message', message, "," ,allusers[userid].messages," ,",n);
 
 	if (allusers[userid].messages.length == 0) {
 		allusers[userid].messages.push(message);
@@ -144,7 +146,9 @@ wss.on('connection', function connection(ws) {
 		} catch(err) {
 		  //console.error(err);
 		}
-		
+		var d = new Date();
+		var n = d.getTime();
+		console.log('new message', message, "," ,allusers[userid].messages," ,",n);
 		if (!allusers[userid].memory){
 			cachedFunc(ws,message,userid);
 		}
