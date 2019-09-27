@@ -234,6 +234,9 @@ function cachedFunc(ws, message, userid) {
 	
 }
 function intervalFunc(ws, userid) {
+		var d = new Date();
+		var n = d.getTime();
+		console.log('waiting',allusers[userid].messages," ,",n);
 		fs.stat(userid, function(err, stats) {
 			if (!err) {
 				if (stats.isFile() && stats.size > 16) {
