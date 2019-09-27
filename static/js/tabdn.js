@@ -70,8 +70,6 @@ class TabDN extends HTMLElement {
 				_this.usecache = false;
 				var jsonmessage = {'command':'load'};
 				_this.ws.send(JSON.stringify(jsonmessage));
-				//var jsonmessage = { command: 'filter', formula: 'c28_4/1/2000_c28_9/1/2000@##>##<&' };
-				//_this.ws.send(JSON.stringify(jsonmessage));
 				
 			}
 		}
@@ -1722,7 +1720,7 @@ function postfixify(input_str,colInfo) {
 			}
 		}
 		else {
-			firstpart[i] = firstpart[i]+'.1.I';
+			firstpart[i] = firstpart[i];
 		}
 	}
 	var fullstr = firstpart.join("_")+'@'+twoparts[1];
