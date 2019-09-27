@@ -92,7 +92,16 @@ wss.on('connection', function connection(ws) {
 		allusers[userid].memory = true;
 		fs.writeFile(allusers[userid].quick, "", (err) => {});
 		fs.writeFile(allusers[userid].slow, "", (err) => {});
-		var acmd = require('child_process').spawn('../cppsv/nanotable', [allusers[userid].table]);
+		var newtable = true;
+		for (var otheruserid in allusers) {
+		  if (otheruserid != userid && allusers[otheruserid].table == allusers[userid].table && allusers[otheruserid].memory){
+		  	newtable = false;
+		  	break;
+		  }
+		}
+		if (newtable){
+			var acmd = require('child_process').spawn('../cppsv/nanotable', [allusers[userid].table]);
+		}
 		message = userid+',0,10,sort,0\n';
 	}
 	else {
