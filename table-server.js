@@ -125,7 +125,7 @@ wss.on('connection', function connection(ws) {
 		}
 		
 		//message = userid+',0,10,sort,0\n';
-		message = userid+'0,10,print,main\n';
+		message = userid+',0,10,print,main\n';
 	}
 	else {
 		console.log("what?",message);
