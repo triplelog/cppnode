@@ -239,7 +239,7 @@ function intervalFunc(ws, userid) {
 		console.log('waiting',allusers[userid].messages," ,",n);
 		fs.readFile(allusers[userid].slow, 'utf8', function(err, data) {
 			console.log(data);
-		}
+		});
 		fs.stat(userid, function(err, stats) {
 			if (!err) {
 				if (stats.isFile() && stats.size > 16) {
