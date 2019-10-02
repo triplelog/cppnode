@@ -62,6 +62,7 @@ self.addEventListener('message', function(e) {
 			}
 			for (var i=0; i<parsedstr[1].length; i++ ) {
 				ctypestr += ",";
+				console.log(i, ctypestr);
 				var isdata = 0; var isstring = 0;
 				for (var ii=1; ii<parsedstr.length; ii++ ) {
 					var dtype = get_type(parsedstr[ii][i]);
