@@ -56,21 +56,18 @@ self.addEventListener('message', function(e) {
 			var get_type = Module.cwrap('getType', 'string', ['string']);
 			
 			var ctypestr = "-1";
-			console.log(parsedstr[1]);
-			for (var ii=0; ii<10; ii++ ) {
-				console.log(ii,parsedstr[ii].length);
-			}
 			for (var i=0; i<parsedstr[1].length; i++ ) {
 				ctypestr += ",";
-				console.log(i, ctypestr);
 				var isdata = 0; var isstring = 0;
 				for (var ii=1; ii<parsedstr.length; ii++ ) {
-					var dtype = get_type(parsedstr[ii][i]);
-					if (dtype == "string") {
-						isstring++;
-					}
-					else {
-						isdata++;
+					if (i<parsedstr[ii].length){
+						var dtype = get_type(parsedstr[ii][i]);
+						if (dtype == "string") {
+							isstring++;
+						}
+						else {
+							isdata++;
+						}
 					}
 				}
 				if (isdata > isstring * 2) {
@@ -81,7 +78,6 @@ self.addEventListener('message', function(e) {
 				}
 			}
 			
-			console.log(partstrH+partstrE, ctypestr);
 			postMessage({
 				result: partstrH+partstrE,
 				ctypestr: ctypestr
