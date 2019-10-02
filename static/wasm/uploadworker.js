@@ -80,7 +80,7 @@ self.addEventListener('message', function(e) {
 				}
 			}
 			
-		
+			console.log(partstrH+partstrE, ctypestr);
 			postMessage({
 				result: partstrH+partstrE,
 				ctypestr: ctypestr
