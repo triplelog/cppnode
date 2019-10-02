@@ -61,9 +61,7 @@ self.addEventListener('message', function(e) {
 				var isdata = 0; var isstring = 0;
 				for (var ii=1; ii<parsedstr.length; ii++ ) {
 					if (i<parsedstr[ii].length){
-						console.log(parsedstr[ii][i]);
-						var dtype = get_type(parsedstr[ii][i]);
-						console.log('done');
+						var dtype = get_type(parsedstr[ii][i].substring(0,19));
 						if (dtype == "string") {
 							isstring++;
 						}
