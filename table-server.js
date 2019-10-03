@@ -65,6 +65,9 @@ wss.on('connection', function connection(ws) {
 		}
 
 	}
+	else if (dm.command == 'switch'){
+		allusers[userid].currentTable = dm.type;
+	}
 	else if (dm.command == 'pivot'){
 		var colstr = '';
 		if (dm.columns && dm.columns.length > 0){
