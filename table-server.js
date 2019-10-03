@@ -58,7 +58,12 @@ wss.on('connection', function connection(ws) {
 			allusers[userid].currentTable = 'main';
 			message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',print,'+allusers[userid].currentTable+'\n';
 		}
-		else {message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',print,'+allusers[userid].currentTable+'\n';}
+		else if (dm.type == null) {message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',print,'+allusers[userid].currentTable+'\n';}
+		else {
+			allusers[userid].currentTable = dm.type;
+			message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',print,'+allusers[userid].currentTable+'\n';
+		}
+
 	}
 	else if (dm.command == 'pivot'){
 		var colstr = '';
