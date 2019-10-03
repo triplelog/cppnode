@@ -173,6 +173,9 @@ wss.on('connection', function connection(ws) {
 		if (message2.length > 3) {allusers[userid].messages.push(message2);}
 		if (message3.length > 3) {allusers[userid].messages.push(message3);}
 	}
+	else {
+		console.log('skip it');
+	}
 
   });
 });
