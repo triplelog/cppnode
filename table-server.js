@@ -80,12 +80,13 @@ wss.on('connection', function connection(ws) {
 	else if (dm.command == 'filter'){
 		var d = new Date();
 		var n = d.getTime();
-		console.log('to filter',n);
+		console.log('to filter',allusers[userid].currentTable,n);
 		message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',filter,'+dm.formula+'\n';
 		message2 = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',print,'+allusers[userid].currentTable+'\n';
 		if (allusers[userid].currentTable == 'main') {
 			message3 = userid+',0,-1,filter,'+dm.formula+'\n';
 		}
+		console.log('to filter',message1,message2, message3);
 	}
 	else if (dm.command == 'sort'){
 		message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',sort,'+dm.column+'\n';
