@@ -86,7 +86,7 @@ wss.on('connection', function connection(ws) {
 		if (allusers[userid].currentTable == 'main') {
 			message3 = userid+',0,-1,filter,'+dm.formula+'\n';
 		}
-		console.log('to filter',message1,message2, message3);
+		console.log('to filter',message,message2, message3);
 	}
 	else if (dm.command == 'sort'){
 		message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',sort,'+dm.column+'\n';
