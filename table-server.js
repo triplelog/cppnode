@@ -67,7 +67,7 @@ wss.on('connection', function connection(ws) {
 	}
 	else if (dm.command == 'switch'){
 		allusers[userid].currentTable = dm.type;
-		return 0;
+		message ="skip";
 	}
 	else if (dm.command == 'pivot'){
 		var colstr = '';
@@ -141,7 +141,7 @@ wss.on('connection', function connection(ws) {
 	}
 
 
-	if (allusers[userid].messages.length == 0) {
+	if (allusers[userid].messages.length == 0 && message != 'skip') {
 		allusers[userid].messages.push(message);
 		if (message2.length > 3) {allusers[userid].messages.push(message2);}
 		if (message3.length > 3) {allusers[userid].messages.push(message3);}
@@ -168,7 +168,7 @@ wss.on('connection', function connection(ws) {
 
 		}
 	}
-	else {
+	else if (message != 'skip'){
 		allusers[userid].messages.push(message);
 		if (message2.length > 3) {allusers[userid].messages.push(message2);}
 		if (message3.length > 3) {allusers[userid].messages.push(message3);}
