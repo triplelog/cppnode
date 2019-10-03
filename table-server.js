@@ -67,6 +67,7 @@ wss.on('connection', function connection(ws) {
 	}
 	else if (dm.command == 'switch'){
 		allusers[userid].currentTable = dm.type;
+		return 0;
 	}
 	else if (dm.command == 'pivot'){
 		var colstr = '';
