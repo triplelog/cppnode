@@ -248,6 +248,7 @@ function cachedFunc(ws, message, userid) {
 function intervalFunc(ws, userid, iterations = 0) {
 		if (iterations > 1000){
 			console.log("Too many iterations");
+			allusers[userid].messages.splice(0,1);
 			if (allusers[userid].messages.length > 0) {
 				try {
 				  fs.unlinkSync(userid);
