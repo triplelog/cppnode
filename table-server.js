@@ -259,7 +259,7 @@ function intervalFunc(ws, userid, iterations = 0) {
 			
 				var d = new Date();
 				var n = d.getTime();
-				console.log('new message', nmessage, "," ,allusers[userid].messages," ,",n);
+				console.log('new message from toomany', nmessage, "," ,allusers[userid].messages," ,",n);
 		
 				if (nmessage.split(",")[3] == 'print' || nmessage.split(",")[3] == 'display' || (nmessage.split(",")[3] == 'addcol' && nmessage.split(",")[2] != '-1')){
 					fs.appendFile(allusers[userid].quick, nmessage, (err) => {});
@@ -268,7 +268,7 @@ function intervalFunc(ws, userid, iterations = 0) {
 					fs.appendFile(allusers[userid].slow, nmessage, (err) => {});
 				}
 
-				intervalFunc(ws, userid, 0);
+				setTimeout(intervalFunc,50, ws, userid, 0);
 				return 0;
 			}
 		}
