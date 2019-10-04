@@ -245,7 +245,9 @@ function cachedFunc(ws, message, userid) {
 
 	
 }
-function intervalFunc(ws, userid) {
+function intervalFunc(ws, userid, iterations = 0) {
+		if (iterations > 1000){console.log("Too many iterations");}
+		else {iterations++;}
 		fs.stat(userid, function(err, stats) {
 			if (!err) {
 				if (stats.isFile() && stats.size > 16) {
@@ -284,16 +286,17 @@ function intervalFunc(ws, userid) {
 								fs.appendFile(allusers[userid].slow, nmessage, (err) => {});
 							}
 
-							setTimeout(intervalFunc,5, ws, userid);
+							setTimeout(intervalFunc,5, ws, userid, 0);
 						}
 					});
 				}
 				else if (stats.isFile()) {
 					//Add logic here
+					console.log("File but not big enough");
 				}
 			}
 			else {
-				setTimeout(intervalFunc,20, ws, userid)
+				setTimeout(intervalFunc,20, ws, userid, iterations)
 			}
 			
 		});
