@@ -248,6 +248,7 @@ function cachedFunc(ws, message, userid) {
 function intervalFunc(ws, userid, iterations = 0) {
 		if (iterations > 1000){
 			console.log("Too many iterations");
+			/*
 			allusers[userid].messages.splice(0,1);
 			if (allusers[userid].messages.length > 0) {
 				try {
@@ -272,6 +273,7 @@ function intervalFunc(ws, userid, iterations = 0) {
 				setTimeout(intervalFunc,50, ws, userid, 0);
 				return 0;
 			}
+			*/
 		}
 		else {iterations++;}
 		fs.stat(userid, function(err, stats) {
@@ -299,7 +301,22 @@ function intervalFunc(ws, userid, iterations = 0) {
 							} catch(err) {
 							  //console.error(err);
 							}
+							
 							nmessage = allusers[userid].messages[0];
+							var clearF = true;
+							while (nmessage.split(',')[3]=='filter' && clearF){
+								clearF = false;
+								for (var i=1;i<allusers[userid].messages.length;i++) {
+									if (allusers[userid].messages[i].split(',')[3]=='filter'){
+										allusers[userid].messages.splice(0,1);
+										nmessage = allusers[userid].messages[0];
+										clearF = true;
+										break;
+									}
+								}
+								
+							}
+							
 							
 							var d = new Date();
 							var n = d.getTime();
