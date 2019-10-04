@@ -246,7 +246,31 @@ function cachedFunc(ws, message, userid) {
 	
 }
 function intervalFunc(ws, userid, iterations = 0) {
-		if (iterations > 1000){console.log("Too many iterations");}
+		if (iterations > 1000){
+			console.log("Too many iterations");
+			if (allusers[userid].messages.length > 0) {
+				try {
+				  fs.unlinkSync(userid);
+				  //file removed
+				} catch(err) {
+				  //console.error(err);
+				}
+				nmessage = allusers[userid].messages[0];
+			
+				var d = new Date();
+				var n = d.getTime();
+				console.log('new message', nmessage, "," ,allusers[userid].messages," ,",n);
+		
+				if (nmessage.split(",")[3] == 'print' || nmessage.split(",")[3] == 'display' || (nmessage.split(",")[3] == 'addcol' && nmessage.split(",")[2] != '-1')){
+					fs.appendFile(allusers[userid].quick, nmessage, (err) => {});
+				}
+				else {
+					fs.appendFile(allusers[userid].slow, nmessage, (err) => {});
+				}
+
+				setTimeout(intervalFunc,5, ws, userid, 0);
+			}
+		}
 		else {iterations++;}
 		fs.stat(userid, function(err, stats) {
 			if (!err) {
