@@ -163,12 +163,12 @@ wss.on('connection', function connection(ws) {
 		}
 		else if (message.split(",")[3] == 'print' || message.split(",")[3] == 'display' || (message.split(",")[3] == 'addcol' && message.split(",")[2] != '-1')){
 			fs.appendFile(allusers[userid].quick, message, (err) => {});
-			setTimeout(intervalFunc,5, ws, userid);
+			setTimeout(intervalFunc,50, ws, userid);
 
 		}
 		else {
 			fs.appendFile(allusers[userid].slow, message, (err) => {});
-			setTimeout(intervalFunc,5, ws, userid);
+			setTimeout(intervalFunc,50, ws, userid);
 
 		}
 	}
@@ -329,7 +329,7 @@ function intervalFunc(ws, userid, iterations = 0) {
 								fs.appendFile(allusers[userid].slow, nmessage, (err) => {});
 							}
 
-							setTimeout(intervalFunc,5, ws, userid, 0);
+							setTimeout(intervalFunc,50, ws, userid, 0);
 						}
 					});
 				}
@@ -339,7 +339,7 @@ function intervalFunc(ws, userid, iterations = 0) {
 				}
 			}
 			else {
-				setTimeout(intervalFunc,20, ws, userid, iterations)
+				setTimeout(intervalFunc,50, ws, userid, iterations)
 			}
 			
 		});
