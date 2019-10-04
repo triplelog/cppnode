@@ -268,7 +268,8 @@ function intervalFunc(ws, userid, iterations = 0) {
 					fs.appendFile(allusers[userid].slow, nmessage, (err) => {});
 				}
 
-				setTimeout(intervalFunc,5, ws, userid, 0);
+				intervalFunc(ws, userid, 0);
+				return 0;
 			}
 		}
 		else {iterations++;}
