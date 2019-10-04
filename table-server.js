@@ -96,6 +96,10 @@ wss.on('connection', function connection(ws) {
 		message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',sort,'+dm.column+'\n';
 		message2 = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',print,main\n';
 	}
+	else if (dm.command == 'multisort'){
+		message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',pivot,1;s7;s8;s9\n';
+		message2 = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',multisort,pivot@5\n';
+	}
 	else if (dm.command == 'addcol'){
 		message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',addcol,'+dm.formula+'\n';
 		message2 = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',print,'+allusers[userid].currentTable+'\n';
