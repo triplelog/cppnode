@@ -305,7 +305,7 @@ function intervalFunc(ws, userid, iterations = 0) {
 							}
 							
 							nmessage = allusers[userid].messages[0];
-							/*
+							
 							var clearF = true;
 							while (nmessage.split(',')[3]=='filter' && clearF){
 								clearF = false;
@@ -318,8 +318,33 @@ function intervalFunc(ws, userid, iterations = 0) {
 									}
 								}
 								
-							}*/
-							
+							}
+							clearF = true;
+							while (nmessage.split(',')[3]=='pivot' && clearF){
+								clearF = false;
+								for (var i=1;i<allusers[userid].messages.length;i++) {
+									if (allusers[userid].messages[i].split(',')[3]=='pivot'){
+										allusers[userid].messages.splice(0,1);
+										nmessage = allusers[userid].messages[0];
+										clearF = true;
+										break;
+									}
+								}
+								
+							}
+							clearF = true;
+							while (nmessage.split(',')[3]=='multisort' && clearF){
+								clearF = false;
+								for (var i=1;i<allusers[userid].messages.length;i++) {
+									if (allusers[userid].messages[i].split(',')[3]=='multisort'){
+										allusers[userid].messages.splice(0,1);
+										nmessage = allusers[userid].messages[0];
+										clearF = true;
+										break;
+									}
+								}
+								
+							}
 							
 							var d = new Date();
 							var n = d.getTime();
