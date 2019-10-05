@@ -307,6 +307,7 @@ function intervalFunc(ws, userid, iterations = 0) {
 							
 							nmessage = allusers[userid].messages[0];
 							
+							/*
 							var clearF = true;
 							while ((nmessage.split(',')[3]=='filter' || nmessage.split(',')[3]=='pivot' || nmessage.split(',')[3]=='multisort') && clearF){
 								clearF = false;
@@ -320,7 +321,7 @@ function intervalFunc(ws, userid, iterations = 0) {
 									}
 								}
 								
-							}
+							}*/
 							
 							var d = new Date();
 							var n = d.getTime();
