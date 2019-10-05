@@ -85,12 +85,14 @@ wss.on('connection', function connection(ws) {
 		var d = new Date();
 		var n = d.getTime();
 		console.log('to filter',allusers[userid].currentTable,n);
+		/*
 		message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',filter,'+dm.formula+'\n';
 		message2 = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',print,'+allusers[userid].currentTable+'\n';
 		if (allusers[userid].currentTable == 'main') {
 			message3 = userid+',0,-1,filter,'+dm.formula+'\n';
 		}
-		console.log('to filter',message,message2, message3);
+		*/
+		message = userid+',0,-1,filter,'+dm.formula+'\n';
 	}
 	else if (dm.command == 'sort'){
 		message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',sort,'+dm.column+'\n';
@@ -303,6 +305,7 @@ function intervalFunc(ws, userid, iterations = 0) {
 							}
 							
 							nmessage = allusers[userid].messages[0];
+							/*
 							var clearF = true;
 							while (nmessage.split(',')[3]=='filter' && clearF){
 								clearF = false;
@@ -315,7 +318,7 @@ function intervalFunc(ws, userid, iterations = 0) {
 									}
 								}
 								
-							}
+							}*/
 							
 							
 							var d = new Date();
