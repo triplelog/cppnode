@@ -307,36 +307,11 @@ function intervalFunc(ws, userid, iterations = 0) {
 							nmessage = allusers[userid].messages[0];
 							
 							var clearF = true;
-							while (nmessage.split(',')[3]=='filter' && clearF){
+							while ((nmessage.split(',')[3]=='filter' || nmessage.split(',')[3]=='pivot' || nmessage.split(',')[3]=='multisort') && clearF){
 								clearF = false;
+								var bmess = nmessage.split(',')[3];
 								for (var i=1;i<allusers[userid].messages.length;i++) {
-									if (allusers[userid].messages[i].split(',')[3]=='filter'){
-										allusers[userid].messages.splice(0,1);
-										nmessage = allusers[userid].messages[0];
-										clearF = true;
-										break;
-									}
-								}
-								
-							}
-							clearF = true;
-							while (nmessage.split(',')[3]=='pivot' && clearF){
-								clearF = false;
-								for (var i=1;i<allusers[userid].messages.length;i++) {
-									if (allusers[userid].messages[i].split(',')[3]=='pivot'){
-										allusers[userid].messages.splice(0,1);
-										nmessage = allusers[userid].messages[0];
-										clearF = true;
-										break;
-									}
-								}
-								
-							}
-							clearF = true;
-							while (nmessage.split(',')[3]=='multisort' && clearF){
-								clearF = false;
-								for (var i=1;i<allusers[userid].messages.length;i++) {
-									if (allusers[userid].messages[i].split(',')[3]=='multisort'){
+									if (allusers[userid].messages[i].split(',')[3]==bmess){
 										allusers[userid].messages.splice(0,1);
 										nmessage = allusers[userid].messages[0];
 										clearF = true;
