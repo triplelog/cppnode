@@ -284,6 +284,7 @@ function intervalFunc(ws, userid, iterations = 0) {
 				if (stats.isFile() && stats.size > 16) {
 					
 					fs.readFile(userid, 'utf8', function(err, data) {
+						var clearF = true;
 						if (data.substring(0,22) != "completedwithoutoutput"){
 							var d = new Date();
 							var n = d.getTime();
@@ -293,6 +294,7 @@ function intervalFunc(ws, userid, iterations = 0) {
 						else {
 							var d = new Date();
 							var n = d.getTime();
+							clearF = false;
 							console.log('no output',allusers[userid].messages," ,",n);
 						}
 						
@@ -308,7 +310,7 @@ function intervalFunc(ws, userid, iterations = 0) {
 							nmessage = allusers[userid].messages[0];
 							
 							
-							var clearF = true;
+							
 							while ((nmessage.split(',')[3]=='filter' || nmessage.split(',')[3]=='pivot' || nmessage.split(',')[3]=='multisort') && clearF){
 								clearF = false;
 								var bmess = nmessage.split(',')[3];
