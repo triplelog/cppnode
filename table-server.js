@@ -130,7 +130,7 @@ wss.on('connection', function connection(ws) {
 			console.log('new:',n);
 			fs.writeFile(allusers[userid].quick, "", (err) => {});
 			fs.writeFile(allusers[userid].slow, "", (err) => {});
-			var acmd = require('child_process').spawn('../cppsv/nanotable', [allusers[userid].table]);
+			var acmd = require('child_process').spawn('../cppsv/nanotable', [allusers[userid].table,'>>','output.txt']);
 		}
 		else {
 			var d = new Date();
