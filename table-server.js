@@ -105,6 +105,11 @@ wss.on('connection', function connection(ws) {
 				colstr += ';s'+dm.columns[i];
 			}
 		}
+		if (dm.formulas && dm.formulas.length > 0){
+			for (var i=0;i<dm.formulas.length;i++) {
+				colstr += ';='+dm.formulas[i];
+			}
+		}
 		message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',pivot,1'+colstr+'\n';
 		message2 = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',multisort,pivot@5\n';
 	}
