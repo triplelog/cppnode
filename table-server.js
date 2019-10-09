@@ -107,7 +107,7 @@ wss.on('connection', function connection(ws) {
 		var colstr = '';
 		if (dm.columns && dm.columns.length > 0){
 			for (var i=0;i<dm.columns.length;i++) {
-				colstr += ';s'+dm.columns[i];
+				colstr += ';'+dm.columns[i];
 			}
 		}
 		if (dm.formulas && dm.formulas.length > 0){
