@@ -76,6 +76,11 @@ wss.on('connection', function connection(ws) {
 				colstr += ';'+dm.columns[i];
 			}
 		}
+		if (dm.formulas && dm.formulas.length > 0){
+			for (var i=0;i<dm.formulas.length;i++) {
+				colstr += ';='+dm.formulas[i];
+			}
+		}
 		message = userid+',0,'+(allusers[userid].endRow-allusers[userid].startRow) +',pivot,'+dm.pivotcol+';'+dm.sort+colstr+'\n';
 		allusers[userid].endRow = parseInt(allusers[userid].endRow-allusers[userid].startRow);
 		allusers[userid].startRow = 0;
