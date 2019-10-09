@@ -38,6 +38,7 @@ wss.on('connection', function connection(ws) {
 		allusers[userid]={'messages':[],'startRow':0,'endRow':10,'currentTable':'main','table':"up"+tablename,'memory':false,'sort':0,'quick':'quick/up'+tablename+'.txt','slow':'slow/up'+tablename+'.txt'};
 		var tarcmd = require('child_process').spawn('tar', ['xvzf','uploads/'+allusers[userid].table+'.csv.tar.gz']);
 		if (dm.message){
+			console.log('sdh');
 			ws.send('columns[7,8]');
 		}
 		message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',sort,0\n';
