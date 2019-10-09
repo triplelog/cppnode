@@ -41,6 +41,7 @@ wss.on('connection', function connection(ws) {
 			console.log('sdh');
 			ws.send('columns[7,8]');
 		}
+		console.log('notsdh');
 		message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',sort,0\n';
 		message2 = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',print,'+allusers[userid].currentTable+'\n';
 	}
