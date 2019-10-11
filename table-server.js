@@ -46,7 +46,8 @@ wss.on('connection', function connection(ws) {
 		message2 = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',print,'+allusers[userid].currentTable+'\n';
 	}
 	else if (dm.command == 'save'){
-		savedColumns['abc'] = ['','columns["s7","s8"]'];
+		
+		savedColumns['abc'] = ['','columns'+JSON.stringify(dm.columns)];
 		message ="skip";
 	}
 	else if (dm.command == 'display'){
