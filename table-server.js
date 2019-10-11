@@ -24,6 +24,7 @@ const wss = new WebSocket.Server({ server });
 //fs.writeFile("quicktxt.txt", "", (err) => {});
 //fs.writeFile("slowtxt.txt", "", (err) => {});
 var allusers = {};
+var savedColumns = {'abc':['','columns["s7","s8"]']};
 wss.on('connection', function connection(ws) {
   var userid = "ff"+Math.random().toString(36).substring(5, 10)+".csv";
   ws.on('message', function incoming(message) {
@@ -37,8 +38,9 @@ wss.on('connection', function connection(ws) {
 		var tablename = dm.src;
 		allusers[userid]={'messages':[],'startRow':0,'endRow':10,'currentTable':'main','table':"up"+tablename,'memory':false,'sort':0,'quick':'quick/up'+tablename+'.txt','slow':'slow/up'+tablename+'.txt'};
 		var tarcmd = require('child_process').spawn('tar', ['xvzf','uploads/'+allusers[userid].table+'.csv.tar.gz']);
-		if (dm.message){
-			ws.send('columns["s7","s8"]');
+		if (dm.message && savedColumns[dm.message]){
+			var outmessage = savedColumns[dm.message][1];
+			ws.send(outmessage);
 		}
 		message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',sort,0\n';
 		message2 = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',print,'+allusers[userid].currentTable+'\n';
