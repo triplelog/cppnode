@@ -24,7 +24,7 @@ const wss = new WebSocket.Server({ server });
 //fs.writeFile("quicktxt.txt", "", (err) => {});
 //fs.writeFile("slowtxt.txt", "", (err) => {});
 var allusers = {};
-var savedColumns = {'abc':['','columns["s7","s8"]']};
+var savedColumns = {};
 wss.on('connection', function connection(ws) {
   var userid = "ff"+Math.random().toString(36).substring(5, 10)+".csv";
   ws.on('message', function incoming(message) {
@@ -44,6 +44,10 @@ wss.on('connection', function connection(ws) {
 		}
 		message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',sort,0\n';
 		message2 = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',print,'+allusers[userid].currentTable+'\n';
+	}
+	else if (dm.command == 'save'){
+		savedColumns['abc'] = ['','columns["s7","s8"]'];
+		message ="skip";
 	}
 	else if (dm.command == 'display'){
 		message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',display,'+dm.column+'@'+dm.location+'\n';
