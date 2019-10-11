@@ -48,6 +48,7 @@ wss.on('connection', function connection(ws) {
 	else if (dm.command == 'save'){
 		
 		savedColumns['abc'] = ['','columns'+JSON.stringify(dm.columns)];
+		console.log(savedColumns['abc']);
 		message ="skip";
 	}
 	else if (dm.command == 'display'){
