@@ -48,7 +48,6 @@ wss.on('connection', function connection(ws) {
 	else if (dm.command == 'save'){
 		
 		savedColumns['abc'] = ['','columns'+JSON.stringify(dm.columns)];
-		console.log(savedColumns['abc']);
 		message ="skip";
 	}
 	else if (dm.command == 'display'){
@@ -101,14 +100,14 @@ wss.on('connection', function connection(ws) {
 		var d = new Date();
 		var n = d.getTime();
 		console.log('to filter',allusers[userid].currentTable,n);
-		/*
+		
 		message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',filter,'+dm.formula+'\n';
 		message2 = userid+','+allusers[userid].startRow+','+allusers[userid].endRow+',print,'+allusers[userid].currentTable+'\n';
 		if (allusers[userid].currentTable == 'main') {
 			message3 = userid+',0,-1,filter,'+dm.formula+'\n';
 		}
-		*/
-		message = userid+',0,-1,filter,'+dm.formula+'\n';
+		
+		//message = userid+',0,-1,filter,'+dm.formula+'\n';
 	}
 	else if (dm.command == 'sort'){
 		message = userid+','+allusers[userid].startRow+','+allusers[userid].endRow +',sort,'+dm.column+'\n';
