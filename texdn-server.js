@@ -1,12 +1,13 @@
 
 const https = require('https');
+var fs = require("fs");
 
 const options = {
   key: fs.readFileSync('/etc/letsencrypt/live/tabdn.com/privkey.pem'),
   cert: fs.readFileSync('/etc/letsencrypt/live/tabdn.com/fullchain.pem')
 };
 
-var fs = require("fs");
+
 var express = require('express');
 const flate = require('wasm-flate');
 
