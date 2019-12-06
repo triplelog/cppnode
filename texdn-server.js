@@ -1,21 +1,33 @@
-const http = require('http');
+
+const https = require('https');
+
+const options = {
+  key: fs.readFileSync('/etc/letsencrypt/live/tabdn.com/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/tabdn.com/fullchain.pem')
+};
+
 var fs = require("fs");
 var express = require('express');
 const flate = require('wasm-flate');
 
 var app = express();
 app.use('/',express.static('static'));
-var serverStatic = app.listen(12312);
+
+const server1 = https.createServer(options, app);
+
+server1.listen(12312);
 
 
 
-http.createServer(function(req, res) {
-	if (req.url == "/uploadfile"){
+
+https.createServer(options, function(req, res) {
+	if (req.url == "/createchart"){
 		var data = [];
 
 		// when we get data we want to store it in memory
 		req.on('end', () => {
-			
+			res.write("hi"); //write a response to the client
+			res.end();
 		});
 	
 		req.on('data', chunk => {
