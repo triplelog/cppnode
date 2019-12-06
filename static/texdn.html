@@ -82,7 +82,10 @@ tbody tr:nth-of-type(2n-1) {
 			<small>Choose a template. Upload a csv file or copy/paste. Edit Latex. Generate SVG.</small>
 			<br />
 			<form method="post" action="/createchart">
-				<textarea rows="40" cols="50" name="latexArea"></textarea>
+				<select name="latexTemplate">
+					<option value="line">Line</option>
+					<option value="bar">Bar</option>
+				</select>
 				<textarea rows="40" cols="50" name="dataArea"></textarea>
 				<input type="submit" value="Submit">
 			</form>
