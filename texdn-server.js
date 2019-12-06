@@ -1,7 +1,7 @@
 
 const https = require('https');
 var fs = require("fs");
-
+var myParser = require("body-parser");
 
 const options = {
   key: fs.readFileSync('/etc/letsencrypt/live/tabdn.com/privkey.pem'),
@@ -30,7 +30,7 @@ https.createServer(options, function(req, res) {
 
 		// when we get data we want to store it in memory
 		req.on('end', () => {
-			console.log(req);
+			console.log(req.params);
 			res.write('asd'); //write a response to the client
 			res.end();
 		});
