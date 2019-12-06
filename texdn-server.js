@@ -30,12 +30,13 @@ https.createServer(options, function(req, res) {
 
 		// when we get data we want to store it in memory
 		req.on('end', () => {
-			console.log(req.params);
+			
 			res.write('asd'); //write a response to the client
 			res.end();
 		});
 	
 		req.on('data', chunk => {
+			console.log(chunk);
 			//console.log(chunk.length);
 			//res.write(chunk.length);
 			data.push(chunk);
