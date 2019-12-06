@@ -6,7 +6,7 @@
 \begin{document}
 \begin{tikzpicture}
 \begin{axis}
-\addplot+[ybar, nodes near coords*={$(7)$}] plot table[x=a, y=c, col sep=comma] {texdnData/newdata.csv};
+\addplot+[ybar, nodes near coords*={$\special{dvisvgm:raw <g id="asdf"/>}$}] plot table[x=a, y=c, col sep=comma] {texdnData/newdata.csv};
 \end{axis}
 \end{tikzpicture}
 \end{document}
