@@ -25,7 +25,7 @@
         point meta=explicit symbolic,
         nodes near coords,
     	nodes near coords align=center
-    ] table [x=a,y=b,meta={$\special{dvisvgm:raw <g onclick="alert('hi')">}77\special{dvisvgm:raw </g>}$}] {\data};
+    ] table [x=a,y=b,meta=c] {\data};
 \end{axis}
 \end{tikzpicture}
 \end{document}
