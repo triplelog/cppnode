@@ -42,11 +42,10 @@ https.createServer(options, function(req, res) {
 		// when we get data we want to store it in memory
 		req.on('end', () => {
 			//console.log(qs.parse(data).latexArea);
-			fs.writeFile("texdnLatex/newtest.tex", qs.parse(data).latexArea, function (err) {
+			fs.writeFile("texdnLatex/newtest2.tex", qs.parse(data).latexArea, function (err) {
 				var runtime = process.hrtime(start) // we also check how much time has passed
 				console.info('Execution time (hr): %ds %dms', runtime[0], runtime[1] / 1000000);
-				exec('latex -output-directory=texdnLatex texdnLatex/newtest2.tex && dvisvgm --clipjoin newtest2.dvi --font-format=woff');
-				console.log('Executing');
+				exec('latex -output-directory=texdnLatex texdnLatex/newtest2.tex && dvisvgm --clipjoin texdnLatex/newtest2.dvi --font-format=woff');
 			});
 			res.write('avvv'); //write a response to the client
 			res.end();
