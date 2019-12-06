@@ -14,7 +14,8 @@
     \addplot [
         red,
         mark color=red!50!white,
-        mark={$77$},
+        mark=text,
+        text mark={$77$},
     ] coordinates {
 (-2,-0.1) (-1,0.9) (0,-0.1) (1,0.9) (2,-0.1) };
 \end{axis}
