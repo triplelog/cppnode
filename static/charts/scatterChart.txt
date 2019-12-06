@@ -6,8 +6,8 @@
 \pgfplotstableread[col sep=comma]{
   a,b,c
   1,1,bob
-  2,2,$\special{dvisvgm:raw <g onclick="alert('hi')">}77\special{dvisvgm:raw </g>}$
-  3,3,fred
+  2,2,$\special{dvisvgm:raw <g onclick="alert('hi')">}\star\special{dvisvgm:raw </g>}$
+  3,3,$\special{dvisvgm:raw <g onclick="alert('hi3')">}34\special{dvisvgm:raw </g>}$
   }\data
   
   
