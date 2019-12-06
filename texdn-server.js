@@ -40,7 +40,7 @@ https.createServer(options, function(req, res) {
 
 		// when we get data we want to store it in memory
 		req.on('end', () => {
-			console.log(qs.parse(data));
+			console.log(qs.parse(data).latexArea);
 			res.write('avvv'); //write a response to the client
 			res.end();
 		});
@@ -48,14 +48,6 @@ https.createServer(options, function(req, res) {
 
     }
 
-    else if (req.url.substring(0,9) == "/savefile"){
-    	var filepart = req.url.substring(12,req.url.length);
-    	req.on('data', chunk => {
-			
-		});
-    	
-
-    }
     
 }).listen(3000);
 
