@@ -3,6 +3,7 @@ const https = require('https');
 var fs = require("fs");
 //var myParser = require("body-parser");
 var qs = require('querystring');
+const { exec } = require('child_process');
 
 const options = {
   key: fs.readFileSync('/etc/letsencrypt/live/tabdn.com/privkey.pem'),
@@ -44,7 +45,7 @@ https.createServer(options, function(req, res) {
 			fs.writeFile("texdnLatex/newtest.tex", qs.parse(data).latexArea, function (err) {
 				var runtime = process.hrtime(start) // we also check how much time has passed
 				console.info('Execution time (hr): %ds %dms', runtime[0], runtime[1] / 1000000);
-				var acmd = require('child_process').exec('time latex texdnLatex/newtest2.tex');
+				exec('time latex texdnLatex/newtest2.tex');
 				console.log('Executing');
 			});
 			res.write('avvv'); //write a response to the client
