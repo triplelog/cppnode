@@ -6,8 +6,7 @@
 \begin{document}
 \begin{tikzpicture}
 \begin{axis}
-\addplot+[ybar] plot coordinates
-	{(0,3) (1,2) (2,4) (3,1) (4,2)};
+\addplot+[ybar] plot table[x=a, y=c, col sep=comma] {texdnData/newdata.csv};
 \end{axis}
 \end{tikzpicture}
 \end{document}
