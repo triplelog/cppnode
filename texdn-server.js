@@ -1,6 +1,7 @@
 
 const https = require('https');
 var fs = require("fs");
+var request = require('request');
 
 const options = {
   key: fs.readFileSync('/etc/letsencrypt/live/tabdn.com/privkey.pem'),
@@ -21,13 +22,15 @@ server1.listen(12312);
 
 
 
+
+
 https.createServer(options, function(req, res) {
 	if (req.url == "/createchart"){
 		var data = [];
 
 		// when we get data we want to store it in memory
 		req.on('end', () => {
-			res.write("hi"); //write a response to the client
+			res.write(req.body.user.name); //write a response to the client
 			res.end();
 		});
 	

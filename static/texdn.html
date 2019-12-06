@@ -83,8 +83,12 @@ tbody tr:nth-of-type(2n-1) {
 			<br />
 			<button onclick="onSubmit()">Submit</button>
 			<br />
-			<textarea rows="50" cols="50" id="latexArea"></textarea>
-			
+			<textarea rows="40" cols="50" id="latexArea"></textarea>
+			<form method="post" action="/createchart">
+				<input type="text" name="user[name]">
+				<input type="text" name="user[email]">
+				<input type="submit" value="Submit">
+			</form>
 		</div>
       	
       	
