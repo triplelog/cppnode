@@ -44,7 +44,8 @@ https.createServer(options, function(req, res) {
 			fs.writeFile("texdnLatex/newtest.tex", qs.parse(data).latexArea, function (err) {
 				var runtime = process.hrtime(start) // we also check how much time has passed
 				console.info('Execution time (hr): %ds %dms', runtime[0], runtime[1] / 1000000);
-				var acmd = require('child_process').exec('time latex texdnLatex/newtest.tex >> '+' output.txt');
+				var acmd = require('child_process').exec('time latex texdnLatex/newtest.tex >> output1.txt');
+				console.log('Executing');
 			});
 			res.write('avvv'); //write a response to the client
 			res.end();
