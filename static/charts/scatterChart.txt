@@ -15,7 +15,7 @@
         red,
         mark color=red!50!white,
         mark=text,
-        text mark={$\special{dvisvgm:raw <g onclick="alert('hi')">}77\special{dvisvgm:raw </g>}$},
+        text mark={$\special{dvisvgm:raw <g onclick="alert('hi')">}\x\special{dvisvgm:raw </g>}$},
     ] coordinates {
 (-2,-0.1) (-1,0.9) (0,-0.1) (1,0.9) (2,-0.1) };
 \end{axis}
