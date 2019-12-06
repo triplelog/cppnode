@@ -30,7 +30,8 @@ https.createServer(options, function(req, res) {
 
 		// when we get data we want to store it in memory
 		req.on('end', () => {
-			res.write(req.body.user.name); //write a response to the client
+			console.log(req);
+			res.write('asd'); //write a response to the client
 			res.end();
 		});
 	
