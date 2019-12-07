@@ -122,6 +122,10 @@ var myLineChart = new Chart(ctx, {
                 ticks: {
                     beginAtZero: true
                 }
+            }],
+            xAxes: [{
+                type: 'linear',
+                position: 'bottom'
             }]
         }
     }
