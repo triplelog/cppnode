@@ -65,8 +65,35 @@ https.createServer(options, function(req, res) {
 }).listen(3000);
 
 
+function createLine() {
+var startJS = `
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+<div class="chart-container" style="position: relative; height:20vh; width:40vw">
+    <canvas id="myChart"></canvas>
+</div>
+<div class="chart-container" style="position: relative; height:20vh; width:40vw">
+    <div id="plotlyDiv"></div>
+</div>
+`
+
+var endJS = `
+</body>
+</html>
+`;
+return startJS + createPlotlyLine() + createChartjsLine() + endJS;
+
+}
+
 function createPlotlyLine() {
 var baseJS = `
+<script>
 var trace3 = {
   x: [1, 2, 3, 4],
   y: [12, 9, 15, 12],
@@ -80,6 +107,7 @@ var layout = {
 };
 
 Plotly.newPlot('plotlyDiv', data, layout);
+</script>
 `;
 return baseJS;
 
@@ -87,23 +115,13 @@ return baseJS;
 
 function createChartjsLine() {
 var baseJS = `
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-</head>
-<body>
-<div class="chart-container" style="position: relative; height:40vh; width:80vw">
-    <canvas id="myChart"></canvas>
-</div>
 <script>
 var ctx = document.getElementById('myChart').getContext('2d');
 var myLineChart = new Chart(ctx, {
     type: 'line',
     data: {
         datasets: [{
-            label: 'Line',
+            label: 'Label',
             data: [{
                 x: -10,
                 y: 0
@@ -131,8 +149,6 @@ var myLineChart = new Chart(ctx, {
     }
 });
 </script>
-</body>
-</html>
 `;
 return baseJS;
 
