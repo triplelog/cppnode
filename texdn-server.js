@@ -74,17 +74,21 @@ var startJS = `
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.xkcd@1.1/dist/chart.xkcd.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 </head>
 <body>
-<div class="chart-container" style="position: relative; height:30vh; width:30vw">
+<div class="chart-container" style="position: relative; height:50vh; width:30vw">
     <canvas id="myChart"></canvas>
 </div>
-<div class="chart-container" style="position: relative; height:30vh; width:30vw">
+<div class="chart-container" style="position: relative; height:50vh; width:30vw">
     <div id="plotlyDiv"></div>
 </div>
-<div class="chart-container" style="position: relative; height:30vh; width:30vw">
+<div class="chart-container" style="position: relative; height:50vh; width:30vw">
     <svg id="xkcdSvg"></svg>
+</div>
+<div class="chart-container" style="position: relative; height:50vh; width:30vw">
+    <div id="googleChart"></div>
 </div>
 `
 
@@ -92,7 +96,7 @@ var endJS = `
 </body>
 </html>
 `;
-return startJS + createPlotlyLine() + createChartjsLine() + createXkcdLine() + endJS;
+return startJS + createPlotlyLine() + createChartjsLine() + createXkcdLine() + createGoogleLine() + endJS;
 
 }
 
@@ -181,6 +185,39 @@ const lineChart = new chartXkcd.Line(document.querySelector('#xkcdSvg'), {
     legendPosition: chartXkcd.config.positionType.upLeft
   }
 })
+</script>
+`;
+return baseJS;
+
+}
+
+
+
+function createGoogleLine() {
+var baseJS = `
+<script>
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+	var data = google.visualization.arrayToDataTable([
+	  ['Year', 'Sales', 'Expenses'],
+	  ['2004',  1000,      400],
+	  ['2005',  1170,      460],
+	  ['2006',  660,       1120],
+	  ['2007',  1030,      540]
+	]);
+
+	var options = {
+	  title: 'Company Performance',
+	  curveType: 'function',
+	  legend: { position: 'bottom' }
+	};
+
+	var chart = new google.visualization.LineChart(document.getElementById('googleChart'));
+
+	chart.draw(data, options);
+  }
 </script>
 `;
 return baseJS;
