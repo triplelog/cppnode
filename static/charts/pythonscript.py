@@ -1,6 +1,6 @@
 import sys
-fread = open('../newtest2-1.svg','r')
-fwrite = open('../test4.svg','w')
+fread = open('static/newtest2-1.svg','r')
+fwrite = open('static/test4.svg','w')
 
 clipped = False
 changed = False
