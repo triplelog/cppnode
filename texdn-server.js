@@ -54,7 +54,7 @@ https.createServer(options, function(req, res) {
 					});
 				});
 			});
-			res.write('avvv'); //write a response to the client
+			res.write(createPlotlyLine()); //write a response to the client
 			res.end();
 		});
 	
@@ -64,5 +64,25 @@ https.createServer(options, function(req, res) {
     
 }).listen(3000);
 
+
+function createPlotlyLine() {
+var baseJS = `
+var trace3 = {
+  x: [1, 2, 3, 4],
+  y: [12, 9, 15, 12],
+  mode: 'lines+markers'
+};
+
+var data = [ trace3 ];
+
+var layout = {
+  title:'Line and Scatter Plot'
+};
+
+Plotly.newPlot('myDiv', data, layout);
+`;
+return baseJS;
+
+}
 
 
