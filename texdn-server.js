@@ -101,6 +101,7 @@ var fullJS = startJS + createPlotlyLine() + createChartjsLine() + createXkcdLine
 fullJS = fullJS.replace(/replacexarray/g,'[1,2,3,4,5]');
 fullJS = fullJS.replace(/replaceyarray/g,'[2,3,4,1,2]');
 fullJS = fullJS.replace(/replaceyyarray/g,'[3,5,4,2,3]');
+fullJS = fullJS.replace(/replacefullarray/g,'[["a","b","c"],[3,5,4],[4,2,3]]');
 return fullJS;
 }
 
@@ -204,13 +205,7 @@ var baseJS = `
   google.charts.setOnLoadCallback(drawChart);
 
   function drawChart() {
-	var data = google.visualization.arrayToDataTable([
-	  ['Year', 'Sales', 'Expenses'],
-	  ['2004',  1000,      400],
-	  ['2005',  1170,      460],
-	  ['2006',  660,       1120],
-	  ['2007',  1030,      540]
-	]);
+	var data = google.visualization.arrayToDataTable(replacefullarray);
 
 	var options = {
 	  title: 'Company Performance',
