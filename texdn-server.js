@@ -4,6 +4,8 @@ var fs = require("fs");
 //var myParser = require("body-parser");
 var qs = require('querystring');
 const { exec } = require('child_process');
+var parse = require("csv-parse");
+
 
 const options = {
   key: fs.readFileSync('/etc/letsencrypt/live/tabdn.com/privkey.pem'),
@@ -65,8 +67,18 @@ https.createServer(options, function(req, res) {
 }).listen(3000);
 
 
+
+function convertDataToFull(dataStr) {
+	const parser = parse(dataStr, {
+	  trim: true,
+	  skip_empty_lines: true
+	})
+	console.log(parser);
+	return parser;
+}
+
 function createLine(mydata) {
-console.log(mydata);
+
 var startJS = `
 <!DOCTYPE html>
 <html lang="en">
@@ -102,6 +114,9 @@ var endJS = `
 </html>
 `;
 
+
+var fullArray = convertDataToFull(mydata);
+console.log(fullArray);
 var fullJS = startJS + createPlotlyLine() + createChartjsLine() + createXkcdLine() + createGoogleLine() + endJS;
 fullJS = fullJS.replace(/replacexarray/g,'[1,2,3,4,5]');
 fullJS = fullJS.replace(/replaceyarray/g,'[2,3,4,1,2]');
@@ -110,6 +125,16 @@ fullJS = fullJS.replace(/replacefullarray/g,'[["a","b","c"],[3,5,4],[4,2,3]]');
 fullJS = fullJS.replace(/replaceobjectarray/g,'[{x: 0,y: 0}, {x: 5,y: 7}, {x: 10,y: 4}]');
 return fullJS;
 }
+
+
+
+
+
+
+
+
+
+
 
 function createPlotlyLine() {
 var baseJS = `
