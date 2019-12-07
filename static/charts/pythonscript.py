@@ -19,10 +19,11 @@ for line in fread:
     		mindex = line.find('M ')
     		zindex = line.find(' Z')
     	changed = True
-    	print(bars)
     	newline = ''
+    	i = 0
     	for bar in bars:
-    		newline += '<path d="'+bar+'"/>'
+    		newline += '<path id="bar-'+str(i)+'" onclick="barCLicked()" d="'+bar+'"/>'
+    		i+=1
     	fwrite.write(newline)
     else:
     	fwrite.write(line)
