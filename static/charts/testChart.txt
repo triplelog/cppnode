@@ -1,0 +1,30 @@
+\documentclass[dvisvgm,tikz]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\renewcommand{\familydefault}{\sfdefault}
+
+\pgfplotstableread[col sep=comma]{
+  a,b,c
+  1,1,bob
+  2,2,$\special{dvisvgm:raw <g onclick="alert('hi')">}\star\special{dvisvgm:raw </g>}$
+  3,3,$\special{dvisvgm:raw <g onclick="alert('hi3')">}34\special{dvisvgm:raw </g>}$
+  }\data
+  
+  
+\begin{document}
+\begin{tikzpicture} \begin{axis}[y=2cm]
+	
+    \addplot [
+        blue,
+        mark color=blue!50!white,
+        mark=halfcircle*
+    ] coordinates { (-2,0) };
+    \addplot [
+        red,
+        mark color=blue!50!white,
+        mark=halfcircle*
+    ] coordinates { (-1,3) };
+\end{axis}
+\end{tikzpicture}
+\end{document}
+
