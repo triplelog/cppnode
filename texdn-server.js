@@ -44,7 +44,7 @@ https.createServer(options, function(req, res) {
 			//console.log(qs.parse(data).latexArea);
 			var templateType = qs.parse(data).latexTemplate;
 			var templateLoc = 'static/charts/'+templateType+'Chart.txt';
-			console.log(templateLoc);
+			console.log(qs.parse(data));
 			fs.readFile(templateLoc, 'utf8', function(err, fileData) {
 				fs.writeFile("texdnLatex/newtest2.tex", fileData, function (err) {
 					fs.writeFile("texdnData/newdata.csv", qs.parse(data).dataArea, function (err) {
