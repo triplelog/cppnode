@@ -26,7 +26,7 @@ for line in fread:
     		i+=1
     	fwrite.write(newline)
     elif line.find('</svg>') > -1:
-    	fwrite.write('<script>function barClicked(e) {alert(e.id);}</script>\n</svg>')
+    	fwrite.write('<script>function barClicked(e) {e.fill = "red";}</script>\n</svg>')
     else:
     	fwrite.write(line)
 
