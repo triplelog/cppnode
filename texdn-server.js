@@ -94,7 +94,9 @@ var baseJS = `
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 </head>
 <body>
-<canvas id="myChart" width="400" height="400"></canvas>
+<div class="chart-container" style="position: relative; height:40vh; width:80vw">
+    <canvas id="myChart"></canvas>
+</div>
 <script>
 var ctx = document.getElementById('myChart').getContext('2d');
 var myLineChart = new Chart(ctx, {
