@@ -22,11 +22,11 @@ for line in fread:
     	newline = ''
     	i = 0
     	for bar in bars:
-    		newline += '<path id="bar-'+str(i)+'" onclick="barClicked()" d="'+bar+'"/>'
+    		newline += '<path id="bar-'+str(i)+'" onclick="barClicked(this)" d="'+bar+'"/>'
     		i+=1
     	fwrite.write(newline)
     elif line.find('</svg>') > -1:
-    	fwrite.write('<script>function barClicked(e) {e = e || window.event;\nvar targ = e.target || e.srcElement;\nif (targ.nodeType == 3) targ = targ.parentNode;\n alert(targ.id);}</script>\n</svg>')
+    	fwrite.write('<script>function barClicked(e) {alert(e.id);}</script>\n</svg>')
     else:
     	fwrite.write(line)
 
