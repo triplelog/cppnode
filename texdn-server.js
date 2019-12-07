@@ -102,6 +102,7 @@ fullJS = fullJS.replace(/replacexarray/g,'[1,2,3,4,5]');
 fullJS = fullJS.replace(/replaceyarray/g,'[2,3,4,1,2]');
 fullJS = fullJS.replace(/replaceyyarray/g,'[3,5,4,2,3]');
 fullJS = fullJS.replace(/replacefullarray/g,'[["a","b","c"],[3,5,4],[4,2,3]]');
+fullJS = fullJS.replace(/replaceobjectarray/g,'[{x: 0,y: 0}, {x: 5,y: 7}, {x: 10,y: 4}]');
 return fullJS;
 }
 
@@ -136,16 +137,7 @@ var myLineChart = new Chart(ctx, {
     data: {
         datasets: [{
             label: 'Label',
-            data: [{
-                x: -10,
-                y: 0
-            }, {
-                x: 0,
-                y: 10
-            }, {
-                x: 10,
-                y: 5
-            }]
+            data: replaceobjectarray
         }]
     },
     options: {
