@@ -73,6 +73,8 @@ var startJS = `
 <head>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.xkcd@1.1/dist/chart.xkcd.min.js" integrity="sha256-NkH6G4XRcQ5Bsfs7O6yh9mw1SJLEOJWCtWqko6VjF34=" crossorigin="anonymous"></script>
+
 </head>
 <body>
 <div class="chart-container" style="position: relative; height:30vh; width:30vw">
@@ -81,13 +83,16 @@ var startJS = `
 <div class="chart-container" style="position: relative; height:30vh; width:30vw">
     <div id="plotlyDiv"></div>
 </div>
+<div class="chart-container" style="position: relative; height:30vh; width:30vw">
+    <svg id="xkcdSvg"></svg>
+</div>
 `
 
 var endJS = `
 </body>
 </html>
 `;
-return startJS + createPlotlyLine() + createChartjsLine() + endJS;
+return startJS + createPlotlyLine() + createChartjsLine() + createXkcdLine() + endJS;
 
 }
 
@@ -154,4 +159,30 @@ return baseJS;
 
 }
 
+function createXkcdLine() {
+var baseJS = `
+<script>
+const lineChart = new chartXkcd.Line(document.querySelector('#xkcdSvg'), {
+  title: 'Monthly income of an indie developer', // optional
+  xLabel: 'Month', // optional
+  yLabel: '$ Dollars', // optional
+  data: {
+    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+    datasets: [{
+      label: 'Plan',
+      data: [30, 70, 200, 300, 500, 800, 1500, 2900, 5000, 8000],
+    }, {
+      label: 'Reality',
+      data: [0, 1, 30, 70, 80, 100, 50, 80, 40, 150],
+    }],
+  },
+  options: { // optional
+    yTickCount: 3,
+    legendPosition: chartXkcd.config.positionType.upLeft
+  }
+})
+</script>
+`;
+return baseJS;
 
+}
