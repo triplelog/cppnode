@@ -96,16 +96,18 @@ var endJS = `
 </body>
 </html>
 `;
-return startJS + createPlotlyLine() + createChartjsLine() + createXkcdLine() + createGoogleLine() + endJS;
 
+var fullJS = startJS + createPlotlyLine() + createChartjsLine() + createXkcdLine() + createGoogleLine() + endJS;
+fullJS = fullJS.replace('xarray','[1,2,3,4,5]');
+fullJS = fullJS.replace('yarray','[2,3,4,1,2]');
 }
 
 function createPlotlyLine() {
 var baseJS = `
 <script>
 var trace3 = {
-  x: [1, 2, 3, 4],
-  y: [12, 9, 15, 12],
+  x: xarray,
+  y: yarray,
   mode: 'lines+markers'
 };
 
