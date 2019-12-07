@@ -73,8 +73,8 @@ function convertDataToFull(dataStr) {
 	  trim: true,
 	  skip_empty_lines: true
 	})
-	console.log(parser);
-	return parser;
+	console.log(parser.read());
+	return parser.read();
 }
 
 function createLine(mydata) {
