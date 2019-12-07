@@ -87,6 +87,12 @@ return baseJS;
 
 function createChartjsLine() {
 var baseJS = `
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+</head>
+<body>
 <canvas id="myChart" width="400" height="400"></canvas>
 <script>
 var ctx = document.getElementById('myChart').getContext('2d');
@@ -117,6 +123,9 @@ var myLineChart = new Chart(ctx, {
         }
     }
 });
+</script>
+</body>
+</html>
 `;
 return baseJS;
 
