@@ -100,6 +100,7 @@ var endJS = `
 var fullJS = startJS + createPlotlyLine() + createChartjsLine() + createXkcdLine() + createGoogleLine() + endJS;
 fullJS = fullJS.replace('xarray','[1,2,3,4,5]');
 fullJS = fullJS.replace('yarray','[2,3,4,1,2]');
+return fullJS;
 }
 
 function createPlotlyLine() {
