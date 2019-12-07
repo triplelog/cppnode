@@ -75,10 +75,10 @@ var startJS = `
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
-<div class="chart-container" style="position: relative; height:20vh; width:40vw">
+<div class="chart-container" style="position: relative; height:30vh; width:30vw">
     <canvas id="myChart"></canvas>
 </div>
-<div class="chart-container" style="position: relative; height:20vh; width:40vw">
+<div class="chart-container" style="position: relative; height:30vh; width:30vw">
     <div id="plotlyDiv"></div>
 </div>
 `
