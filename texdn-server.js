@@ -74,7 +74,7 @@ function convertDataToFull(dataStr) {
 	  skip_empty_lines: true
 	})
 	retArray = [];
-	while () {
+	while {
 		var tempA = parser.read();
 		if (!tempA){break;}
 		retArray.push(tempA);
