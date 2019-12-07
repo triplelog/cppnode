@@ -54,7 +54,7 @@ https.createServer(options, function(req, res) {
 					});
 				});
 			});
-			res.write(createLine()); //write a response to the client
+			res.write(createLine(qs.parse(data).dataArea)); //write a response to the client
 			res.end();
 		});
 	
@@ -65,7 +65,8 @@ https.createServer(options, function(req, res) {
 }).listen(3000);
 
 
-function createLine() {
+function createLine(mydata) {
+console.log(mydata);
 var startJS = `
 <!DOCTYPE html>
 <html lang="en">
@@ -89,6 +90,10 @@ var startJS = `
 </div>
 <div class="chart-container" style="position: relative; height:50vh; width:30vw">
     <div id="googleChart"></div>
+</div>
+<div class="chart-container" style="position: relative; height:50vh; width:30vw">
+    <object data="test4.svg" type="image/svg+xml">
+	</object>
 </div>
 `
 
