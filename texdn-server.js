@@ -50,7 +50,7 @@ https.createServer(options, function(req, res) {
 					fs.writeFile("texdnData/newdata.csv", qs.parse(data).dataArea, function (err) {
 						var runtime = process.hrtime(start) // we also check how much time has passed
 						console.info('Execution time (hr): %ds %dms', runtime[0], runtime[1] / 1000000);
-						exec('latex -output-directory=texdnLatex texdnLatex/newtest2.tex && dvisvgm --output=static/%f-%p texdnLatex/newtest2.dvi --font-format=woff');
+						exec('latex -output-directory=texdnLatex texdnLatex/newtest2.tex && dvisvgm --output=static/%f-%p texdnLatex/newtest2.dvi --font-format=woff && python3 static/charts/pythonscript.py');
 					});
 				});
 			});
