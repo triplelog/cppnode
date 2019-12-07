@@ -33,7 +33,7 @@
 \begin{document}
 \begin{tikzpicture}
 \begin{axis}
-\addplot+[ybar, fill={rgb:red,4;green,2;yellow,1}, nodes near coords*={$7$}] plot table[x=a, y=c, col sep=comma] {texdnData/newdata.csv};
+\addplot+[ybar, fill={rgb:red,4;green,2;yellow,1}, nodes near coords*={$\thisrow{x}$}] plot table[x=a, y=c, col sep=comma] {texdnData/newdata.csv};
 \addplot+[ybar, fill=blue!80!white, nodes near coords*={$7$}] plot table[x=b, y=d, col sep=comma] {texdnData/newdata.csv};
 
 \end{axis}
