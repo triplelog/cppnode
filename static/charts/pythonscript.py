@@ -25,6 +25,8 @@ for line in fread:
     		newline += '<path id="bar-'+str(i)+'" onclick="barClicked()" d="'+bar+'"/>'
     		i+=1
     	fwrite.write(newline)
+    elif line.find('</svg>') > -1:
+    	fwrite.write('<script>function barClicked() {alert("hi");}</script>\n</svg>')
     else:
     	fwrite.write(line)
 
@@ -32,5 +34,5 @@ for line in fread:
 fread.close()
 
 
-fwrite.write('<script>function barClicked() {alert("hi");}</script>')
+
 fwrite.close()
