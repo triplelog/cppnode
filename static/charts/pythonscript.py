@@ -22,7 +22,7 @@ for line in fread:
     	newline = ''
     	i = 0
     	for bar in bars:
-    		newline += '<path id="bar-'+str(i)+'" onclick="barCLicked()" d="'+bar+'"/>'
+    		newline += '<path id="bar-'+str(i)+'" onclick="barClicked()" d="'+bar+'"/>'
     		i+=1
     	fwrite.write(newline)
     else:
@@ -32,5 +32,5 @@ for line in fread:
 fread.close()
 
 
-
+fwrite.write('<script>function barClicked() {alert("hi");}</script>')
 fwrite.close()
