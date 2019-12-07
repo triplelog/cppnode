@@ -54,7 +54,7 @@ https.createServer(options, function(req, res) {
 					});
 				});
 			});
-			res.write(createChartjsLine()); //write a response to the client
+			res.write(createLine()); //write a response to the client
 			res.end();
 		});
 	
