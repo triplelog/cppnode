@@ -98,8 +98,9 @@ var endJS = `
 `;
 
 var fullJS = startJS + createPlotlyLine() + createChartjsLine() + createXkcdLine() + createGoogleLine() + endJS;
-fullJS = fullJS.replace('xarray','[1,2,3,4,5]');
-fullJS = fullJS.replace('yarray','[2,3,4,1,2]');
+fullJS = fullJS.replace(/replacexarray/g,'[1,2,3,4,5]');
+fullJS = fullJS.replace(/replaceyarray/g,'[2,3,4,1,2]');
+fullJS = fullJS.replace(/replaceyyarray/g,'[3,5,4,2,3]');
 return fullJS;
 }
 
@@ -107,8 +108,8 @@ function createPlotlyLine() {
 var baseJS = `
 <script>
 var trace3 = {
-  x: xarray,
-  y: yarray,
+  x: replacexarray,
+  y: replaceyarray,
   mode: 'lines+markers'
 };
 
@@ -174,13 +175,13 @@ const lineChart = new chartXkcd.Line(document.querySelector('#xkcdSvg'), {
   xLabel: 'Month', // optional
   yLabel: '$ Dollars', // optional
   data: {
-    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+    labels: replacexarray,
     datasets: [{
       label: 'Plan',
-      data: [30, 70, 200, 300, 500, 800, 1500, 2900, 5000, 8000],
+      data: replaceyarray,
     }, {
       label: 'Reality',
-      data: [0, 1, 30, 70, 80, 100, 50, 80, 40, 150],
+      data: replaceyyarray,
     }],
   },
   options: { // optional
