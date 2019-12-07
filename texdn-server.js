@@ -175,7 +175,7 @@ const lineChart = new chartXkcd.Line(document.querySelector('#xkcdSvg'), {
   xLabel: 'Month', // optional
   yLabel: '$ Dollars', // optional
   data: {
-    labels: ['1','2','3','4','5'],
+    labels: ['1','2','7','4','5'],
     datasets: [{
       label: 'Plan',
       data: replaceyarray,
