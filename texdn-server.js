@@ -74,13 +74,23 @@ function convertDataToFull(dataStr) {
 	  skip_empty_lines: true
 	})
 	retArray = [];
+	var cols = [];
 	while (2 == 2) {
 		var tempA = parser.read();
 		if (!tempA){break;}
+		if (cols.length == 0){
+			for (var i=0;i<tempA.length;i++) {
+				cols.push([]);
+			}
+		}
+		else {
+			for (var i=0;i<tempA.length;i++) {
+				cols[i].push(tempA[i]);
+			}
+		}
 		retArray.push(tempA);
-		console.log(retArray);
-		
 	}
+	console.log(cols);
 	return retArray;
 }
 
