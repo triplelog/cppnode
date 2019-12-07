@@ -18,7 +18,7 @@
         blue,
         mark color=blue!50!white,
         mark=halfcircle*
-    ] coordinates { (-2,0) };
+    ] coordinates { (-2,0) } \closedcycle;
     \special{dvisvgm:raw </g>}
     \addplot [
         red,
