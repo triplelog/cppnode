@@ -54,7 +54,7 @@ https.createServer(options, function(req, res) {
 					});
 				});
 			});
-			res.write(createPlotlyLine()); //write a response to the client
+			res.write(createChartjsLine()); //write a response to the client
 			res.end();
 		});
 	
@@ -79,7 +79,44 @@ var layout = {
   title:'Line and Scatter Plot'
 };
 
-Plotly.newPlot('myDiv', data, layout);
+Plotly.newPlot('plotlyDiv', data, layout);
+`;
+return baseJS;
+
+}
+
+function createChartjsLine() {
+var baseJS = `
+<canvas id="myChart" width="400" height="400"></canvas>
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+var myLineChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        datasets: [{
+            label: 'Line',
+            data: [{
+                x: -10,
+                y: 0
+            }, {
+                x: 0,
+                y: 10
+            }, {
+                x: 10,
+                y: 5
+            }]
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
 `;
 return baseJS;
 
