@@ -26,8 +26,7 @@ server1.listen(12312);
 
 
 nunjucks.configure('views', {
-    autoescape: true,
-    express: app
+    autoescape: true
 });
 
 
@@ -62,7 +61,7 @@ https.createServer(options, function(req, res) {
 				});
 			});
 			//res.write(createLine(qs.parse(data))); //write a response to the client
-			res.render('templates/createchart.html')
+			nunjucks.render('templates/createchart.html')
 			res.end();
 		});
 	
