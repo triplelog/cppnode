@@ -217,7 +217,7 @@ var myLineChart = new Chart(ctx, {
                 type: 'linear',
                 position: 'bottom'
             }]
-        }
+        },
         title: {
             display: true,
             text: replacetitle
