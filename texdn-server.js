@@ -75,12 +75,14 @@ function convertDataToFull(dataStr) {
 	})
 	retArray = [];
 	var cols = [];
+	var objArray = [];
 	while (2 == 2) {
 		var tempA = parser.read();
 		if (!tempA){break;}
 		if (cols.length == 0){
 			for (var i=0;i<tempA.length;i++) {
 				cols.push([]);
+				
 			}
 		}
 		else {
@@ -100,10 +102,13 @@ function convertDataToFull(dataStr) {
 					cols[i].push(cell);
 				}
 			}
+			var xval = tempA[0];
+			var yval = tempA[1];
+			objArray.push({x:xval,y:yval});
 		}
 		retArray.push(tempA);
 	}
-	return [retArray,cols];
+	return [retArray,cols,objArray];
 }
 
 function createLine(mydata) {
@@ -123,10 +128,10 @@ var startJS = `
 <div class="chart-container" style="position: relative; height:50vh; width:30vw;">
     <canvas id="myChart"></canvas>
 </div>
-<div class="chart-container" style="position: relative; height:50vh; width:30vw">
+<div class="chart-container" style="position: relative; height:50vh; width:30vw left: 50vw;">
     <div id="plotlyDiv"></div>
 </div>
-<div class="chart-container" style="position: relative; height:50vh; width:30vw; left: 50vw;">
+<div class="chart-container" style="position: relative; height:50vh; width:30vw;">
     <svg id="xkcdSvg"></svg>
 </div>
 <div class="chart-container" style="position: relative; height:50vh; width:30vw; left: 50vw;">
@@ -147,8 +152,7 @@ var endJS = `
 var bothArrays = convertDataToFull(mydata);
 var fullArray = bothArrays[0];
 var colArrays = bothArrays[1];
-console.log(fullArray);
-console.log(colArrays);
+console.log(bothArrays[2]);
 var fullJS = startJS + createPlotlyLine() + createChartjsLine() + createXkcdLine() + createGoogleLine() + endJS;
 fullJS = fullJS.replace(/replacexarray/g,JSON.stringify(colArrays[0]));
 fullJS = fullJS.replace(/replaceyarray/g,JSON.stringify(colArrays[1]));
