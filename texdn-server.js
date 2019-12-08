@@ -86,8 +86,8 @@ function convertDataToFull(dataStr) {
 		else {
 			for (var i=0;i<tempA.length;i++) {
 				var cell = tempA[i];
-				if (typeof cell==='number'){
-					if ((cell%1)===0) {
+				if (!isNaN(parseFloat(cell))){
+					if ((parseFloat(cell)%1)===0) {
 						cols[i].push(parseInt(cell));
 						tempA[i] = parseInt(cell);
 					}
