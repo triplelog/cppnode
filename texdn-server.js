@@ -205,7 +205,8 @@ var myLineChart = new Chart(ctx, {
             label: 'Label',
             data: replaceobjectarray,
             fill: false,
-            backgroundColor: 'rgba(255,0,0,.3)'
+            backgroundColor: 'rgba(255,0,0,.3)',
+            borderColor: 'rgba(0,255,0,.3)'
         }]
     },
     options: {
