@@ -218,6 +218,10 @@ var myLineChart = new Chart(ctx, {
                 position: 'bottom'
             }]
         }
+        title: {
+            display: true,
+            text: replacetitle
+        }
     }
 });
 </script>
