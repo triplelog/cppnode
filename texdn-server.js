@@ -203,7 +203,9 @@ var myLineChart = new Chart(ctx, {
     data: {
         datasets: [{
             label: 'Label',
-            data: replaceobjectarray
+            data: replaceobjectarray,
+            fill: false,
+            backgroundColor: red
         }]
     },
     options: {
