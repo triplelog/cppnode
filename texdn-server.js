@@ -159,6 +159,7 @@ fullJS = fullJS.replace(/replaceyarray/g,JSON.stringify(colArrays[1]));
 fullJS = fullJS.replace(/replaceyyarray/g,JSON.stringify(colArrays[2]));
 fullJS = fullJS.replace(/replacefullarray/g,JSON.stringify(fullArray));
 fullJS = fullJS.replace(/replaceobjectarray/g,JSON.stringify(bothArrays[2]));
+fullJS = fullJS.replace(/replacetitle/g,'Title');
 return fullJS;
 }
 
@@ -184,7 +185,7 @@ var trace3 = {
 var data = [ trace3 ];
 
 var layout = {
-  title:'Line and Scatter Plot'
+  title:replacetitle
 };
 
 Plotly.newPlot('plotlyDiv', data, layout);
@@ -230,7 +231,7 @@ function createXkcdLine() {
 var baseJS = `
 <script>
 const lineChart = new chartXkcd.Line(document.querySelector('#xkcdSvg'), {
-  title: 'Monthly income of an indie developer', // optional
+  title: replacetitle, // optional
   xLabel: 'Month', // optional
   yLabel: '$ Dollars', // optional
   data: {
@@ -266,7 +267,7 @@ var baseJS = `
 	var data = google.visualization.arrayToDataTable(replacefullarray);
 
 	var options = {
-	  title: 'Company Performance',
+	  title: replacetitle,
 	  curveType: 'function',
 	  legend: { position: 'bottom' }
 	};
