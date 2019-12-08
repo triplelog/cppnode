@@ -142,15 +142,15 @@ for (var i=0;i<frameworks.length;i++){
 		fullJS += '';
 	}
 	else if (frameworks[i] == 'xkcd'){
-		if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",');}
+		if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",';}
 		fullJS += nunjucks.renderString(createXkcdLine(),options);
 	}
 	else if (frameworks[i] == 'google'){
-		if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",');}
+		if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",';}
 		fullJS += nunjucks.renderString(createGoogleLine(),options);
 	}
 	else if (frameworks[i] == 'plotly'){
-		if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",');}
+		if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",';}
 		fullJS += nunjucks.renderString(createPlotlyLine(),options);
 	}
 	else if (frameworks[i] == 'chartjs'){
