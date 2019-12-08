@@ -5,6 +5,7 @@ var fs = require("fs");
 var qs = require('querystring');
 const { exec } = require('child_process');
 var parse = require('csv-parse');
+var nunjucks = require('nunjucks');
 
 
 const options = {
@@ -24,7 +25,10 @@ const server1 = https.createServer(options, app);
 server1.listen(12312);
 
 
-
+nunjucks.configure('views', {
+    autoescape: true,
+    express: app
+});
 
 
 
@@ -57,7 +61,8 @@ https.createServer(options, function(req, res) {
 					});
 				});
 			});
-			res.write(createLine(qs.parse(data))); //write a response to the client
+			//res.write(createLine(qs.parse(data))); //write a response to the client
+			res.render('templates/createchart.html')
 			res.end();
 		});
 	
