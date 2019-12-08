@@ -123,46 +123,14 @@ var title = alldata.title;
 var stepSizeX = alldata.stepSizeX;
 var stepSizeY = alldata.stepSizeY;
 
-var startJS = `
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.xkcd@1.1/dist/chart.xkcd.min.js"></script>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-</head>
-<body>
-<div class="chart-container" style="position: relative; height:50vh; width:30vw;">
-    <canvas id="myChart"></canvas>
-</div>
-<div class="chart-container" style="position: relative; height:50vh; width:30vw; left: 50vw;">
-    <div id="plotlyDiv"></div>
-</div>
-<div class="chart-container" style="position: relative; height:50vh; width:30vw;">
-    <svg id="xkcdSvg"></svg>
-</div>
-<div class="chart-container" style="position: relative; height:50vh; width:30vw; left: 50vw;">
-    <div id="googleChart"></div>
-</div>
-<div class="chart-container" style="position: relative; height:50vh; width:30vw;">
-    <object data="test4.svg" type="image/svg+xml">
-	</object>
-</div>
-`
-
-var endJS = `
-</body>
-</html>
-`;
 
 
 var bothArrays = convertDataToFull(mydata);
 var fullArray = bothArrays[0];
 var colArrays = bothArrays[1];
-//var fullJS = startJS;
+
 var fullJS = '';
 for (var i=0;i<frameworks.length;i++){
 	if (frameworks[i] == 'latex'){
@@ -190,6 +158,9 @@ fullJS = fullJS.replace(/replacefullarray/g,JSON.stringify(fullArray));
 fullJS = fullJS.replace(/replaceobjectarray/g,JSON.stringify(bothArrays[2]));
 if (title != '' && title != 'notitle') {
 	fullJS = fullJS.replace(/replacetitle/g,'"'+title+'"');
+}
+else  {
+	fullJS = fullJS.replace(/replacetitle/g,'"No Title"');
 }
 
 //ChartJS
