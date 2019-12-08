@@ -61,7 +61,7 @@ https.createServer(options, function(req, res) {
 				});
 			});
 			//res.write(createLine(qs.parse(data))); //write a response to the client
-			res.write(nunjucks.render('createchart.html'));
+			res.write(nunjucks.render('createchart.html',{chartScript:createLine(qs.parse(data))}));
 			res.end();
 		});
 	
@@ -162,7 +162,8 @@ var endJS = `
 var bothArrays = convertDataToFull(mydata);
 var fullArray = bothArrays[0];
 var colArrays = bothArrays[1];
-var fullJS = startJS;
+//var fullJS = startJS;
+var fullJS = '';
 for (var i=0;i<frameworks.length;i++){
 	if (frameworks[i] == 'latex'){
 		fullJS += '';
@@ -180,7 +181,7 @@ for (var i=0;i<frameworks.length;i++){
 		fullJS += createChartjsLine();
 	}
 }
-fullJS += endJS;
+//fullJS += endJS;
 
 fullJS = fullJS.replace(/replacexarray/g,JSON.stringify(colArrays[0]));
 fullJS = fullJS.replace(/replaceyarray/g,JSON.stringify(colArrays[1]));
