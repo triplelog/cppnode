@@ -61,7 +61,7 @@ https.createServer(options, function(req, res) {
 				});
 			});
 			//res.write(createLine(qs.parse(data))); //write a response to the client
-			nunjucks.render('createchart.html')
+			console.log(nunjucks.render('createchart.html'));
 			res.end();
 		});
 	
