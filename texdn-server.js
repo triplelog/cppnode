@@ -219,7 +219,10 @@ var myLineChart = new Chart(ctx, {
             }],
             xAxes: [{
                 type: 'linear',
-                position: 'bottom'
+                position: 'bottom',
+                ticks: {
+                    stepSize: 1
+                }
             }]
         },
         title: {
