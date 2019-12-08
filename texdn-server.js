@@ -26,7 +26,7 @@ server1.listen(12312);
 
 
 nunjucks.configure('templates', {
-    autoescape: true
+    autoescape: false
 });
 
 
