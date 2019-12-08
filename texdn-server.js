@@ -146,7 +146,7 @@ var endJS = `
 
 var bothArrays = convertDataToFull(mydata);
 var fullArray = bothArrays[0];
-var colArray = bothArrays[1];
+var colArrays = bothArrays[1];
 console.log(fullArray);
 console.log(colArrays);
 var fullJS = startJS + createPlotlyLine() + createChartjsLine() + createXkcdLine() + createGoogleLine() + endJS;
