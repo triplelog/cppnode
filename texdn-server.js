@@ -199,6 +199,7 @@ return fullJS;
 function createPlotlyLine() {
 var baseJS = `
 <script>
+document.getElementById('plotlyDiv').style.display = 'block';
 var trace3 = {
   x: replacexarray,
   y: replaceyarray,
@@ -221,6 +222,7 @@ return baseJS;
 function createChartjsLine() {
 var baseJS = `
 <script>
+document.getElementById('myChart').style.display = 'block';
 var ctx = document.getElementById('myChart').getContext('2d');
 var myLineChart = new Chart(ctx, {
     type: 'line',
@@ -262,6 +264,7 @@ return baseJS;
 function createXkcdLine() {
 var baseJS = `
 <script>
+document.querySelector('#xkcdSvg').style.display = 'block';
 const lineChart = new chartXkcd.Line(document.querySelector('#xkcdSvg'), {
   {{ title }}
   xLabel: 'Month', // optional
@@ -292,6 +295,7 @@ return baseJS;
 function createGoogleLine() {
 var baseJS = `
 <script>
+  document.getElementById('googleChart').style.display = 'block';
   google.charts.load('current', {'packages':['corechart']});
   google.charts.setOnLoadCallback(drawChart);
 
