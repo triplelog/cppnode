@@ -116,6 +116,8 @@ function createLine(alldata) {
 var mydata = alldata.dataArea;
 var frameworks = alldata.framework;
 var title = alldata.title;
+var stepSizeX = alldata.stepSizeX;
+var stepSizeY = alldata.stepSizeY;
 
 var startJS = `
 <!DOCTYPE html>
@@ -182,16 +184,20 @@ fullJS = fullJS.replace(/replaceyyarray/g,JSON.stringify(colArrays[2]));
 fullJS = fullJS.replace(/replacefullarray/g,JSON.stringify(fullArray));
 fullJS = fullJS.replace(/replaceobjectarray/g,JSON.stringify(bothArrays[2]));
 if (title != '' && title != 'notitle') {
-	fullJS = fullJS.replace(/replacetitle/g,'"Title"');
+	fullJS = fullJS.replace(/replacetitle/g,'"'+title+'"');
 }
 
 //ChartJS
-if (2 == 2) {
-	fullJS = fullJS.replace(/replacestepx/g,'stepSize: 1,');
-	fullJS = fullJS.replace(/replacestepy/g,'stepSize: 1,');
+if (stepSizeX != '' && stepSizeX != 'default') {
+	fullJS = fullJS.replace(/replacestepx/g,'stepSize: '+stepSizeX+',');
 }
 else {
 	fullJS = fullJS.replace(/replacestepx/g,'');
+}
+if (stepSizeY != '' && stepSizeY != 'default') {
+	fullJS = fullJS.replace(/replacestepy/g,'stepSize: '+stepSizeY+',');
+}
+else {
 	fullJS = fullJS.replace(/replacestepy/g,'');
 }
 
