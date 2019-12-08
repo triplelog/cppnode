@@ -85,7 +85,20 @@ function convertDataToFull(dataStr) {
 		}
 		else {
 			for (var i=0;i<tempA.length;i++) {
-				cols[i].push(tempA[i]);
+				var cell = tempA[i];
+				if (typeof cell==='number'){
+					if ((cell%1)===0) {
+						cols[i].push(parseInt(cell));
+						tempA[i] = parseInt(cell);
+					}
+					else {
+						cols[i].push(parseFloat(cell));
+						tempA[i] = parseFloat(cell);
+					}
+				}
+				else {
+					cols[i].push(cell);
+				}
 			}
 		}
 		retArray.push(tempA);
