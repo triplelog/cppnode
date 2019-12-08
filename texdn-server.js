@@ -158,13 +158,20 @@ fullJS = fullJS.replace(/replaceyarray/g,JSON.stringify(colArrays[1]));
 fullJS = fullJS.replace(/replaceyyarray/g,JSON.stringify(colArrays[2]));
 fullJS = fullJS.replace(/replacefullarray/g,JSON.stringify(fullArray));
 fullJS = fullJS.replace(/replaceobjectarray/g,JSON.stringify(bothArrays[2]));
-
-
 fullJS = fullJS.replace(/replacetitle/g,'"Title"');
-//fullJS = fullJS.replace(/replacestepx/g,'stepSize: 1,');
-//fullJS = fullJS.replace(/replacestepy/g,'stepSize: 1,');
-fullJS = fullJS.replace(/replacestepx/g,'');
-fullJS = fullJS.replace(/replacestepy/g,'');
+
+//ChartJS
+if (2 == 2) {
+	fullJS = fullJS.replace(/replacestepx/g,'stepSize: 1,');
+	fullJS = fullJS.replace(/replacestepy/g,'stepSize: 1,');
+}
+else {
+	fullJS = fullJS.replace(/replacestepx/g,'');
+	fullJS = fullJS.replace(/replacestepy/g,'');
+}
+
+
+
 return fullJS;
 }
 
