@@ -128,7 +128,7 @@ var startJS = `
 <div class="chart-container" style="position: relative; height:50vh; width:30vw;">
     <canvas id="myChart"></canvas>
 </div>
-<div class="chart-container" style="position: relative; height:50vh; width:30vw left: 50vw;">
+<div class="chart-container" style="position: relative; height:50vh; width:30vw; left: 50vw;">
     <div id="plotlyDiv"></div>
 </div>
 <div class="chart-container" style="position: relative; height:50vh; width:30vw;">
@@ -137,7 +137,7 @@ var startJS = `
 <div class="chart-container" style="position: relative; height:50vh; width:30vw; left: 50vw;">
     <div id="googleChart"></div>
 </div>
-<div class="chart-container" style="position: relative; height:50vh; width:30vw">
+<div class="chart-container" style="position: relative; height:50vh; width:30vw;">
     <object data="test4.svg" type="image/svg+xml">
 	</object>
 </div>
@@ -158,7 +158,7 @@ fullJS = fullJS.replace(/replacexarray/g,JSON.stringify(colArrays[0]));
 fullJS = fullJS.replace(/replaceyarray/g,JSON.stringify(colArrays[1]));
 fullJS = fullJS.replace(/replaceyyarray/g,JSON.stringify(colArrays[2]));
 fullJS = fullJS.replace(/replacefullarray/g,JSON.stringify(fullArray));
-fullJS = fullJS.replace(/replaceobjectarray/g,'[{x: 0,y: 0}, {x: 5,y: 7}, {x: 10,y: 4}]');
+fullJS = fullJS.replace(/replaceobjectarray/g,JSON.stringify(bothArrays[2]));
 return fullJS;
 }
 
