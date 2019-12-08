@@ -103,8 +103,7 @@ function convertDataToFull(dataStr) {
 		}
 		retArray.push(tempA);
 	}
-	console.log(cols);
-	return retArray;
+	return [retArray,cols];
 }
 
 function createLine(mydata) {
@@ -145,12 +144,13 @@ var endJS = `
 `;
 
 
-var fullArray = convertDataToFull(mydata);
+var fullArray, colArrays = convertDataToFull(mydata);
 console.log(fullArray);
+console.log(colArrays);
 var fullJS = startJS + createPlotlyLine() + createChartjsLine() + createXkcdLine() + createGoogleLine() + endJS;
-fullJS = fullJS.replace(/replacexarray/g,'[1,2,3,4,5]');
-fullJS = fullJS.replace(/replaceyarray/g,'[2,3,4,1,2]');
-fullJS = fullJS.replace(/replaceyyarray/g,'[3,5,4,2,3]');
+fullJS = fullJS.replace(/replacexarray/g,JSON.stringify(colArrays[0]));
+fullJS = fullJS.replace(/replaceyarray/g,JSON.stringify(colArrays[1]));
+fullJS = fullJS.replace(/replaceyyarray/g,JSON.stringify(colArrays[2]));
 fullJS = fullJS.replace(/replacefullarray/g,JSON.stringify(fullArray));
 fullJS = fullJS.replace(/replaceobjectarray/g,'[{x: 0,y: 0}, {x: 5,y: 7}, {x: 10,y: 4}]');
 return fullJS;
