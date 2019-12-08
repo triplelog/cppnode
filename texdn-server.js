@@ -120,16 +120,16 @@ var startJS = `
 
 </head>
 <body>
-<div class="chart-container" style="position: relative; height:50vh; width:30vw">
+<div class="chart-container" style="position: relative; height:50vh; width:30vw;">
     <canvas id="myChart"></canvas>
 </div>
 <div class="chart-container" style="position: relative; height:50vh; width:30vw">
     <div id="plotlyDiv"></div>
 </div>
-<div class="chart-container" style="position: relative; height:50vh; width:30vw">
+<div class="chart-container" style="position: relative; height:50vh; width:30vw; left: 50vw;">
     <svg id="xkcdSvg"></svg>
 </div>
-<div class="chart-container" style="position: relative; height:50vh; width:30vw">
+<div class="chart-container" style="position: relative; height:50vh; width:30vw; left: 50vw;">
     <div id="googleChart"></div>
 </div>
 <div class="chart-container" style="position: relative; height:50vh; width:30vw">
