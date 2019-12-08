@@ -159,6 +159,8 @@ fullJS = fullJS.replace(/replaceyyarray/g,JSON.stringify(colArrays[2]));
 fullJS = fullJS.replace(/replacefullarray/g,JSON.stringify(fullArray));
 fullJS = fullJS.replace(/replaceobjectarray/g,JSON.stringify(bothArrays[2]));
 fullJS = fullJS.replace(/replacetitle/g,'"Title"');
+fullJS = fullJS.replace(/replacestepx/g,'stepSize: 1,');
+fullJS = fullJS.replace(/replacestepy/g,'stepSize: 1,');
 return fullJS;
 }
 
@@ -214,14 +216,14 @@ var myLineChart = new Chart(ctx, {
             yAxes: [{
                 ticks: {
                     beginAtZero: true,
-                    stepSize: 1,
+                    replacestepy
                 }
             }],
             xAxes: [{
                 type: 'linear',
                 position: 'bottom',
                 ticks: {
-                    stepSize: 1,
+                    replacestepx
                 }
             }]
         },
