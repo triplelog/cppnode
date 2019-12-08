@@ -151,6 +151,7 @@ for (var i=0;i<frameworks.length;i++){
 	}
 	else if (frameworks[i] == 'plotly'){
 		if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",';}
+		if (stepSizeX != '' && stepSizeX != 'default') {options['xaxis'] = 'xaxis: {dtick: 1},' }
 		fullJS += nunjucks.renderString(createPlotlyLine(),options);
 	}
 	else if (frameworks[i] == 'chartjs'){
@@ -210,6 +211,8 @@ var data = [ trace3 ];
 
 var layout = {
   {{ title }}
+  {{ xaxis }}
+  
 };
 
 Plotly.newPlot('plotlyDiv', data, layout);
