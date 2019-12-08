@@ -146,7 +146,7 @@ for (var i=0;i<frameworks.length;i++){
 		fullJS += createGoogleLine();
 	}
 	else if (frameworks[i] == 'plotly'){
-		fullJS += createPlotlyLine();
+		fullJS += nunjucks.renderString(createPlotlyLine(),{title: 'title: "Plotly"'});
 	}
 	else if (frameworks[i] == 'chartjs'){
 		fullJS += createChartjsLine();
@@ -207,7 +207,8 @@ var trace3 = {
 var data = [ trace3 ];
 
 var layout = {
-  title:replacetitle
+  //title:replacetitle
+  {{ title }}
 };
 
 Plotly.newPlot('plotlyDiv', data, layout);
