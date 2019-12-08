@@ -147,7 +147,7 @@ for (var i=0;i<frameworks.length;i++){
 	}
 	else if (frameworks[i] == 'plotly'){
 		//fullJS += nunjucks.renderString(createPlotlyLine(),{title: 'title: "Plotly"'});
-		fullJS += nunjucks.renderString(createPlotlyLine(),{title: 'title: "Plotly"'});
+		fullJS += nunjucks.renderString(createPlotlyLine(),{});
 	}
 	else if (frameworks[i] == 'chartjs'){
 		fullJS += createChartjsLine();
