@@ -213,7 +213,8 @@ var myLineChart = new Chart(ctx, {
         scales: {
             yAxes: [{
                 ticks: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    stepSize: 1
                 }
             }],
             xAxes: [{
