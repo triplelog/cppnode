@@ -61,7 +61,10 @@ https.createServer(options, function(req, res) {
 				});
 			});
 			//res.write(createLine(qs.parse(data))); //write a response to the client
-			res.write(nunjucks.render('createchart.html',{chartScript:createLine(qs.parse(data))}));
+			res.write(nunjucks.render('createchart.html',{
+				chartScript:createLine(qs.parse(data)), 
+				dataAreaText: qs.parse(data).dataArea,
+			}));
 			res.end();
 		});
 	

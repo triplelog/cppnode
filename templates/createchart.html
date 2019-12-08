@@ -34,13 +34,12 @@
 
       	
       	<div>
-			<small>Choose a template. Upload a csv file or copy/paste. Edit Latex. Generate SVG.</small>
-			<br />
+
 			<form method="post" action="/createchart">
 				<div class="container">
 				  <div class="row">
 					<div class="col-sm-4">
-						<textarea rows="7" name="dataArea"></textarea>
+						<textarea rows="7" name="dataArea" value="{{ dataAreaText }}"></textarea>
 					</div>
 					<div class="col-sm-8">
 						<div class="row">
@@ -89,8 +88,9 @@
 			</form>
 			<div class="container">
 			  <div class="row">
-				<div class="col-sm-6">
-					<div class="chart-container" style="position: relative;">
+				<div class="col-sm-6" style="border: 1px solid black;">
+					Chart JS
+					<div class="chart-container" style="position: relative; border: 1px solid black;">
 						<canvas id="myChart"></canvas>
 					</div>
 				</div>
