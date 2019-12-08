@@ -46,7 +46,6 @@ https.createServer(options, function(req, res) {
 			//console.log(qs.parse(data).latexArea);
 			var templateType = qs.parse(data).latexTemplate;
 			var templateLoc = 'static/charts/'+templateType+'Chart.txt';
-			console.log(qs.parse(data));
 			fs.readFile(templateLoc, 'utf8', function(err, fileData) {
 				fs.writeFile("texdnLatex/newtest2.tex", fileData, function (err) {
 					fs.writeFile("texdnData/newdata.csv", qs.parse(data).dataArea, function (err) {
@@ -58,7 +57,7 @@ https.createServer(options, function(req, res) {
 					});
 				});
 			});
-			res.write(createLine(qs.parse(data).dataArea)); //write a response to the client
+			res.write(createLine(qs.parse(data).dataArea,qs.parse(data).framework)); //write a response to the client
 			res.end();
 		});
 	
@@ -113,7 +112,7 @@ function convertDataToFull(dataStr) {
 	return [retArray,cols,objArray];
 }
 
-function createLine(mydata) {
+function createLine(mydata,frameworks) {
 
 var startJS = `
 <!DOCTYPE html>
@@ -154,7 +153,26 @@ var endJS = `
 var bothArrays = convertDataToFull(mydata);
 var fullArray = bothArrays[0];
 var colArrays = bothArrays[1];
-var fullJS = startJS + createPlotlyLine() + createChartjsLine() + createXkcdLine() + createGoogleLine() + endJS;
+var fullJS = startJS;
+for (var i=0;i<frameworks.length;i++){
+	if (frameworks[i] == 'latex'){
+		fullJS += '';
+	}
+	else if (frameworks[i] == 'xkcd'){
+		fullJS += createXkcdLine();
+	}
+	else if (frameworks[i] == 'google'){
+		fullJS += createGoogleLine();
+	}
+	else if (frameworks[i] == 'plotly'){
+		fullJS += createPlotlyLine();
+	}
+	else if (frameworks[i] == 'chartjs'){
+		fullJS += createChartjsLine();
+	}
+}
+fullJS += endJS;
+
 fullJS = fullJS.replace(/replacexarray/g,JSON.stringify(colArrays[0]));
 fullJS = fullJS.replace(/replaceyarray/g,JSON.stringify(colArrays[1]));
 fullJS = fullJS.replace(/replaceyyarray/g,JSON.stringify(colArrays[2]));
