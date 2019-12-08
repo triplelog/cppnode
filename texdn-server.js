@@ -214,14 +214,14 @@ var myLineChart = new Chart(ctx, {
             yAxes: [{
                 ticks: {
                     beginAtZero: true,
-                    stepSize: 1
+                    stepSize: 1,
                 }
             }],
             xAxes: [{
                 type: 'linear',
                 position: 'bottom',
                 ticks: {
-                    stepSize: 1
+                    stepSize: 1,
                 }
             }]
         },
