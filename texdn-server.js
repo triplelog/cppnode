@@ -57,7 +57,7 @@ https.createServer(options, function(req, res) {
 					});
 				});
 			});
-			res.write(createLine(qs.parse(data).dataArea,qs.parse(data).framework)); //write a response to the client
+			res.write(createLine(qs.parse(data))); //write a response to the client
 			res.end();
 		});
 	
@@ -112,7 +112,10 @@ function convertDataToFull(dataStr) {
 	return [retArray,cols,objArray];
 }
 
-function createLine(mydata,frameworks) {
+function createLine(alldata) {
+var mydata = alldata.dataArea;
+var frameworks = alldata.framework;
+var title = alldata.title;
 
 var startJS = `
 <!DOCTYPE html>
@@ -178,7 +181,9 @@ fullJS = fullJS.replace(/replaceyarray/g,JSON.stringify(colArrays[1]));
 fullJS = fullJS.replace(/replaceyyarray/g,JSON.stringify(colArrays[2]));
 fullJS = fullJS.replace(/replacefullarray/g,JSON.stringify(fullArray));
 fullJS = fullJS.replace(/replaceobjectarray/g,JSON.stringify(bothArrays[2]));
-fullJS = fullJS.replace(/replacetitle/g,'"Title"');
+if (title != '' && title != 'notitle') {
+	fullJS = fullJS.replace(/replacetitle/g,'"Title"');
+}
 
 //ChartJS
 if (2 == 2) {
