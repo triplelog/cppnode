@@ -151,7 +151,7 @@ for (var i=0;i<frameworks.length;i++){
 	}
 	else if (frameworks[i] == 'plotly'){
 		if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",';}
-		if (stepSizeX != '' && stepSizeX != 'default') {options['xaxis'] = 'xaxis: {dtick: 1},' }
+		if (stepSizeX != '' && stepSizeX != 'default') {options['xaxis'] = 'xaxis: {dtick: 2},' }
 		fullJS += nunjucks.renderString(createPlotlyLine(),options);
 	}
 	else if (frameworks[i] == 'chartjs'){
