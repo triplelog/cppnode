@@ -135,22 +135,27 @@ var fullArray = bothArrays[0];
 var colArrays = bothArrays[1];
 
 var fullJS = '';
+
 for (var i=0;i<frameworks.length;i++){
+	var options = {};
 	if (frameworks[i] == 'latex'){
 		fullJS += '';
 	}
 	else if (frameworks[i] == 'xkcd'){
-		fullJS += createXkcdLine();
+		if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",');}
+		fullJS += nunjucks.renderString(createXkcdLine(),options);
 	}
 	else if (frameworks[i] == 'google'){
-		fullJS += createGoogleLine();
+		if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",');}
+		fullJS += nunjucks.renderString(createGoogleLine(),options);
 	}
 	else if (frameworks[i] == 'plotly'){
-		//fullJS += nunjucks.renderString(createPlotlyLine(),{title: 'title: "Plotly"'});
-		fullJS += nunjucks.renderString(createPlotlyLine(),{});
+		if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",');}
+		fullJS += nunjucks.renderString(createPlotlyLine(),options);
 	}
 	else if (frameworks[i] == 'chartjs'){
-		fullJS += createChartjsLine();
+		if (title != '' && title != 'notitle') {options['title'] = 'title: {display: true, text: "'+title+'"},';}
+		fullJS += nunjucks.renderString(createChartjsLine(),options);
 	}
 }
 //fullJS += endJS;
@@ -160,12 +165,7 @@ fullJS = fullJS.replace(/replaceyarray/g,JSON.stringify(colArrays[1]));
 fullJS = fullJS.replace(/replaceyyarray/g,JSON.stringify(colArrays[2]));
 fullJS = fullJS.replace(/replacefullarray/g,JSON.stringify(fullArray));
 fullJS = fullJS.replace(/replaceobjectarray/g,JSON.stringify(bothArrays[2]));
-if (title != '' && title != 'notitle') {
-	fullJS = fullJS.replace(/replacetitle/g,'"'+title+'"');
-}
-else  {
-	fullJS = fullJS.replace(/replacetitle/g,'"No Title"');
-}
+
 
 //ChartJS
 if (stepSizeX != '' && stepSizeX != 'default') {
@@ -249,10 +249,8 @@ var myLineChart = new Chart(ctx, {
                 }
             }]
         },
-        title: {
-            display: true,
-            text: replacetitle
-        }
+        {{ title }}
+        
     }
 });
 </script>
@@ -265,7 +263,7 @@ function createXkcdLine() {
 var baseJS = `
 <script>
 const lineChart = new chartXkcd.Line(document.querySelector('#xkcdSvg'), {
-  title: replacetitle, // optional
+  {{ title }}
   xLabel: 'Month', // optional
   yLabel: '$ Dollars', // optional
   data: {
@@ -301,7 +299,7 @@ var baseJS = `
 	var data = google.visualization.arrayToDataTable(replacefullarray);
 
 	var options = {
-	  title: replacetitle,
+	  {{ title }}
 	  curveType: 'function',
 	  legend: { position: 'bottom' }
 	};
