@@ -125,7 +125,8 @@ var frameworks = alldata.framework;
 var title = alldata.title;
 var stepSizeX = alldata.stepSizeX;
 var stepSizeY = alldata.stepSizeY;
-
+var lineColor = alldata.lineColor;
+var dotColor = alldata.dotColor;
 
 
 
@@ -151,11 +152,17 @@ for (var i=0;i<frameworks.length;i++){
 	}
 	else if (frameworks[i] == 'plotly'){
 		if (title != '' && title != 'notitle') {options['title'] = 'title: "'+title+'",';}
-		if (stepSizeX != '' && stepSizeX != 'default') {options['xaxis'] = 'xaxis: {dtick: 2},' }
+		if (stepSizeX != '' && stepSizeX != 'default') {options['xaxis'] = 'xaxis: {dtick: '+stepSizeX+'},' }
+		if (stepSizeY != '' && stepSizeY != 'default') {options['yaxis'] = 'yaxis: {dtick: '+stepSizeY+'},' }
 		fullJS += nunjucks.renderString(createPlotlyLine(),options);
 	}
 	else if (frameworks[i] == 'chartjs'){
 		if (title != '' && title != 'notitle') {options['title'] = 'title: {display: true, text: "'+title+'"},';}
+		if (stepSizeX != '' && stepSizeX != 'default') {options['stepSizeX'] = 'stepSize: '+stepSizeX+',' }
+		if (stepSizeY != '' && stepSizeY != 'default') {options['stepSizeY'] = 'stepSize: '+stepSizeY+',' }
+		if (lineColor != '' && lineColor != 'default') {options['lineColor'] = 'borderColor: "'+lineColor+'",'}
+		if (dotColor != '' && dotColor != 'default') {options['dotColor'] = 'backgroundColor: "'+dotColor+'",'}
+		
 		fullJS += nunjucks.renderString(createChartjsLine(),options);
 	}
 }
@@ -166,21 +173,6 @@ fullJS = fullJS.replace(/replaceyarray/g,JSON.stringify(colArrays[1]));
 fullJS = fullJS.replace(/replaceyyarray/g,JSON.stringify(colArrays[2]));
 fullJS = fullJS.replace(/replacefullarray/g,JSON.stringify(fullArray));
 fullJS = fullJS.replace(/replaceobjectarray/g,JSON.stringify(bothArrays[2]));
-
-
-//ChartJS
-if (stepSizeX != '' && stepSizeX != 'default') {
-	fullJS = fullJS.replace(/replacestepx/g,'stepSize: '+stepSizeX+',');
-}
-else {
-	fullJS = fullJS.replace(/replacestepx/g,'');
-}
-if (stepSizeY != '' && stepSizeY != 'default') {
-	fullJS = fullJS.replace(/replacestepy/g,'stepSize: '+stepSizeY+',');
-}
-else {
-	fullJS = fullJS.replace(/replacestepy/g,'');
-}
 
 
 
@@ -212,6 +204,7 @@ var data = [ trace3 ];
 var layout = {
   {{ title }}
   {{ xaxis }}
+  {{ yaxis }}
   
 };
 
@@ -234,8 +227,8 @@ var myLineChart = new Chart(ctx, {
             label: 'Label',
             data: replaceobjectarray,
             fill: false,
-            backgroundColor: 'rgba(255,0,0,.3)',
-            borderColor: 'rgba(0,255,0,.3)'
+            {{ dotColor }}
+            {{ lineColor }}
         }]
     },
     options: {
@@ -243,14 +236,14 @@ var myLineChart = new Chart(ctx, {
             yAxes: [{
                 ticks: {
                     beginAtZero: true,
-                    replacestepy
+                    {{ stepSizeY }}
                 }
             }],
             xAxes: [{
                 type: 'linear',
                 position: 'bottom',
                 ticks: {
-                    replacestepx
+                    {{ stepSizeX }}
                 }
             }]
         },
@@ -283,7 +276,8 @@ const lineChart = new chartXkcd.Line(document.querySelector('#xkcdSvg'), {
     }],
   },
   options: { // optional
-    yTickCount: 3,
+    {{ tickCountY }}
+    {{ tickCountX }}
     legendPosition: chartXkcd.config.positionType.upLeft
   }
 })
